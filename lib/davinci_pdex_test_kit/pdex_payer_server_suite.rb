@@ -1,6 +1,6 @@
 module DaVinciPDexTestKit
     class PDexPayerServerSuite < Inferno::TestSuite
-      id :pdex_payer_client
+      id :pdex_payer_server
       title 'Da Vinci PDex Payer Server Test Suite'
       description %(
         # Da Vinci PDex Payer Server Test Suite
