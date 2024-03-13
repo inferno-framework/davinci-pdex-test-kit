@@ -6,7 +6,7 @@ require_relative 'urls'
 require_relative 'mock_server'
 require_relative 'tags'
 require_relative 'collection'
-require_relative 'placeholder_test'
+require_relative 'initial_wait_test'
 #require_relative 'span_test' #TODO: WIP
 require_relative 'generated/Patient__id'
 require_relative 'generated/AllergyIntolerance_patient'
@@ -69,8 +69,8 @@ module DaVinciPDEXTestKit
     end
 
     group do
-      title "Placeholder Test Group"
-      test from: :placeholder_start_test
+      title "Series of Requests Test Group"
+      test from: :initial_wait_test
       test from: :placeholder_verify_patient_test
       test from: :placeholder_verify_allergyintolerance_test
       test from: :placeholder_verify_condition_test
