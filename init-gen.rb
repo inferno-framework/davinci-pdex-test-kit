@@ -46,6 +46,6 @@ pairs.each do |(value1, value2)|
   tests.append("placeholder_verify_#{value1.downcase}_test")
 end
 
-File.open("lib/davinci_pdex_test_kit/generated/tests_list.txt", 'w') do |file|
-  tests.each {|test_id| file.write("#{test_id}\n")}
-end
+# File.open("lib/davinci_pdex_test_kit/generated/tests_list.txt", 'w') do |file|
+#   tests.each {|test_id| file.write("#{test_id}\n")}
+# end
