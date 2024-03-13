@@ -59,7 +59,7 @@ module DaVinciPDEXTestKit
                           resumes: method(:test_resumes?) do |request|
       ClientSuite.extract_token_from_query_params(request)
     end
-    XMBRiFySyg1wa5VgF1Wc
+
     resume_test_route :get, RESUME_PASS_PATH do |request|
       ClientSuite.extract_token_from_query_params(request)
     end
