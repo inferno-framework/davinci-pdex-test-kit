@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "192f3358-0029-45a1-8e34-637ed8720998",
+		"name": "PDEX",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29930935"
+	},
+	"item": [
+		{
+			"name": "Retrieve Patient",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "clientId",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "localhost:4567/custom/client_suite_v201/mock_auth/token",
+							"type": "string"
+						},
+						{
+							"key": "tokenRequestParams",
+							"value": [
+								{
+									"key": "",
+									"value": "",
+									"enabled": false,
+									"send_as": "request_body"
+								}
+							],
+							"type": "any"
+						},
+						{
+							"key": "client_authentication",
+							"value": "body",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer: a",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/custom/client_suite_v201/fhir/Patient?token=a&_id=999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"custom",
+						"client_suite_v201",
+						"fhir",
+						"Patient"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "a"
+						},
+						{
+							"key": "_id",
+							"value": "999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve AllergyIntolerance",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "SAMPLE_TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/custom/client_suite_v201/fhir/AllergyIntolerance?token=a&patient=999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"custom",
+						"client_suite_v201",
+						"fhir",
+						"AllergyIntolerance"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "a"
+						},
+						{
+							"key": "patient",
+							"value": "999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Condition No Patient",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "SAMPLE_TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/custom/client_suite_v201/fhir/Condition?token=a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"custom",
+						"client_suite_v201",
+						"fhir",
+						"Condition"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Encounter",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "SAMPLE_TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/custom/client_suite_v201/fhir/Encounter?token=a&patient=999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"custom",
+						"client_suite_v201",
+						"fhir",
+						"Encounter"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "a"
+						},
+						{
+							"key": "patient",
+							"value": "999"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
