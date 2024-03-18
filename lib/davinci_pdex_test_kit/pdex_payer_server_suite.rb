@@ -1,3 +1,5 @@
+require 'us_core_test_kit'
+
 module DaVinciPDexTestKit
     class PDexPayerServerSuite < Inferno::TestSuite
       id :pdex_payer_server
@@ -32,6 +34,10 @@ module DaVinciPDexTestKit
       validator do
         url ENV.fetch('VALIDATOR_URL')
       end
+
+
+      group from: :us_core_v311_patient
+
     end
   end
   

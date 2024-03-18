@@ -15,10 +15,12 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    aes_key_wrap (1.1.0)
     base62-rb (0.3.1)
     base64 (0.2.0)
     bcp47 (0.3.3)
       i18n
+    bindata (2.5.0)
     blueprinter (0.25.2)
     byebug (11.1.3)
     coderay (1.1.3)
@@ -140,6 +142,7 @@ GEM
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
+    httpclient (2.8.3)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -172,6 +175,11 @@ GEM
     io-console (0.5.11)
     irb (1.4.2)
       reline (>= 0.3.0)
+    json-jwt (1.15.3.1)
+      activesupport (>= 4.2)
+      aes_key_wrap
+      bindata
+      httpclient
     jwt (2.8.0)
       base64
     kramdown (2.4.0)
@@ -251,6 +259,11 @@ GEM
       connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)
+    smart_app_launch_test_kit (0.4.1)
+      inferno_core (>= 0.4.2)
+      json-jwt (~> 1.15.3)
+      jwt (~> 2.6)
+      tls_test_kit (~> 0.2.0)
     sqlite3 (1.7.2)
       mini_portile2 (~> 2.8.0)
     sqlite3 (1.7.2-arm64-darwin)
@@ -263,6 +276,8 @@ GEM
     strings-ansi (0.2.0)
     thor (1.2.2)
     tilt (2.3.0)
+    tls_test_kit (0.2.1)
+      inferno_core (>= 0.4.2)
     tty-color (0.6.0)
     tty-markdown (0.7.2)
       kramdown (>= 1.16.2, < 3.0)
@@ -276,6 +291,10 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
     unicode_utils (1.4.0)
+    us_core_test_kit (0.6.4)
+      inferno_core (>= 0.4.2)
+      smart_app_launch_test_kit (>= 0.4.0)
+      tls_test_kit (~> 0.2.0)
     webmock (3.14.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -295,6 +314,7 @@ DEPENDENCIES
   debug
   factory_bot (~> 6.1)
   rspec (~> 3.10)
+  us_core_test_kit (~> 0.6.4)
   webmock (~> 3.11)
 
 BUNDLED WITH
