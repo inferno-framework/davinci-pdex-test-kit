@@ -13,3 +13,17 @@ namespace :db do
     Inferno::Utils::Migration.new.run
   end
 end
+
+namespace :pdex do
+  # TODO: namespace payer server as well?
+  # namespace :payer_server do
+
+    desc 'Generate PDex payer server tests'
+    task :generate do
+      require_relative 'lib/davinci_pdex_test_kit/generator'
+
+      DaVinciPDexTestKit::Generator.generate
+    end
+
+  # end
+end

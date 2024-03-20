@@ -1,6 +1,26 @@
 require 'us_core_test_kit'
 
 module DaVinciPDexTestKit
+    class Generator < USCoreTestKit::Generator
+      
+      def self.generate()
+        ig_package = File.join(__dir__, 'igs', 'davinci-pdex-2.0.0.tgz')
+        new(ig_package).generate
+      end
+
+      def base_output_dir
+        # super's return:
+        # File.join(__dir__, 'generated', ig_metadata.ig_version)
+        File.join(__dir__, 'generated', 'pdex_payer_server')
+      end
+
+      def generate
+        super
+      end
+
+    end
+
+
     class PDexPayerServerSuite < Inferno::TestSuite
       id :pdex_payer_server
       title 'Da Vinci PDex Payer Server Test Suite'
@@ -36,7 +56,7 @@ module DaVinciPDexTestKit
       end
 
 
-      group from: :us_core_v311_patient
+      # group from: :us_core_v311_patient
 
     end
   end
