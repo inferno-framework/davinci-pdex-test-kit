@@ -20,7 +20,7 @@ namespace :pdex do
 
     desc 'Generate PDex payer server tests'
     task :generate do
-      require_relative 'lib/davinci_pdex_test_kit/generator'
+      require_relative 'lib/davinci_pdex_test_kit/pdex_payer_server_suite'
 
       DaVinciPDexTestKit::Generator.generate
     end
