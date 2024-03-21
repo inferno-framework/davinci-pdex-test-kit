@@ -1,7 +1,7 @@
-# require 'inferno'
+
 # require 'us_core_test_kit'
-# require 'us_core_test_kit/lib/us_core_test_kit/generated/v3.1.1/patient_group'
 require 'us_core_test_kit/generated/v3.1.1/patient_group'
+require 'us_core_test_kit/generator'
 
 module DaVinciPDexTestKit
     class Generator < USCoreTestKit::Generator
