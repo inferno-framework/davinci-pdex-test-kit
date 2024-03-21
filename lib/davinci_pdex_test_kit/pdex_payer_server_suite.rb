@@ -1,4 +1,7 @@
-require 'us_core_test_kit'
+# require 'inferno'
+# require 'us_core_test_kit'
+# require 'us_core_test_kit/lib/us_core_test_kit/generated/v3.1.1/patient_group'
+require 'us_core_test_kit/generated/v3.1.1/patient_group'
 
 module DaVinciPDexTestKit
     class Generator < USCoreTestKit::Generator
@@ -6,6 +9,10 @@ module DaVinciPDexTestKit
       def self.generate()
         ig_package = File.join(__dir__, 'igs', 'davinci-pdex-2.0.0.tgz')
         new(ig_package).generate
+      end
+
+      def initialize(*args)
+        super(*args)
       end
 
       def base_output_dir
@@ -56,7 +63,7 @@ module DaVinciPDexTestKit
       end
 
 
-      # group from: :us_core_v311_patient
+      group from: :us_core_v311_patient
 
     end
   end

@@ -3,6 +3,7 @@ PATH
   specs:
     davinci_pdex_test_kit (0.0.1)
       inferno_core (~> 0.4.28)
+      us_core_test_kit (~> 0.6.4)
 
 GEM
   remote: https://rubygems.org/
@@ -314,7 +315,6 @@ DEPENDENCIES
   debug
   factory_bot (~> 6.1)
   rspec (~> 3.10)
-  us_core_test_kit (~> 0.6.4)
   webmock (~> 3.11)
 
 BUNDLED WITH
