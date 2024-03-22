@@ -4,14 +4,9 @@
 # Uncomment to import US Core v3.1.1, TLS, SMART STU1, and SMART STU2 Test Suites
 # require 'us_core_test_kit/generated/v3.1.1/us_core_test_suite'
 
-
-#require 'us_core_test_kit/generated/v3.1.1/patient_group'
-
-
-# require 'us_core_test_kit/generator'
+require 'us_core_test_kit/generator'
 
 module DaVinciPDexTestKit
-=begin
     class Generator < USCoreTestKit::Generator
       
       def self.generate()
@@ -34,7 +29,6 @@ module DaVinciPDexTestKit
       end
 
     end
-=end
 
     class PDexPayerServerSuite < Inferno::TestSuite
       id :pdex_payer_server
@@ -70,15 +64,6 @@ module DaVinciPDexTestKit
         url ENV.fetch('VALIDATOR_URL')
       end
 
-      # group from: :us_core_v311_patient
-      #require 'debug/open_nonstop'
-      #debugger
-
-      Dir.glob(File.join($LOAD_PATH.find { |x| x.match? "us_core_test_kit" }, 'us_core_test_kit/generated/v3.1.1/*_group.rb')).each do |test_group_path|
-        require_relative test_group_path
-
-        group from: "us_core_v311_#{File.basename(test_group_path).gsub('_group.rb','')}".to_sym
-      end
 
     end
   end
