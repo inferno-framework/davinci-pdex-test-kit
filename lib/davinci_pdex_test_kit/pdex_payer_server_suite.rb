@@ -25,7 +25,29 @@ module DaVinciPDexTestKit
       end
 
       def generate
-        super
+        puts "Generating tests for IG #{File.basename(ig_file_name)}"
+        load_ig_package
+        extract_metadata
+        generate_search_tests
+        generate_read_tests
+        # TODO: generate_vread_tests
+        # TODO: generate_history_tests
+        generate_provenance_revinclude_search_tests
+        generate_validation_tests
+        generate_must_support_tests
+        generate_reference_resolution_tests
+
+        generate_granular_scope_tests
+
+        generate_groups
+
+        generate_granular_scope_resource_type_groups
+
+        generate_granular_scope_groups
+
+        generate_suites
+
+        write_metadata
       end
 
     end
