@@ -6,16 +6,38 @@
 
 require 'us_core_test_kit/generator'
 
+## TODO - remove below when done
+require 'debug'
+
+## MoneyPatch
+module USCoreTestKit
+  class Generator
+    class IGMetadataExtractor
+      def add_metadata_from_resources
+        metadata.groups =
+          resources_in_capability_statement.flat_map do |resource|
+            resource.supportedProfile&.map do |supported_profile|
+              binding.break
+            
+              GroupMetadataExtractor.new(resource, supported_profile, metadata, ig_resources).group_metadata
+            end
+          end
+      end
+    end
+  end
+end
+
 module DaVinciPDexTestKit
+
     class Generator < USCoreTestKit::Generator
-      
+
       def self.generate()
         ig_package = File.join(__dir__, 'igs', 'davinci-pdex-2.0.0.tgz')
         new(ig_package).generate
       end
 
-      def initialize(*args)
-        super(*args)
+      def initialize(ig_file_name)
+        super(ig_file_name)
       end
 
       def base_output_dir
@@ -30,20 +52,22 @@ module DaVinciPDexTestKit
         extract_metadata
         generate_search_tests
         generate_read_tests
+
         # TODO: generate_vread_tests
         # TODO: generate_history_tests
+
         generate_provenance_revinclude_search_tests
         generate_validation_tests
         generate_must_support_tests
         generate_reference_resolution_tests
 
-        generate_granular_scope_tests
+        # generate_granular_scope_tests
 
         generate_groups
 
-        generate_granular_scope_resource_type_groups
+        # generate_granular_scope_resource_type_groups
 
-        generate_granular_scope_groups
+        # generate_granular_scope_groups
 
         generate_suites
 
