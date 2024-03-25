@@ -17,7 +17,7 @@ module USCoreTestKit
         metadata.groups =
           resources_in_capability_statement.flat_map do |resource|
             resource.supportedProfile&.map do |supported_profile|
-              binding.break
+              # binding.break # XXX
             
               GroupMetadataExtractor.new(resource, supported_profile, metadata, ig_resources).group_metadata
             end
