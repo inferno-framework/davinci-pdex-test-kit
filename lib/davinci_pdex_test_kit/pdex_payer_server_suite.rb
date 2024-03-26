@@ -24,6 +24,29 @@ module USCoreTestKit
           end
       end
     end
+
+    class GroupMetadataExtractor
+      def class_name
+        base_name
+          .split('-')
+          .map(&:capitalize)
+          .join
+          # .gsub('UsCore', "USCore#{ig_metadata.reformatted_version}")
+          .concat('Sequence')
+      end
+
+      def profile_name
+        binding.break
+        profile.title.gsub('  ', ' ')
+      end
+    end
+
+    class IGResources
+      # TODO remove - this function is for debugging
+      def keys
+        @resources_by_type&.keys
+      end
+    end
   end
 end
 
