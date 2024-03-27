@@ -13,7 +13,7 @@ module DaVinciPDEXTestKit
       @server_proxy ||= Faraday.new(
           url: 'http://host.docker.internal:8080/reference-server/r4/',
           params: {},
-          headers: {'Content-Type' => 'application/json', 'Authorization' => 'Bearer SAMPLE_TOKEN'}
+          headers: {'Content-Type' => 'application/json', 'Authorization' => 'Bearer SAMPLE_TOKEN'},
         )
     end
 
@@ -26,11 +26,9 @@ module DaVinciPDEXTestKit
     def claim_response(request, test = nil, test_result = nil)
       endpoint = resource_endpoint(request.url)
       params = request.query_parameters.reject {|key, value| key ==  "token" }
-      # TODO: forward request to inferno RI and use test kit as middleman to connect response to client
-      response = server_proxy.get(endpoint, params) #PLACEHOLDER
-      puts response.body
+      response = server_proxy.get(endpoint, params)
       request.status = response.status
-      request.response_headers = response.headers
+      request.response_headers = response.headers.reject!{ |key, value| key == "transfer-encoding"} # chunked causes problems for client
       request.response_body = response.body
     end
 

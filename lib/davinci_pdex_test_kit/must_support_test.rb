@@ -22,7 +22,7 @@ module DaVinciPDEXTestKit
 
       requests.each do |req|
         begin
-          # TODO: Make requests to server to get information, or in mock_server when requests are made?
+          bundle = FHIR.from_contents(req.request_body)
         rescue StandardError
           next
         end
