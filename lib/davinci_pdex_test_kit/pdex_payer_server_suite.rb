@@ -13,6 +13,36 @@ require 'debug'
 module USCoreTestKit
   class Generator
     class IGMetadataExtractor
+
+      def add_missing_supported_profiles
+        case ig_resources.ig.ig_version
+        when '2.0.0'
+          # The Da Vinci PDex 2.0.0 Capability Statement lists US Core 3.1.1 profiles without having
+          # their StructureDefinitions in its package
+          # TODO: merge ig_resources with IGLoader.new('us_core_3.1.1.tgz').load
+        when '3.1.1'
+          # The US Core v3.1.1 Server Capability Statement does not list support for the
+          # required vital signs profiles, so they need to be added
+          ig_resources.capability_statement.rest.first.resource
+            .find { |resource| resource.type == 'Observation' }
+            .supportedProfile.concat [
+              'http://hl7.org/fhir/StructureDefinition/bodyheight',
+              'http://hl7.org/fhir/StructureDefinition/bodytemp',
+              'http://hl7.org/fhir/StructureDefinition/bp',
+              'http://hl7.org/fhir/StructureDefinition/bodyweight',
+              'http://hl7.org/fhir/StructureDefinition/heartrate',
+              'http://hl7.org/fhir/StructureDefinition/resprate'
+            ]
+        when '5.0.1'
+          # The US Core v5.0.1 Server Capability Statement does not have supported-profile for Encounter
+          ig_resources.capability_statement.rest.first.resource
+            .find { |resource| resource.type == 'Encounter' }
+            .supportedProfile.concat [
+              'http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter'
+            ]
+        end
+      end
+
       def add_metadata_from_resources
         metadata.groups =
           resources_in_capability_statement.flat_map do |resource|
@@ -31,7 +61,7 @@ module USCoreTestKit
           .split('-')
           .map(&:capitalize)
           .join
-          # .gsub('UsCore', "USCore#{ig_metadata.reformatted_version}")
+          .gsub('UsCore', "USCore#{ig_metadata.reformatted_version}")
           .concat('Sequence')
       end
 
@@ -42,6 +72,10 @@ module USCoreTestKit
     end
 
     class IGResources
+
+      # TODO have this load PDex 2.0 and US Core 3.1.1
+    
+
       # TODO remove - this function is for debugging
       def keys
         @resources_by_type&.keys
