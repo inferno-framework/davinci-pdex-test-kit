@@ -15,7 +15,7 @@ module USCoreTestKit
     class IGMetadataExtractor
 
       def add_missing_supported_profiles
-        case ig_resources.ig.ig_version
+        case ig_resources.ig.version
         when '2.0.0'
           # The Da Vinci PDex 2.0.0 Capability Statement lists US Core 3.1.1 profiles without having
           # their StructureDefinitions in its package
@@ -66,16 +66,19 @@ module USCoreTestKit
       end
 
       def profile_name
-        binding.break
+        binding.break # XXX
         profile.title.gsub('  ', ' ')
       end
     end
 
+    class IGLoader
+      def initialize(ig_file_name, ig_resources = nil)
+        self.ig_file_name = ig_file_name
+        @ig_resources = ig_resources
+      end
+    end
+
     class IGResources
-
-      # TODO have this load PDex 2.0 and US Core 3.1.1
-    
-
       # TODO remove - this function is for debugging
       def keys
         @resources_by_type&.keys
@@ -129,6 +132,13 @@ module DaVinciPDexTestKit
       generate_suites
 
       write_metadata
+    end
+
+    def load_ig_package
+      # binding.break # XXX
+      super
+      us_core_v311_path = File.join(__dir__, 'igs', 'us-core-3.1.1.tgz')
+      self.ig_resources = IGLoader.new(us_core_v311_path, self.ig_resources).load
     end
 
   end
