@@ -15,11 +15,12 @@ module USCoreTestKit
     class IGMetadataExtractor
 
       def add_missing_supported_profiles
-        case ig_resources.ig.version
+        case ig_resources.ig.version # TODO: fix - this will only be the version of the first IG loaded, not all of them
+        when '1.0.0'
+          # Da Vinci HRex IG, which is defines artifacts required for PDex
         when '2.0.0'
           # The Da Vinci PDex 2.0.0 Capability Statement lists US Core 3.1.1 profiles without having
           # their StructureDefinitions in its package
-          # TODO: merge ig_resources with IGLoader.new('us_core_3.1.1.tgz').load
         when '3.1.1'
           # The US Core v3.1.1 Server Capability Statement does not list support for the
           # required vital signs profiles, so they need to be added
@@ -50,6 +51,9 @@ module USCoreTestKit
               # binding.break # XXX
             
               GroupMetadataExtractor.new(resource, supported_profile, metadata, ig_resources).group_metadata
+            rescue Exception => e # XXX
+              binding.break
+              raise e
             end
           end
       end
@@ -66,8 +70,34 @@ module USCoreTestKit
       end
 
       def profile_name
-        binding.break # XXX
+        # binding.break # XXX
         profile.title.gsub('  ', ' ')
+      end
+
+      def interactions
+        @interactions ||=
+          resource_capabilities.interaction.map do |interaction|
+            {
+              code: interaction.code,
+              expectation: interaction.extension&.first&.valueCode || 'expects' # if missing, use intentionally vague term
+            }
+          end
+      end
+
+      def operations
+        @operations ||=
+          resource_capabilities.operation.map do |operation|
+            {
+              code: operation.name,
+              expectation: operation.extension&.first&.valueCode || 'expects' # if missing, use intentionally vague term
+            }
+          end
+      end
+    end
+
+    class SearchMetadataExtractor
+      def conformance_expectation(search_param)
+        search_param.extension&.first&.valueCode || 'expects' # if missing, use intentionally vague term
       end
     end
 
@@ -139,6 +169,9 @@ module DaVinciPDexTestKit
       super
       us_core_v311_path = File.join(__dir__, 'igs', 'us-core-3.1.1.tgz')
       self.ig_resources = IGLoader.new(us_core_v311_path, self.ig_resources).load
+
+      hrex_v100_path = File.join(__dir__, 'igs', 'davinci-hrex-1.0.0.tgz')
+      self.ig_resources = IGLoader.new(hrex_v100_path, self.ig_resources).load
     end
 
   end
