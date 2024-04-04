@@ -101,7 +101,17 @@ module USCoreTestKit
       end
     end
 
+    class MustSupportMetadataExtractor
+      def must_support_pattern_slice_elements
+        binding.break if profile.name.include? 'uthor'# XXX
+        must_support_slice_elements.select do |element|
+          discriminators(sliced_element(element)).first.type == 'pattern'
+        end
+      end
+    end
+
     class IGLoader
+      # allow IGLoader to start off with ig_resources loaded from another IG
       def initialize(ig_file_name, ig_resources = nil)
         self.ig_file_name = ig_file_name
         @ig_resources = ig_resources
