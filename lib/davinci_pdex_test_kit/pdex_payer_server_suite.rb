@@ -103,11 +103,76 @@ module USCoreTestKit
 
     class MustSupportMetadataExtractor
       def must_support_pattern_slice_elements
-        binding.break if profile.name.include? 'uthor'# XXX
+        # binding.break if profile.name.include? 'uthor'# XXX
         must_support_slice_elements.select do |element|
           discriminators(sliced_element(element)).first.type == 'pattern'
         end
       end
+
+      def pattern_slices
+        must_support_pattern_slice_elements.map do |current_element|
+          {
+            slice_id: current_element.id,
+            slice_name: current_element.sliceName,
+            path: current_element.path.gsub("#{resource}.", '')
+          }.tap do |metadata|
+            discriminator = discriminators(sliced_element(current_element)).first
+            discriminator_path = discriminator.path
+            discriminator_path = '' if discriminator_path == '$this'
+            pattern_element =
+              if discriminator_path.present?
+                profile_elements.find { |element| element.id == "#{current_element.id}.#{discriminator_path}" }
+              else
+                current_element
+              end
+            
+            binding.break if pattern_element.nil? # XXX
+
+            metadata[:discriminator] =
+              if pattern_element.patternCodeableConcept.present?
+                {
+                  type: 'patternCodeableConcept',
+                  path: discriminator_path,
+                  code: pattern_element.patternCodeableConcept.coding.first.code,
+                  system: pattern_element.patternCodeableConcept.coding.first.system
+                }
+              elsif pattern_element.patternCoding.present?
+                {
+                  type: 'patternCoding',
+                  path: discriminator_path,
+                  code: pattern_element.patternCoding.code,
+                  system: pattern_element.patternCoding.system
+                }
+              elsif pattern_element.patternIdentifier.present?
+                {
+                  type: 'patternIdentifier',
+                  path: discriminator_path,
+                  system: pattern_element.patternIdentifier.system
+                }
+              elsif pattern_element.binding&.strength == 'required' &&
+                    pattern_element.binding&.valueSet.present?
+
+                value_extractor = ValueExactor.new(ig_resources, resource, profile_elements)
+
+                values = value_extractor.values_from_value_set_binding(pattern_element).presence ||
+                         value_extractor.values_from_resource_metadata([metadata[:path]]).presence || []
+
+                {
+                  type: 'requiredBinding',
+                  path: discriminator_path,
+                  values: values
+                }
+              else
+                raise StandardError, 'Unsupported discriminator pattern type'
+              end
+
+            if is_uscdi_requirement_element?(current_element)
+              metadata[:uscdi_only] = true
+            end
+          end
+        end
+      end
+
     end
 
     class IGLoader
