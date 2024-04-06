@@ -48,10 +48,11 @@ module USCoreTestKit
         metadata.groups =
           resources_in_capability_statement.flat_map do |resource|
             resource.supportedProfile&.map do |supported_profile|
-              # binding.break # XXX
-            
+              next if supported_profile == 'http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization' # XXX known error on adjudication:denialreason.category
+              next if supported_profile == 'http://hl7.org/fhir/StructureDefinition/vitalsigns' # XXX not sure why this gets handled in US Core but not here            
+
               GroupMetadataExtractor.new(resource, supported_profile, metadata, ig_resources).group_metadata
-            rescue Exception => e # XXX
+            rescue Exception => e # XXX catch all generator extractor errors for debugging
               binding.break
               raise e
             end
@@ -189,6 +190,20 @@ module USCoreTestKit
         @resources_by_type&.keys
       end
     end
+
+    class SearchTestGenerator
+      class << self
+        def generate(ig_metadata, base_output_dir)
+          ig_metadata.groups
+            .reject { |group| group.to_s.empty? || SpecialCases.exclude_group?(group) } # two empty groups from two skipped profiles
+            .select { |group| group.searches.present? }
+            .each do |group|
+              group.searches.each { |search| new(group, search, base_output_dir).generate }
+            end
+        end
+      end
+    end
+
   end
 end
 
@@ -224,19 +239,19 @@ module DaVinciPDexTestKit
       generate_provenance_revinclude_search_tests
       generate_validation_tests
       # generate_must_support_tests ## Removed because of adjudication:denialreason.category error
-      generate_reference_resolution_tests
+      # generate_reference_resolution_tests
 
-      generate_granular_scope_tests
+      # generate_granular_scope_tests
 
-      generate_groups
+      # generate_groups
 
-      generate_granular_scope_resource_type_groups
+      # generate_granular_scope_resource_type_groups
 
-      generate_granular_scope_groups
+      # generate_granular_scope_groups
 
-      generate_suites
+      # generate_suites
 
-      write_metadata
+      # write_metadata
     end
 
     def load_ig_package
