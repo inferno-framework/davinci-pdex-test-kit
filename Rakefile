@@ -15,8 +15,7 @@ namespace :db do
 end
 
 namespace :pdex do
-  # TODO: namespace payer server as well?
-  # namespace :payer_server do
+  namespace :payer_server do
 
     desc 'Generate PDex payer server tests'
     task :generate do
@@ -26,5 +25,5 @@ namespace :pdex do
       DaVinciPDexTestKit::Generator.generate
     end
 
-  # end
+  end
 end

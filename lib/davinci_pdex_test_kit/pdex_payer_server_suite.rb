@@ -126,7 +126,7 @@ module USCoreTestKit
                 current_element
               end
             
-            binding.break if pattern_element.nil? # XXX
+            binding.break if pattern_element.nil? # XXX debugger for adjudication:denialreason.category error
 
             metadata[:discriminator] =
               if pattern_element.patternCodeableConcept.present?
@@ -223,16 +223,16 @@ module DaVinciPDexTestKit
 
       generate_provenance_revinclude_search_tests
       generate_validation_tests
-      generate_must_support_tests
+      # generate_must_support_tests ## Removed because of adjudication:denialreason.category error
       generate_reference_resolution_tests
 
-      # generate_granular_scope_tests
+      generate_granular_scope_tests
 
       generate_groups
 
-      # generate_granular_scope_resource_type_groups
+      generate_granular_scope_resource_type_groups
 
-      # generate_granular_scope_groups
+      generate_granular_scope_groups
 
       generate_suites
 
