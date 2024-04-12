@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "192f3358-0029-45a1-8e34-637ed8720998",
+		"name": "PDEX",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29930935"
+	},
+	"item": [
+		{
+			"name": "Encounter Requests",
+			"item": [
+				{
+					"name": "Encounter-patient+status+date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/client_suite_v201/fhir/Encounter?token=a&patient=999&status=waiting&date=2015-01-17",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"client_suite_v201",
+								"fhir",
+								"Encounter"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								},
+								{
+									"key": "status",
+									"value": "waiting"
+								},
+								{
+									"key": "date",
+									"value": "2015-01-17"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Encounter-patient+status+date Wrong date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/client_suite_v201/fhir/Encounter?token=a&patient=999&status=waiting&date=2000-01-01",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"client_suite_v201",
+								"fhir",
+								"Encounter"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								},
+								{
+									"key": "status",
+									"value": "waiting"
+								},
+								{
+									"key": "date",
+									"value": "2000-01-01"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Encounter-patient+status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/client_suite_v201/fhir/Encounter?token=a&patient=999&status=waiting",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"client_suite_v201",
+								"fhir",
+								"Encounter"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								},
+								{
+									"key": "status",
+									"value": "waiting"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Encounter-patient",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "SAMPLE_TOKEN",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/client_suite_v201/fhir/Encounter?token=a&patient=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"client_suite_v201",
+								"fhir",
+								"Encounter"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient Requests",
+			"item": [
+				{
+					"name": "Patient-_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientId",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "localhost:4567/custom/client_suite_v201/mock_auth/token",
+									"type": "string"
+								},
+								{
+									"key": "tokenRequestParams",
+									"value": [
+										{
+											"key": "",
+											"value": "",
+											"enabled": false,
+											"send_as": "request_body"
+										}
+									],
+									"type": "any"
+								},
+								{
+									"key": "client_authentication",
+									"value": "body",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer: a",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/custom/client_suite_v201/fhir/Patient?token=a&_id=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"client_suite_v201",
+								"fhir",
+								"Patient"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "_id",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
