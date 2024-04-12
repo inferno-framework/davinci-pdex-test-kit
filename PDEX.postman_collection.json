@@ -15,14 +15,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/client_suite_v201/fhir/Encounter?token=a&patient=999&status=waiting&date=2015-01-17",
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Encounter?token=a&patient=999&status=waiting&date=2015-01-17",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"custom",
-								"client_suite_v201",
+								"pdex_payer_client",
 								"fhir",
 								"Encounter"
 							],
@@ -54,14 +54,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/client_suite_v201/fhir/Encounter?token=a&patient=999&status=waiting&date=2000-01-01",
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Encounter?token=a&patient=999&status=waiting&date=2000-01-01",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"custom",
-								"client_suite_v201",
+								"pdex_payer_client",
 								"fhir",
 								"Encounter"
 							],
@@ -93,14 +93,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/client_suite_v201/fhir/Encounter?token=a&patient=999&status=waiting",
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Encounter?token=a&patient=999&status=waiting",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"custom",
-								"client_suite_v201",
+								"pdex_payer_client",
 								"fhir",
 								"Encounter"
 							],
@@ -138,14 +138,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/client_suite_v201/fhir/Encounter?token=a&patient=999",
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Encounter?token=a&patient=999",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"custom",
-								"client_suite_v201",
+								"pdex_payer_client",
 								"fhir",
 								"Encounter"
 							],
@@ -171,7 +171,8 @@
 				{
 					"name": "Patient-_id",
 					"protocolProfileBehavior": {
-						"disableBodyPruning": true
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
 					},
 					"request": {
 						"auth": {
@@ -235,14 +236,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/custom/client_suite_v201/fhir/Patient?token=a&_id=999",
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Patient?token=a&_id=999",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"path": [
 								"custom",
-								"client_suite_v201",
+								"pdex_payer_client",
 								"fhir",
 								"Patient"
 							],
