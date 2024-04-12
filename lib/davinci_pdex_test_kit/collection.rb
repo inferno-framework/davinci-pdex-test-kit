@@ -1,4 +1,4 @@
-module DaVinciPDEXTestKit
+module DaVinciPDexTestKit
   SET_TO_BE_GATHERED = {Patient: ['999'], Encounter: ['pdex-encounter']}
   SEARCHES_BY_PRIORITY = {AllergyIntolerance: [['patient']],
                           CarePlan: [['patient', 'category']],

@@ -1,4 +1,4 @@
-module DaVinciPDEXTestKit
+module DaVinciPDexTestKit
   module UserInputResponse
     def self.included(klass)
       klass.extend ClassMethods

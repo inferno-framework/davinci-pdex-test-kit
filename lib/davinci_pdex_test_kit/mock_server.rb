@@ -2,7 +2,7 @@ require_relative 'user_input_response'
 require_relative 'urls'
 require_relative 'collection'
 
-module DaVinciPDEXTestKit
+module DaVinciPDexTestKit
   # Serve responses to PAS requests
   #
   # Note that there are numerous expected validation issues that can safely be ignored.
@@ -35,7 +35,6 @@ module DaVinciPDEXTestKit
 
     def match_request_to_expectation(endpoint, params)
       matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} & expectation) == expectation}
-      puts "THE MATCHED SEARCH IS #{matched_search}"
       params.select {|key, value| matched_search.include?(key.to_s)}
     end
 

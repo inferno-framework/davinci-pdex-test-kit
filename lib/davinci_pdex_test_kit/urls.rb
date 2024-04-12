@@ -1,4 +1,4 @@
-module DaVinciPDEXTestKit
+module DaVinciPDexTestKit
   TOKEN_PATH = '/mock_auth/token'
   SUBMIT_PATH = '/fhir/:endpoint'
   RESUME_PASS_PATH = '/resume_pass'

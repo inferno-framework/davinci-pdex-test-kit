@@ -1,7 +1,7 @@
 require_relative 'urls'
 
-module DaVinciPDEXTestKit
-  class PDEXClientSubmitMustSupportTest < Inferno::Test
+module DaVinciPDexTestKit
+  class PDexClientSubmitMustSupportTest < Inferno::Test
     include URLs
 
     id :initial_wait_test
@@ -16,7 +16,7 @@ module DaVinciPDEXTestKit
       wait(
         identifier: access_token,
         message: %(
-          Submit PDEX requests to `#{submit_url}`, with `:endpoint` replaced with the endpoint you want to reach 
+          Submit PDex requests to `#{submit_url}`, with `:endpoint` replaced with the endpoint you want to reach 
           and [click here](#{resume_pass_url}?token=#{access_token}) when done.
         )
       )

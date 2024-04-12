@@ -1,5 +1,5 @@
-module DaVinciPDEXTestKit
-  class PDEXInitialRequestLoggingTest < Inferno::Test
+module DaVinciPDexTestKit
+  class PDexInitialRequestLoggingTest < Inferno::Test
     include URLs
 
     id :initial_request_logging
