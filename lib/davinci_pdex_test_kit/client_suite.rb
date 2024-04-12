@@ -7,17 +7,7 @@ require_relative 'mock_server'
 require_relative 'tags'
 require_relative 'collection'
 require_relative 'initial_wait_test'
-#require_relative 'span_test' #TODO: WIP
-require_relative 'generated/Patient__id'
-require_relative 'generated/AllergyIntolerance_patient'
-require_relative 'generated/Condition_patient'
-require_relative 'generated/Device_patient'
-require_relative 'generated/DiagnosticReport_patient'
-require_relative 'generated/DocumentReference_patient'
-require_relative 'generated/Encounter_patient'
-require_relative 'generated/Goal_patient'
-require_relative 'generated/Immunization_patient'
-require_relative 'generated/Procedure_patient'
+require_relative 'initial_request_logging'
 
 module DaVinciPDEXTestKit
   class ClientSuite < Inferno::TestSuite
@@ -71,17 +61,7 @@ module DaVinciPDEXTestKit
     group do
       title "Series of Requests Test Group"
       test from: :initial_wait_test
-      test from: :placeholder_verify_patient_test
-      test from: :placeholder_verify_allergyintolerance_test
-      test from: :placeholder_verify_condition_test
-      test from: :placeholder_verify_device_test
-      test from: :placeholder_verify_diagnosticreport_test
-      test from: :placeholder_verify_documentreference_test
-      test from: :placeholder_verify_encounter_test
-      test from: :placeholder_verify_goal_test
-      test from: :placeholder_verify_immunization_test
-      test from: :placeholder_verify_procedure_test
-      #test from: :placeholder_span_test
+      test from: :initial_request_logging
     end
   end
 end

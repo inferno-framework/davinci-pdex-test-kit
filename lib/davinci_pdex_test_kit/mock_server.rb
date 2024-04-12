@@ -1,5 +1,6 @@
 require_relative 'user_input_response'
 require_relative 'urls'
+require_relative 'collection'
 
 module DaVinciPDEXTestKit
   # Serve responses to PAS requests
@@ -25,11 +26,17 @@ module DaVinciPDEXTestKit
 
     def claim_response(request, test = nil, test_result = nil)
       endpoint = resource_endpoint(request.url)
-      params = request.query_parameters.reject {|key, value| key ==  "token" }
+      params = match_request_to_expectation(endpoint, request.query_parameters.reject {|key, value| key ==  "token" })
       response = server_proxy.get(endpoint, params)
       request.status = response.status
       request.response_headers = response.headers.reject!{ |key, value| key == "transfer-encoding"} # chunked causes problems for client
       request.response_body = response.body
+    end
+
+    def match_request_to_expectation(endpoint, params)
+      matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} & expectation) == expectation}
+      puts "THE MATCHED SEARCH IS #{matched_search}"
+      params.select {|key, value| matched_search.include?(key.to_s)}
     end
 
     def extract_client_id(request)
