@@ -20,6 +20,7 @@ namespace :pdex do
     desc 'Generate PDex Server read and search API tests'
     task :generate do
       require_relative 'lib/davinci_pdex_test_kit/pdex_payer_server/generator'
+      # TODO import custom groups
 
       DaVinciPDexTestKit::PDexPayerServer::Generator.generate
     end
