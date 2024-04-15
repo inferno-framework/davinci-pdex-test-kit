@@ -1,4 +1,5 @@
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     module SpecialCases
       RESOURCES_TO_EXCLUDE = {
@@ -63,5 +64,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         end
       end
     end
+  end
   end
 end

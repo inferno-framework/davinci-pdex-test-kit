@@ -1,7 +1,8 @@
 require_relative 'naming'
 require_relative 'special_cases'
 
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class SuiteGenerator
       class << self
@@ -127,5 +128,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         "us_core_#{ig_metadata.reformatted_version}_smart_granular_scopes"
       end
     end
+  end
   end
 end

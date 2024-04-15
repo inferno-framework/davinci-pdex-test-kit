@@ -1,4 +1,5 @@
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class IGMetadata
       attr_accessor :ig_version, :groups
@@ -56,5 +57,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         }
       end
     end
+  end
   end
 end

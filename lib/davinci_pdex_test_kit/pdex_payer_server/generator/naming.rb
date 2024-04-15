@@ -1,4 +1,5 @@
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     module Naming
       ALLERGY_INTOLERANCE = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance'
@@ -56,5 +57,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         end
       end
     end
+  end
   end
 end

@@ -1,7 +1,8 @@
 require_relative 'naming'
 require_relative 'special_cases'
 
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class SearchTestGenerator
       class << self
@@ -290,5 +291,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         DESCRIPTION
       end
     end
+  end
   end
 end

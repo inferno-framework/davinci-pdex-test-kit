@@ -1,4 +1,5 @@
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class ValueExactor
       attr_accessor :ig_resources, :resource, :profile_elements
@@ -106,5 +107,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         values
       end
     end
+  end
   end
 end

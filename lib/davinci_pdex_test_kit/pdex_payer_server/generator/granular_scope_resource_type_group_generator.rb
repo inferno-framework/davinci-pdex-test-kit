@@ -2,7 +2,8 @@ require_relative 'naming'
 require_relative 'special_cases'
 require_relative '../custom_groups/smart_scopes_constants'
 
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class GranularScopeResourceTypeGroupGenerator
       class << self
@@ -140,5 +141,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         DESCRIPTION
       end
     end
+  end
   end
 end

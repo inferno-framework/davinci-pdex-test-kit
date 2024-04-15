@@ -1,4 +1,5 @@
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class IGResources
       def add(resource)
@@ -49,5 +50,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         @resources_by_type ||= Hash.new { |hash, key| hash[key] = [] }
       end
     end
+  end
   end
 end

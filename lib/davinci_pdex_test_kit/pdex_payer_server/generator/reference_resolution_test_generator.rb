@@ -1,7 +1,8 @@
 require_relative 'naming'
 require_relative 'special_cases'
 
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class ReferenceResolutionTestGenerator
       class << self
@@ -88,5 +89,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         )
       end
     end
+  end
   end
 end

@@ -1,6 +1,7 @@
 require_relative 'special_cases'
 
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class GroupMetadata
       ATTRIBUTES = [
@@ -109,5 +110,6 @@ module DaVinciPDexTestKit::PDexPayerServer
             end
       end
     end
+  end
   end
 end

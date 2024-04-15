@@ -4,7 +4,8 @@ require_relative 'must_support_metadata_extractor'
 require_relative 'search_metadata_extractor'
 require_relative 'terminology_binding_metadata_extractor'
 
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class GroupMetadataExtractor
       attr_accessor :resource_capabilities, :profile_url, :ig_metadata, :ig_resources
@@ -288,5 +289,6 @@ module DaVinciPDexTestKit::PDexPayerServer
             end
       end
     end
+  end
   end
 end

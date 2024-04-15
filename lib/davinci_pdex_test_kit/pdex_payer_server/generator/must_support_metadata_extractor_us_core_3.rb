@@ -1,4 +1,5 @@
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class MustSupportMetadataExtractorUsCore3
       attr_accessor :profile, :must_supports
@@ -104,5 +105,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         end
       end
     end
+  end
   end
 end

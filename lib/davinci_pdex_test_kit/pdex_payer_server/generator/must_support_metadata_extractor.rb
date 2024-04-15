@@ -5,7 +5,8 @@ require_relative 'must_support_metadata_extractor_us_core_5'
 require_relative 'must_support_metadata_extractor_us_core_6'
 require_relative 'must_support_metadata_extractor_us_core_7'
 
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class MustSupportMetadataExtractor
       attr_accessor :profile_elements, :profile, :resource, :ig_resources
@@ -410,5 +411,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         end
       end
     end
+  end
   end
 end

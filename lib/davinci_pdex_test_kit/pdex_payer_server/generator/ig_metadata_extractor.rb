@@ -1,7 +1,8 @@
 require_relative 'ig_metadata'
 require_relative 'group_metadata_extractor'
 
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class IGMetadataExtractor
       attr_accessor :ig_resources, :metadata
@@ -81,5 +82,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         metadata.postprocess_groups(ig_resources)
       end
     end
+  end
   end
 end

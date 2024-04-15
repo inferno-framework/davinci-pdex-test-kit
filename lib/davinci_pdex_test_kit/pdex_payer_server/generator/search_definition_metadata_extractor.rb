@@ -1,6 +1,7 @@
 require_relative 'value_extractor'
 
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class SearchDefinitionMetadataExtractor
       attr_accessor :ig_resources, :name, :profile_elements, :group_metadata
@@ -224,5 +225,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         @value_extractor ||= ValueExactor.new(ig_resources, resource, profile_elements)
       end
     end
+  end
   end
 end

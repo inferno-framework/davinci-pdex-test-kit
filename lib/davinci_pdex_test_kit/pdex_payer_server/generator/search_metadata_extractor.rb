@@ -1,6 +1,7 @@
 require_relative 'search_definition_metadata_extractor'
 
-module DaVinciPDexTestKit::PDexPayerServer
+module DaVinciPDexTestKit
+  module PDexPayerServer
   class Generator
     class SearchMetadataExtractor
       COMBO_EXTENSION_URL =
@@ -70,5 +71,6 @@ module DaVinciPDexTestKit::PDexPayerServer
         end
       end
     end
+  end
   end
 end
