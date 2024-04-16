@@ -1,6 +1,6 @@
 # Da Vinci Provider Data Exchange (PDex) Test Kit
 
-This is an [Inferno](https://github.com/inferno-community/inferno-core) 
+This is an [Inferno](https://github.com/inferno-community/inferno-core)
 test kit for the [Da Vinci Provider Data Exchange (PDex) FHIR
 Implementation Guide](https://hl7.org/fhir/us/davinci-pdex/).
 
