@@ -11,8 +11,11 @@ module DaVinciPDexTestKit
     class IGLoader
       attr_accessor :ig_file_name
 
-      def initialize(ig_file_name)
+      # @param ig_file_name: file name only of IG's package.tgz, path is defined in {Generator::generate}
+      # @param ig_resources [IGResource]: allows IGLoader to start with resources loaded from another IG
+      def initialize(ig_file_name, ig_resources = nil)
         self.ig_file_name = ig_file_name
+        @ig_resources = ig_resources
       end
 
       def ig_resources

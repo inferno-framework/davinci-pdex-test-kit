@@ -44,6 +44,11 @@ module DaVinciPDexTestKit
           .find { |param| param.id == "us-core-#{resource.downcase}-#{normalized_name}" }
       end
 
+      # TODO - remove before PR, for debugging purposes:
+      def keys
+        @resources_by_type&.keys
+      end
+
       private
 
       def resources_by_type

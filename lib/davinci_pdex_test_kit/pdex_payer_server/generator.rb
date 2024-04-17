@@ -3,9 +3,9 @@ require 'inferno/ext/fhir_models'
 
 require_relative 'generator/ig_loader'
 require_relative 'generator/ig_metadata_extractor'
-require_relative 'generator/granular_scope_group_generator'
-require_relative 'generator/granular_scope_resource_type_group_generator'
-require_relative 'generator/granular_scope_test_generator'
+# require_relative 'generator/granular_scope_group_generator'
+# require_relative 'generator/granular_scope_resource_type_group_generator'
+# require_relative 'generator/granular_scope_test_generator'
 require_relative 'generator/group_generator'
 require_relative 'generator/must_support_test_generator'
 require_relative 'generator/provenance_revinclude_search_test_generator'
@@ -20,7 +20,7 @@ module DaVinciPDexTestKit
 
     class Generator
       def self.generate
-        ig_packages = Dir.glob(File.join(Dir.pwd, 'lib', 'us_core_test_kit', 'igs', '*.tgz'))
+        ig_packages = Dir.glob(File.join(Dir.pwd, 'lib', 'davinci_pdex_test_kit', 'igs', '*.tgz'))
 
         ig_packages.each do |ig_package|
           new(ig_package).generate
@@ -46,13 +46,13 @@ module DaVinciPDexTestKit
         generate_must_support_tests
         generate_reference_resolution_tests
 
-        generate_granular_scope_tests
+        # generate_granular_scope_tests
 
         generate_groups
 
-        generate_granular_scope_resource_type_groups
+        # generate_granular_scope_resource_type_groups
 
-        generate_granular_scope_groups
+        # generate_granular_scope_groups
 
         generate_suites
 
@@ -104,21 +104,21 @@ module DaVinciPDexTestKit
         ProvenanceRevincludeSearchTestGenerator.generate(ig_metadata, base_output_dir)
       end
 
-      def generate_granular_scope_tests
-        GranularScopeTestGenerator.generate(ig_metadata, base_output_dir)
-      end
+      # def generate_granular_scope_tests
+      #   GranularScopeTestGenerator.generate(ig_metadata, base_output_dir)
+      # end
 
       def generate_groups
         GroupGenerator.generate(ig_metadata, base_output_dir)
       end
 
-      def generate_granular_scope_resource_type_groups
-        GranularScopeResourceTypeGroupGenerator.generate(ig_metadata, base_output_dir)
-      end
+      # def generate_granular_scope_resource_type_groups
+      #   GranularScopeResourceTypeGroupGenerator.generate(ig_metadata, base_output_dir)
+      # end
 
-      def generate_granular_scope_groups
-        GranularScopeGroupGenerator.generate(ig_metadata, base_output_dir)
-      end
+      # def generate_granular_scope_groups
+      #   GranularScopeGroupGenerator.generate(ig_metadata, base_output_dir)
+      # end
 
       def generate_suites
         SuiteGenerator.generate(ig_metadata, base_output_dir)
