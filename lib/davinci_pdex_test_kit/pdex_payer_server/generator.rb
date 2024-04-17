@@ -19,12 +19,21 @@ module DaVinciPDexTestKit
   module PDexPayerServer
 
     class Generator
-      def self.generate
-        ig_packages = Dir.glob(File.join(Dir.pwd, 'lib', 'davinci_pdex_test_kit', 'igs', '*.tgz'))
 
-        ig_packages.each do |ig_package|
-          new(ig_package).generate
-        end
+      HREX_IG = File.join(__dir__, '..', 'igs', 'davinci-hrex-1.0.0.tgz')
+      PDEX_IG = File.join(__dir__, '..', 'igs', 'davinci-pdex-2.0.0.tgz')
+      US_CORE_V311_IG = File.join(__dir__, '..', 'igs', 'us-core-3.1.1.tgz')
+
+
+      def self.generate
+        # XXX Should only contain PDex and HRex
+        # ig_packages = Dir.glob(File.join(Dir.pwd, 'lib', 'davinci_pdex_test_kit', 'igs', '*.tgz'))
+        #
+        # ig_packages.each do |ig_package|
+        #   new(ig_package).generate
+        # end
+
+        new(PDEX_IG).generate
       end
 
       attr_accessor :ig_resources, :ig_metadata, :ig_file_name
@@ -35,7 +44,14 @@ module DaVinciPDexTestKit
 
       def generate
         puts "Generating tests for IG #{File.basename(ig_file_name)}"
-        load_ig_package
+
+        # Load PDex depenencies from HRex and USCore
+        load_ig_package US_CORE_V311_IG
+        load_ig_package HREX_IG
+
+        # Load primary PDex IG
+        load_ig_package PDEX_IG
+
         extract_metadata
         generate_search_tests
         generate_read_tests
@@ -75,9 +91,12 @@ module DaVinciPDexTestKit
         File.join(__dir__, 'generated', ig_metadata.ig_version)
       end
 
-      def load_ig_package
+      def load_ig_package(ig_path)
         FHIR.logger = Logger.new('/dev/null')
-        self.ig_resources = IGLoader.new(ig_file_name).load
+        self.ig_resources = IGLoader.new(ig_path, self.ig_resources).load
+
+        require 'debug/open_nonstop'
+        debugger
       end
 
       def generate_reference_resolution_tests

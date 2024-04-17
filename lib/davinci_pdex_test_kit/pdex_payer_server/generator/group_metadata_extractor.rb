@@ -150,7 +150,7 @@ module DaVinciPDexTestKit
           .split('-')
           .map(&:capitalize)
           .join
-          .gsub('UsCore', "USCore#{ig_metadata.reformatted_version}")
+          # .gsub('UsCore', "USCore#{ig_metadata.reformatted_version}") # TODO delete me
           .concat('Sequence')
       end
 
