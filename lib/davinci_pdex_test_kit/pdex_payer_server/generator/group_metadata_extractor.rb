@@ -131,6 +131,13 @@ module DaVinciPDexTestKit
 
       def profile
         @profile ||= ig_resources.profile_by_url(profile_url)
+
+        # XXX
+        if @profile.nil?
+          require 'debug/open_nonstop'
+          debugger
+        end
+        @profile
       end
 
       def profile_elements
@@ -166,7 +173,7 @@ module DaVinciPDexTestKit
         resource_capabilities.type
       end
 
-      def profile_name
+      def profile_name # FIXME
         profile.title.gsub('  ', ' ')
       end
 
@@ -174,7 +181,7 @@ module DaVinciPDexTestKit
         profile.version
       end
 
-      def title
+      def title # FIXME
         title = profile.title.gsub(/US\s*Core\s*/, '').gsub(/\s*Profile/, '').strip
 
         if (Naming.resources_with_multiple_profiles.include?(resource)) && !title.start_with?(resource) && version != 'v3.1.1'

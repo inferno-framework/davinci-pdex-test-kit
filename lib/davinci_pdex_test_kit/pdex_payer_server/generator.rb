@@ -95,8 +95,9 @@ module DaVinciPDexTestKit
         FHIR.logger = Logger.new('/dev/null')
         self.ig_resources = IGLoader.new(ig_path, self.ig_resources).load
 
-        require 'debug/open_nonstop'
-        debugger
+        # XXX
+        # require 'debug/open_nonstop'
+        # debugger
       end
 
       def generate_reference_resolution_tests
