@@ -134,8 +134,10 @@ module DaVinciPDexTestKit
 
         # XXX
         if @profile.nil?
-          require 'debug/open_nonstop'
-          debugger
+        #   require 'debug/open_nonstop'
+        #   debugger
+          require 'debug'
+          binding.break
         end
         @profile
       end
