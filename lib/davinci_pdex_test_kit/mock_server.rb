@@ -35,7 +35,7 @@ module DaVinciPDexTestKit
 
     def match_request_to_expectation(endpoint, params)
       matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} & expectation) == expectation}
-      params.select {|key, value| matched_search.include?(key.to_s)}
+      params.select {|key, value| matched_search.include?(key.to_s) || key == "_revInclude" || key == "_include"}
     end
 
     def extract_client_id(request)
