@@ -39,21 +39,21 @@ module DaVinciPDexTestKit
         end
       end
 
-      def granular_scope_resource_type_groups
-        @granular_scope_resource_type_groups ||=
-          Hash.new { |hash, key| hash[key] = [] }
-      end
-
-      def granular_scope_groups
-        @granular_scope_groups ||= []
-      end
+      # def granular_scope_resource_type_groups
+      #   @granular_scope_resource_type_groups ||=
+      #     Hash.new { |hash, key| hash[key] = [] }
+      # end
+      # 
+      # def granular_scope_groups
+      #   @granular_scope_groups ||= []
+      # end
 
       def to_hash
         {
           ig_version:,
           groups: groups.map(&:to_hash),
-          granular_scope_resource_type_groups:,
-          granular_scope_groups:
+          # granular_scope_resource_type_groups:,
+          # granular_scope_groups:
         }
       end
     end

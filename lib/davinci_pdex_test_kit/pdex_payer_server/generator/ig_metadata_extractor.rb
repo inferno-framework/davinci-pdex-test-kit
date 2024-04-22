@@ -9,7 +9,6 @@ module DaVinciPDexTestKit
 
       def initialize(ig_resources)
         self.ig_resources = ig_resources
-        add_missing_supported_profiles
         remove_version_from_supported_profiles
         remove_extra_supported_profiles
         self.metadata = IGMetadata.new
@@ -29,35 +28,6 @@ module DaVinciPDexTestKit
         ig_resources.capability_statement.rest.first.resource
       end
 
-      def add_missing_supported_profiles
-        case ig_resources.ig.version
-        when '1.0.0'
-          # Parsing HRex
-        when '2.0.0'
-          # Parsing PDex
-        when '3.1.1'
-          # The US Core v3.1.1 Server Capability Statement does not list support for the
-          # required vital signs profiles, so they need to be added
-          ig_resources.capability_statement.rest.first.resource
-            .find { |resource| resource.type == 'Observation' }
-            .supportedProfile.concat [
-              'http://hl7.org/fhir/StructureDefinition/bodyheight',
-              'http://hl7.org/fhir/StructureDefinition/bodytemp',
-              'http://hl7.org/fhir/StructureDefinition/bp',
-              'http://hl7.org/fhir/StructureDefinition/bodyweight',
-              'http://hl7.org/fhir/StructureDefinition/heartrate',
-              'http://hl7.org/fhir/StructureDefinition/resprate'
-            ]
-        when '5.0.1'
-          # The US Core v5.0.1 Server Capability Statement does not have supported-profile for Encounter
-          ig_resources.capability_statement.rest.first.resource
-            .find { |resource| resource.type == 'Encounter' }
-            .supportedProfile.concat [
-              'http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter'
-            ]
-        end
-      end
-
       def remove_version_from_supported_profiles
         resources_in_capability_statement.each do |resource|
           resource.supportedProfile.map! { |profile_url| profile_url.split('|').first }
@@ -72,9 +42,20 @@ module DaVinciPDexTestKit
             end
       end
 
+      def remove_us_core_supported_profiles        
+        ig_resources.capability_statement.rest.first.resource
+            .find { |resource| resource.type == 'Observation' }
+            .supportedProfile.delete_if do |profile_url|
+              profile_url.include?('us-core') ||
+              profile_url.include?('/us/core') ||
+              profile_url == 'http://hl7.org/fhir/StructureDefinition/vitalsigns'
+            end
+      end
+
       def add_metadata_from_resources
         metadata.groups =
           resources_in_capability_statement.flat_map do |resource|
+
             resource.supportedProfile&.map do |supported_profile|
               #supported_profile = supported_profile.split('|').first
               next if supported_profile == 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire'
