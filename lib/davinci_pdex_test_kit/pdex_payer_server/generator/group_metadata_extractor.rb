@@ -8,6 +8,9 @@ module DaVinciPDexTestKit
   module PDexPayerServer
   class Generator
     class GroupMetadataExtractor
+
+      include ExpectationExtensionFinder
+
       attr_accessor :resource_capabilities, :profile_url, :ig_metadata, :ig_resources
 
       def initialize(resource_capabilities, profile_url, ig_metadata, ig_resources)
@@ -296,10 +299,6 @@ module DaVinciPDexTestKit
                 profiles: reference_definition.type.first.targetProfile
               }
             end
-      end
-
-      def find_expectation_code(backbone_element)
-        backbone_element.extension&.find{ |ext| ext.url == 'http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation' }&.valueCode
       end
     end
   end
