@@ -65,6 +65,7 @@ module DaVinciPDexTestKit
       end
 
       def module_name
+        # TODO: PDex
         "USCore#{group_metadata.reformatted_version.upcase}"
       end
 
@@ -211,6 +212,7 @@ module DaVinciPDexTestKit
 
       def url_version
         case group_metadata.version
+        # TODO: pdex case required?
         when 'v3.1.1'
           'STU3.1.1'
         when 'v4.0.0'

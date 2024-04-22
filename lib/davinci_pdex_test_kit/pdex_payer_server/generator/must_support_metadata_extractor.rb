@@ -93,6 +93,11 @@ module DaVinciPDexTestKit
               else
                 current_element
               end
+
+            # XXX
+            # require('debug') && binding.break if pattern_element.nil?
+            next if current_element.contentReference # TODO
+
             metadata[:discriminator] =
               if pattern_element.patternCodeableConcept.present?
                 {

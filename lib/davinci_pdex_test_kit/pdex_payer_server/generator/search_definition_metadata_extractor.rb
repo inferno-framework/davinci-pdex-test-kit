@@ -33,6 +33,14 @@ module DaVinciPDexTestKit
 
       def param
         @param ||= ig_resources.search_param_by_resource_and_name(resource, name)
+
+        # XXX
+        if @param.nil?
+          require('debug')
+          binding.break
+        end
+
+        @param
       end
 
       def param_hash
