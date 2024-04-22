@@ -202,7 +202,7 @@ module DaVinciPDexTestKit
           resource_capabilities.interaction.map do |interaction|
             {
               code: interaction.code,
-              expectation: interaction.extension.first.valueCode # TODO: fix expectation extension finding
+              expectation: find_expectation_code(interaction).presence || 'MAY' # NOTE: default to MAY
             }
           end
       end
@@ -212,7 +212,7 @@ module DaVinciPDexTestKit
           resource_capabilities.operation.map do |operation|
             {
               code: operation.name,
-              expectation: operation.extension.first.valueCode # TODO: fix expectation extension finding
+              expectation: find_expectation_code(operation).presence || 'MAY' # NOTE: default to MAY
             }
           end
       end
@@ -296,6 +296,10 @@ module DaVinciPDexTestKit
                 profiles: reference_definition.type.first.targetProfile
               }
             end
+      end
+
+      def find_expectation_code(backbone_element)
+        backbone_element.extension&.find{ |ext| ext.url == 'http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation' }&.valueCode
       end
     end
   end
