@@ -45,12 +45,12 @@ module DaVinciPDexTestKit
       def generate
         puts "Generating tests for IG #{File.basename(ig_file_name)}"
 
+        # Load primary PDex IG
+        load_ig_package PDEX_IG
+
         # Load PDex depenencies from HRex and USCore
         load_ig_package US_CORE_V311_IG
         load_ig_package HREX_IG
-
-        # Load primary PDex IG
-        load_ig_package PDEX_IG
 
         extract_metadata
         generate_search_tests
