@@ -3,13 +3,14 @@ require_relative 'ig_metadata'
 require_relative 'must_support_metadata_extractor'
 require_relative 'search_metadata_extractor'
 require_relative 'terminology_binding_metadata_extractor'
+require_relative 'expectation_extension_finder'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
   class Generator
     class GroupMetadataExtractor
 
-      include ExpectationExtensionFinder
+      include Generator::ExpectationExtensionFinder
 
       attr_accessor :resource_capabilities, :profile_url, :ig_metadata, :ig_resources
 

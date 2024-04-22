@@ -1,10 +1,11 @@
 require_relative 'search_definition_metadata_extractor'
+require_relative 'expectation_extension_finder'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
   class Generator
     class SearchMetadataExtractor
-      include ExpectationExtensionFinder
+      include Generator::ExpectationExtensionFinder
 
       COMBO_EXTENSION_URL =
         'http://hl7.org/fhir/StructureDefinition/capabilitystatement-search-parameter-combination'.freeze
@@ -23,7 +24,6 @@ module DaVinciPDexTestKit
       end
 
       def conformance_expectation(search_param)
-        search_param.extension.first.valueCode # TODO: fix expectation extension finding
         find_expectation_code(search_param).presence || 'MAY' # default to MAY
       end
 
