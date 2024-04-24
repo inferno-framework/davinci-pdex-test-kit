@@ -9,6 +9,16 @@ Implementation Guide](https://hl7.org/fhir/us/davinci-pdex/).
 - [Ruby API documentation](https://inferno-framework.github.io/inferno-core/docs)
 - [JSON API documentation](https://inferno-framework.github.io/inferno-core/api-docs)
 
+## PDEX Client Tests
+- **Extremely draft state**
+- Can generate basic tests with the init-gen.rb file
+- Requests are currently hardcoded forwarded to a local server, assumed to be hosted on docker.  This is found in
+  `lib/davinci_pdex_test_kit/mock_server.rb`'s `server_proxy`.
+- Postman collection exists for mocking the client, at `PDEX-mock-client.postman_collection.json`
+- - Currently facing some socket hangup issues, so if you run the collection you need to set it to continue running 
+    even if it encounters an error
+
+
 ## Instructions for Developing tests
 
 To get started writing tests, clone this repo/Click "Use this template" on
