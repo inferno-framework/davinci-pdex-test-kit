@@ -60,6 +60,8 @@ module DaVinciPDexTestKit
               #supported_profile = supported_profile.split('|').first
               next if supported_profile == 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire'
 
+              # TODO: skip US Core profiles
+
               GroupMetadataExtractor.new(resource, supported_profile, metadata, ig_resources).group_metadata
             end
           end.compact

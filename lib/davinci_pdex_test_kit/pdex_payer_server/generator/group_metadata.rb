@@ -83,6 +83,7 @@ module DaVinciPDexTestKit
         end
       end
 
+      # TODO: comment out granular scope tests
       def add_granular_scope_test(id:, file_name:)
         self.granular_scope_tests ||= []
 

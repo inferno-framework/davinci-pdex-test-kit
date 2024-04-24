@@ -34,6 +34,9 @@ module DaVinciPDexTestKit
       def param
         @param ||= ig_resources.search_param_by_resource_and_name(resource, name)
 
+        # TODO: PDex IG is missing ExplanationOfBenefit _id SearchParameter,
+        # add this in as a special case
+
         # XXX
         if @param.nil?
           require('debug')
@@ -171,7 +174,15 @@ module DaVinciPDexTestKit
       end
 
       def multiple_or_expectation
-        param_hash['_multipleOr']['extension'].first['valueCode']
+        param_hash.dig('_multipleOr', 'extension', 0, 'valueCode') # TODO use expectation finder
+
+      ## XXX
+      # rescue Exception => e
+      #   require 'debug'
+      #   binding.break
+      # ensure
+      #   param_hash['_multipleOr']['extension'].first['valueCode']
+
       end
 
       def values

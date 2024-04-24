@@ -222,6 +222,10 @@ module DaVinciPDexTestKit
       end
 
       def search_metadata_extractor
+        # XXX
+        # require 'debug'
+        # binding.break if resource_capabilities.type == 'ExplanationOfBenefit'
+
         @search_metadata_extractor ||= SearchMetadataExtractor.new(
           resource_capabilities,
           ig_resources,

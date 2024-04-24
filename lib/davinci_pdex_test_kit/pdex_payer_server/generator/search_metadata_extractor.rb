@@ -17,6 +17,13 @@ module DaVinciPDexTestKit
         self.ig_resources = ig_resources
         self.profile_elements = profile_elements
         self.group_metadata = group_metadata
+
+        ## Special Cases for PDex
+        ## ExplanationOfBenefit _id Search Param is missing in IG and probably wrong in the CapabilityStatement
+        ## TODO: factorize
+        if resource_capabilities.type == 'ExplanationOfBenefit'
+          resource_capabilities.searchParam.reject! { |search_param| search_param.name == '_id' }
+        end
       end
 
       def searches
