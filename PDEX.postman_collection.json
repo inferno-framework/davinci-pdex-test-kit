@@ -262,6 +262,648 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Spanning Requests",
+			"item": [
+				{
+					"name": "AllergyIntolerance GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/AllergyIntolerance?token=a&patient=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"AllergyIntolerance"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CarePlan GET by patient+category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/CarePlan?token=a&patient=999&category=assess-plan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"CarePlan"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								},
+								{
+									"key": "category",
+									"value": "assess-plan"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CareTeam GET by patient+status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/CareTeam?token=a&patient=999&status=active",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"CareTeam"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								},
+								{
+									"key": "status",
+									"value": "active"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Condition GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Condition?token=a&patient=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Condition"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Device GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Device?token=a&patient=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Device"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DiagnosticReport GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/DiagnosticReport?token=a&patient=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"DiagnosticReport"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DocumentReference GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/DocumentReference?token=a&patient=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"DocumentReference"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Encounter GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Encounter?token=a&patient=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Encounter"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ExplanationOfBenefit GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/ExplanationOfBenefit?token=a&patient=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"ExplanationOfBenefit"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Goal GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Goal?token=a&patient=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Goal"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Immunization GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Immunization?token=a&patient=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Immunization"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Location GET by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Location?token=a&name=pdex-Location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Location"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "name",
+									"value": "pdex-Location"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MedicationDispense GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/MedicationDispense?token=a&patient=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"MedicationDispense"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MedicationRequest GET by patient+intent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/MedicationRequest?token=a&patient=999&intent=plan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"MedicationRequest"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								},
+								{
+									"key": "intent",
+									"value": "plan"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Observation GET by patient+category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Observation?token=a&patient=999&category=vital-signs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Observation"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								},
+								{
+									"key": "category",
+									"value": "vital-signs"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Organization GET by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Organization?token=a&name=pdex-Organization",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Organization"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "name",
+									"value": "pdex-Organization"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patient GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Patient?token=a&_id=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Patient"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "_id",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Practitioner GET by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Practitioner?token=a&name=pdex-Practitioner",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Practitioner"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "name",
+									"value": "pdex-Practitioner"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PractitionerRole GET by specialty",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/PractitionerRole?token=a&specialty=208D00000X",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"PractitionerRole"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "specialty",
+									"value": "208D00000X"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Procedure GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Procedure?token=a&patient=999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Procedure"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "patient",
+									"value": "999"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "These requests should fetch every resource through a series of simple requests"
 		}
 	]
 }
