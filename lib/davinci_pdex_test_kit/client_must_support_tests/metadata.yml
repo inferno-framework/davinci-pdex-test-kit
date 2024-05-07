@@ -1,0 +1,61 @@
+---
+:name: hrex_member_match_request_parameters
+:class_name: HRexMemberMatchRequestParameters
+:version: 1.0.0
+:reformatted_version: v1.0.0
+:resource: Parameters
+:profile_url: http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-parameters-member-match-in
+:profile_name: HRex Member Match Request Parameters
+:profile_version: 1.0.0
+:title: Member Match Request Parameters
+:short_description: "The Parameters profile for Da Vinci Find Member using Patient and Coverage Resources Request. The resource must contain: \n * MemberPatient - US Core Patient containing member demographics \n  * CoverageToMatch - details of prior health plan coverage provided by the member, typically from their health plan coverage card \n  * CoverageToLink - details of new or prospective health plan coverage, provided by the health plan based upon the member's enrolment"
+:is_delayed: false
+:interactions: []
+:operations: []
+:include_params: []
+:revincludes: []
+:required_concepts: []
+:must_supports:
+  :extensions: []
+  :slices: 
+  - :slice_id: Parameters.parameter:MemberPatient
+    :slice_name: MemberPatient
+    :path: parameter
+    :discriminator:
+      :type: value
+      :values:
+      - :path: name
+        :value: MemberPatient
+  - :slice_id: Parameters.parameter:CoverageToMatch
+    :slice_name: CoverageToMatch
+    :path: parameter
+    :discriminator:
+      :type: value
+      :values:
+      - :path: name
+        :value: CoverageToMatch
+  - :slice_id: Parameters.parameter:CoverageToLink
+    :slice_name: CoverageToLink
+    :path: parameter
+    :discriminator:
+      :type: value
+      :values:
+      - :path: name
+        :value: CoverageToLink
+  - :slice_id: Parameters.parameter:Consent
+    :slice_name: Consent
+    :path: parameter
+    :discriminator:
+      :type: value
+      :values:
+      - :path: name
+        :value: Consent
+  :elements:
+  - :path: parameter:MemberPatient.resource
+  - :path: parameter:CoverageToMatch.resource
+  - :path: parameter:CoverageToLink.resource
+  - :path: parameter:Consent.resource
+:mandatory_elements:
+
+
+
