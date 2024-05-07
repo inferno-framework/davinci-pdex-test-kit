@@ -1,7 +1,6 @@
 module DaVinciPDexTestKit
   module ClientValidationTest
 
-
     def previous_request_resources
       first_request = previous_requests.first
       next_page_url = nil
@@ -27,6 +26,17 @@ module DaVinciPDexTestKit
     def previous_requests
       @previous_requests ||= load_tagged_requests(SUBMIT_TAG)
     end
+
+    def member_match_request
+      @member_match_request ||= load_tagged_requests(MEMBER_MATCH_TAG).first
+    end
+
+    def all_member_match_requests
+      @all_member_match_requests ||= load_tagged_requests(MEMBER_MATCH_TAG)
+    end
+    
+    # def matched_patient_id
+    #   @matched_patient_id ||= member_match_request.response_body.
 
     def flattened_all_resources
       @flattened_all_resources ||= previous_request_resources.values.flatten

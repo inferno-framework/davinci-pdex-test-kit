@@ -29,8 +29,39 @@ module DaVinciPDexTestKit
       params = match_request_to_expectation(endpoint, request.query_parameters.reject {|key, value| key ==  "token" })
       response = server_proxy.get(endpoint, params)
       request.status = response.status
-      request.response_headers = response.headers.reject!{ |key, value| key == "transfer-encoding"} # chunked causes problems for client
+      request.response_headers = response.headers.reject!{|key, value| key == "transfer-encoding"} # chunked causes problems for client
       request.response_body = response.body
+    end
+
+    def member_match_response(request, test = nil, test_result = nil)
+      #remove token from request as well
+      original_request_as_hash = JSON.parse(request.request_body).to_h
+      request.request_body = original_request_as_hash.delete_if { |key, value| key == "token" }.to_json
+      request.response_body = {
+        resourceType: "Parameters",
+        id: "member-match-out",
+        parameter: [
+          {
+            name: "MemberIdentifier",
+            valueIdentifier: {
+              type: {
+                coding: [
+                  {
+                    system: "http://terminology.hl7.org/CodeSystem/v2-0203",
+                    code: "MB"
+                  }
+                ]
+              },
+              system: "http://example.org/target-payer/identifiers/member",
+              value: "99999",
+              assigner: {
+                display: "Old Payer"
+              }
+            }
+          }
+        ]
+      }.to_json
+      request.status = 200
     end
 
     def match_request_to_expectation(endpoint, params)
@@ -47,8 +78,12 @@ module DaVinciPDexTestKit
       request.request_header('Authorization')&.value&.split&.last
     end
 
-    def extract_token_from_query_params(request)
+    def extract_token_from_query_params(request)  
       request.query_parameters['token']
+    end
+
+    def extract_token_from_response_body(request)
+      JSON.parse(request.request_body).to_h['token']
     end
 
     # Drop the last two segments of a URL, i.e. the resource type and ID of a FHIR resource

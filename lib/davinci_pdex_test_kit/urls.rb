@@ -1,6 +1,7 @@
 module DaVinciPDexTestKit
   TOKEN_PATH = '/mock_auth/token'
   SUBMIT_PATH = '/fhir/:endpoint'
+  MEMBER_MATCH_PATH = '/fhir/Patient/member-match'
   RESUME_PASS_PATH = '/resume_pass'
   RESUME_FAIL_PATH = '/resume_fail'
 
@@ -15,6 +16,10 @@ module DaVinciPDexTestKit
 
     def submit_url
       @submit_url ||= base_url + SUBMIT_PATH
+    end
+
+    def member_match_url
+      @member_match_url ||= base_url + MEMBER_MATCH_PATH
     end
 
     def resume_pass_url
