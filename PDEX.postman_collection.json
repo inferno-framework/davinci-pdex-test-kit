@@ -7,263 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "Encounter Requests",
-			"item": [
-				{
-					"name": "Encounter-patient+status+date",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Encounter?token=a&patient=999&status=waiting&date=2015-01-17",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Encounter"
-							],
-							"query": [
-								{
-									"key": "token",
-									"value": "a"
-								},
-								{
-									"key": "patient",
-									"value": "999"
-								},
-								{
-									"key": "status",
-									"value": "waiting"
-								},
-								{
-									"key": "date",
-									"value": "2015-01-17"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Encounter-patient+status+date Wrong date",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Encounter?token=a&patient=999&status=waiting&date=2000-01-01",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Encounter"
-							],
-							"query": [
-								{
-									"key": "token",
-									"value": "a"
-								},
-								{
-									"key": "patient",
-									"value": "999"
-								},
-								{
-									"key": "status",
-									"value": "waiting"
-								},
-								{
-									"key": "date",
-									"value": "2000-01-01"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Encounter-patient+status",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Encounter?token=a&patient=999&status=waiting",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Encounter"
-							],
-							"query": [
-								{
-									"key": "token",
-									"value": "a"
-								},
-								{
-									"key": "patient",
-									"value": "999"
-								},
-								{
-									"key": "status",
-									"value": "waiting"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Encounter-patient",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "SAMPLE_TOKEN",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Encounter?token=a&patient=999",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Encounter"
-							],
-							"query": [
-								{
-									"key": "token",
-									"value": "a"
-								},
-								{
-									"key": "patient",
-									"value": "999"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Patient Requests",
-			"item": [
-				{
-					"name": "Patient-_id",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true,
-						"disabledSystemHeaders": {}
-					},
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "clientId",
-									"value": "",
-									"type": "string"
-								},
-								{
-									"key": "accessTokenUrl",
-									"value": "localhost:4567/custom/client_suite_v201/mock_auth/token",
-									"type": "string"
-								},
-								{
-									"key": "tokenRequestParams",
-									"value": [
-										{
-											"key": "",
-											"value": "",
-											"enabled": false,
-											"send_as": "request_body"
-										}
-									],
-									"type": "any"
-								},
-								{
-									"key": "client_authentication",
-									"value": "body",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "string"
-								},
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer: a",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Patient?token=a&_id=999",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Patient"
-							],
-							"query": [
-								{
-									"key": "token",
-									"value": "a"
-								},
-								{
-									"key": "_id",
-									"value": "999"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Spanning Requests",
 			"item": [
 				{
@@ -904,6 +647,661 @@
 				}
 			],
 			"description": "These requests should fetch every resource through a series of simple requests"
+		},
+		{
+			"name": "Spanning Requests Without Patient",
+			"item": [
+				{
+					"name": "AllergyIntolerance GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/AllergyIntolerance?token=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"AllergyIntolerance"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CarePlan GET by patient+category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/CarePlan?token=a&category=assess-plan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"CarePlan"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "category",
+									"value": "assess-plan"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CareTeam GET by patient+status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/CareTeam?token=a&status=active",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"CareTeam"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "status",
+									"value": "active"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Condition GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Condition?token=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Condition"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Device GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Device?token=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Device"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DiagnosticReport GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/DiagnosticReport?token=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"DiagnosticReport"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DocumentReference GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/DocumentReference?token=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"DocumentReference"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Encounter GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Encounter?token=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Encounter"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ExplanationOfBenefit GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/ExplanationOfBenefit?token=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"ExplanationOfBenefit"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Goal GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Goal?token=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Goal"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Immunization GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Immunization?token=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Immunization"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Location GET by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Location?token=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Location"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MedicationDispense GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/MedicationDispense?token=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"MedicationDispense"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MedicationRequest GET by patient+intent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/MedicationRequest?token=a&intent=plan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"MedicationRequest"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "intent",
+									"value": "plan"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Observation GET by patient+category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Observation?token=a&category=vital-signs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Observation"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "category",
+									"value": "vital-signs"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Organization GET by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Organization?token=a&name=pdex-Organization",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Organization"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "name",
+									"value": "pdex-Organization"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patient GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Patient?token=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Patient"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Practitioner GET by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Practitioner?token=a&name=pdex-Practitioner",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Practitioner"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "name",
+									"value": "pdex-Practitioner"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PractitionerRole GET by specialty",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/PractitionerRole?token=a&specialty=208D00000X",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"PractitionerRole"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								},
+								{
+									"key": "specialty",
+									"value": "208D00000X"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Procedure GET by patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Procedure?token=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Procedure"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "These requests should fetch every resource through a series of simple requests"
+		},
+		{
+			"name": "Member-match",
+			"item": [
+				{
+					"name": "Member-match",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"token\": \"a\",\r\n  \"resourceType\" : \"Parameters\",\r\n  \"id\" : \"member-match-in-provider\",\r\n  \"parameter\" : [\r\n    {\r\n      \"name\" : \"MemberPatient\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Patient\",\r\n        \"id\" : \"999\",\r\n        \"identifier\" : [\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n                  \"code\" : \"MB\"\r\n                }\r\n              ]\r\n            },\r\n            \"system\" : \"http://placeholder.org/target-payer/identifiers/member\",\r\n            \"value\" : \"55678\",\r\n            \"assigner\" : {\r\n              \"display\" : \"Old Payer\"\r\n            }\r\n          }\r\n        ],\r\n        \"name\" : [\r\n          {\r\n            \"use\" : \"official\",\r\n            \"family\" : \"Person\",\r\n            \"given\" : [\r\n              \"Patricia\",\r\n              \"Ann\"\r\n            ]\r\n          }\r\n        ],\r\n        \"gender\" : \"female\",\r\n        \"birthDate\" : \"1974-12-25\"\r\n      }\r\n    },\r\n    {\r\n      \"name\" : \"CoverageToMatch\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Coverage\",\r\n        \"id\" : \"9876B1\",\r\n        \"identifier\" : [\r\n          {\r\n            \"system\" : \"http://placeholder.org/old-payer\",\r\n            \"value\" : \"DH10001235\"\r\n          }\r\n        ],\r\n        \"status\" : \"draft\",\r\n        \"beneficiary\" : {\r\n          \"reference\" : \"Patient/1\"\r\n        },\r\n        \"period\" : {\r\n          \"start\" : \"2011-05-23\",\r\n          \"end\" : \"2012-05-23\"\r\n        },\r\n        \"payor\" : [\r\n          {\r\n            \"identifier\" : {\r\n              \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n              \"value\" : \"9876543210\"\r\n            },\r\n            \"display\" : \"Old Health Plan\"\r\n          }\r\n        ],\r\n        \"class\" : [\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n                  \"code\" : \"group\"\r\n                }\r\n              ]\r\n            },\r\n            \"value\" : \"CB135\"\r\n          },\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n                  \"code\" : \"plan\"\r\n                }\r\n              ]\r\n            },\r\n            \"value\" : \"B37FC\"\r\n          },\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n                  \"code\" : \"subplan\"\r\n                }\r\n              ]\r\n            },\r\n            \"value\" : \"P7\"\r\n          },\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n                  \"code\" : \"class\"\r\n                }\r\n              ]\r\n            },\r\n            \"value\" : \"SILVER\"\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    {\r\n      \"name\" : \"CoverageToLink\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Coverage\",\r\n        \"id\" : \"AA87654\",\r\n        \"identifier\" : [\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n                  \"code\" : \"MB\"\r\n                }\r\n              ]\r\n            },\r\n            \"system\" : \"http://example.org/new-payer/identifiers/coverage\",\r\n            \"value\" : \"234567\"\r\n          }\r\n        ],\r\n        \"status\" : \"active\",\r\n        \"beneficiary\" : {\r\n          \"reference\" : \"https://hl7.org/fhir/us/core/STU6.1/Patient/example\"\r\n        },\r\n        \"relationship\" : {\r\n          \"coding\" : [\r\n            {\r\n              \"system\" : \"http://terminology.hl7.org/CodeSystem/data-absent-reason\",\r\n              \"code\" : \"unknown\"\r\n            }\r\n          ]\r\n        },\r\n        \"payor\" : [\r\n          {\r\n            \"identifier\" : {\r\n              \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n              \"value\" : \"0123456789\"\r\n            },\r\n            \"display\" : \"New Health Plan\"\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    {\r\n      \"name\" : \"Consent\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Consent\",\r\n        \"status\" : \"active\",\r\n        \"scope\" : {\r\n          \"coding\" : [\r\n            {\r\n              \"system\" : \"http://terminology.hl7.org/CodeSystem/consentscope\",\r\n              \"code\" : \"patient-privacy\"\r\n            }\r\n          ]\r\n        },\r\n        \"category\" : [\r\n          {\r\n            \"coding\" : [\r\n              {\r\n                \"system\" : \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\r\n                \"code\" : \"IDSCL\"\r\n              }\r\n            ]\r\n          }\r\n        ],\r\n        \"patient\" : {\r\n          \"reference\" : \"Patient/1\"\r\n        },\r\n        \"performer\" : [\r\n          {\r\n            \"reference\" : \"Patient/1\"\r\n          }\r\n        ],\r\n        \"sourceReference\" : {\r\n          \"reference\" : \"http://example.org/DocumentReference/someconsent.pdf\"\r\n        },\r\n        \"policy\" : [\r\n          {\r\n            \"uri\" : \"http://hl7.org/fhir/us/davinci-hrex/StructureDefinition-hrex-consent.html#regular\"\r\n          }\r\n        ],\r\n        \"provision\" : {\r\n          \"type\" : \"permit\",\r\n          \"period\" : {\r\n            \"start\" : \"2022-01-01\",\r\n            \"end\" : \"2022-01-31\"\r\n          },\r\n          \"actor\" : [\r\n            {\r\n              \"role\" : {\r\n                \"coding\" : [\r\n                  {\r\n                    \"system\" : \"http://terminology.hl7.org/CodeSystem/provenance-participant-type\",\r\n                    \"code\" : \"performer\"\r\n                  }\r\n                ]\r\n              },\r\n              \"reference\" : {\r\n                \"identifier\" : {\r\n                  \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n                  \"value\" : \"9876543210\"\r\n                },\r\n                \"display\" : \"Old Health Plan\"\r\n              }\r\n            },\r\n            {\r\n              \"role\" : {\r\n                \"coding\" : [\r\n                  {\r\n                    \"system\" : \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\r\n                    \"code\" : \"IRCP\"\r\n                  }\r\n                ]\r\n              },\r\n              \"reference\" : {\r\n                \"identifier\" : {\r\n                  \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n                  \"value\" : \"0000000001\"\r\n                },\r\n                \"display\" : \"Provider organization\"\r\n              }\r\n            }\r\n          ],\r\n          \"action\" : [\r\n            {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/consentaction\",\r\n                  \"code\" : \"disclose\"\r\n                }\r\n              ]\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Patient/member-match",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Patient",
+								"member-match"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Member-match missing CoverageToMatch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"token\": \"a\",\r\n  \"resourceType\" : \"Parameters\",\r\n  \"id\" : \"member-match-in-provider\",\r\n  \"parameter\" : [\r\n    {\r\n      \"name\" : \"MemberPatient\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Patient\",\r\n        \"id\" : \"999\",\r\n        \"identifier\" : [\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n                  \"code\" : \"MB\"\r\n                }\r\n              ]\r\n            },\r\n            \"system\" : \"http://placeholder.org/target-payer/identifiers/member\",\r\n            \"value\" : \"55678\",\r\n            \"assigner\" : {\r\n              \"display\" : \"Old Payer\"\r\n            }\r\n          }\r\n        ],\r\n        \"name\" : [\r\n          {\r\n            \"use\" : \"official\",\r\n            \"family\" : \"Person\",\r\n            \"given\" : [\r\n              \"Patricia\",\r\n              \"Ann\"\r\n            ]\r\n          }\r\n        ],\r\n        \"gender\" : \"female\",\r\n        \"birthDate\" : \"1974-12-25\"\r\n      }\r\n    },\r\n    {\r\n      \"name\" : \"Consent\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Consent\",\r\n        \"status\" : \"active\",\r\n        \"scope\" : {\r\n          \"coding\" : [\r\n            {\r\n              \"system\" : \"http://terminology.hl7.org/CodeSystem/consentscope\",\r\n              \"code\" : \"patient-privacy\"\r\n            }\r\n          ]\r\n        },\r\n        \"category\" : [\r\n          {\r\n            \"coding\" : [\r\n              {\r\n                \"system\" : \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\r\n                \"code\" : \"IDSCL\"\r\n              }\r\n            ]\r\n          }\r\n        ],\r\n        \"patient\" : {\r\n          \"reference\" : \"Patient/1\"\r\n        },\r\n        \"performer\" : [\r\n          {\r\n            \"reference\" : \"Patient/1\"\r\n          }\r\n        ],\r\n        \"sourceReference\" : {\r\n          \"reference\" : \"http://example.org/DocumentReference/someconsent.pdf\"\r\n        },\r\n        \"policy\" : [\r\n          {\r\n            \"uri\" : \"http://hl7.org/fhir/us/davinci-hrex/StructureDefinition-hrex-consent.html#regular\"\r\n          }\r\n        ],\r\n        \"provision\" : {\r\n          \"type\" : \"permit\",\r\n          \"period\" : {\r\n            \"start\" : \"2022-01-01\",\r\n            \"end\" : \"2022-01-31\"\r\n          },\r\n          \"actor\" : [\r\n            {\r\n              \"role\" : {\r\n                \"coding\" : [\r\n                  {\r\n                    \"system\" : \"http://terminology.hl7.org/CodeSystem/provenance-participant-type\",\r\n                    \"code\" : \"performer\"\r\n                  }\r\n                ]\r\n              },\r\n              \"reference\" : {\r\n                \"identifier\" : {\r\n                  \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n                  \"value\" : \"9876543210\"\r\n                },\r\n                \"display\" : \"Old Health Plan\"\r\n              }\r\n            },\r\n            {\r\n              \"role\" : {\r\n                \"coding\" : [\r\n                  {\r\n                    \"system\" : \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\r\n                    \"code\" : \"IRCP\"\r\n                  }\r\n                ]\r\n              },\r\n              \"reference\" : {\r\n                \"identifier\" : {\r\n                  \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n                  \"value\" : \"0000000001\"\r\n                },\r\n                \"display\" : \"Provider organization\"\r\n              }\r\n            }\r\n          ],\r\n          \"action\" : [\r\n            {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/consentaction\",\r\n                  \"code\" : \"disclose\"\r\n                }\r\n              ]\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/custom/pdex_payer_client/fhir/Patient/member-match",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Patient",
+								"member-match"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

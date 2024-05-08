@@ -1,6 +1,8 @@
 require_relative 'user_input_response'
 require_relative 'urls'
 require_relative 'collection'
+#require_relative 'client_validation_test.rb'
+
 
 module DaVinciPDexTestKit
   # Serve responses to PAS requests
@@ -9,6 +11,7 @@ module DaVinciPDexTestKit
   # See here for full list: https://hl7.org/fhir/us/davinci-pas/STU2/qa.html#suppressed
   module MockServer
     include URLs
+    #include ClientValidationTest
 
     def server_proxy
       @server_proxy ||= Faraday.new(
@@ -37,6 +40,7 @@ module DaVinciPDexTestKit
       #remove token from request as well
       original_request_as_hash = JSON.parse(request.request_body).to_h
       request.request_body = original_request_as_hash.delete_if { |key, value| key == "token" }.to_json
+      #TODO: Change from static response
       request.response_body = {
         resourceType: "Parameters",
         id: "member-match-out",
@@ -66,7 +70,15 @@ module DaVinciPDexTestKit
 
     def match_request_to_expectation(endpoint, params)
       matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} & expectation) == expectation}
+      # matched_search_without_patient = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} << "patient" & expectation) == expectation}
+
+      # if matched_search
       params.select {|key, value| matched_search.include?(key.to_s) || key == "_revInclude" || key == "_include"}
+      # else
+      #   new_params = params.select {|key, value| matched_search_without_patient.include?(key.to_s) || key == "_revInclude" || key == "_include"}
+      #   new_params["patient"] = patient_id_from_match_request
+      #   new_params
+      # end
     end
 
     def extract_client_id(request)

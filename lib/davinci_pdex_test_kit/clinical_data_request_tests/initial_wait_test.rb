@@ -1,8 +1,10 @@
 require_relative '../urls'
+require_relative '../client_validation_test.rb'
 
 module DaVinciPDexTestKit
   class PDexClientSubmitMustSupportTest < Inferno::Test
     include URLs
+    include DaVinciPDexTestKit::ClientValidationTest
 
     id :initial_wait_test
     title 'Client makes requests that capture an entire patient'

@@ -13,7 +13,6 @@ module DaVinciPDexTestKit
     input :access_token
 
     run do
-      info flattened_all_resources.to_json
       expected_resources = SET_TO_BE_GATHERED.values.flatten
       resource_ids = flattened_all_resources.map(&:id)
 
