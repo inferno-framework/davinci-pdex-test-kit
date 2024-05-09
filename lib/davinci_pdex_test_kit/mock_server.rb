@@ -29,7 +29,7 @@ module DaVinciPDexTestKit
 
     def claim_response(request, test = nil, test_result = nil)
       endpoint = resource_endpoint(request.url)
-      params = match_request_to_expectation(endpoint, request.query_parameters.reject {|key, value| key ==  "token" })
+      params = match_request_to_expectation(endpoint, request.query_parameters)
       response = server_proxy.get(endpoint, params)
       request.status = response.status
       request.response_headers = response.headers.reject!{|key, value| key == "transfer-encoding"} # chunked causes problems for client
@@ -39,7 +39,7 @@ module DaVinciPDexTestKit
     def member_match_response(request, test = nil, test_result = nil)
       #remove token from request as well
       original_request_as_hash = JSON.parse(request.request_body).to_h
-      request.request_body = original_request_as_hash.delete_if { |key, value| key == "token" }.to_json
+      request.request_body = original_request_as_hash.to_json
       #TODO: Change from static response
       request.response_body = {
         resourceType: "Parameters",
@@ -92,10 +92,6 @@ module DaVinciPDexTestKit
 
     def extract_token_from_query_params(request)  
       request.query_parameters['token']
-    end
-
-    def extract_token_from_response_body(request)
-      JSON.parse(request.request_body).to_h['token']
     end
 
     # Drop the last two segments of a URL, i.e. the resource type and ID of a FHIR resource
