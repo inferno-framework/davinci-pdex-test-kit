@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "192f3358-0029-45a1-8e34-637ed8720998",
 		"name": "PDEX",
+		"description": "The variables tab in this collection controls port for inferno and token used to establish a session.  \n  \nSet port to :4567 if running Inferno outside of docker, leave blank if running Inferno in docker.\n\nToken default is \"a\"",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "29930935"
 	},
@@ -21,12 +22,11 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:4567/custom/pdex_payer_client/fhir/AllergyIntolerance?patient=999",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/AllergyIntolerance?patient=999",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
-							"port": "4567",
 							"path": [
 								"custom",
 								"pdex_payer_client",
@@ -49,10 +49,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/CarePlan?patient=999&category=assess-plan",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/CarePlan?patient=999&category=assess-plan",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -80,10 +80,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/CareTeam?patient=999&status=active",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/CareTeam?patient=999&status=active",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -111,10 +111,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Condition?patient=999",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Condition?patient=999",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -138,10 +138,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Device?patient=999",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Device?patient=999",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -165,10 +165,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/DiagnosticReport?patient=999",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/DiagnosticReport?patient=999",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -192,10 +192,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/DocumentReference?patient=999",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/DocumentReference?patient=999",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -219,10 +219,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Encounter?patient=999",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Encounter?patient=999",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -246,10 +246,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/ExplanationOfBenefit?patient=999",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/ExplanationOfBenefit?patient=999",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -273,10 +273,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Goal?patient=999",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Goal?patient=999",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -300,10 +300,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Immunization?patient=999",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Immunization?patient=999",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -327,10 +327,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Location?name=pdex-Location",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Location?name=pdex-Location",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -354,10 +354,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/MedicationDispense?patient=999",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/MedicationDispense?patient=999",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -381,10 +381,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/MedicationRequest?patient=999&intent=plan",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/MedicationRequest?patient=999&intent=plan",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -412,10 +412,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Observation?patient=999&category=vital-signs",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Observation?patient=999&category=vital-signs",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -443,10 +443,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Organization?name=pdex-Organization",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Organization?name=pdex-Organization",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -470,10 +470,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Patient?_id=999",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Patient?_id=999",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -497,10 +497,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Practitioner?name=pdex-Practitioner",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Practitioner?name=pdex-Practitioner",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -524,10 +524,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/PractitionerRole?specialty=208D00000X",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/PractitionerRole?specialty=208D00000X",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -551,10 +551,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Procedure?patient=999",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Procedure?patient=999",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -606,10 +606,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/AllergyIntolerance",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/AllergyIntolerance",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -627,10 +627,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/CarePlan?category=assess-plan",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/CarePlan?category=assess-plan",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -654,10 +654,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/CareTeam?status=active",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/CareTeam?status=active",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -681,10 +681,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Condition",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Condition",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -702,10 +702,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Device",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Device",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -723,10 +723,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/DiagnosticReport",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/DiagnosticReport",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -744,10 +744,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/DocumentReference",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/DocumentReference",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -765,10 +765,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Encounter",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Encounter",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -786,10 +786,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/ExplanationOfBenefit",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/ExplanationOfBenefit",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -807,10 +807,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Goal",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Goal",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -828,10 +828,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Immunization",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Immunization",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -849,10 +849,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Location",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Location",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -870,10 +870,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/MedicationDispense",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/MedicationDispense",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -891,10 +891,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/MedicationRequest?intent=plan",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/MedicationRequest?intent=plan",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -918,10 +918,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Observation?category=vital-signs",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Observation?category=vital-signs",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -945,10 +945,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Organization?name=pdex-Organization",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Organization?name=pdex-Organization",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -972,10 +972,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Patient",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Patient",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -993,10 +993,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Practitioner?name=pdex-Practitioner",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Practitioner?name=pdex-Practitioner",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -1020,10 +1020,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/PractitionerRole?specialty=208D00000X",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/PractitionerRole?specialty=208D00000X",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -1047,10 +1047,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Procedure",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Procedure",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -1111,12 +1111,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4567/custom/pdex_payer_client/fhir/Patient/member-match",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Patient/member-match",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
-							"port": "4567",
 							"path": [
 								"custom",
 								"pdex_payer_client",
@@ -1150,10 +1149,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/custom/pdex_payer_client/fhir/Patient/member-match",
+							"raw": "http://localhost{{port}}/custom/pdex_payer_client/fhir/Patient/member-match",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"localhost{{port}}"
 							],
 							"path": [
 								"custom",
@@ -1196,7 +1195,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "a",
+				"value": "{{token}}",
 				"type": "string"
 			}
 		]
@@ -1221,6 +1220,18 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "port",
+			"value": ":4567",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "a",
+			"type": "string"
 		}
 	]
 }
