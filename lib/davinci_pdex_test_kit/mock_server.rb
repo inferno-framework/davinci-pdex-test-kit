@@ -15,7 +15,7 @@ module DaVinciPDexTestKit
 
     def server_proxy
       @server_proxy ||= Faraday.new(
-          url: 'http://host.docker.internal:8080/reference-server/r4/',
+          url: ENV.fetch('REFERENCE_SERVER_URL'),
           params: {},
           headers: {'Content-Type' => 'application/json', 'Authorization' => 'Bearer SAMPLE_TOKEN'},
         )
