@@ -45,12 +45,12 @@ module DaVinciPDexTestKit
   
       record_response_route :get, SUBMIT_PATH, SUBMIT_TAG, method(:claim_response),
                             resumes: method(:test_resumes?) do |request|
-        PDexPayerClientSuite.extract_token_from_query_params(request)
+        PDexPayerClientSuite.extract_bearer_token(request)
       end
 
       record_response_route :post, MEMBER_MATCH_PATH, MEMBER_MATCH_TAG, method(:member_match_response),
                             resumes: method(:test_resumes?) do |request|
-        PDexPayerClientSuite.extract_token_from_response_body(request)
+        PDexPayerClientSuite.extract_bearer_token(request)
       end
   
       resume_test_route :get, RESUME_PASS_PATH do |request|
