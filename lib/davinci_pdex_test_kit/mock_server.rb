@@ -1,6 +1,8 @@
 require_relative 'user_input_response'
 require_relative 'urls'
 require_relative 'collection'
+#require_relative 'client_validation_test.rb'
+
 
 module DaVinciPDexTestKit
   # Serve responses to PAS requests
@@ -9,6 +11,7 @@ module DaVinciPDexTestKit
   # See here for full list: https://hl7.org/fhir/us/davinci-pas/STU2/qa.html#suppressed
   module MockServer
     include URLs
+    #include ClientValidationTest
 
     def server_proxy
       @server_proxy ||= Faraday.new(
@@ -29,13 +32,53 @@ module DaVinciPDexTestKit
       params = match_request_to_expectation(endpoint, request.query_parameters.reject {|key, value| key ==  "token" })
       response = server_proxy.get(endpoint, params)
       request.status = response.status
-      request.response_headers = response.headers.reject!{ |key, value| key == "transfer-encoding"} # chunked causes problems for client
+      request.response_headers = response.headers.reject!{|key, value| key == "transfer-encoding"} # chunked causes problems for client
       request.response_body = response.body
+    end
+
+    def member_match_response(request, test = nil, test_result = nil)
+      #remove token from request as well
+      original_request_as_hash = JSON.parse(request.request_body).to_h
+      request.request_body = original_request_as_hash.delete_if { |key, value| key == "token" }.to_json
+      #TODO: Change from static response
+      request.response_body = {
+        resourceType: "Parameters",
+        id: "member-match-out",
+        parameter: [
+          {
+            name: "MemberIdentifier",
+            valueIdentifier: {
+              type: {
+                coding: [
+                  {
+                    system: "http://terminology.hl7.org/CodeSystem/v2-0203",
+                    code: "MB"
+                  }
+                ]
+              },
+              system: "http://example.org/target-payer/identifiers/member",
+              value: "99999",
+              assigner: {
+                display: "Old Payer"
+              }
+            }
+          }
+        ]
+      }.to_json
+      request.status = 200
     end
 
     def match_request_to_expectation(endpoint, params)
       matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} & expectation) == expectation}
+      # matched_search_without_patient = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} << "patient" & expectation) == expectation}
+
+      # if matched_search
       params.select {|key, value| matched_search.include?(key.to_s) || key == "_revInclude" || key == "_include"}
+      # else
+      #   new_params = params.select {|key, value| matched_search_without_patient.include?(key.to_s) || key == "_revInclude" || key == "_include"}
+      #   new_params["patient"] = patient_id_from_match_request
+      #   new_params
+      # end
     end
 
     def extract_client_id(request)
@@ -47,8 +90,12 @@ module DaVinciPDexTestKit
       request.request_header('Authorization')&.value&.split&.last
     end
 
-    def extract_token_from_query_params(request)
+    def extract_token_from_query_params(request)  
       request.query_parameters['token']
+    end
+
+    def extract_token_from_response_body(request)
+      JSON.parse(request.request_body).to_h['token']
     end
 
     # Drop the last two segments of a URL, i.e. the resource type and ID of a FHIR resource

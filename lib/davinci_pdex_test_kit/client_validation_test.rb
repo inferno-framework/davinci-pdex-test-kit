@@ -18,6 +18,18 @@ module DaVinciPDexTestKit
       @previous_requests ||= load_tagged_requests(SUBMIT_TAG)
     end
 
+    def member_match_request
+      @member_match_request ||= load_tagged_requests(MEMBER_MATCH_TAG).first
+    end
+
+    # def patient_id_from_match_request
+    #   @patient_id_from_match_request ||= member_match_request ? "999" : nil #TODO: Change from static response
+    # end
+
+    def all_member_match_requests
+      @all_member_match_requests ||= load_tagged_requests(MEMBER_MATCH_TAG)
+    end
+
     def flattened_all_resources
       @flattened_all_resources ||= previous_request_resources.values.flatten
     end

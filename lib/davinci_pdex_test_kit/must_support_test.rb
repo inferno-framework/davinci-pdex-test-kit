@@ -11,10 +11,6 @@ module DaVinciPDexTestKit
       scratch_resources[:all] ||= []
     end
 
-    def reset_variables
-      @missing_elements = @missing_slices = @missing_extensions = nil
-    end
-
     def tagged_resources(tag)
       resources = []
       load_tagged_requests(tag)
@@ -56,16 +52,9 @@ module DaVinciPDexTestKit
 
       return unless (missing_elements + missing_slices + missing_extensions).compact.reject(&:empty?).present?
 
-      all_must_support_errors << "Could not find #{missing_must_support_strings.join(', ')} " \
-                                 "in the #{resources.length} provided #{resource_type} resource(s)."
-
-      all_must_support_errors.reject! { |err| err.downcase.include?('x12') }
-      reset_variables
-
-      # pass if (missing_elements + missing_slices + missing_extensions).empty?
-
-      # assert false, "Could not find #{missing_must_support_strings.join(', ')} in the #{resources.length} " \
-      #               "provided #{resource_type} resource(s)"
+      pass if (missing_elements + missing_slices + missing_extensions).empty?
+      assert false, "Could not find #{missing_must_support_strings.join(', ')} in the #{resources.length} " \
+                    "provided #{resource_type} resource(s)"
     end
 
     def handle_must_support_choices
@@ -100,7 +89,7 @@ module DaVinciPDexTestKit
 
     def missing_must_support_strings
       missing_elements.map { |element_definition| missing_element_string(element_definition) } +
-        missing_slices.map { |slice_definition| slice_definition[:name] } +
+        missing_slices.map { |slice_definition| slice_definition[:slice_id] } +
         missing_extensions.map { |extension_definition| extension_definition[:id] }
     end
 
@@ -173,11 +162,7 @@ module DaVinciPDexTestKit
     end
 
     def must_support_slices
-      if exclude_uscdi_only_test?
-        metadata.must_supports[:slices].reject { |slice| slice[:uscdi_only] }
-      else
-        metadata.must_supports[:slices]
-      end
+      metadata.must_supports[:slices]
     end
 
     def missing_slices(resources = [])
@@ -257,7 +242,7 @@ module DaVinciPDexTestKit
               else
                 true
               end
-
+            
             current_element_values_match && child_element_values_match
           end
         end
