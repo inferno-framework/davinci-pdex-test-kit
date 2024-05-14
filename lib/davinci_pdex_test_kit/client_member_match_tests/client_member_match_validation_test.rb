@@ -13,11 +13,11 @@ module DaVinciPDexTestKit
     input :access_token
 
     run do
-      assert member_match_request, "No previous member match request attempted"
-      resource_is_valid?(resource: FHIR::Parameters.new(JSON.parse(member_match_request.request_body).to_h), profile_url: 'http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-parameters-member-match-in')
-      errors_found = messages.select { |message| message[:type] == 'error' }
-      errors_found_string = errors_found.map { |error| error[:message] }.to_s
-      assert !errors_found.nil?, "Resource does not conform to the [Member Match Input profile](http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-parameters-member-match-in).  Errors found:\n #{errors_found_string}"
+      skip_if !member_match_request.present?, "No previous member match request attempted"
+      
+      parameters = FHIR.from_contents(member_match_request.response_body)
+      assert_resource_type(:parameters, resource: parameters)
+      assert_valid_resource(resource: parameters, profile_url: 'http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-parameters-member-match-in')
     end
   end
 end

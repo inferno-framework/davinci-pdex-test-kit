@@ -3,6 +3,7 @@ module DaVinciPDexTestKit
   SUBMIT_PATH = '/fhir/:endpoint'
   MEMBER_MATCH_PATH = '/fhir/Patient/member-match'
   RESUME_PASS_PATH = '/resume_pass'
+  RESUME_CLINICAL_DATA_PATH = '/resume_clinical_data'
   RESUME_FAIL_PATH = '/resume_fail'
 
   module URLs
@@ -24,6 +25,10 @@ module DaVinciPDexTestKit
 
     def resume_pass_url
       @resume_pass_url ||= base_url + RESUME_PASS_PATH
+    end
+
+    def resume_clinical_data_url
+      @resume_clinical_data_url ||= base_url + RESUME_CLINICAL_DATA_PATH
     end
 
     def resume_fail_url

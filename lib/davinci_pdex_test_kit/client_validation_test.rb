@@ -1,9 +1,8 @@
 module DaVinciPDexTestKit
   module ClientValidationTest
-
-    def previous_request_resources
+    def previous_clinical_data_request_resources
       hash = Hash.new { |hash, key| hash[key] = [] }
-      previous_requests.each_with_object(hash) do |request, request_resource_hash|
+      previous_clinical_data_requests.each_with_object(hash) do |request, request_resource_hash|
         request_resources =
           if request.status == 200
             request.resource.entry.map(&:resource)
@@ -14,8 +13,8 @@ module DaVinciPDexTestKit
       end
     end
 
-    def previous_requests
-      @previous_requests ||= load_tagged_requests(SUBMIT_TAG)
+    def previous_clinical_data_requests
+      @previous_clinical_data_requests ||= load_tagged_requests(SUBMIT_TAG)
     end
 
     def member_match_request
@@ -31,7 +30,7 @@ module DaVinciPDexTestKit
     end
 
     def flattened_all_resources
-      @flattened_all_resources ||= previous_request_resources.values.flatten
+      @flattened_all_resources ||= previous_clinical_data_request_resources.values.flatten
     end
   end
 end

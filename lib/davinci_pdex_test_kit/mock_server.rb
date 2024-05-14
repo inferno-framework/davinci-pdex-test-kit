@@ -1,7 +1,7 @@
 require_relative 'user_input_response'
 require_relative 'urls'
 require_relative 'collection'
-#require_relative 'client_validation_test.rb'
+require_relative 'client_validation_test.rb'
 
 
 module DaVinciPDexTestKit
@@ -11,7 +11,6 @@ module DaVinciPDexTestKit
   # See here for full list: https://hl7.org/fhir/us/davinci-pas/STU2/qa.html#suppressed
   module MockServer
     include URLs
-    #include ClientValidationTest
 
     def server_proxy
       @server_proxy ||= Faraday.new(
@@ -56,7 +55,7 @@ module DaVinciPDexTestKit
                   }
                 ]
               },
-              system: "http://example.org/target-payer/identifiers/member",
+              system: "https://github.com/inferno-framework/target-payer/identifiers/member",
               value: "99999",
               assigner: {
                 display: "Old Payer"

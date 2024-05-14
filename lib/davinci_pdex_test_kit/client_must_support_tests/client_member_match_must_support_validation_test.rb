@@ -3,8 +3,8 @@ require_relative '../group_metadata.rb'
 
 module DaVinciPDexTestKit
   class PDexInitialMemberMatchMustSupportValidationTest < Inferno::Test
-    include DaVinciPDexTestKit::ClientValidationTest
     include DaVinciPDexTestKit::MustSupportTest
+    include DaVinciPDexTestKit::ClientValidationTest
     include URLs
 
     id :initial_member_match_must_support_validation_test
@@ -26,7 +26,7 @@ module DaVinciPDexTestKit
 
       assert all_member_match_requests, "No previous member match requests attempted"
 
-      perform_must_support_test(all_member_match_requests.map {|match_request| FHIR::Parameters.new(JSON.parse(member_match_request.request_body).to_h)})
+      perform_must_support_test(all_member_match_requests.map {|match_request| FHIR::Parameters.new(JSON.parse(match_request.request_body).to_h)})
     end
   end
 end
