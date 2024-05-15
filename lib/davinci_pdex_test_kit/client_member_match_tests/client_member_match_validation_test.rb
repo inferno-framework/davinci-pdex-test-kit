@@ -15,7 +15,7 @@ module DaVinciPDexTestKit
     run do
       skip_if !member_match_request.present?, "No previous member match request attempted"
       
-      parameters = FHIR.from_contents(member_match_request.response_body)
+      parameters = FHIR.from_contents(member_match_request.request_body)
       assert_resource_type(:parameters, resource: parameters)
       assert_valid_resource(resource: parameters, profile_url: 'http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-parameters-member-match-in')
     end

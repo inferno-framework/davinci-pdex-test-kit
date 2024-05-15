@@ -29,10 +29,15 @@ module DaVinciPDexTestKit
     def claim_response(request, test = nil, test_result = nil)
       endpoint = resource_endpoint(request.url)
       params = match_request_to_expectation(endpoint, request.query_parameters)
-      response = server_proxy.get(endpoint, params)
-      request.status = response.status
-      request.response_headers = response.headers.reject!{|key, value| key == "transfer-encoding"} # chunked causes problems for client
-      request.response_body = response.body
+      if params
+        response = server_proxy.get(endpoint, params)
+        request.status = response.status
+        request.response_headers = response.headers.reject!{|key, value| key == "transfer-encoding"} # chunked causes problems for client
+        request.response_body = response.body
+      else
+        request.status = 400
+        request.response_body = "Inferno does not support a search of this query"
+      end
     end
 
     def member_match_response(request, test = nil, test_result = nil)
@@ -42,7 +47,6 @@ module DaVinciPDexTestKit
       #TODO: Change from static response
       request.response_body = {
         resourceType: "Parameters",
-        id: "member-match-out",
         parameter: [
           {
             name: "MemberIdentifier",
@@ -71,8 +75,11 @@ module DaVinciPDexTestKit
       matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} & expectation) == expectation}
       # matched_search_without_patient = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} << "patient" & expectation) == expectation}
 
-      # if matched_search
-      params.select {|key, value| matched_search.include?(key.to_s) || key == "_revInclude" || key == "_include"}
+      if matched_search
+        params.select {|key, value| matched_search.include?(key.to_s) || key == "_revInclude" || key == "_include"}
+      else
+        nil
+      end
       # else
       #   new_params = params.select {|key, value| matched_search_without_patient.include?(key.to_s) || key == "_revInclude" || key == "_include"}
       #   new_params["patient"] = patient_id_from_match_request

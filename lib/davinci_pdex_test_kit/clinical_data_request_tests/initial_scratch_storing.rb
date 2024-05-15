@@ -14,8 +14,6 @@ module DaVinciPDexTestKit
       previous_clinical_data_request_resources.each do |request, resources|
         resources.each do |resource|
           scratch[resource.resourceType.to_sym] ||= []
-          scratch["#{resource.resourceType}Requests".to_sym] ||= []
-          scratch["#{resource.resourceType}Requests".to_sym] |= [request]
           scratch[resource.resourceType.to_sym] |= [resource]
         end
       end

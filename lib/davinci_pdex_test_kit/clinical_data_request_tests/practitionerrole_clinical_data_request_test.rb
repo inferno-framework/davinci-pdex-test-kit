@@ -15,7 +15,6 @@ module DaVinciPDexTestKit
 
 
     run do
-      requests = scratch["PractitionerRoleRequests".to_sym]
       skip_if scratch[:PractitionerRole].nil?, "No requests made for PractitionerRole resources"
 
       assert scratch[:PractitionerRole].any? {|resource| resource.id = 'pdex-PractitionerRole'}, "Unable to find expected resource: pdex-PractitionerRole" 

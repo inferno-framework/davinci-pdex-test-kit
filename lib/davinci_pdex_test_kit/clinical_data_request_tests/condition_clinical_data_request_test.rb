@@ -15,7 +15,6 @@ module DaVinciPDexTestKit
 
 
     run do
-      requests = scratch["ConditionRequests".to_sym]
       skip_if scratch[:Condition].nil?, "No requests made for Condition resources"
 
       assert scratch[:Condition].any? {|resource| resource.id = 'pdex-Condition'}, "Unable to find expected resource: pdex-Condition" 

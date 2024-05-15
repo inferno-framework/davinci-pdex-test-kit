@@ -15,7 +15,6 @@ module DaVinciPDexTestKit
 
 
     run do
-      requests = scratch["PatientRequests".to_sym]
       skip_if scratch[:Patient].nil?, "No requests made for Patient resources"
 
       assert scratch[:Patient].any? {|resource| resource.id = '999'}, "Unable to find expected resource: 999" 

@@ -102,6 +102,7 @@ module DaVinciPDexTestKit
           test from: :initial_wait_test
           group do
             title "Resource Specific tests"
+            run_as_group
             test from: :initial_scratch_storing
             test from: :allergyintolerance_clinical_data_request_test
             test from: :careplan_clinical_data_request_test
