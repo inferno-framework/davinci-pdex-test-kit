@@ -1,5 +1,27 @@
 module DaVinciPDexTestKit
-  SET_TO_BE_GATHERED = {Patient: ['999'], Encounter: ['pdex-encounter']}
+  SET_TO_BE_GATHERED = {AllergyIntolerance: ['pdex-AllergyIntolerance'],
+                        CarePlan: ['pdex-CarePlan'],
+                        CareTeam: ['pdex-CareTeam'],
+                        Condition: ['pdex-Condition'],
+                        Device: ['pdex-Device'],
+                        DiagnosticReport: ['pdex-DiagnosticReport'],
+                        DocumentReference: ['pdex-DocumentReference'],
+                        Encounter: ['pdex-Encounter'],
+                        ExplanationOfBenefit: ['pdex-ExplanationOfBenefit'],
+                        Goal: ['pdex-Goal'],
+                        Immunization: ['pdex-Immunization'],
+                        Location: ['pdex-Location'],
+                        MedicationDispense: ['pdex-MedicationDispense'],
+                        MedicationRequest: ['pdex-MedicationRequest'],
+                        Observation: ['pdex-Observation'],
+                        Organization: ['pdex-Organization'],
+                        Patient: ['999'],
+                        Practitioner: ['pdex-Practitioner'],
+                        PractitionerRole: ['pdex-PractitionerRole'],
+                        Procedure: ['pdex-Procedure']
+                        #TODO: What about Provenance?
+                      }
+
   SEARCHES_BY_PRIORITY = {AllergyIntolerance: [['patient']],
                           CarePlan: [['patient', 'category']],
                           CareTeam: [['patient', 'status']],
