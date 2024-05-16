@@ -10,14 +10,12 @@ Implementation Guide](https://hl7.org/fhir/us/davinci-pdex/).
 - [JSON API documentation](https://inferno-framework.github.io/inferno-core/api-docs)
 
 ## PDEX Client Tests
-- **Extremely draft state**
-- Can generate basic tests with the init-gen.rb file
-- Requests are currently hardcoded forwarded to a local server, assumed to be hosted on docker.  This is found in
-  `lib/davinci_pdex_test_kit/mock_server.rb`'s `server_proxy`.
+- Requests are forwarded to a local server.  This is found in `lib/davinci_pdex_test_kit/mock_server.rb`'s
+ `server_proxy`
 - Postman collection exists for mocking the client, at `PDEX-mock-client.postman_collection.json`
-- - Currently facing some socket hangup issues, so if you run the collection you need to set it to continue running 
-    even if it encounters an error
-
+- Tests are organized into two categories, a workflow test group, and a must support test group
+- - Workflow test group - Tests member-match requests, returns an identifier, and checks that the client attempts to gather all resources related to the matched patient
+- - Must Support test group - Tests that all Must Support elements of the member-match-input profile are covered by any of the received member-match requests
 
 ## Instructions for Developing tests
 
