@@ -8,9 +8,9 @@ module DaVinciPDexTestKit
     include URLs
 
     id :initial_member_match_must_support_validation_test
-    title 'Placeholder for showing the requests received and the responses given to each.'
+    title 'All must support elements are provided in the received $member-match requests'
     description %(
-      
+      This test verifies that the client is capable of making $member-match requests 
     )
     input :access_token
 
@@ -24,7 +24,7 @@ module DaVinciPDexTestKit
 
     run do
 
-      assert all_member_match_requests, "No previous member match requests attempted"
+      assert all_member_match_requests, "No previous member-match requests received"
 
       perform_must_support_test(all_member_match_requests.map {|match_request| FHIR::Parameters.new(JSON.parse(match_request.request_body).to_h)})
     end

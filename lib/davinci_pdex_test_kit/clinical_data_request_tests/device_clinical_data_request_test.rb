@@ -7,9 +7,9 @@ module DaVinciPDexTestKit
     include DaVinciPDexTestKit::ClientValidationTest
 
     id :device_clinical_data_request_test
-    title 'Looks through requests made for an attempt to gather Device resources related to the patient matched'
+    title 'Device resources related to the patient matched are gathered'
     description %(
-      This test will look through all returned Device resources for an expected resource related to the matched patient.
+      This test will look through all returned Device resources for a specific expected resource related to the matched patient.
     )
     input :access_token
 

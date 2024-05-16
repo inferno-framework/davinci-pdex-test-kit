@@ -6,7 +6,7 @@ module DaVinciPDexTestKit
     id :initial_scratch_storing
     title 'Client makes requests that capture an entire patient'
     description %(
-      
+      This test is a placeholder for organizing future resources
     )
     input :access_token
 

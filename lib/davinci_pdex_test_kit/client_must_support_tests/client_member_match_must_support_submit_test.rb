@@ -5,9 +5,9 @@ module DaVinciPDexTestKit
     include URLs
 
     id :initial_member_match_must_support_submit_test
-    title 'Client makes a $member_match request'
+    title '$member-match requests span all Must Supports'
     description %(
-      $MEMBER-MATCH DESCRIPTION
+      This test will receive $member-match requests until the user specifies they are done.  It then checks all received $member-match requests for Must Support coverage.
     )
     input :access_token
     config options: { accepts_multiple_requests: true }

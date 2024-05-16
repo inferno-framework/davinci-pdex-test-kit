@@ -5,9 +5,9 @@ module DaVinciPDexTestKit
     include URLs
 
     id :initial_member_match_submit_test
-    title 'Client makes a $member_match request'
+    title 'Client makes a $member-match request'
     description %(
-      $MEMBER-MATCH DESCRIPTION
+      This test will await a $member-match request and proceed once a request is received.
     )
     input :access_token
 

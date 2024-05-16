@@ -6,14 +6,14 @@ module DaVinciPDexTestKit
     include URLs
 
     id :initial_member_match_validation_test
-    title 'Placeholder for showing the requests received and the responses given to each.'
+    title 'Client provides a valid $member-match request'
     description %(
-      
+      This test will validate the received $member-match-request input, ensuring it corresponds to the [HRex member-match-in profile](http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-parameters-member-match-in)
     )
     input :access_token
 
     run do
-      skip_if !member_match_request.present?, "No previous member match request attempted"
+      skip_if !member_match_request.present?, "No previous $member-match request received"
       
       parameters = FHIR.from_contents(member_match_request.request_body)
       assert_resource_type(:parameters, resource: parameters)

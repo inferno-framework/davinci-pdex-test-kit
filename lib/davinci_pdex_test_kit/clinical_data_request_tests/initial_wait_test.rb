@@ -4,9 +4,9 @@ module DaVinciPDexTestKit
     include URLs
 
     id :initial_wait_test
-    title 'Client makes requests that capture an entire patient'
+    title 'Client makes clinical data requests that capture an entire patient'
     description %(
-      
+      This test will receive clinical data requests until the user confirms they are done. 
     )
     input :access_token
     config options: { accepts_multiple_requests: true }

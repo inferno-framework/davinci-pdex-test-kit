@@ -7,9 +7,9 @@ module DaVinciPDexTestKit
     include DaVinciPDexTestKit::ClientValidationTest
 
     id :medicationdispense_clinical_data_request_test
-    title 'Looks through requests made for an attempt to gather MedicationDispense resources related to the patient matched'
+    title 'MedicationDispense resources related to the patient matched are gathered'
     description %(
-      This test will look through all returned MedicationDispense resources for an expected resource related to the matched patient.
+      This test will look through all returned MedicationDispense resources for a specific expected resource related to the matched patient.
     )
     input :access_token
 

@@ -7,9 +7,9 @@ module DaVinciPDexTestKit
     include DaVinciPDexTestKit::ClientValidationTest
 
     id :observation_clinical_data_request_test
-    title 'Looks through requests made for an attempt to gather Observation resources related to the patient matched'
+    title 'Observation resources related to the patient matched are gathered'
     description %(
-      This test will look through all returned Observation resources for an expected resource related to the matched patient.
+      This test will look through all returned Observation resources for a specific expected resource related to the matched patient.
     )
     input :access_token
 
