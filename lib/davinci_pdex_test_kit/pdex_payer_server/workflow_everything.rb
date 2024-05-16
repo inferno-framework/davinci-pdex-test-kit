@@ -2,17 +2,22 @@
 
 module DaVinciPDexTestKit
   module PDexPayerServer
-
-    # Test Group for /Patient/$everything FHIR operation
-    class DollarEverythingTestGroup < Inferno::TestGroup
-      title 'Patient $everything'
-      id :dollar_everything
+    class WorkflowEverythingTestGroup < Inferno::TestGroup
+      title 'Server can respond to $everything requests on matched patient'
+      short_title '$everything'
+      id :workflow_everything
       optional
-      description <<~MARKDOWN
+      description %{
+        # Background
+
         The Patient $everything operation for Payer-to-Payer exchange. See
-        [PDex Implementation Guide](https://build.fhir.org/ig/HL7/davinci-epdx/pdeximplementationactorsinteractionsdatapayloadsandmethods.html#payer-to-payer-data-exchange)
+        [PDex Implementation Guide](https://hl7.org/fhir/us/davinci-pdex/STU2/payertopayerexchange.html#everything-operation)
         and [FHIR R4 documentation](https://hl7.org/fhir/R4/patient-operation-everything.html).
-      MARKDOWN
+
+        # Test Methodology
+
+        This test sequence takes a patient id input and executes the `$everything` FHIR operation on it.
+      }
 
       test do
         title 'Server asserts Patient instance operation $everything in Capability Statement'
@@ -25,7 +30,7 @@ module DaVinciPDexTestKit
             resource.rest.one? do |rest_metadata|
               rest_metadata.resource.select { |resource_metadata| resource_metadata.type == 'Patient' }.first
                 .operation.any? do |operation_metadata|
-                  operation_metadata.name == '$everything' && operation_metadata.canonical == 'http://hl7.org/fhir/OperationDefinition/Patient-everything'
+                  operation_metadata.name == 'everything' && operation_metadata.definition == 'http://hl7.org/fhir/OperationDefinition/Patient-everything'
                 end
             end
           )
@@ -34,12 +39,16 @@ module DaVinciPDexTestKit
 
       test do
         title 'Server can handle GET /Patient/[ID]/$everything'
-        input :patient_id, title: 'Patient ID'
-        output :patient_id
-        makes_request :patient_everything
+
+        input :patient_id # borrows properties from workflow_clinical_data
+
+        makes_request :pdex_patient_everything
 
         run do
-          fhir_operation("/Patient/#{patient_id}/$everything", operation_method: :get, name: :patient_everything)
+          skip_if !patient_id,
+            "No Patient FHIR ID was derived from $member-match response or supplied by user input"
+
+          fhir_operation("/Patient/#{patient_id}/$everything", operation_method: :get, name: :pdex_patient_everything)
 
           assert_response_status 200
         end
@@ -47,11 +56,15 @@ module DaVinciPDexTestKit
 
       test do
         title 'Server returns a Bundle resource with requested Patient resource, and all resources conform to FHIR R4'
-        input :patient_id
-        uses_request :patient_everything
+
+        input :patient_id # borrows properties from workflow_clinical_data
+
+        uses_request :pdex_patient_everything
 
         run do
           skip_if response[:status] != 200, 'Skipped because previous test did not pass'
+          skip_if !patient_id
+            'No Patient ID was derived from $member-match nor supplied from user input'
 
           assert_valid_resource
           assert_resource_type(:bundle)
@@ -65,11 +78,11 @@ module DaVinciPDexTestKit
       end
 
       test do
-        title <<~PLAIN_TEXT
+        title %{
           The resources returned SHALL include all the data covered by the meaningful use common data elements as
           defined in the US Core Implementation Guide
-        PLAIN_TEXT
-        description <<~MARKDOWN
+        }
+        description %{
           See FHIR R4 documentation for [patient-everything](https://hl7.org/fhir/R4/patient-operation-everything.html).
           The US realm has now replaced meaningful use common data elements with [USCDI](https://www.healthit.gov/isa/united-states-core-data-interoperability-uscdi).
 
@@ -78,8 +91,9 @@ module DaVinciPDexTestKit
 
           It is the servers responsiblity to return all resources necessary to cover all USDCI elements known by
           the server.
-        MARKDOWN
-        uses_request :patient_everything
+        }
+
+        uses_request :pdex_patient_everything
 
         run do
           skip_if resource.resourceType != 'Bundle'
@@ -92,16 +106,17 @@ module DaVinciPDexTestKit
       end
 
       test do
-        title <<~PLAIN_TEXT
+        title %{
           Attestation: Server returns all resources necessary to cover all USDCI elements known by the server if
           operating in US Realm.
-        PLAIN_TEXT
+        }
         description 'See previous test for details.'
-        input :uscdi_attestation,
-              title: <<~PLAIN_TEXT
-                Server returns all resources necessary to cover all USDCI elements known by the server if
-                operating in US Realm.
-              PLAIN_TEXT,
+
+        input :workflow_everything_uscdi_attestation,
+              title: %{
+                Server's $everything operation returns all resources necessary to cover all USDCI
+                elements known by the server if operating in US Realm
+              },
               type: :radio,
               options: {
                 list_options: [
@@ -115,22 +130,24 @@ module DaVinciPDexTestKit
                   }
                 ]
               },
-              default: 'no'
+              default: '',
+              optional: true
 
         run do
-          assert uscdi_attestation == 'yes', 'Developer did not agree to attestation'
+          assert workflow_everything_uscdi_attestation == 'yes', 'Developer did not agree to attestation'
         end
       end
 
       test do
-        title <<~PLAIN_TEXT
+        title %{
           Attestation: The use of the Bulk FHIR specification for transmission of member $everything data SHALL
           honor jurisdictional and personal privacy restrictions that are relevant to a member’s health record.
-        PLAIN_TEXT
-        input :privacy_attestation,
+        }
+
+        input :workflow_everything_privacy_attestation,
               title: %Q(
-                Server shall honor jurisdictional and personal privacy restriction that are relevant to a
-                member's health record for $everything
+                Server's $everything operation shall honor jurisdictional and personal privacy
+                restriction that are relevant to a member's health record
               ),
               type: :radio,
               options: {
@@ -145,10 +162,11 @@ module DaVinciPDexTestKit
                   }
                 ]
               },
-              default: 'no'
+              default: '',
+              optional: true
 
         run do
-          assert privacy_attestation == 'yes', 'Developer did not agree to attestation'
+          assert workflow_everything_privacy_attestation == 'yes', 'Developer did not agree to attestation'
         end
       end
 
