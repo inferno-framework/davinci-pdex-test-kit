@@ -116,7 +116,7 @@ module DaVinciPDexTestKit
     def resource_endpoint(url)
       return unless url.start_with?('http://', 'https://')
 
-      (url.gsub(/^(.*\/)/, '')).gsub(%r{\?.*}, '')
+      /custom\/pdex_payer_client\/fhir\/(.*)\?/.match(url)[1]
     end
 
     # @private
