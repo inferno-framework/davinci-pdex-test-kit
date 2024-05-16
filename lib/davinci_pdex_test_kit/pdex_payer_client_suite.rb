@@ -90,19 +90,18 @@ module DaVinciPDexTestKit
       end
 
       group do
+        run_as_group
         title "Workflow Tests"
         group do
           title "$member-match validation"
           test from: :initial_member_match_submit_test
           test from: :initial_member_match_validation_test
         end
-
         group do
           title "Clinical data request tests"
           test from: :initial_wait_test
           group do
             title "Resource Specific tests"
-            run_as_group
             test from: :initial_scratch_storing
             test from: :allergyintolerance_clinical_data_request_test
             test from: :careplan_clinical_data_request_test
