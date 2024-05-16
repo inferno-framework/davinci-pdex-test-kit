@@ -100,30 +100,27 @@ module DaVinciPDexTestKit
         group do
           title "Clinical data request tests"
           test from: :initial_wait_test
-          group do
-            title "Resource Specific tests"
-            test from: :initial_scratch_storing
-            test from: :allergyintolerance_clinical_data_request_test
-            test from: :careplan_clinical_data_request_test
-            test from: :careteam_clinical_data_request_test
-            test from: :condition_clinical_data_request_test
-            test from: :device_clinical_data_request_test
-            test from: :diagnosticreport_clinical_data_request_test
-            test from: :documentreference_clinical_data_request_test
-            test from: :encounter_clinical_data_request_test
-            test from: :explanationofbenefit_clinical_data_request_test
-            test from: :goal_clinical_data_request_test
-            test from: :immunization_clinical_data_request_test
-            test from: :location_clinical_data_request_test
-            test from: :medicationdispense_clinical_data_request_test
-            test from: :medicationrequest_clinical_data_request_test
-            test from: :observation_clinical_data_request_test
-            test from: :organization_clinical_data_request_test
-            test from: :patient_clinical_data_request_test
-            test from: :practitioner_clinical_data_request_test
-            test from: :practitionerrole_clinical_data_request_test
-            test from: :procedure_clinical_data_request_test
-          end
+          test from: :initial_scratch_storing
+          test from: :allergyintolerance_clinical_data_request_test
+          test from: :careplan_clinical_data_request_test
+          test from: :careteam_clinical_data_request_test
+          test from: :condition_clinical_data_request_test
+          test from: :device_clinical_data_request_test
+          test from: :diagnosticreport_clinical_data_request_test
+          test from: :documentreference_clinical_data_request_test
+          test from: :encounter_clinical_data_request_test
+          test from: :explanationofbenefit_clinical_data_request_test
+          test from: :goal_clinical_data_request_test
+          test from: :immunization_clinical_data_request_test
+          test from: :location_clinical_data_request_test
+          test from: :medicationdispense_clinical_data_request_test
+          test from: :medicationrequest_clinical_data_request_test
+          test from: :observation_clinical_data_request_test
+          test from: :organization_clinical_data_request_test
+          test from: :patient_clinical_data_request_test
+          test from: :practitioner_clinical_data_request_test
+          test from: :practitionerrole_clinical_data_request_test
+          test from: :procedure_clinical_data_request_test
         end
       end
       

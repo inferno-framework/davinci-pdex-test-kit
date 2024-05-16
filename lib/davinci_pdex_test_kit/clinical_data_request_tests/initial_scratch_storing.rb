@@ -4,9 +4,9 @@ module DaVinciPDexTestKit
     include DaVinciPDexTestKit::ClientValidationTest
 
     id :initial_scratch_storing
-    title 'Client makes requests that capture an entire patient'
+    title 'Client makes clinical data requests that capture an entire patient'
     description %(
-      This test is a placeholder for organizing future resources
+      This test organizes the received requests in order to validate all expected specific resources were returned
     )
     input :access_token
 

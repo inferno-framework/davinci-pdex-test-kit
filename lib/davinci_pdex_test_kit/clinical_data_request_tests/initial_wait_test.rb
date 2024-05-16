@@ -4,7 +4,7 @@ module DaVinciPDexTestKit
     include URLs
 
     id :initial_wait_test
-    title 'Client makes clinical data requests that capture an entire patient'
+    title 'Client makes clinical data requests'
     description %(
       This test will receive clinical data requests until the user confirms they are done. 
     )
