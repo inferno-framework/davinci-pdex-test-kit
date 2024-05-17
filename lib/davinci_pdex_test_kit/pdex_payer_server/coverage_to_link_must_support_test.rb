@@ -20,8 +20,7 @@ module DaVinciPDexTestKit
         member_match_request_resource = FHIR.from_contents(member_match_request)
 
         assert member_match_request_resource.parameter.find{|p| p.name=='CoverageToLink'}&.resource, "No CoverageToLink parameter provided."
-        assert_valid_resource(resource: member_match_request_resource.parameter.find{|p| p.name=='CoverageToLink'}&.resource,
-                              profile_url: 'http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-coverage')
+        assert_resource_type(:coverage, resource: member_match_request_resource.parameter.find{|p| p.name=='CoverageToLink'}&.resource)
       end
 
     end

@@ -28,7 +28,7 @@ module DaVinciPDexTestKit
 
         coverage = member_match_request_resource.parameter.find{|p| p.name=='CoverageToLink'}.resource
 
-        assert_valid_resource(resource: coverage, profile_url: 'http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-coverage')
+        assert_resource_type(:coverage, resource: coverage)
         assert !coverage.type
         assert !coverage.policyHolder
         assert !coverage.subscriber
