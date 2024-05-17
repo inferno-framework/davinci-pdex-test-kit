@@ -14,7 +14,7 @@ module DaVinciPDexTestKit
 
     def server_proxy
       @server_proxy ||= Faraday.new(
-          url: ENV.fetch('REFERENCE_SERVER_URL'),
+          url: ENV.fetch('FHIR_REFERENCE_SERVER'),
           params: {},
           headers: {'Content-Type' => 'application/json', 'Authorization' => 'Bearer SAMPLE_TOKEN'},
         )
