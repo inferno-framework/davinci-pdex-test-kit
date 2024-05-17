@@ -5,7 +5,7 @@ Gem::Specification.new do |spec|
   # spec.email         = ['TODO']
   spec.date          = Time.now.utc.strftime('%Y-%m-%d')
   spec.summary       = 'Da Vinci PDex Test Kit'
-  spec.description   = 'Test Kit for the Da Vinci Provider Data Exchange (PDex) FHIR Implementation Guide'
+  spec.description   = 'Test Kit for the Da Vinci Payer Data Exchange (PDex) FHIR Implementation Guide'
   # spec.homepage      = 'TODO'
   spec.license       = 'Apache-2.0'
   spec.add_runtime_dependency 'inferno_core', '~> 0.4.28'
