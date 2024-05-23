@@ -23,11 +23,17 @@ module DaVinciTestKit
         and attempt patient-level tests from Bulk Data Access Implementation Guide v2.0.0.
       }
 
-      # Recycled from Bulk Data test suite
+      config({
+        inputs: {
+          bulk_server_url: {name: :url}
+        }
+      })
+
       input :bulk_server_url,
             title: 'Bulk Data FHIR URL',
             description: 'The URL of the Bulk FHIR server.'
 
+      # Required by Bulk Data tests
       fhir_client :bulk_server do
         url :bulk_server_url
       end
@@ -35,6 +41,8 @@ module DaVinciTestKit
       http_client :bulk_server do
         url :bulk_server_url
       end
+
+      # TODO: Bulk Data validator message filtering
 
     end
   end
