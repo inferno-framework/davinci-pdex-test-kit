@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require 'bulk_data_test_kit/v2.0.0/bulk_data_patient_export_test_group'
+
 module DaVinciTestKit
   module PDexPayerServer
-    class WorkflowExportTestGroup < Inferno::TestGroup
+    class WorkflowExportTestGroup < BulkDataTestKit::BulkDataV200::BulkDataPatientTestGroup
       id :workflow_export
       title 'Server can respond to FHIR Bulk $export requests on the matched patient'
       short_title 'Bulk $export'
@@ -17,44 +19,22 @@ module DaVinciTestKit
 
         # Methodology
 
-        This test sequence is still in development. Early adopters should look at the
-        [Bulk Data Test Kit](https://github.com/inferno-framework/bulk-data-test-kit)
-        and attempt patient-level tests.
+        This test sequence leverages the [Bulk Data Test Kit](https://github.com/inferno-framework/bulk-data-test-kit)
+        and attempt patient-level tests from Bulk Data Access Implementation Guide v2.0.0.
       }
 
-      test do
-        id :workflow_export_in_capability_statement
-        title 'Server asserts Patient instance operation $export in Capability Statement'
+      # Recycled from Bulk Data test suite
+      input :bulk_server_url,
+            title: 'Bulk Data FHIR URL',
+            description: 'The URL of the Bulk FHIR server.'
 
-        run do
-          fhir_get_capability_statement
-
-          assert_response_status 200
-          assert(
-            resource.rest.one? do |rest_metadata|
-              rest_metadata.resource.select { |resource_metadata| resource_metadata.type == 'Patient' }.first
-                .operation.any? do |operation_metadata|
-                  operation_metadata.name == 'export' && operation_metadata.definition == 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition/patient-export'
-                end
-            end
-          )
-        end
+      fhir_client :bulk_server do
+        url :bulk_server_url
       end
 
-      # TODO: implement for Bulk Import tests OR import them
-      # test do
-      #   id :workflow_export_patient
-      #   title ''
-      #
-      #   input :patient_id
-      # 
-      #   run do
-      #     skip_if !patient_id
-      #       "No member identifier from $member-match or Patient ID from input was supplied"
-      #
-      #     omit "Unimplemented"
-      #   end
-      # end
+      http_client :bulk_server do
+        url :bulk_server_url
+      end
 
     end
   end
