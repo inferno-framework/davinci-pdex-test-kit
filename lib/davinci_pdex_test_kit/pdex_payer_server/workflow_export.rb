@@ -25,13 +25,9 @@ module DaVinciTestKit
 
       config({
         inputs: {
-          bulk_server_url: {name: :url}
+          bulk_server_url: { name: :url }
         }
       })
-
-      input :bulk_server_url,
-            title: 'Bulk Data FHIR URL',
-            description: 'The URL of the Bulk FHIR server.'
 
       # Required by Bulk Data tests
       fhir_client :bulk_server do
@@ -43,6 +39,8 @@ module DaVinciTestKit
       end
 
       # TODO: Bulk Data validator message filtering
+      # TODO: Should this have a JWKS endpoint like Bulk Data Test Kit for SMART
+      # TODO: Should OAuth Credentials access token double as Bulk Data Access Token
 
     end
   end
