@@ -25,17 +25,17 @@ module DaVinciTestKit
 
       config({
         inputs: {
-          bulk_server_url: { name: :url }
+          bulk_export_url: { name: :url }
         }
       })
 
       # Required by Bulk Data tests
       fhir_client :bulk_server do
-        url :bulk_server_url
+        url :bulk_export_url
       end
 
       http_client :bulk_server do
-        url :bulk_server_url
+        url :bulk_export_url
       end
 
       # TODO: Bulk Data validator message filtering
