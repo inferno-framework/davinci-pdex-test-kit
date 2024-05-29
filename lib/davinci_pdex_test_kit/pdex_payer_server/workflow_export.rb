@@ -2,9 +2,14 @@
 
 require 'bulk_data_test_kit/v2.0.0/bulk_data_patient_export_test_group'
 
+require 'bulk_data_test_kit/v2.0.0/patient/bulk_data_patient_export_cancel_group'
+require 'bulk_data_test_kit/v2.0.0/patient/bulk_data_patient_export_parameters_group'
+require 'bulk_data_test_kit/v1.0.1/patient/bulk_data_patient_export_group'
+require 'bulk_data_test_kit/v1.0.1/patient/bulk_data_patient_export_validation_group'
+
 module DaVinciTestKit
   module PDexPayerServer
-    class WorkflowExportTestGroup < BulkDataTestKit::BulkDataV200::BulkDataPatientTestGroup
+    class WorkflowExportTestGroup < Inferno::TestGroup
       id :workflow_export
       title 'Server can respond to FHIR Bulk $export requests on the matched patient'
       short_title 'Bulk $export'
@@ -52,32 +57,20 @@ module DaVinciTestKit
         headers {'Authorization' => "Bearer #{bearer_token}"}
       end
 
-      group do
-        title 'Patient Export was scoped to matched patient'
-        description %{
-            The FHIR Server SHALL constrain the data returned from the server to a requester based upon the access permissions of the requester.
-            See PDex 2.0.0 Implementation Guide sections [6.2.5](https://hl7.org/fhir/us/davinci-pdex/STU2/payertopayerexchange.html#constraining-data-based-upon-permissions-of-the-requestor)
-            and [6.2.7](https://hl7.org/fhir/us/davinci-pdex/STU2/payertopayerexchange.html#bulk-fhir-asynchronous-protocols).
+      group from: :bulk_data_patient_export_group,
+            title: 'Patient Export Tests STU2',
+            id: :bulk_data_patient_export_group_stu2,
+            config: {
+              options: { require_absolute_urls_in_output: true }
+            }
 
-            Thus the `/Patient/$export` operation should return data pertaining to one patient, despite it being a resource-level operation.
-        }
-        run_as_group
+      # TODO: modify this to suit pdex needs -> no multiple patients test, patients must match/link to patient_id
+      group from: :bulk_data_patient_export_validation,
+            title: 'All Patient Export Validation Tests STU2',
+            id: :bulk_data_patient_export_validation_stu2
 
-        test do
-          title 'All patient resources have the same patient_id or links to that patient id'
-
-          input :patient_bulk_download_url # outputed by bulk_data_patient_export_group
-
-          run do
-            skip_if !bearer_token, "No Bulk Data Access Bearer Token provided."
-            skip_if !patient_id, "No Patient FHIR ID was derived from $member-match response or supplied by user input"
-            skip_if !patient_bulk_download_url
-
-            omit "Unimplemented"            
-          end
-        end
-        
-      end
+      group from: :bulk_data_patient_export_cancel_group_stu2
+      group from: :bulk_data_patient_export_parameters_group
 
     end
   end
