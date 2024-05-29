@@ -49,10 +49,35 @@ module DaVinciTestKit
 
       http_client :bulk_server do
         url :url
-        bearer_token :bearer_token
+        headers {'Authorization' => "Bearer #{bearer_token}"}
       end
 
-      # TODO: Bulk Data validator message filtering
+      group do
+        title 'Patient Export was scoped to matched patient'
+        description %{
+            The FHIR Server SHALL constrain the data returned from the server to a requester based upon the access permissions of the requester.
+            See PDex 2.0.0 Implementation Guide sections [6.2.5](https://hl7.org/fhir/us/davinci-pdex/STU2/payertopayerexchange.html#constraining-data-based-upon-permissions-of-the-requestor)
+            and [6.2.7](https://hl7.org/fhir/us/davinci-pdex/STU2/payertopayerexchange.html#bulk-fhir-asynchronous-protocols).
+
+            Thus the `/Patient/$export` operation should return data pertaining to one patient, despite it being a resource-level operation.
+        }
+        run_as_group
+
+        test do
+          title 'All patient resources have the same patient_id or links to that patient id'
+
+          input :patient_bulk_download_url # outputed by bulk_data_patient_export_group
+
+          run do
+            skip_if !bearer_token, "No Bulk Data Access Bearer Token provided."
+            skip_if !patient_id, "No Patient FHIR ID was derived from $member-match response or supplied by user input"
+            skip_if !patient_bulk_download_url
+
+            omit "Unimplemented"            
+          end
+        end
+        
+      end
 
     end
   end
