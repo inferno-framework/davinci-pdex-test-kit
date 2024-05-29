@@ -25,9 +25,16 @@ module DaVinciTestKit
 
       config({
         inputs: {
-          bulk_export_url: { name: :url }
+          bulk_export_url: { name: :url },
+          bearer_token: { description: 'The authorization bearer token for $export access that is scoped to the same patient found by $member-match or entered as patient id. This is not necessarily the same OAuth token that allows access to the server\'s $member-match. If omitted $export tests will be skipped.' }
         }
       })
+
+
+      input :patient_id,
+        title: 'Patient ID',
+        description: 'Manual Patient ID for testing Clinical Query, $everything, and $export without $member-match.',
+        optional: true
 
       # Required by Bulk Data tests
       fhir_client :bulk_server do

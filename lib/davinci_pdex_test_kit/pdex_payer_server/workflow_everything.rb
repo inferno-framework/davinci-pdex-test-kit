@@ -19,6 +19,13 @@ module DaVinciPDexTestKit
         This test sequence takes a patient id input and executes the `$everything` FHIR operation on it.
       }
 
+
+      input :patient_id,
+        title: 'Patient ID',
+        description: 'Manual Patient ID for testing Clinical Query, $everything, and $export without $member-match.',
+        optional: true
+
+
       test do
         title 'Server asserts Patient instance operation $everything in Capability Statement'
 
@@ -40,7 +47,7 @@ module DaVinciPDexTestKit
       test do
         title 'Server can handle GET /Patient/[ID]/$everything'
 
-        input :patient_id # borrows properties from workflow_clinical_data
+        # input :patient_id # borrows properties from workflow_clinical_data
 
         makes_request :pdex_patient_everything
 
