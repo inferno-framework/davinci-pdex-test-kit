@@ -60,21 +60,7 @@ module DaVinciPDexTestKit
              }
            }
 
-      # test from: :bulk_data_multiple_patients,
-      #      id: :bulk_data_patient_multiple_patients
-
-      test do
-        title 'Bulk Data is scoped to Patient from $member-match'
-        description %{
-
-        }
-
-        run do
-          omit "Unimplemented"
-          # TODO this
-          # https://github.com/inferno-framework/bulk-data-test-kit/blob/main/lib/bulk_data_test_kit/bulk_export_validation_tester.rb#L129
-        end
-      end
+      # NOTE: removed bulk_data_multiple_patients test, hence we need this file
     end
   end
 end
