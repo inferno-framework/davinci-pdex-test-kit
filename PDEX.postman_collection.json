@@ -571,42 +571,14 @@
 						}
 					},
 					"response": []
-				}
-			],
-			"description": "These requests should fetch every resource through a series of simple requests",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"packages": {},
-						"exec": [
-							""
-						]
-					}
 				},
 				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"packages": {},
-						"exec": [
-							""
-						]
-					}
-				}
-			]
-		},
-		{
-			"name": "Spanning Requests Without Patient",
-			"item": [
-				{
-					"name": "AllergyIntolerance GET by patient",
+					"name": "$everything",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/AllergyIntolerance",
+							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Patient/$everything",
 							"protocol": "http",
 							"host": [
 								"{{url}}{{port}}"
@@ -615,448 +587,8 @@
 								"custom",
 								"pdex_payer_client",
 								"fhir",
-								"AllergyIntolerance"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CarePlan GET by patient+category",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/CarePlan?category=assess-plan",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"CarePlan"
-							],
-							"query": [
-								{
-									"key": "category",
-									"value": "assess-plan"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CareTeam GET by patient+status",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/CareTeam?status=active",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"CareTeam"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "active"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Condition GET by patient",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Condition",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Condition"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Device GET by patient",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Device",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Device"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DiagnosticReport GET by patient",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/DiagnosticReport",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"DiagnosticReport"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DocumentReference GET by patient",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/DocumentReference",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"DocumentReference"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Encounter GET by patient",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Encounter",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Encounter"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ExplanationOfBenefit GET by patient",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/ExplanationOfBenefit",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"ExplanationOfBenefit"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Goal GET by patient",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Goal",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Goal"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Immunization GET by patient",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Immunization",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Immunization"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Location GET by name",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Location",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Location"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "MedicationDispense GET by patient",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/MedicationDispense",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"MedicationDispense"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "MedicationRequest GET by patient+intent",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/MedicationRequest?intent=plan",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"MedicationRequest"
-							],
-							"query": [
-								{
-									"key": "intent",
-									"value": "plan"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Observation GET by patient+category",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Observation?category=vital-signs",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Observation"
-							],
-							"query": [
-								{
-									"key": "category",
-									"value": "vital-signs"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Organization GET by name",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Organization?name=pdex-Organization",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Organization"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": "pdex-Organization"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Patient GET",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Patient",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Patient"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Practitioner GET by name",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Practitioner?name=pdex-Practitioner",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Practitioner"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": "pdex-Practitioner"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PractitionerRole GET by specialty",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/PractitionerRole?specialty=208D00000X",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"PractitionerRole"
-							],
-							"query": [
-								{
-									"key": "specialty",
-									"value": "208D00000X"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Procedure GET by patient",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Procedure",
-							"protocol": "http",
-							"host": [
-								"{{url}}{{port}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Procedure"
+								"Patient",
+								"$everything"
 							]
 						}
 					},
@@ -1111,7 +643,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Patient/member-match",
+							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Patient/$member-match",
 							"protocol": "http",
 							"host": [
 								"{{url}}{{port}}"
@@ -1121,7 +653,7 @@
 								"pdex_payer_client",
 								"fhir",
 								"Patient",
-								"member-match"
+								"$member-match"
 							]
 						}
 					},
@@ -1188,6 +720,128 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "$export workflow",
+			"item": [
+				{
+					"name": "Begin Export",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Prefer",
+								"value": "respond-async",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/fhir+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Patient/$export",
+							"protocol": "http",
+							"host": [
+								"{{url}}{{port}}"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Patient",
+								"$export"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Export Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extract the header value from the response\r",
+									"var headerValue = pm.response.headers.get('Content-Location');\r",
+									"\r",
+									"// Set the extracted value as an environment variable\r",
+									"pm.environment.set('export-Location', headerValue);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "SAMPLE_TOKEN",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Prefer",
+								"value": "respond-async",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/fhir+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "*fill with header from previous request*",
+							"host": [
+								"*fill with header from previous request*"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Everything",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}{{port}}/custom/pdex_payer_client/fhir/Patient/999/$everything",
+							"protocol": "http",
+							"host": [
+								"{{url}}{{port}}"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Patient",
+								"999",
+								"$everything"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -1236,6 +890,11 @@
 		{
 			"key": "url",
 			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"key": "export-url",
+			"value": "localhost:8",
 			"type": "string"
 		}
 	]
