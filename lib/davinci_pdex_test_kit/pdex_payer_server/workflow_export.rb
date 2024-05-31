@@ -5,7 +5,6 @@ require 'bulk_data_test_kit/v2.0.0/bulk_data_patient_export_test_group'
 require 'bulk_data_test_kit/v2.0.0/patient/bulk_data_patient_export_cancel_group'
 require 'bulk_data_test_kit/v2.0.0/patient/bulk_data_patient_export_parameters_group'
 require 'bulk_data_test_kit/v1.0.1/patient/bulk_data_patient_export_group'
-# require 'bulk_data_test_kit/v1.0.1/patient/bulk_data_patient_export_validation_group'
 require_relative 'export_validation_group'
 
 module DaVinciTestKit
@@ -72,30 +71,6 @@ module DaVinciTestKit
 
       group from: :bulk_data_patient_export_cancel_group_stu2
       group from: :bulk_data_patient_export_parameters_group
-
-      # TODO: fold this into pdex_export_validation group for SCRATCH
-      group do
-        title 'Patient Export Scope Tests'
-        description %{
-          After the asynchronous Bulk Data export operation is completed, all returned Patient
-          resources must have the same ID as the Patient from `$member-match` or patient id input, 
-          must be linked to the that patient id via `Patient.link.other`, must have a reference to
-          any of those patients, or must have a reference to any resource thereof. There may be
-          one Patient resource.
-        }
-
-        run_as_group
-
-        test do
-          title 'Server $export resources are scoped to patient resource from $member-match'
-
-          input :patient_bulk_download_url
-
-          run do
-            omit "Unimplemented"
-          end
-        end
-      end
 
     end
   end
