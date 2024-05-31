@@ -2,6 +2,7 @@ require_relative 'user_input_response'
 require_relative 'urls'
 require_relative 'pdex_payer_client/collection'
 require_relative 'pdex_payer_client/client_validation_test'
+#require_relative 'metadata/mock_capability_statement'
 
 
 module DaVinciPDexTestKit
@@ -90,8 +91,7 @@ module DaVinciPDexTestKit
     end
 
     def get_metadata
-      response = server_proxy.get('metadata')
-      proc { [response.status, response.headers.reject!{|key, value| key == "transfer-encoding"}, [response.body]] }
+      proc { [200, {'Content-Type' => 'application/fhir+json;charset=utf-8'}, [File.read("lib/davinci_pdex_test_kit/metadata/mock_capability_statement.json")]] }
     end
 
     def match_request_to_expectation(endpoint, params)
@@ -203,8 +203,6 @@ module DaVinciPDexTestKit
       valid_resource_types = [resource_type, 'OperationOutcome'].concat(additional_resource_types)
       resources
     end
-
-
 
     # @private
     def find_matching_entry(ref, entries, root_url = '')
