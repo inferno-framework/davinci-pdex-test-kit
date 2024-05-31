@@ -38,7 +38,7 @@ module DaVinciPDexTestKit
           skip_if !patient_id,
             'No Patient FHIR ID was derived from $member-match response or supplied by user input'
 
-          fhir_search(FHIR::Encounter, params: {subject: "Patient/#{patient_id}"}, name: :pdex_clinical_query)
+          fhir_search(FHIR::Encounter, params: {patient: "Patient/#{patient_id}"}, name: :pdex_clinical_query)
           assert_response_status(200)
         end
       end

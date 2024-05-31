@@ -17,14 +17,14 @@ module DaVinciPDexTestKit
           scratch[resource.resourceType.to_sym] |= [resource]
         end
       end
-      if export_request
+      if export_resources
         info "Attempted an $export request"
         export_resources.each do |resource|
           scratch[resource.resourceType.to_sym] ||= []
           scratch[resource.resourceType.to_sym] |= [resource]
         end
-      else
-        info "Found export request, but was unable to read content-location for export payload.  It may not have had enough time to build"
+      elsif export_request
+        info "Found an $export request, but no resources found.  It may not have had enough time to build"
       end
       if everything_request
         info "Attempted an $everything request"

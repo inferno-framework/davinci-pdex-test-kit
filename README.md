@@ -17,6 +17,16 @@ Implementation Guide](https://hl7.org/fhir/us/davinci-pdex/).
 - - Workflow test group - Tests member-match requests, returns an identifier, and checks that the client attempts to gather all resources related to the matched patient
 - - Must Support test group - Tests that all Must Support elements of the member-match-input profile are covered by any of the received member-match requests
 
+## Running Server Tests and Client Tests against each other
+A preset has been provided if you would like to run the test kits against each other.  To do so:
+1. Begin each test suite in separate windows.
+2. Select the "PDex Payer Server Preset for Client Tests" preset in the Server Suite.
+3. Select "Run All Tests" for both kits.  Input the same access token for both.
+4. Begin the Client tests.  It will now await a member-match to begin the workflow.
+5. Begin the Server tests.  It will send a member-match request to begin the workflow.
+6. Once a member-match request is received, the client tests will begin awaiting clinical data requests.  The server tests will automatically begin sending them.  Once the Server tests have reached the second group, you may attest in the client that clinical data requests are over.
+7. Let both test kits finish, attesting in client side that member-match's have all been received after Server group 2.1 completes.
+
 ## Instructions for Developing tests
 
 To get started writing tests, clone this repo/Click "Use this template" on

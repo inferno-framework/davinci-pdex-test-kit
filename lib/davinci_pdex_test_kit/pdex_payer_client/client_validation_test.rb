@@ -15,8 +15,7 @@ module DaVinciPDexTestKit
     end
 
     def collect_export_resources
-      export_result_url = export_request&.response_header('content-location')&.value
-      export_payload = collect_export_payload(export_result_url)
+      export_payload = collect_export_payload
       if export_payload
         ndjson_list = JSON.parse(export_payload)
         request_resources = ndjson_list['output'].map do |resource_binary|
@@ -38,7 +37,8 @@ module DaVinciPDexTestKit
       export_binary.split(/(?<=}\n)(?={)/).map { |str| FHIR.from_contents(str)}
     end
 
-    def collect_export_payload(url)
+    def collect_export_payload
+      url = export_request&.response_header('content-location')&.value
       attempts = 0
       return nil if url.nil?
       while attempts < 5
@@ -68,7 +68,7 @@ module DaVinciPDexTestKit
     end
 
     def everything_request
-      @everything_request ||= load_tagged_requests(EVERYTHING_TAG)
+      @everything_request ||= load_tagged_requests(EVERYTHING_TAG).first
     end
 
     def member_match_request
