@@ -22,7 +22,7 @@ module DaVinciPDexTestKit
 
       input :patient_id,
         title: 'Patient ID',
-        description: 'Manual Patient ID for testing Clinical Query, $everything, and $export without $member-match.',
+        description: 'Manual Patient ID for testing Clinical Query and $everything $export without $member-match.',
         optional: true
 
 
