@@ -24,7 +24,7 @@ module DaVinciPDexTestKit
 
     run do
 
-      assert all_member_match_requests, "No previous member-match requests received"
+      assert all_member_match_requests, "No previous $member-match requests received"
 
       perform_must_support_test(all_member_match_requests.map {|match_request| FHIR::Parameters.new(JSON.parse(match_request.request_body).to_h)})
     end
