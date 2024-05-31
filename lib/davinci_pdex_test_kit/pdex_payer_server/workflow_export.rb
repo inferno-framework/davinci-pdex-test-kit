@@ -25,9 +25,8 @@ module DaVinciTestKit
         # Methodology
 
         This test sequence leverages the [Bulk Data Test Kit](https://github.com/inferno-framework/bulk-data-test-kit)
-        for patient-level tests conforming to the Bulk Data Access Implementation Guide v2.0.0. It removes the Patient Export
-        Validation Test for multiple patients, and adds a Patient Export Scope test where the resources returned
-        must be scoped to the same patient returned by `$member-match` or inputted as patient id. 
+        for patient-level tests conforming to the Bulk Data Access Implementation Guide v2.0.0, and does not require more than 1 patient
+        to be returned by Patient-level export. The tests require a Bulk Data Autthorization Bearer Token.
       }
 
       config({
@@ -62,15 +61,16 @@ module DaVinciTestKit
       group from: :bulk_data_patient_export_group,
             title: 'Patient Export Tests STU2',
             id: :bulk_data_patient_export_group_stu2,
+            optional: true,
             config: {
               options: { require_absolute_urls_in_output: true }
             }
 
       group from: :pdex_export_validation,
-            title: 'Patient Export Validation Tests STU2'
+            title: 'Patient Export Validation Tests STU2', optional: true
 
-      group from: :bulk_data_patient_export_cancel_group_stu2
-      group from: :bulk_data_patient_export_parameters_group
+      group from: :bulk_data_patient_export_cancel_group_stu2, optional: true
+      group from: :bulk_data_patient_export_parameters_group, optional: true
 
     end
   end
