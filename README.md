@@ -11,7 +11,7 @@ The test kit includes suites targeting the following actors from the specificati
 - **Payer Servers**: Inferno will act as a client and make a series of
   requests to the server under test simulating a new payer's request 
   to access member clinical data from an old payer using the payer to payer workflow.
-- **Payer Clients**: Inferno will act as a old payer server that contains member information
+- **Payer Clients**: Inferno will act as an old payer server that contains member information
   that the client under test would like to access using the payer to payer workflow.
   Inferno will wait for the client to make requests and respond appropriately
   to them.
@@ -66,7 +66,7 @@ are run, or within this repository for the
 
 ### ONC Hosted Instance
 
-You can run the PAS test kit via the [ONC Inferno](https://inferno.healthit.gov/test-kits/davinci-pdex/) website by choosing the “Da Vinci Payer Data Exchange (PDex) Test Kit” test kit.
+You can run the PDex test kit via the [ONC Inferno](https://inferno.healthit.gov/test-kits/davinci-pdex/) website by choosing the “Da Vinci Payer Data Exchange (PDex) Test Kit” test kit.
 
 ### Local Inferno Instance
 
@@ -78,7 +78,11 @@ You can run the PAS test kit via the [ONC Inferno](https://inferno.healthit.gov/
 
 In order to simulate responses to clinical data requests, the payer client test suite
 relies on a FHIR server. The test kit was written to work with the [Inferno Reference
-Server](https://github.com/inferno-framework/inferno-reference-server). TODO - instructions for this.
+Server](https://github.com/inferno-framework/inferno-reference-server).  To change the
+server the test kit is directed at, in `.env.production`, set FHIR_REFERENCE_SERVER to
+the fhir endpoint of the server to be used in proxy.  In the case of Inferno, this is 
+`https://inferno-qa.healthit.gov/reference-server/r4`
+
 
 ## Providing Feedback and Reporting Issues
 
