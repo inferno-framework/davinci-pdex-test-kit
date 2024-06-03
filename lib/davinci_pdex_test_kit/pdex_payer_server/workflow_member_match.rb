@@ -148,18 +148,11 @@ module DaVinciPDexTestKit
           run do
             skip_if !member_identifier, "No member identifier obtained from $member-match request"
  
-            # We only query by identifier.value, and preset information happens to give a value with a system within it
+            # We only query by identifier.value, and preset information happens to return a value with a system within it
             # which may be a bug.
             # Other options are to query by system|value or type-of:
             # But future PDex IG is intending to include logical FHIR id with MemberMatchResponse so this won't be necessary
             fhir_search(FHIR::Patient, params: { 'identifier' => member_identifier })
-
-            # Uncomment for search by system|value:
-            # unless member_identifier_system.empty?
-            #   fhir_search(FHIR::Patient, params: { 'identifier' => "#{member_identifier_system}|#{member_identifier}" })
-            # else
-            #   fhir_search(FHIR::Patient, params: { 'identifier' => member_identifier })
-            # end
 
             assert response[:body], 'Server HTTP response is missing body'
             assert_valid_json(response[:body])
@@ -172,17 +165,6 @@ module DaVinciPDexTestKit
             assert patient_id, "Patient resource in Bundle has no logical resource id"
 
             output :patient_id => patient_id
-
-            # Uncomment for search by system|value
-            # if member_identifier_system
-            #   if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length > 1
-            #     info "Chose the last Patient's ID."
-            #     skip "Bundle has more than one Patient resource."
-            #   end
-            # else
-            #   skip_if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length > 1,
-            #   "Bundle has more than one Patient resource. You may need to return a MemberIdentifier system with your $member-match operation."
-            # end
 
             assert_valid_resource
           end
