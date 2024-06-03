@@ -21,9 +21,9 @@ Implementation Guide](https://hl7.org/fhir/us/davinci-pdex/).
 A preset has been provided if you would like to run the test kits against each other.  To do so:
 1. Begin each test suite in separate windows.
 2. Select the "PDex Payer Server Preset for Client Tests" preset in the Server Suite.
-3. Select "Run All Tests" for both kits.  Input the same access token for both.
-4. Begin the Client tests.  It will now await a member-match to begin the workflow.
-5. Begin the Server tests.  It will send a member-match request to begin the workflow.
+3. Select "Run All Tests" for both kits.  Input the same access token for both, but do not click submit.
+4. Begin the Client tests by clicking submit.  It will now await a member-match to begin the workflow.
+5. Begin the Server tests by clicking submit.  It will send a member-match request to begin the workflow.
 6. Once a member-match request is received, the client tests will begin awaiting clinical data requests.  The server tests will automatically begin sending them.  Once the Server tests have reached the second group, you may attest in the client that clinical data requests are over.
 7. Let both test kits finish, attesting in client side that member-match's have all been received after Server group 2.1 completes.
 
