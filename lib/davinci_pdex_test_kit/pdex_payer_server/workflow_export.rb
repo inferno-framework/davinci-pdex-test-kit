@@ -2,8 +2,6 @@
 
 require 'bulk_data_test_kit/v2.0.0/bulk_data_patient_export_test_group'
 
-require 'bulk_data_test_kit/v2.0.0/patient/bulk_data_patient_export_cancel_group'
-require 'bulk_data_test_kit/v2.0.0/patient/bulk_data_patient_export_parameters_group'
 require 'bulk_data_test_kit/v1.0.1/patient/bulk_data_patient_export_group'
 require_relative 'export_validation_group'
 
@@ -68,9 +66,6 @@ module DaVinciTestKit
 
       group from: :pdex_export_validation,
             title: 'Patient Export Validation Tests STU2', optional: true
-
-      group from: :bulk_data_patient_export_cancel_group_stu2, optional: true
-      group from: :bulk_data_patient_export_parameters_group, optional: true
 
     end
   end
