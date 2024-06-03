@@ -8,7 +8,7 @@ require 'bulk_data_test_kit/v1.0.1/bulk_data_valid_resources_test'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
-    class BulkDataPatientExportValidation < Inferno::TestGroup
+    class ExportValidation < Inferno::TestGroup
       title 'Patient Export Validation Tests'
       short_description 'Verify that the data from the export of all Patients conforms to the base FHIR standard.'
       description <<~DESCRIPTION
@@ -41,15 +41,6 @@ module DaVinciPDexTestKit
           options: { minimum_allowed_version: OpenSSL::SSL::TLS1_2_VERSION }
         )
       end
-
-      test from: :bulk_data_ndjson_download,
-           id: :bulk_data_patient_ndjson_download,
-           config: {
-             inputs: {
-               bulk_download_url: { name: :patient_bulk_download_url },
-               requires_access_token: { name: :patient_requires_access_token }
-             }
-           }
 
       test from: :bulk_data_valid_resources,
            id: :bulk_data_patient_valid_resources,
