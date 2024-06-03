@@ -158,8 +158,7 @@ module DaVinciPDexTestKit
             assert_valid_json(response[:body])
             assert_resource_type('Bundle')
 
-            # XXX skip or fail? this is not formally part of the spec
-            skip "Bundle has no Patient resource." unless resource.entry.find{ |entry| entry.resource&.resourceType == 'Patient' }
+            assert resource.entry.find{ |entry| entry.resource&.resourceType == 'Patient' }, "Bundle has no Patient resource."
 
             patient_id = resource.entry.reverse_each.find{ |entry| entry.resource&.resourceType == 'Patient' }&.resource&.id
             assert patient_id, "Patient resource in Bundle has no logical resource id"
