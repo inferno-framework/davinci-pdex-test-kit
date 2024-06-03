@@ -95,7 +95,7 @@ module DaVinciPDexTestKit
     end
 
     def match_request_to_expectation(endpoint, params)
-      matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} & expectation) == expectation}
+      matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} & expectation).sort == expectation}
       # matched_search_without_patient = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} << "patient" & expectation) == expectation}
 
       if matched_search
