@@ -81,7 +81,11 @@ relies on a FHIR server. The test kit was written to work with the [Inferno Refe
 Server](https://github.com/inferno-framework/inferno-reference-server).  To change the
 server the test kit is directed at, in `.env.production`, set FHIR_REFERENCE_SERVER to
 the fhir endpoint of the server to be used in proxy.  In the case of Inferno, this is 
-`https://inferno-qa.healthit.gov/reference-server/r4`
+`https://inferno-qa.healthit.gov/reference-server/r4`.  If you are using a local instance
+of the server (from the linked repository, or your own), you will need to change this value
+to the new server endpoint.  Running Inferno with the directions above will use Docker,
+so if your server is also running in docker, the endpoint may be different from `localhost`.
+See this [Stack Overflow discussion](https://stackoverflow.com/questions/24319662/from-inside-of-a-docker-container-how-do-i-connect-to-the-localhost-of-the-mach)
 
 
 ## Providing Feedback and Reporting Issues
