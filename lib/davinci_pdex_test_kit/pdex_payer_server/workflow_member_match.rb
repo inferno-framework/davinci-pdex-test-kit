@@ -164,6 +164,8 @@ module DaVinciPDexTestKit
             patient_id = resource.entry.reverse_each.find{ |entry| entry.resource&.resourceType == 'Patient' }&.resource&.id
             assert patient_id, "Patient resource in Bundle has no logical resource id"
 
+            info "Multiple patients found, using the last patient id." if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length > 1
+
             output :patient_id => patient_id
 
             assert_valid_resource
