@@ -47,15 +47,7 @@ module DaVinciPDexTestKit
 
       id :pdex_payer_client
       title 'Da Vinci PDex Payer Client Test Suite'
-      description %(
-        # Da Vinci PDex Payer Client Test Suite
-
-        This suite validates that a payer system can act as a client
-        retrieving patient data from another payer system using
-        payer to payer exchange as described in the PDex implementation
-        guide. Inferno will act as a payer server that the 
-        system under test will connect to and retrieve data from.
-      )
+      description File.read(File.join(__dir__, 'docs', 'payer_client_suite_description_v200.md'))
 
       def self.test_resumes?(test)
         !test.config.options[:accepts_multiple_requests]
