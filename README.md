@@ -60,7 +60,7 @@ the test home pages include instructions for trying out the tests, including
 - For client testing: a [sample postman collection](config/PAS%20Test%20Kit%20Client%20Test%20Demo.postman_collection.json)
 
 Detailed instructions can be found in the suite descriptions when the tests
-are run, or within this repository for the 
+are run or within this repository for the 
 [server](lib/davinci_pdex_test_kit/docs/payer_server_suite_description_v200.md#running-the-tests) and
 [client](lib/davinci_pdex_test_kit/docs/payer_client_suite_description_v200.md#running-the-tests).
 
@@ -71,21 +71,37 @@ You can run the PDex test kit via the [ONC Inferno](https://inferno.healthit.gov
 ### Local Inferno Instance
 
 - Download the source code from this repository.
+- [Start or identify](#simulation-server-configuration-for-local-test-kit-execution) 
+  an Inferno Reference Server instance for Inferno to use for simulation (only needed if
+  planning to run the Client test suite).
 - Open a terminal in the directory containing the downloaded code.
 - In the terminal, run `setup.sh`.
 - In the terminal, run `run.sh`.
 - Use a web browser to navigate to `http://localhost`.
 
-In order to simulate responses to clinical data requests, the payer client test suite
-relies on a FHIR server. The test kit was written to work with the [Inferno Reference
-Server](https://github.com/inferno-framework/inferno-reference-server).  To change the
-server the test kit is directed at, in `.env.production`, set FHIR_REFERENCE_SERVER to
-the fhir endpoint of the server to be used in proxy.  In the case of Inferno, this is 
-`https://inferno-qa.healthit.gov/reference-server/r4`.  If you are using a local instance
-of the server (from the linked repository, or your own), you will need to change this value
-to the new server endpoint.  Running Inferno with the directions above will use Docker,
-so if your server is also running in docker, the endpoint may be different from `localhost`.
-See this [Stack Overflow discussion](https://stackoverflow.com/questions/24319662/from-inside-of-a-docker-container-how-do-i-connect-to-the-localhost-of-the-mach)
+## FHIR Server Simulation for the Client Suite
+
+The PDex client test suite needs to be able to return responses to FHIR read and search APIs.
+These responses can be complex and so the suite relies on a full FHIR server to provide 
+responses for it to provide back to systems under test. The test kit was written to work 
+with the [Inferno Reference Server](https://github.com/inferno-framework/inferno-reference-server)
+
+- loaded with [patient 999](https://github.com/inferno-framework/inferno-reference-server/blob/main/resources/pdex_bundle_patient_999.json) and an [associated group](https://github.com/inferno-framework/inferno-reference-server/blob/main/resources/pdex_proxy_group_patient_999.json)
+- accepting bearer token `SAMPLE_TOKEN` for read access.
+
+### Simulation Server Configuration For Local Test Kit Execution
+
+The test kit can be configured to point to either a local instance of the reference server or
+to a public instance. The location of the The following are valid configuration approaches:
+
+1. Point to a public instance of the Inferno reference server at either 
+   `https://inferno.healthit.gov/reference-server/r4/` or
+   `https://inferno-qa.healthit.gov/reference-server/r4/`: update the `FHIR_REFERENCE_SERVER`
+   environment variable in the appropriate environment file (`.evn.production` when running
+   in docker, or `env.development` when running the test kit in Ruby).
+2. Run a local instance of the Inferno Reference Server, either 
+   [with docker](https://github.com/inferno-framework/inferno-reference-server?tab=readme-ov-file#running-with-docker) 
+   or [without docker](https://github.com/inferno-framework/inferno-reference-server?tab=readme-ov-file#running-without-docker).
 
 
 ## Providing Feedback and Reporting Issues
