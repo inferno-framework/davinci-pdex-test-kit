@@ -47,8 +47,8 @@ For Inferno to simulate a server that returns a matching patient and responds to
 for that patient's data using FHIR read and search APIs or the $export operation,
 Inferno only needs to be able to identify when requests come from the client under test.
 Inferno piggybacks on the request authentication for this purpose. Testers must provide
-a bearer access token that will be provided within he `Authentication` header (`Bearer <token>`) 
-on all requeests made to Inferno endpoints during the test. Inferno uses this information to 
+a bearer access token that will be provided within the `Authentication` header (`Bearer <token>`) 
+on all requests made to Inferno endpoints during the test. Inferno uses this information to 
 associate the message with the test session and determine how to respond. How the token
 provided to Inferno is generated is up to the tester. 
 
@@ -70,7 +70,7 @@ to make requests against Inferno for these tests. To use the Postman demo on thi
   that appears.
 4. When a `User Action Required` dialog will appear requesting a `$member-match` request be made, 
    use Postman to send the `$member-match` request found in the `$member-match Requests` folder.
-5. WHen a new `User Action Required` dialog will appear requesting clinical data requests be made,
+5. When a new `User Action Required` dialog will appear requesting clinical data requests be made,
    use Postman to send some or all of the requests in the `Clinical Data Requests` folder and click
    on the link in the dialog when done. If not all the requests are made, the test will not pass 
    because the test requires that all available data be accessed.
