@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'bulk_data_test_kit/v2.0.0/bulk_data_patient_export_test_group'
-
-require 'bulk_data_test_kit/v1.0.1/patient/bulk_data_patient_export_group'
+# require 'bulk_data_test_kit/v1.0.1/patient/bulk_data_patient_export_group'
+require_relative 'export_patient_group'
 require_relative 'export_validation_group'
 
 module DaVinciTestKit
@@ -56,16 +56,19 @@ module DaVinciTestKit
         headers {'Authorization' => "Bearer #{bearer_token}"}
       end
 
-      group from: :bulk_data_patient_export_group,
-            title: 'Patient Export Tests STU2',
-            id: :bulk_data_patient_export_group_stu2,
-            optional: true,
-            config: {
-              options: { require_absolute_urls_in_output: true }
-            }
+      group from: :pdex_patient_export_group
+
+      # group from: :bulk_data_patient_export_group,
+      #       title: 'Patient Export Tests',
+      #       id: :bulk_data_patient_export_group_stu2,
+      #       optional: true,
+      #       config: {
+      #         options: { require_absolute_urls_in_output: true }
+      #       }
 
       group from: :pdex_export_validation,
-            title: 'Patient Export Validation Tests STU2', optional: true
+            title: 'Patient Export Validation Tests',
+            optional: true
 
     end
   end
