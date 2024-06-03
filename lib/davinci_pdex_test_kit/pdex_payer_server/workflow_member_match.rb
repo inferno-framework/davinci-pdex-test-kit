@@ -165,23 +165,24 @@ module DaVinciPDexTestKit
             assert_valid_json(response[:body])
             assert_resource_type('Bundle')
 
-            patient_id = resource.entry.reverse_each.find{ |entry| entry.resource&.resourceType == 'Patient' }.resource.id
+            # XXX skip or fail? this is not formally part of the spec
+            skip "Bundle has no Patient resource." unless resource.entry.find{ |entry| entry.resource&.resourceType == 'Patient' }
+
+            patient_id = resource.entry.reverse_each.find{ |entry| entry.resource&.resourceType == 'Patient' }&.resource&.id
             assert patient_id, "Patient resource in Bundle has no logical resource id"
 
             output :patient_id => patient_id
 
-            # XXX skip or fail? this is not formally part of the spec
-            skip "Bundle has no Patient resource." if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length == 0
-
-            if member_identifier_system
-              if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length > 1
-                info "Chose the last Patient's ID."
-                skip "Bundle has more than one Patient resource."
-              end
-            else
-              skip_if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length > 1,
-              "Bundle has more than one Patient resource. You may need to return a MemberIdentifier system with your $member-match operation."
-            end
+            # Uncomment for search by system|value
+            # if member_identifier_system
+            #   if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length > 1
+            #     info "Chose the last Patient's ID."
+            #     skip "Bundle has more than one Patient resource."
+            #   end
+            # else
+            #   skip_if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length > 1,
+            #   "Bundle has more than one Patient resource. You may need to return a MemberIdentifier system with your $member-match operation."
+            # end
 
             assert_valid_resource
           end
