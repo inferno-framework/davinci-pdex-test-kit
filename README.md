@@ -98,11 +98,13 @@ to a public instance. The location of the The following are valid configuration 
    `https://inferno.healthit.gov/reference-server/r4/` or
    `https://inferno-qa.healthit.gov/reference-server/r4/`: update the `FHIR_REFERENCE_SERVER`
    environment variable in the appropriate environment file (`.evn.production` when running
-   in docker, or `env.development` when running the test kit in Ruby).
+   in docker [as above](#local-inferno-instance), or `env.development` when 
+   [running the test kit in Ruby](#development)).
 2. Run a local instance of the Inferno Reference Server, either 
    [with docker](https://github.com/inferno-framework/inferno-reference-server?tab=readme-ov-file#running-with-docker) 
-   or [without docker](https://github.com/inferno-framework/inferno-reference-server?tab=readme-ov-file#running-without-docker).
-
+   or [without docker](https://github.com/inferno-framework/inferno-reference-server?tab=readme-ov-file#running-without-docker) 
+   (NOTE: this decision can be made independently from whether to run the test kit with 
+   docker or using Ruby).
 
 ## Providing Feedback and Reporting Issues
 
