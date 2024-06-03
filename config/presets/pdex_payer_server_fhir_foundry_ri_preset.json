@@ -1,6 +1,6 @@
 {
-  "title": "PDex Payer Server Preset for Lantana RI",
-  "id": "pdex_payer_server_lantana_ri_preset",
+  "title": "PDex Payer Server Preset for FHIR Foundry RI",
+  "id": "pdex_payer_server_fhir_foundry_ri_preset",
   "test_suite_id": "pdex_payer_server",
   "inputs": [
     {

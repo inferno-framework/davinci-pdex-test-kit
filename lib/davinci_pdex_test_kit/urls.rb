@@ -1,7 +1,7 @@
 module DaVinciPDexTestKit
   TOKEN_PATH = '/mock_auth/token'
   SUBMIT_PATH = '/fhir/:endpoint'
-  MEMBER_MATCH_PATH = '/fhir/Patient/member-match'
+  MEMBER_MATCH_PATH = '/fhir/Patient/$member-match'
   RESUME_PASS_PATH = '/resume_pass'
   RESUME_CLINICAL_DATA_PATH = '/resume_clinical_data'
   RESUME_FAIL_PATH = '/resume_fail'
