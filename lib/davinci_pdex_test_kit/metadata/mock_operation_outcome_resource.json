@@ -1,0 +1,16 @@
+{
+  "resourceType" : "OperationOutcome",
+  "id" : "warning",
+  "text" : {
+    "status" : "generated",
+    "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\">Inferno does not support a query of this kind.</div>"
+  },
+  "issue" : [{
+    "severity" : "warning",
+    "code" : "not-found",
+    "details" : {
+      "text" : "Inferno does not support a query of this kind."
+    }
+  }]
+}
+
