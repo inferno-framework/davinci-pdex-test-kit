@@ -36,8 +36,12 @@ module DaVinciPDexTestKit
         request.response_headers = response.headers.reject!{|key, value| key == "transfer-encoding"} # chunked causes problems for client
         request.response_body = response.body
       else
+        response = server_proxy.get('Patient', {_id: 999})
+        response_resource = FHIR.from_contents(response.body)
+        response_resource.entry = [{fullUrl: 'urn:uuid:2866af9c-137d-4458-a8a9-eeeec0ce5583', resource: mock_operation_outcome_resource, search: {mode: 'outcome'}}]
+        response_resource.link.first.url = request.url
         request.status = 400
-        request.response_body = "Inferno does not support a search of this query"
+        request.response_body = response_resource.to_json
       end
     end
 
@@ -160,6 +164,10 @@ module DaVinciPDexTestKit
       end
 
       matches
+    end
+
+    def mock_operation_outcome_resource
+      FHIR.from_contents(File.read("lib/davinci_pdex_test_kit/metadata/mock_operation_outcome_resource.json"))
     end
 
     # @private
