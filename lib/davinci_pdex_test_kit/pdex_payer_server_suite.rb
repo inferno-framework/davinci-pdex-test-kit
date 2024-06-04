@@ -14,16 +14,7 @@ module DaVinciPDexTestKit
     class PDexPayerServerSuite < Inferno::TestSuite
       id :pdex_payer_server
       title 'Da Vinci PDex Payer Server Test Suite'
-      description %(
-        # Da Vinci PDex Payer Server Test Suite
-
-        This suite validates that a payer system can act as a
-        data source for client systems to connect to and retrieve
-        data from. This includes provider systems as well as other
-        payer systems using the payer to payer data retrieval approach.
-        Inferno will act as a client system connecting to the system
-        under test and making requests for data against it.
-      )
+      description File.read(File.join(__dir__, 'docs', 'payer_server_suite_description_v200.md'))
   
       input :url,
             title: 'FHIR Server Base Url'
@@ -37,9 +28,50 @@ module DaVinciPDexTestKit
         url :url
         oauth_credentials :credentials
       end
+
+      VALIDATION_MESSAGE_FILTERS = [
+        /Observation\.effective\.ofType\(Period\): .*vs-1:/, # Invalid invariant in FHIR v4.0.1
+        /\A\S+: \S+: URL value '.*' does not resolve/
+      ].freeze
+
+      VERSION_SPECIFIC_MESSAGE_FILTERS = [].freeze
   
       validator do
         url ENV.fetch('VALIDATOR_URL')
+
+        # Copy messages limit from Bulk Data Export tests
+        message_filters = VALIDATION_MESSAGE_FILTERS + VERSION_SPECIFIC_MESSAGE_FILTERS
+
+        $num_messages = 0
+        $capped_message = false
+        $num_errors = 0
+        $capped_errors = false
+
+        exclude_message do |message|
+          matches_filter = message_filters.any? { |filter| filter.match? message.message }
+
+          unless matches_filter
+            if message.type != 'error'
+              $num_messages += 1
+            else
+              $num_errors += 1
+            end
+          end
+
+           matches_filter ||
+            (message.type != 'error' && $num_messages > 50 && !message.message.include?('Inferno is only showing the first')) ||
+            (message.type == 'error' && $num_errors > 20 && !message.message.include?('Inferno is only showing the first'))
+        end
+
+        perform_additional_validation do
+          if $num_messages > 50 && !$capped_message
+            $capped_message = true
+            { type: 'info', message: 'Inferno is only showing the first 50 validation info and warning messages.' }
+          elsif $num_errors > 20 && !$capped_errors
+            $capped_errors = true
+            { type: 'error', message: 'Inferno is only showing the first 20 validation error messages.' }
+          end
+        end
       end
 
       group do

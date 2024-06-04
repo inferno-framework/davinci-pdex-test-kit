@@ -131,10 +131,12 @@ module DaVinciPDexTestKit
             assert response[:body], 'Server HTTP response is missing body'
             assert_valid_json(response[:body])
             assert_resource_type('Parameters')
+
+            # We should save the output before validating every detail of the payload
+            output member_identifier: resource.parameter.find{|p| p.name=='MemberIdentifier'}&.valueIdentifier&.value
+            output member_identifier_system: resource.parameter.find{|p| p.name=='MemberIdentifier'}&.valueIdentifier&.system
+
             assert_valid_resource(profile_url: 'http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-parameters-member-match-out')
-  
-            output member_identifier: resource.parameter.find{|p| p.name=='MemberIdentifier'}.valueIdentifier.value
-            output member_identifier_system: resource.parameter.find{|p| p.name=='MemberIdentifier'}.valueIdentifier.system
           end
         end
     
@@ -158,40 +160,24 @@ module DaVinciPDexTestKit
           run do
             skip_if !member_identifier, "No member identifier obtained from $member-match request"
  
-            # We only query by identifier.value, and preset information happens to give a value with a system within it
+            # We only query by identifier.value, and preset information happens to return a value with a system within it
             # which may be a bug.
             # Other options are to query by system|value or type-of:
             # But future PDex IG is intending to include logical FHIR id with MemberMatchResponse so this won't be necessary
             fhir_search(FHIR::Patient, params: { 'identifier' => member_identifier })
 
-            # Uncomment for search by system|value:
-            # unless member_identifier_system.empty?
-            #   fhir_search(FHIR::Patient, params: { 'identifier' => "#{member_identifier_system}|#{member_identifier}" })
-            # else
-            #   fhir_search(FHIR::Patient, params: { 'identifier' => member_identifier })
-            # end
-
             assert response[:body], 'Server HTTP response is missing body'
             assert_valid_json(response[:body])
             assert_resource_type('Bundle')
 
-            patient_id = resource.entry.reverse_each.find{ |entry| entry.resource&.resourceType == 'Patient' }.resource.id
+            assert resource.entry.find{ |entry| entry.resource&.resourceType == 'Patient' }, "Bundle has no Patient resource."
+
+            patient_id = resource.entry.reverse_each.find{ |entry| entry.resource&.resourceType == 'Patient' }&.resource&.id
             assert patient_id, "Patient resource in Bundle has no logical resource id"
 
+            info "Multiple patients found, using the last patient id." if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length > 1
+
             output :patient_id => patient_id
-
-            # XXX skip or fail? this is not formally part of the spec
-            skip "Bundle has no Patient resource." if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length == 0
-
-            if member_identifier_system
-              if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length > 1
-                info "Chose the last Patient's ID."
-                skip "Bundle has more than one Patient resource."
-              end
-            else
-              skip_if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length > 1,
-              "Bundle has more than one Patient resource. You may need to return a MemberIdentifier system with your $member-match operation."
-            end
 
             assert_valid_resource
           end

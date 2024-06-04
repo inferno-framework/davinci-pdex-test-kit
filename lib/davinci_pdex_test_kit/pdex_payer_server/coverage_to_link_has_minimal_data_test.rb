@@ -4,7 +4,7 @@ module DaVinciPDexTestKit
     class CoverageToLinkHasMinimalDataTest < Inferno::Test
 
       id :coverage_to_link_has_minimal_data
-      title 'CoverageToLink parameter should not include any data elements not marked as mustSupport'
+      title '[USER INPUT VALIDATION] CoverageToLink parameter should not include any data elements not marked as mustSupport'
       optional
       description %{
         This test will skip if there is no CoverageToLink parameter in the member match request input for one match.

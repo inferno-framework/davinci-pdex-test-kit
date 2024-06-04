@@ -1,0 +1,12 @@
+{
+  "title": "PDex Payer Client Postman Demo",
+  "id": "pdex_payer_client_postman_demo_preset",
+  "test_suite_id": "pdex_payer_client",
+  "inputs": [
+    {
+      "name": "access_token",
+      "type": "text",
+      "value": "UERleFBheWVyQ2xpZW50VGVzdFBvc3RtYW5EZW1v"
+    }
+  ]
+}
