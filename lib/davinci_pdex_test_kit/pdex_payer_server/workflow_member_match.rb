@@ -31,12 +31,14 @@ module DaVinciPDexTestKit
           + use member identifier from response to query for patient id 
       }
 
+      # TODO consider extracting tests group
       group do
         id :member_match_capability_statement_group
         title 'CapabilityStatement'
 
         run_as_group
 
+        # TODO factorize
         test do
           id :member_match_in_capability_statement
           title 'Server asserts Patient $member_match operation in capability statement.'
@@ -47,6 +49,7 @@ module DaVinciPDexTestKit
             assert_response_status(200)
             assert_resource_type(:capability_statement)
 
+            # TODO delete
             # fail unless resource.rest[0].resource.find{|r| r.type=='Patient'}&.operation&.find do |op|
             #   op.definition == ''
             # end
@@ -67,37 +70,31 @@ module DaVinciPDexTestKit
         id :member_match_request_group
         title '$member-match with exactly one match'
 
+        run_as_group
+
         input :member_match_request,
           title: 'Member Match Request for one match',
           description: "A JSON payload for server's $member-match endpoint that has **exactly one match**",
           type: 'textarea'
 
-        group do
-            title '[USER INPUT VALIDATION] Member match request input check'
-            id :member_match_request_input_validation
-            input :member_match_request, type: 'textarea'
-
-            run_as_group
-
-            test from: :abstract_member_match_request_conformance do
-              id :member_match_request_request_conformance
-              title 'Member match request for exactly one match is valid'
-              description %{
-                This test validates the conformity of the user input to the
-                [HRex Member Match Request Profile](https://hl7.org/fhir/us/davinci-hrex/STU1/StructureDefinition-hrex-parameters-member-match-in.html),
-                ensuring subsequent tests can accurately simulate content. It also checks conformance to the [Parameters Resource](https://hl7.org/fhir/R4/parameters.html),
-                mandatory elements, and terminology.
-              }
-            end
-
-            test from: :abstract_member_match_request_local_references do
-              id :member_match_request_local_references
-              title 'Member match request only uses local references'
-            end
-
-           test from: :coverage_to_link_has_minimal_data
-           test from: :coverage_to_link_must_support
+        test from: :abstract_member_match_request_conformance do
+          id :member_match_request_request_conformance
+          title '[USER INPUT VALIDATION] Member match request for exactly one match is valid'
+          description %{
+            This test validates the conformity of the user input to the
+            [HRex Member Match Request Profile](https://hl7.org/fhir/us/davinci-hrex/STU1/StructureDefinition-hrex-parameters-member-match-in.html),
+            ensuring subsequent tests can accurately simulate content. It also checks conformance to the [Parameters Resource](https://hl7.org/fhir/R4/parameters.html),
+            mandatory elements, and terminology.
+          }
         end
+
+        test from: :abstract_member_match_request_local_references do
+          id :member_match_request_local_references
+          title '[USER INPUT VALIDATION] Member match request only uses local references'
+        end
+
+       test from: :coverage_to_link_has_minimal_data
+       test from: :coverage_to_link_must_support
   
         test do
           id :member_match_on_server
