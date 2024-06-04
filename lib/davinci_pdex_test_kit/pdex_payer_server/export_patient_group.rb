@@ -19,6 +19,8 @@ module DaVinciPDexTestKit
       id :pdex_patient_export_group
       optional
 
+      run_as_group
+
       input :bearer_token,
             title: 'Bulk Data Authorization Bearer Token',
             description: 'The authorization bearer token for the Bulk FHIR server. If not required, leave blank.',
@@ -67,12 +69,6 @@ module DaVinciPDexTestKit
           options: { resource_type: 'Patient', require_absolute_urls_in_output: true }
         )
       end
-
-      # test from: :bulk_data_no_auth_reject,
-      #      id: :pdex_export_patient_no_auth_reject,
-      #      config: {
-      #        options: { resource_type: 'Patient', bulk_export_url: 'Patient/$export' }
-      #      }
 
       test from: :bulk_data_kick_off,
            id: :pdex_export_patient_kick_off,

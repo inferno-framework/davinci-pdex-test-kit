@@ -25,6 +25,8 @@ module DaVinciPDexTestKit
 
       input :patient_id # from workflow_export.rb
 
+      run_as_group
+
       test from: :tls_version_test do
         title 'Bulk Data Server is secured by transport layer security'
         description <<~DESCRIPTION

@@ -58,14 +58,6 @@ module DaVinciTestKit
 
       group from: :pdex_patient_export_group
 
-      # group from: :bulk_data_patient_export_group,
-      #       title: 'Patient Export Tests',
-      #       id: :bulk_data_patient_export_group_stu2,
-      #       optional: true,
-      #       config: {
-      #         options: { require_absolute_urls_in_output: true }
-      #       }
-
       group from: :pdex_export_validation,
             title: 'Patient Export Validation Tests',
             optional: true
