@@ -67,8 +67,6 @@ module DaVinciPDexTestKit
         id :member_match_request_group
         title '$member-match with exactly one match'
 
-        # run_as_group
-
         input :member_match_request,
           title: 'Member Match Request for one match',
           description: "A JSON payload for server's $member-match endpoint that has **exactly one match**",
@@ -78,6 +76,8 @@ module DaVinciPDexTestKit
             title '[USER INPUT VALIDATION] Member match request input check'
             id :member_match_request_input_validation
             input :member_match_request, type: 'textarea'
+
+            run_as_group
 
             test from: :abstract_member_match_request_conformance do
               id :member_match_request_request_conformance
