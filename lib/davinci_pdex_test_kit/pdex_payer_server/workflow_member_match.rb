@@ -121,10 +121,12 @@ module DaVinciPDexTestKit
             assert response[:body], 'Server HTTP response is missing body'
             assert_valid_json(response[:body])
             assert_resource_type('Parameters')
+
+            # We should save the output before validating every detail of the payload
+            output member_identifier: resource.parameter.find{|p| p.name=='MemberIdentifier'}&.valueIdentifier&.value
+            output member_identifier_system: resource.parameter.find{|p| p.name=='MemberIdentifier'}&.valueIdentifier&.system
+
             assert_valid_resource(profile_url: 'http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-parameters-member-match-out')
-  
-            output member_identifier: resource.parameter.find{|p| p.name=='MemberIdentifier'}.valueIdentifier.value
-            output member_identifier_system: resource.parameter.find{|p| p.name=='MemberIdentifier'}.valueIdentifier.system
           end
         end
     
