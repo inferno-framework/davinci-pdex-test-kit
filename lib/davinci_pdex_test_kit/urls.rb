@@ -6,6 +6,7 @@ module DaVinciPDexTestKit
   EVERYTHING_PATH = '/fhir/Patient/:patient/$everything'
   MEMBER_MATCH_PATH = '/fhir/Patient/$member-match'
   EXPORT_PATH = '/fhir/Patient/$export'
+  BASE_FHIR_PATH = '/fhir'
   RESUME_PASS_PATH = '/resume_pass'
   RESUME_CLINICAL_DATA_PATH = '/resume_clinical_data'
   RESUME_FAIL_PATH = '/resume_fail'
@@ -17,6 +18,10 @@ module DaVinciPDexTestKit
 
     def token_url
       @token_url ||= base_url + TOKEN_PATH
+    end
+    
+    def base_fhir_url
+      @base_fhir_url ||= base_url + BASE_FHIR_PATH
     end
 
     def patient_url

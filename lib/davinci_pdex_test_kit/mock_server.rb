@@ -33,23 +33,31 @@ module DaVinciPDexTestKit
       if params
         response = server_proxy.get(endpoint, params)
         request.status = response.status
+        response_resource = replace_bundle_urls(FHIR.from_contents(response.body))
         request.response_headers = response.headers.reject!{|key, value| key == "transfer-encoding"} # chunked causes problems for client
-        request.response_body = response.body
+        request.response_body = response_resource.to_json
       else
         response = server_proxy.get('Patient', {_id: 999})
         response_resource = FHIR.from_contents(response.body)
         response_resource.entry = [{fullUrl: 'urn:uuid:2866af9c-137d-4458-a8a9-eeeec0ce5583', resource: mock_operation_outcome_resource, search: {mode: 'outcome'}}]
-        response_resource.link.first.url = request.url
+        response_resource.link.first.url = request.url #specific case for Operation Outcome handling
         request.status = 400
         request.response_body = response_resource.to_json
       end
+    end
+
+    def read_next_page(request, test = nil, test_result = nil)
+      response = server_proxy.get('', request.query_parameters)
+      request.status = response.status
+      request.response_headers = response.headers.reject!{|key, value| key == "transfer-encoding"}
+      request.response_body = replace_bundle_urls(FHIR.from_contents(response.body)).to_json
     end
 
     def everything_response(request, test = nil, test_result = nil)
       response = server_proxy.get('Patient/999/$everything') #TODO: Change from static response
       request.status = response.status
       request.response_headers = response.headers.reject!{|key, value| key == "transfer-encoding"}
-      request.response_body = response.body
+      request.response_body = replace_bundle_urls(FHIR.from_contents(response.body)).to_json
     end
 
     def export_response(request, test = nil, test_result = nil)
@@ -168,6 +176,18 @@ module DaVinciPDexTestKit
 
     def mock_operation_outcome_resource
       FHIR.from_contents(File.read("lib/davinci_pdex_test_kit/metadata/mock_operation_outcome_resource.json"))
+    end
+
+    def replace_bundle_urls(bundle)
+      reference_server_base = ENV.fetch('FHIR_REFERENCE_SERVER')
+      bundle.link.map! {|link| {relation: link.relation, url: link.url.gsub(reference_server_base, 'http://localhost:4567/custom/pdex_payer_client/fhir')}}
+      bundle&.entry&.map! do |bundled_resource| 
+        {fullUrl: bundled_resource.fullUrl.gsub(reference_server_base, 'http://localhost:4567/custom/pdex_payer_client/fhir'),
+         resource: bundled_resource.resource,
+         search: bundled_resource.search
+        }
+      end
+      bundle
     end
 
     # @private

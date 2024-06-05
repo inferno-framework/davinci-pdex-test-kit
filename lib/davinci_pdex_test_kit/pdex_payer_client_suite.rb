@@ -86,6 +86,11 @@ module DaVinciPDexTestKit
                             resumes: method(:test_resumes?) do |request|
         PDexPayerClientSuite.extract_bearer_token(request)
       end
+
+      record_response_route :get, BASE_FHIR_PATH, SUBMIT_TAG, method(:read_next_page),
+                            resumes: method(:test_resumes?) do |request|
+        PDexPayerClientSuite.extract_bearer_token(request)
+      end
   
       resume_test_route :get, RESUME_PASS_PATH do |request|
         PDexPayerClientSuite.extract_token_from_query_params(request)
