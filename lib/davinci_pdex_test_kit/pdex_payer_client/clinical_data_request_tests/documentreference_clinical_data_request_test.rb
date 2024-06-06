@@ -15,9 +15,10 @@ module DaVinciPDexTestKit
 
 
     run do
+      info "scratch keys: #{scratch.keys}"
       skip_if scratch[:DocumentReference].nil?, "No requests made for DocumentReference resources"
 
-      assert scratch[:DocumentReference].any? {|resource| resource.id = 'pdex-DocumentReference'}, "Unable to find expected resource: pdex-DocumentReference" 
+      assert scratch[:DocumentReference].any? {|resource| resource.id == 'pdex-DocumentReference'}, "Unable to find expected resource: pdex-DocumentReference" 
     end
   end
 end

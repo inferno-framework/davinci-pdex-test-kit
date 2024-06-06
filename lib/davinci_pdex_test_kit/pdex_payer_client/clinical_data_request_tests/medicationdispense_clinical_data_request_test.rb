@@ -15,9 +15,10 @@ module DaVinciPDexTestKit
 
 
     run do
+      info "scratch keys: #{scratch.keys}"
       skip_if scratch[:MedicationDispense].nil?, "No requests made for MedicationDispense resources"
 
-      assert scratch[:MedicationDispense].any? {|resource| resource.id = 'pdex-MedicationDispense'}, "Unable to find expected resource: pdex-MedicationDispense" 
+      assert scratch[:MedicationDispense].any? {|resource| resource.id == 'pdex-MedicationDispense'}, "Unable to find expected resource: pdex-MedicationDispense" 
     end
   end
 end

@@ -13,6 +13,7 @@ module DaVinciPDexTestKit
     run do
       previous_clinical_data_request_resources.each do |request, resources|
         resources.each do |resource|
+          info "storing #{resource} in scratch at #{resource.resourceType.to_sym} at #{Time.now.to_f}"
           scratch[resource.resourceType.to_sym] ||= []
           scratch[resource.resourceType.to_sym] |= [resource]
         end

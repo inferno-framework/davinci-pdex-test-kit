@@ -15,9 +15,10 @@ module DaVinciPDexTestKit
 
 
     run do
+      info "scratch keys: #{scratch.keys}"
       skip_if scratch[:Device].nil?, "No requests made for Device resources"
 
-      assert scratch[:Device].any? {|resource| resource.id = 'pdex-Device'}, "Unable to find expected resource: pdex-Device" 
+      assert scratch[:Device].any? {|resource| resource.id == 'pdex-Device'}, "Unable to find expected resource: pdex-Device" 
     end
   end
 end

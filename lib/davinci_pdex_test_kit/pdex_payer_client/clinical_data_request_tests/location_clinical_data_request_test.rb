@@ -15,9 +15,10 @@ module DaVinciPDexTestKit
 
 
     run do
+      info "scratch keys: #{scratch.keys}"
       skip_if scratch[:Location].nil?, "No requests made for Location resources"
 
-      assert scratch[:Location].any? {|resource| resource.id = 'pdex-Location'}, "Unable to find expected resource: pdex-Location" 
+      assert scratch[:Location].any? {|resource| resource.id == 'pdex-Location'}, "Unable to find expected resource: pdex-Location" 
     end
   end
 end

@@ -15,9 +15,10 @@ module DaVinciPDexTestKit
 
 
     run do
+      info "scratch keys: #{scratch.keys}"
       skip_if scratch[:AllergyIntolerance].nil?, "No requests made for AllergyIntolerance resources"
 
-      assert scratch[:AllergyIntolerance].any? {|resource| resource.id = 'pdex-AllergyIntolerance'}, "Unable to find expected resource: pdex-AllergyIntolerance" 
+      assert scratch[:AllergyIntolerance].any? {|resource| resource.id == 'pdex-AllergyIntolerance'}, "Unable to find expected resource: pdex-AllergyIntolerance" 
     end
   end
 end

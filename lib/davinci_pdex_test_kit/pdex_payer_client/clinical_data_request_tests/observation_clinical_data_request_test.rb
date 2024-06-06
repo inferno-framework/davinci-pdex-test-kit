@@ -15,9 +15,10 @@ module DaVinciPDexTestKit
 
 
     run do
+      info "scratch keys: #{scratch.keys}"
       skip_if scratch[:Observation].nil?, "No requests made for Observation resources"
 
-      assert scratch[:Observation].any? {|resource| resource.id = 'pdex-Observation'}, "Unable to find expected resource: pdex-Observation" 
+      assert scratch[:Observation].any? {|resource| resource.id == 'pdex-Observation'}, "Unable to find expected resource: pdex-Observation" 
     end
   end
 end

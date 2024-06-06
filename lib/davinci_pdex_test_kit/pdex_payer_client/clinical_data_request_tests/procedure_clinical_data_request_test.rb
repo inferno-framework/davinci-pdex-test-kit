@@ -15,9 +15,10 @@ module DaVinciPDexTestKit
 
 
     run do
+      info "scratch keys: #{scratch.keys}"
       skip_if scratch[:Procedure].nil?, "No requests made for Procedure resources"
 
-      assert scratch[:Procedure].any? {|resource| resource.id = 'pdex-Procedure'}, "Unable to find expected resource: pdex-Procedure" 
+      assert scratch[:Procedure].any? {|resource| resource.id == 'pdex-Procedure'}, "Unable to find expected resource: pdex-Procedure" 
     end
   end
 end

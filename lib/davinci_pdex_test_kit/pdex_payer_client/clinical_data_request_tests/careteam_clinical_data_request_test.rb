@@ -15,9 +15,10 @@ module DaVinciPDexTestKit
 
 
     run do
+      info "scratch keys: #{scratch.keys}"
       skip_if scratch[:CareTeam].nil?, "No requests made for CareTeam resources"
 
-      assert scratch[:CareTeam].any? {|resource| resource.id = 'pdex-CareTeam'}, "Unable to find expected resource: pdex-CareTeam" 
+      assert scratch[:CareTeam].any? {|resource| resource.id == 'pdex-CareTeam'}, "Unable to find expected resource: pdex-CareTeam" 
     end
   end
 end
