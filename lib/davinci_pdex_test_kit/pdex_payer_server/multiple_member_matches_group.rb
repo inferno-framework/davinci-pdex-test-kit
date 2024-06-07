@@ -13,7 +13,6 @@ module DaVinciPDexTestKit
 
         run_as_group
 
-        # TODO: preset or default
         input :multiple_member_match_request,
           title: 'Member Match Request for multiple matches',
           description: "A JSON payload for server's $member-match endpoint that has **more than one match**",
@@ -41,6 +40,9 @@ module DaVinciPDexTestKit
           config(group_config)
         end
   
+        test from: :coverage_to_link_has_minimal_data, config: group_config
+        test from: :coverage_to_link_must_support, config: group_config
+
         test do
           id :member_match_has_multiple_matches
           title 'Server $member-match operation returns 422 Unprocessable Content if multiple matches are found'
@@ -58,9 +60,6 @@ module DaVinciPDexTestKit
             assert_response_status(422)
           end
         end
-
-        test from: :coverage_to_link_has_minimal_data, config: group_config
-        test from: :coverage_to_link_must_support, config: group_config
 
     end
   end

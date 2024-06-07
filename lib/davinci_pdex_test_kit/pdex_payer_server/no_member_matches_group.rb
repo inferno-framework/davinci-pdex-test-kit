@@ -12,7 +12,6 @@ module DaVinciPDexTestKit
 
         run_as_group
 
-        # TODO: preset or default
         input :no_member_match_request,
           title: 'Member Match Request for no matches',
           description: "A JSON payload for server's $member-match endpoint that has **no matches**",
@@ -41,6 +40,10 @@ module DaVinciPDexTestKit
           config(group_config)
         end
 
+        test from: :coverage_to_link_has_minimal_data, config: group_config
+        test from: :coverage_to_link_must_support, config: group_config
+
+
         test do
           id :member_match_has_no_matches
           title 'Server $member-match operation returns 422 Unprocessable Content if no matches are found'
@@ -61,8 +64,6 @@ module DaVinciPDexTestKit
           end
         end
 
-        test from: :coverage_to_link_has_minimal_data, config: group_config
-        test from: :coverage_to_link_must_support, config: group_config
     end
   end
 end
