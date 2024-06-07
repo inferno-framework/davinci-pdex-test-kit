@@ -22,9 +22,6 @@ the transfer of member data from an old payer (represented by Infero) to a new p
 - The ability of the client to complete the payer to payer data exchange workflow by
     - Initiating the request by invoking the `$member-match` operation.
     - Fetching all clinical data available from the old payer (Inferno) on the returned member.
-- The ability of the client to handle the full scope of the PDex IG, such as
-    - Reacting appropriately to a failed `$member-match` operation invocation.
-    - Providing all must support elements on `$member-match` requests.
 
 Because the process by which 
 [payer servers identify each other and establish trust](https://hl7.org/fhir/us/davinci-pdex/STU2/payertopayerexchange.html#mtls-endpoint-discovery)
@@ -89,3 +86,6 @@ validating the high-level payer to payer workflow and the ability of clients to 
 specification to access member data, without doing detailed validation of the mechanisms, 
 including authentication and trust establishment, because those details are likely to change 
 in future versions of the PDex specification.
+
+At this time, coverage of additional scenarios beyond the happy path payer to payer workflow
+are not validated. These scenarios will be tested in future versions of the tests.
