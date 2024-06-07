@@ -15,7 +15,6 @@ module DaVinciPDexTestKit
 
 
     run do
-      info "scratch keys: #{scratch.keys}"
       skip_if scratch[:Patient].nil?, "No requests made for Patient resources"
 
       assert scratch[:Patient].any? {|resource| resource.id == 'pdex-Patient'}, "Unable to find expected resource: 999" 

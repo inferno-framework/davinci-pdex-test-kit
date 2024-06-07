@@ -15,7 +15,6 @@ module DaVinciPDexTestKit
 
 
     run do
-      info "scratch keys: #{scratch.keys}"
       skip_if scratch[:Practitioner].nil?, "No requests made for Practitioner resources"
 
       assert scratch[:Practitioner].any? {|resource| resource.id == 'pdex-Practitioner'}, "Unable to find expected resource: pdex-Practitioner" 

@@ -15,7 +15,6 @@ module DaVinciPDexTestKit
 
 
     run do
-      info "scratch keys: #{scratch.keys}"
       skip_if scratch[:Goal].nil?, "No requests made for Goal resources"
 
       assert scratch[:Goal].any? {|resource| resource.id == 'pdex-Goal'}, "Unable to find expected resource: pdex-Goal" 

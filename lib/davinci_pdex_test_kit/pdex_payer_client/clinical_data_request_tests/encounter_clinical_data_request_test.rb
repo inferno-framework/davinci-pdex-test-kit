@@ -15,7 +15,6 @@ module DaVinciPDexTestKit
 
 
     run do
-      info "scratch keys: #{scratch.keys}"
       skip_if scratch[:Encounter].nil?, "No requests made for Encounter resources"
 
       assert scratch[:Encounter].any? {|resource| resource.id == 'pdex-Encounter'}, "Unable to find expected resource: pdex-Encounter" 
