@@ -112,70 +112,71 @@ module DaVinciPDexTestKit
         end
       end
 
-      test do
-        title %{
-          Attestation: Server returns all resources necessary to cover all USDCI elements known by the server if
-          operating in US Realm.
-        }
-        description 'See previous test for details.'
+      # TODO: make attestations clearer, possibly change UI
+      # test do
+      #   title %{
+      #     Attestation: Server returns all resources necessary to cover all USDCI elements known by the server if
+      #     operating in US Realm.
+      #   }
+      #   description 'See previous test for details.'
 
-        input :workflow_everything_uscdi_attestation,
-              title: %{
-                Server's $everything operation returns all resources necessary to cover all USDCI
-                elements known by the server if operating in US Realm
-              },
-              type: :radio,
-              options: {
-                list_options: [
-                  {
-                    label: 'Yes',
-                    value: 'yes'
-                  },
-                  {
-                    label: 'No',
-                    value: 'no'
-                  }
-                ]
-              },
-              default: '',
-              optional: true
+      #   input :workflow_everything_uscdi_attestation,
+      #         title: %{
+      #           Server's $everything operation returns all resources necessary to cover all USDCI
+      #           elements known by the server if operating in US Realm
+      #         },
+      #         type: :radio,
+      #         options: {
+      #           list_options: [
+      #             {
+      #               label: 'Yes',
+      #               value: 'yes'
+      #             },
+      #             {
+      #               label: 'No',
+      #               value: 'no'
+      #             }
+      #           ]
+      #         },
+      #         default: '',
+      #         optional: true
 
-        run do
-          assert workflow_everything_uscdi_attestation == 'yes', 'Developer did not agree to attestation'
-        end
-      end
+      #   run do
+      #     assert workflow_everything_uscdi_attestation == 'yes', 'Developer did not agree to attestation'
+      #   end
+      # end
 
-      test do
-        title %{
-          Attestation: The use of the Bulk FHIR specification for transmission of member $everything data SHALL
-          honor jurisdictional and personal privacy restrictions that are relevant to a member’s health record.
-        }
+      # test do
+      #   title %{
+      #     Attestation: The use of the Bulk FHIR specification for transmission of member $everything data SHALL
+      #     honor jurisdictional and personal privacy restrictions that are relevant to a member’s health record.
+      #   }
 
-        input :workflow_everything_privacy_attestation,
-              title: %Q(
-                Server's $everything operation shall honor jurisdictional and personal privacy
-                restriction that are relevant to a member's health record
-              ),
-              type: :radio,
-              options: {
-                list_options: [
-                  {
-                    label: 'Yes',
-                    value: 'yes'
-                  },
-                  {
-                    label: 'No',
-                    value: 'no'
-                  }
-                ]
-              },
-              default: '',
-              optional: true
+      #   input :workflow_everything_privacy_attestation,
+      #         title: %Q(
+      #           Server's $everything operation shall honor jurisdictional and personal privacy
+      #           restriction that are relevant to a member's health record
+      #         ),
+      #         type: :radio,
+      #         options: {
+      #           list_options: [
+      #             {
+      #               label: 'Yes',
+      #               value: 'yes'
+      #             },
+      #             {
+      #               label: 'No',
+      #               value: 'no'
+      #             }
+      #           ]
+      #         },
+      #         default: '',
+      #         optional: true
 
-        run do
-          assert workflow_everything_privacy_attestation == 'yes', 'Developer did not agree to attestation'
-        end
-      end
+      #   run do
+      #     assert workflow_everything_privacy_attestation == 'yes', 'Developer did not agree to attestation'
+      #   end
+      # end
 
       # TODO: consider parameter tests
     end
