@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    davinci_pdex_test_kit (0.9.0)
+    davinci_pdex_test_kit (0.9.1)
       bulk_data_test_kit (~> 0.10)
       inferno_core (~> 0.4.38)
-      us_core_test_kit (~> 0.6.5)
+      us_core_test_kit (~> 0.7.1)
 
 GEM
   remote: https://rubygems.org/
@@ -314,8 +314,8 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
     unicode_utils (1.4.0)
-    us_core_test_kit (0.6.5)
-      inferno_core (>= 0.4.2)
+    us_core_test_kit (0.7.1)
+      inferno_core (>= 0.4.37)
       smart_app_launch_test_kit (>= 0.4.0)
       tls_test_kit (~> 0.2.0)
     webmock (3.23.0)
