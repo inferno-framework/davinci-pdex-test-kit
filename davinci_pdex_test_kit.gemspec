@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Karl Naden', 'Shaumik Ashraf', 'Diego Griese']
   spec.email         = ['inferno@groups.mitre.org']
   spec.date          = Time.now.utc.strftime('%Y-%m-%d')
-  spec.summary       = 'DaVinci PDex Test Kit'
-  spec.description   = 'DaVinci PDex Test Kit'
+  spec.summary       = 'Da Vinci PDex Test Kit'
+  spec.description   = 'Test Kit for the Da Vinci Payer Data Exchange (PDex) FHIR Implementation Guide'
   spec.homepage      = 'https://github.com/inferno-framework/davinci-pdex-test-kit/'
   spec.license       = 'Apache-2.0'
   spec.add_runtime_dependency 'inferno_core', '~> 0.4.38'
