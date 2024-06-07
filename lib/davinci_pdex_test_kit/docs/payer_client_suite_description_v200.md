@@ -44,13 +44,13 @@ validated with the Java validator using `tx.fhir.org` as the terminology server.
 ### Quick Start
 
 For Inferno to simulate a server that returns a matching patient and responds to requests
-for that patient's data using FHIR read and search APIs or the $export operation,
-Inferno only needs to be able to identify when requests come from the client under test.
-Inferno piggybacks on the request authentication for this purpose. Testers must provide
-a bearer access token that will be provided within the `Authentication` header (`Bearer <token>`) 
-on all requests made to Inferno endpoints during the test. Inferno uses this information to 
-associate the message with the test session and determine how to respond. How the token
-provided to Inferno is generated is up to the tester. 
+for that patient's data using FHIR read and search APIs, Inferno only needs to be able to
+identify when requests come from the client under test. Inferno piggybacks on the request 
+authentication for this purpose. Testers must provide a bearer access token that will be 
+provided within the `Authentication` header (`Bearer <token>`) on all requests made to 
+Inferno endpoints during the test. Inferno uses this information to associate the message
+with the test session and determine how to respond. How the token provided to Inferno is 
+generated is up to the tester. 
 
 Note: authentication options for these tests have not been finalized and are subject to change
 as the requirements in the PDex IG evolve. If the implemented approach prevents you from using

@@ -13,20 +13,19 @@ module DaVinciPDexTestKit
     run do
       previous_clinical_data_request_resources.each do |request, resources|
         resources.each do |resource|
-          info "storing #{resource} in scratch at #{resource.resourceType.to_sym} at #{Time.now.to_f}"
           scratch[resource.resourceType.to_sym] ||= []
           scratch[resource.resourceType.to_sym] |= [resource]
         end
       end
-      if export_resources
-        info "Attempted an $export request"
-        export_resources.each do |resource|
-          scratch[resource.resourceType.to_sym] ||= []
-          scratch[resource.resourceType.to_sym] |= [resource]
-        end
-      elsif export_request
-        info "Found an $export request, but no resources found.  It may not have had enough time to build"
-      end
+      # if export_resources
+      #   info "Attempted an $export request"
+      #   export_resources.each do |resource|
+      #     scratch[resource.resourceType.to_sym] ||= []
+      #     scratch[resource.resourceType.to_sym] |= [resource]
+      #   end
+      # elsif export_request
+      #   info "Found an $export request, but no resources found.  It may not have had enough time to build"
+      # end
       if everything_request
         info "Attempted an $everything request"
       end

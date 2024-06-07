@@ -60,16 +60,16 @@ module DaVinciPDexTestKit
       request.response_body = replace_bundle_urls(FHIR.from_contents(response.body)).to_json
     end
 
-    def export_response(request, test = nil, test_result = nil)
-      response = server_proxy.get do |req|
-        req.url 'Group/pdex-Group/$export' #TODO: change from static response
-        req.headers['Prefer'] = 'respond-async'
-        req.headers['Accept'] = 'application/fhir+json'
-      end
-      request.status = response.status
-      request.response_headers = response.env.response_headers
-      request.response_body = response.body
-    end
+    # def export_response(request, test = nil, test_result = nil)
+    #   response = server_proxy.get do |req|
+    #     req.url 'Group/pdex-Group/$export' #TODO: change from static response
+    #     req.headers['Prefer'] = 'respond-async'
+    #     req.headers['Accept'] = 'application/fhir+json'
+    #   end
+    #   request.status = response.status
+    #   request.response_headers = response.env.response_headers
+    #   request.response_body = response.body
+    # end
 
     def member_match_response(request, test = nil, test_result = nil)
       #remove token from request as well

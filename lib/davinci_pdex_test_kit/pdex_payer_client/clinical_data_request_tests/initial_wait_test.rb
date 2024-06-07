@@ -19,7 +19,7 @@ module DaVinciPDexTestKit
           Submit PDex requests via at least one of the following methods:
           * Single Resource API: `#{submit_url}`, with `:endpoint` replaced with the endpoint you want to reach
           * $everything method: `#{everything_url}`, with `:patient` replaced with the patient you are matching
-          * $export method: `#{export_url}`
+          
           and [click here](#{resume_clinical_data_url}?token=#{access_token}) when done.
         )
       )

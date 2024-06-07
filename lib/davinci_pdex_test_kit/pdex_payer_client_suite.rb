@@ -37,8 +37,6 @@ require_relative 'pdex_payer_client/client_member_match_tests/client_member_matc
 require_relative 'pdex_payer_client/client_must_support_tests/client_member_match_must_support_submit_test'
 require_relative 'pdex_payer_client/client_must_support_tests/client_member_match_must_support_validation_test'
 
-# require_relative 'pdex_payer_client/client_export_tests/export_test'
-# require_relative 'pdex_payer_client/client_export_tests/export_check_test'
 
 module DaVinciPDexTestKit
     class PDexPayerClientSuite < Inferno::TestSuite
@@ -77,10 +75,10 @@ module DaVinciPDexTestKit
         PDexPayerClientSuite.extract_bearer_token(request)
       end
 
-      record_response_route :get, EXPORT_PATH, EXPORT_TAG, method(:export_response),
-                            resumes: method(:test_resumes?) do |request|
-        PDexPayerClientSuite.extract_bearer_token(request)
-      end
+      # record_response_route :get, EXPORT_PATH, EXPORT_TAG, method(:export_response),
+      #                       resumes: method(:test_resumes?) do |request|
+      #   PDexPayerClientSuite.extract_bearer_token(request)
+      # end
 
       record_response_route :post, MEMBER_MATCH_PATH, MEMBER_MATCH_TAG, method(:member_match_response),
                             resumes: method(:test_resumes?) do |request|
@@ -139,11 +137,6 @@ module DaVinciPDexTestKit
           test from: :practitionerrole_clinical_data_request_test
           test from: :procedure_clinical_data_request_test
         end
-        # group do
-        #   title "Export Tests"
-        #   test from: :export_test
-        #   test from: :export_check_test
-        # end
       end
       
       group do
