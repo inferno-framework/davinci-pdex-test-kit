@@ -34,8 +34,8 @@ require_relative 'pdex_payer_client/clinical_data_request_tests/procedure_clinic
 
 require_relative 'pdex_payer_client/client_member_match_tests/client_member_match_submit_test'
 require_relative 'pdex_payer_client/client_member_match_tests/client_member_match_validation_test'
-require_relative 'pdex_payer_client/client_must_support_tests/client_member_match_must_support_submit_test'
-require_relative 'pdex_payer_client/client_must_support_tests/client_member_match_must_support_validation_test'
+# require_relative 'pdex_payer_client/client_must_support_tests/client_member_match_must_support_submit_test'
+# require_relative 'pdex_payer_client/client_must_support_tests/client_member_match_must_support_validation_test'
 
 
 module DaVinciPDexTestKit
@@ -139,14 +139,14 @@ module DaVinciPDexTestKit
         end
       end
       
-      group do
-        title "Must Support validation"
-        group do
-          title "$member-match Must Support tests"
-          test from: :initial_member_match_must_support_submit_test
-          test from: :initial_member_match_must_support_validation_test
-        end
-      end
+      # group do
+      #   title "Must Support validation"
+      #   group do
+      #     title "$member-match Must Support tests"
+      #     test from: :initial_member_match_must_support_submit_test
+      #     test from: :initial_member_match_must_support_validation_test
+      #   end
+      # end
     end
   end
   
