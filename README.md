@@ -16,17 +16,6 @@ The test kit includes suites targeting the following actors from the specificati
   Inferno will wait for the client to make requests and respond appropriately
   to them.
 
-## Running Server Tests and Client Tests against each other
-A preset has been provided if you would like to run the test kits against each other.  To do so:
-1. Begin each test suite in separate windows.
-2. Select the "PDex Payer Server Preset for Client Tests" preset in the Server Suite.
-3. Select "Run All Tests" for both kits.  Input the same access token for both, but do not click submit.
-4. Begin the Client tests by clicking submit.  It will now await a member-match to begin the workflow.
-5. Begin the Server tests by clicking submit.  It will send a member-match request to begin the workflow.
-6. Once a member-match request is received, the client tests will begin awaiting clinical data requests.  The server tests will automatically begin sending them.  Once the Server tests have reached the second group, you may attest in the client that clinical data requests are over.
-7. Let both test kits finish, attesting in client side that member-match's have all been received after Server group 2.1 completes.
-
-## Instructions for Developing tests
 In each case, content provided by the system under test will be checked individually
 for conformance and in aggregate to determine that the full set of features is
 supported.
@@ -116,6 +105,23 @@ to a public instance. The location of the The following are valid configuration 
    or [without docker](https://github.com/inferno-framework/inferno-reference-server?tab=readme-ov-file#running-without-docker) 
    (NOTE: this decision can be made independently from whether to run the test kit with 
    docker or using Ruby).
+
+## Running Server Tests and Client Tests against each other
+
+A preset has been provided if you would like to run the test kits against each other.  To do so:
+1. Begin each test suite in separate windows.
+2. Select the "PDex Payer Server Preset for Client Tests" preset in the Server Suite.
+3. Select "Run All Tests" for both kits.  Input the same access token for both, but do not click submit.
+4. Begin the Client tests by clicking submit.  It will now await a member-match to begin the workflow.
+5. Begin the Server tests by clicking submit.  It will send a member-match request to begin the workflow.
+6. Once a member-match request is received, the client tests will begin awaiting clinical data requests.  The server tests will automatically begin sending them.  Once the Server tests have reached the second group, you may attest in the client that clinical data requests are over.
+7. Let both test kits finish, attesting in client side that member-match's have all been received after Server group 2.1 completes. The tests are not expected to pass at this time.
+
+Note that there is a currently a race condition that means that the client test may fail to respond to
+some server test suite requests. As a work-around, run the server test suite a second time while the
+client is waiting for clinical data requests during test 1.2.
+
+## Instructions for Developing tests
 
 ## Providing Feedback and Reporting Issues
 
