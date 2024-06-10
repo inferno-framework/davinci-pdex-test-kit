@@ -24,27 +24,27 @@ module DaVinciPDexTestKit
       run do
         member_match_request_resource = FHIR.from_contents(member_match_request)
         skip_if !member_match_request_resource.parameter.find{|p| p.name=='CoverageToLink'},
-                "No CoverageToLink parameter provided"
+                'No CoverageToLink parameter provided'
 
         coverage = member_match_request_resource.parameter.find{|p| p.name=='CoverageToLink'}.resource
 
         assert_resource_type(:coverage, resource: coverage)
-        assert !coverage.type
-        assert !coverage.policyHolder
-        assert !coverage.subscriber
-        assert !coverage.relationship
-        assert !coverage.period
+        assert !coverage.type, 'CoverageToLink parameter has unnecessary type field'
+        assert !coverage.policyHolder, 'CoverageToLink parameter has unnecessary policyHolder field'
+        assert !coverage.subscriber, 'CoverageToLink parameter has unnecessary subscriber field'
+        assert !coverage.relationship, 'CoverageToLink parameter has unnecessary relationship field'
+        assert !coverage.period, 'CoverageToLink parameter has unnecessary period field'
         assert !coverage.local_class.any? do |backbone_element|
           backbone_element.type.coding.any? do |coding|
             !(coding.code == 'group' && 
               coding.system == 'http://terminology.hl7.org/CodeSystem/coverage-class')
           end
-        end
-        assert !coverage.order
-        assert !coverage.network
-        assert coverage.costToBeneficiary.empty?
-        assert coverage.subrogation.nil?
-        assert !coverage.contract
+        end, 'CoverageToLink parameter has class field with array elements aside from the group slice'
+        assert !coverage.order, 'CoverageToLink parameter has unnecessary order field'
+        assert !coverage.network, 'CoverageToLink parameter has unecessary network field'
+        assert coverage.costToBeneficiary.nil? || coverage.costToBeneficiary.empty?, 'CoverageToLink parameter has unnecessary costToBeneficiary field'
+        assert coverage.subrogation.nil?, 'CoverageToLink parameter has unnecessary subrogation field'
+        assert !coverage.contract, 'CoverageToLink parameter has uncessary contract field'
       end
 
     end
