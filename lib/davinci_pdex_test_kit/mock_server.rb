@@ -135,16 +135,6 @@ module DaVinciPDexTestKit
       request.query_parameters['token']
     end
 
-    # Drop the last two segments of a URL, i.e. the resource type and ID of a FHIR resource
-    # e.g. http://example.org/fhir/Patient/123 -> http://example.org/fhir
-    # @private
-    def base_url(url)
-      return unless url.start_with?('http://', 'https://')
-
-      # Drop everything after the second to last '/', ignoring a trailing slash
-      url.sub(%r{/[^/]*/[^/]*(/)?\z}, '')
-    end
-
     # Pull resource type from url
     # e.g. http://example.org/fhir/Patient/123 -> Patient
     # @private
@@ -180,14 +170,18 @@ module DaVinciPDexTestKit
 
     def replace_bundle_urls(bundle)
       reference_server_base = ENV.fetch('FHIR_REFERENCE_SERVER')
-      bundle.link.map! {|link| {relation: link.relation, url: link.url.gsub(reference_server_base, 'http://localhost:4567/custom/pdex_payer_client/fhir')}}
+      bundle.link.map! {|link| {relation: link.relation, url: link.url.gsub(reference_server_base, new_link)}}
       bundle&.entry&.map! do |bundled_resource| 
-        {fullUrl: bundled_resource.fullUrl.gsub(reference_server_base, 'http://localhost:4567/custom/pdex_payer_client/fhir'),
+        {fullUrl: bundled_resource.fullUrl.gsub(reference_server_base, new_link),
          resource: bundled_resource.resource,
          search: bundled_resource.search
         }
       end
       bundle
+    end
+
+    def new_link
+      "#{Inferno::Application['base_url']}/custom/pdex_payer_client/fhir"
     end
 
     # @private

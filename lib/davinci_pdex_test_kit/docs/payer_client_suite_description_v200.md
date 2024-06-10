@@ -71,9 +71,6 @@ to make requests against Inferno for these tests. To use the Postman demo on thi
    use Postman to send some or all of the requests in the `Clinical Data Requests` folder and click
    on the link in the dialog when done. If not all the requests are made, the test will not pass 
    because the test requires that all available data be accessed.
-6. When a third `User Action Required` requesting additional `$member-match` requests be made
-   demonstrating coverage of all must support elements on `$member-match` submissions, use Postman to send any or all of the requests found in the `$member-match Requests` folder. If only the 
-   `$member-match missing CoverageToMatch` is sent, then the test will fail due to missing examples.
 
 The tests will complete and the results made available for review.
 
