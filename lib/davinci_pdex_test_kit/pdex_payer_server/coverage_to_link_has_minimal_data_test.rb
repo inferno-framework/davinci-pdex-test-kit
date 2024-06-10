@@ -34,12 +34,13 @@ module DaVinciPDexTestKit
         assert !coverage.subscriber, 'CoverageToLink parameter has unnecessary subscriber field'
         assert !coverage.relationship, 'CoverageToLink parameter has unnecessary relationship field'
         assert !coverage.period, 'CoverageToLink parameter has unnecessary period field'
-        assert !coverage.local_class.any? do |backbone_element|
+        extraneous_coverage_classes = coverage.local_class.any? do |backbone_element|
           backbone_element.type.coding.any? do |coding|
             !(coding.code == 'group' && 
               coding.system == 'http://terminology.hl7.org/CodeSystem/coverage-class')
           end
-        end, 'CoverageToLink parameter has class field with array elements aside from the group slice'
+        end
+        assert !extraneous_coverage_classes, 'CoverageToLink parameter has class field with array elements aside from the group slice'
         assert !coverage.order, 'CoverageToLink parameter has unnecessary order field'
         assert !coverage.network, 'CoverageToLink parameter has unecessary network field'
         assert coverage.costToBeneficiary.nil? || coverage.costToBeneficiary.empty?, 'CoverageToLink parameter has unnecessary costToBeneficiary field'
