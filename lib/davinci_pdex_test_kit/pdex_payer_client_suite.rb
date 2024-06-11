@@ -59,7 +59,7 @@ module DaVinciPDexTestKit
 
       # Hl7 Validator Wrapper:
       fhir_resource_validator do
-        igs 'igs/davinci-pdex-2.0.0.tgz'
+        igs 'hl7.fhir.us.davinci-pdex#2.0.0'
         # hrex 1.0.0 and other dependencies will auto-load
 
         # cli_context do

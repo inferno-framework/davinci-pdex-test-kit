@@ -107,7 +107,8 @@ module DaVinciPDexTestKit
 
           (0...resource.entry.length).each do |i|
             assert_valid_resource(resource: resource.entry[i].resource,
-                                  profile_url: resource.entry[i].resource.meta.profile)
+                                  profile_url: resource.entry[i].resource.meta.profile
+                                 )
           end
         end
       end
