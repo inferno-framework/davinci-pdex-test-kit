@@ -16,6 +16,25 @@ module DaVinciPDexTestKit
       title 'Da Vinci PDex Payer Server Test Suite'
       description File.read(File.join(__dir__, 'docs', 'payer_server_suite_description_v200.md'))
   
+      links [
+        {
+          label: 'Report Issue',
+          url: 'https://github.com/inferno-framework/davinci-pdex-test-kit/issues'
+        },
+        {
+          label: 'Open Source',
+          url: 'https://github.com/inferno-framework/davinci-pdex-test-kit'
+        },
+        {
+          label: 'Download',
+          url: 'https://github.com/inferno-framework/davinci-pdex-test-kit/releases'
+        },
+        {
+          label: 'Implementation Guide',
+          url: 'https://hl7.org/fhir/us/davinci-pdex/STU2/'
+        }
+      ]
+
       input :url,
             title: 'FHIR Server Base Url'
   
@@ -36,19 +55,10 @@ module DaVinciPDexTestKit
 
       VERSION_SPECIFIC_MESSAGE_FILTERS = [].freeze
 
-      # Legacy Validator Wrapper:
-      # All FHIR validation requests will use this FHIR validator
-      # validator do
-      #  url ENV.fetch('VALIDATOR_URL')  
-      # end
-
       # Hl7 Validator Wrapper:
       fhir_resource_validator do
         igs 'hl7.fhir.us.davinci-pdex#2.0.0'
         # hrex 1.0.0 and other dependencies will auto-load
-
-        # cli_context do
-        # end
 
         # Copy messages limit from Bulk Data Export tests
         message_filters = VALIDATION_MESSAGE_FILTERS + VERSION_SPECIFIC_MESSAGE_FILTERS

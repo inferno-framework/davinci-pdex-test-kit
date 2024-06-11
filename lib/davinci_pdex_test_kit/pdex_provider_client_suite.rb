@@ -11,6 +11,25 @@ module DaVinciPDexTestKit
         guide. Inferno will act as a payer server that the 
         system under test will connect to and retrieve data from.
       )
+
+      links [
+        {
+          label: 'Report Issue',
+          url: 'https://github.com/inferno-framework/davinci-pdex-test-kit/issues'
+        },
+        {
+          label: 'Open Source',
+          url: 'https://github.com/inferno-framework/davinci-pdex-test-kit'
+        },
+        {
+          label: 'Download',
+          url: 'https://github.com/inferno-framework/davinci-pdex-test-kit/releases'
+        },
+        {
+          label: 'Implementation Guide',
+          url: 'https://hl7.org/fhir/us/davinci-pdex/STU2/'
+        }
+      ]
   
       # These inputs will be available to all tests in this suite
       input :url,
