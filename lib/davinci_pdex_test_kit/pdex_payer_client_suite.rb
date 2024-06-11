@@ -51,9 +51,19 @@ module DaVinciPDexTestKit
         !test.config.options[:accepts_multiple_requests]
       end
       
+      # Legacy Validator Wrapper:
       # All FHIR validation requests will use this FHIR validator
-      validator do
-        url ENV.fetch('VALIDATOR_URL')  
+      # validator do
+      #  url ENV.fetch('VALIDATOR_URL')  
+      # end
+
+      # Hl7 Validator Wrapper:
+      fhir_resource_validator do
+        igs 'igs/davinci-pdex-2.0.0.tgz'
+        # hrex 1.0.0 and other dependencies will auto-load
+
+        # cli_context do
+        # end
       end
 
       record_response_route :post, TOKEN_PATH, AUTH_TAG, method(:token_response) do |request|

@@ -35,9 +35,20 @@ module DaVinciPDexTestKit
       ].freeze
 
       VERSION_SPECIFIC_MESSAGE_FILTERS = [].freeze
-  
-      validator do
-        url ENV.fetch('VALIDATOR_URL')
+
+      # Legacy Validator Wrapper:
+      # All FHIR validation requests will use this FHIR validator
+      # validator do
+      #  url ENV.fetch('VALIDATOR_URL')  
+      # end
+
+      # Hl7 Validator Wrapper:
+      fhir_resource_validator do
+        igs 'igs/davinci-pdex-2.0.0.tgz'
+        # hrex 1.0.0 and other dependencies will auto-load
+
+        # cli_context do
+        # end
 
         # Copy messages limit from Bulk Data Export tests
         message_filters = VALIDATION_MESSAGE_FILTERS + VERSION_SPECIFIC_MESSAGE_FILTERS
