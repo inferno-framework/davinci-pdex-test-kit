@@ -5,7 +5,8 @@ module DaVinciPDexTestKit
   METADATA_PATH = '/fhir/metadata'
   EVERYTHING_PATH = '/fhir/Patient/:patient/$everything'
   MEMBER_MATCH_PATH = '/fhir/Patient/$member-match'
-  # EXPORT_PATH = '/fhir/Patient/$export'
+  EXPORT_PATH = '/fhir/Patient/$export'
+  EXPORT_STATUS_PATH = '/fhir/$export-poll-status'
   BASE_FHIR_PATH = '/fhir'
   RESUME_PASS_PATH = '/resume_pass'
   RESUME_CLINICAL_DATA_PATH = '/resume_clinical_data'
@@ -44,9 +45,13 @@ module DaVinciPDexTestKit
       @member_match_url ||= base_url + MEMBER_MATCH_PATH
     end
 
-    # def export_url
-    #   @export_url ||= base_url + EXPORT_PATH
-    # end
+    def export_url
+      @export_url ||= base_url + EXPORT_PATH
+    end
+
+    def export_status_url
+      @export_status_url ||= base_url + EXPORT_STATUS_PATH
+    end
 
     def resume_pass_url
       @resume_pass_url ||= base_url + RESUME_PASS_PATH

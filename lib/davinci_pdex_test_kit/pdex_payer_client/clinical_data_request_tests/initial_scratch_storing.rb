@@ -17,6 +17,8 @@ module DaVinciPDexTestKit
           scratch[resource.resourceType.to_sym] |= [resource]
         end
       end
+      info export_request.request_headers.to_json if export_request
+      info export_status_request.to_json if export_status_request
       # if export_resources
       #   info "Attempted an $export request"
       #   export_resources.each do |resource|
