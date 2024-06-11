@@ -110,6 +110,32 @@
 			"name": "Clinical Data Requests",
 			"item": [
 				{
+					"name": "Patient GET by identifier",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Patient?identifier=99999",
+							"host": [
+								"{{url_prefix}}"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Patient"
+							],
+							"query": [
+								{
+									"key": "identifier",
+									"value": "99999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "AllergyIntolerance GET by patient",
 					"request": {
 						"method": "GET",
@@ -574,32 +600,6 @@
 					"response": []
 				},
 				{
-					"name": "Patient GET by identifier",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Patient?identifier=99999",
-							"host": [
-								"{{url_prefix}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Patient"
-							],
-							"query": [
-								{
-									"key": "identifier",
-									"value": "99999"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Practitioner GET by name",
 					"request": {
 						"method": "GET",
@@ -760,7 +760,7 @@
 	"variable": [
 		{
 			"key": "url_prefix",
-			"value": "http://localhost:4567",
+			"value": "https://inferno.healthit.gov/suites",
 			"type": "string"
 		},
 		{

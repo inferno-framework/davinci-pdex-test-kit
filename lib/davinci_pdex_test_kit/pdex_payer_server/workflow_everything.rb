@@ -84,33 +84,36 @@ module DaVinciPDexTestKit
         end
       end
 
-      test do
-        title %{
-          The resources returned SHALL include all the data covered by the meaningful use common data elements as
-          defined in the US Core Implementation Guide
-        }
-        description %{
-          See FHIR R4 documentation for [patient-everything](https://hl7.org/fhir/R4/patient-operation-everything.html).
-          The US realm has now replaced meaningful use common data elements with [USCDI](https://www.healthit.gov/isa/united-states-core-data-interoperability-uscdi).
 
-          This test currently uses `meta.profile` to validate that a resource is compliant with its intended profile,
-          which includes checking for the profile's required elements.
+      # TODO: convert to attestation    
+      # test do
+      #   title %{
+      #     The resources returned SHALL include all the data covered by the meaningful use common data elements as
+      #     defined in the US Core Implementation Guide
+      #   }
+      #   description %{
+      #     See FHIR R4 documentation for [patient-everything](https://hl7.org/fhir/R4/patient-operation-everything.html).
+      #     The US realm has now replaced meaningful use common data elements with [USCDI](https://www.healthit.gov/isa/united-states-core-data-interoperability-uscdi).
 
-          It is the servers responsiblity to return all resources necessary to cover all USDCI elements known by
-          the server.
-        }
+      #     This test currently uses `meta.profile` to validate that a resource is compliant with its intended profile,
+      #     which includes checking for the profile's required elements.
 
-        uses_request :pdex_patient_everything
+      #     It is the servers responsiblity to return all resources necessary to cover all USDCI elements known by
+      #     the server.
+      #   }
 
-        run do
-          skip_if resource.resourceType != 'Bundle'
+      #   uses_request :pdex_patient_everything
 
-          (0...resource.entry.length).each do |i|
-            assert_valid_resource(resource: resource.entry[i].resource,
-                                  profile_url: resource.entry[i].resource.meta.profile)
-          end
-        end
-      end
+      #   run do
+      #     skip_if resource.resourceType != 'Bundle'
+
+      #     (0...resource.entry.length).each do |i|
+      #       assert_valid_resource(resource: resource.entry[i].resource,
+      #                             profile_url: resource.entry[i].resource.meta.profile
+      #                            )
+      #     end
+      #   end
+      # end
 
       # TODO: make attestations clearer, possibly change UI
       # test do
