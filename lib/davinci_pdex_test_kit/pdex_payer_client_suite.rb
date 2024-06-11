@@ -74,6 +74,10 @@ module DaVinciPDexTestKit
       fhir_resource_validator do
         igs 'hl7.fhir.us.davinci-pdex#2.0.0'
         # hrex 1.0.0 and other dependencies will auto-load
+
+        exclude_message do |message|
+          message.message.match?(/\A\S+: \S+: URL value '.*' does not resolve/)
+        end
       end
 
       record_response_route :post, TOKEN_PATH, AUTH_TAG, method(:token_response) do |request|
