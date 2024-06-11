@@ -46,19 +46,11 @@ module DaVinciPDexTestKit
         oauth_credentials :credentials
       end
   
-      # Legacy Validator Wrapper:
-      # All FHIR validation requests will use this FHIR validator
-      # validator do
-      #  url ENV.fetch('VALIDATOR_URL')  
-      # end
-
       # Hl7 Validator Wrapper:
       fhir_resource_validator do
         igs 'hl7.fhir.us.davinci-pdex#2.0.0'
         # hrex 1.0.0 and other dependencies will auto-load
 
-        # cli_context do
-        # end
       end
     end
 end
