@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    davinci_pdex_test_kit (0.9.3)
+    davinci_pdex_test_kit (0.10.0)
       bulk_data_test_kit (~> 0.10)
       inferno_core (~> 0.4.38)
       us_core_test_kit (~> 0.7.1)
