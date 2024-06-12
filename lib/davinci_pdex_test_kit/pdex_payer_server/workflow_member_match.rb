@@ -4,6 +4,8 @@ require_relative 'abstract_member_match_request_local_references_test'
 require_relative 'coverage_to_link_has_minimal_data_test'
 require_relative 'coverage_to_link_must_support_test'
 
+require_relative 'patient_operation_in_capability_statement_test'
+
 module DaVinciPDexTestKit
   module PDexPayerServer
     class WorkflowMemberMatch < Inferno::TestGroup
@@ -36,32 +38,16 @@ module DaVinciPDexTestKit
 
       run_as_group
 
-      # TODO factorize cap statement tests
-      test do
-        id :member_match_in_capability_statement
-        title 'Server asserts Patient $member_match operation in capability statement.'
-
-        run do
-          fhir_get_capability_statement
-
-          assert_response_status(200)
-          assert_resource_type(:capability_statement)
-
-          assert(
-            resource.rest.one? do |rest_metadata|
-              rest_metadata.resource.select { |resource_metadata| resource_metadata.type == 'Patient' }.first
-                .operation.any? do |operation_metadata|
-                  operation_metadata.name == 'member-match' && operation_metadata.definition == 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match'
-                end
-            end
-          )
-        end
-      end
-
       input :member_match_request,
         title: 'Member Match Request for one match',
         description: "A JSON payload for server's $member-match endpoint that has **exactly one match**",
         type: 'textarea'
+
+      test from: :patient_operation_in_capability_statement,
+           title: 'Server declares support for Patient member match operation in CapabilityStatement',
+           config: {
+             options: { operation_name: 'member-match', operation_url: 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match' }
+           }
 
       test from: :abstract_member_match_request_conformance do
         id :member_match_request_request_conformance

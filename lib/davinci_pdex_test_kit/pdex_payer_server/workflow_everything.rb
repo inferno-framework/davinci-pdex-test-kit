@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'patient_operation_in_capability_statement_test'
+
 module DaVinciPDexTestKit
   module PDexPayerServer
     class WorkflowEverythingTestGroup < Inferno::TestGroup
@@ -25,24 +27,11 @@ module DaVinciPDexTestKit
         description: 'Manual Patient ID for testing Clinical Query and $everything $export without $member-match.',
         optional: true
 
-
-      test do
-        title 'Server asserts Patient instance operation $everything in Capability Statement'
-
-        run do
-          fhir_get_capability_statement
-
-          assert_response_status 200
-          assert(
-            resource.rest.one? do |rest_metadata|
-              rest_metadata.resource.select { |resource_metadata| resource_metadata.type == 'Patient' }.first
-                .operation.any? do |operation_metadata|
-                  operation_metadata.name == 'everything' && operation_metadata.definition == 'http://hl7.org/fhir/OperationDefinition/Patient-everything'
-                end
-            end
-          )
-        end
-      end
+      test from: :patient_operation_in_capability_statement,
+           title: 'Server declares support for Patient everything operation in CapabilityStatement',
+           config: {
+             options: { operation_name: 'everything', operation_url: 'http://hl7.org/fhir/OperationDefinition/Patient-everything' }
+           }
 
       test do
         title 'Server can handle GET /Patient/[ID]/$everything'
