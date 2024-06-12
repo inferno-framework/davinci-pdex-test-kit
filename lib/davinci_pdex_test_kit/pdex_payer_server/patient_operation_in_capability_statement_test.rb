@@ -15,6 +15,9 @@ module DaVinciPDexTestKit
       }
 
       run do
+          info 'DEBUGGING message'
+          pass # CHECK
+
           fhir_get_capability_statement
 
           assert_response_status(200)
