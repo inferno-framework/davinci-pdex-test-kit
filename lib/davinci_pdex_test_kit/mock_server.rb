@@ -66,7 +66,6 @@ module DaVinciPDexTestKit
         req.url 'Group/pdex-Group/$export' #TODO: change from static response
         req.headers = headers_as_hash.merge(server_proxy.headers)
       end
-      puts response.env
       request.status = response.status
       request.response_headers = response.env.response_headers
       request.response_header("content-location").value.gsub!(/(.*)\?/, "#{new_link}/$export-poll-status?")
@@ -74,13 +73,15 @@ module DaVinciPDexTestKit
     end
 
     def export_status_response(request, test = nil, test_result = nil)
+      headers_as_hash = request.request_headers.map { |header| {"#{header.name}": header.value}}.reduce({}) { |reduced, curr| reduced.merge(curr)}
       response = server_proxy.get do |req|
         req.url '$export-poll-status'
         req.params = request.query_parameters
+        req.headers = headers_as_hash.merge(server_proxy.headers)
       end
       request.status = response.status
       request.response_headers = response.env.response_headers
-      request.response_body = response.status.to_i == 200 ? replace_export_urls(JSON.parse(response.body)['output']) : response.body.to_json
+      request.response_body = response.status.to_i == 200 ? replace_export_urls(JSON.parse(response.body)).to_json : response.body.to_json
     end
 
     def member_match_response(request, test = nil, test_result = nil)
@@ -193,9 +194,9 @@ module DaVinciPDexTestKit
     end
 
     def replace_export_urls(export_status_output)
-      puts export_status_output
       reference_server_base = ENV.fetch('FHIR_REFERENCE_SERVER')
-      export_status_output.map! { |binary| {type: binary["type"], url: binary["url"].gsub(reference_server_base, new_link)} }
+      export_status_output['output'].map! { |binary| {type: binary["type"], url: binary["url"].gsub(reference_server_base, new_link)} }
+      export_status_output
     end
 
     def new_link
