@@ -1,18 +1,44 @@
 module DaVinciPDexTestKit
   module PDexPayerServer
 
-    # Exists to factorize input validation
-    class AbstractMemberMatchRequestLocalReferencesTest < Inferno::Test
-      id :abstract_member_match_request_local_references
+    # Factorized test for Member Match Request Profile local references on PDex v2.0.0 and HRex v1.0.0.
+    #
+    # See http://hl7.org/fhir/us/davinci-hrex/STU1/OperationDefinition-member-match.html#resolving-parameter-references
+    #
+    # ==== Inputs
+    #
+    # +member_match_request+ - *Optional:* FHIR Parameters resource JSON text
+    #
+    # ==== Outputs
+    #
+    # (none)
+    #
+    # ==== Required Config
+    #
+    # (none)
+    #
+    # ==== Required Scratch
+    #
+    # (none)
+    #
+    # ==== Notes
+    #
+    # Skips if no input provided. This test does not validate all requirements of a Member Match Request
+    # resource. 
+    #
+    class MemberMatchRequestLocalReferencesValidation < Inferno::Test
+      id :member_match_request_local_references_validation
+
       title '[USER INPUT VALIDATION] Member match request only uses local references'
+
       description %{
         This test confirms that all Patient references inside the Consent and CoverageToMatch parameters are local references to the MemberPatient
         parameter. See
-        [resolving parameter references](http://hl7.org/fhir/us/davinci-hrex/STU1/OperationDefinition-member-match.html#resolving-parameter-references)
+        [resolving parameter references](https://hl7.org/fhir/us/davinci-hrex/STU1/OperationDefinition-member-match.html#resolving-parameter-references)
         from the HRex 1.0.0. Implementation Guide.
       }
 
-      input :member_match_request # [String]
+      input :member_match_request
 
       # @param member_match_request_parameters [FHIR::Parameters]
       def assert_local_patient_references(member_match_request_parameters)

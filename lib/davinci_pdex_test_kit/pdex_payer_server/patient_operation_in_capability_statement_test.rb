@@ -1,9 +1,9 @@
-require 'inferno'
+# frozen_string_literal: true
 
 module DaVinciPDexTestKit
   module PDexPayerServer
     class PatientOperationInCapabilityStatementTest < Inferno::Test
-      id :patient_operation_in_capability_statement
+      id :patient_operation_in_capability_statement_test
 
       description %{
         The [CapabilityStatement](https://hl7.org/fhir/R4/capabilitystatement.html) must declare support for the
@@ -15,9 +15,6 @@ module DaVinciPDexTestKit
       }
 
       run do
-          info 'DEBUGGING message'
-          pass # CHECK
-
           fhir_get_capability_statement
 
           assert_response_status(200)

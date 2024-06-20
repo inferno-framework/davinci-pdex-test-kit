@@ -1,9 +1,34 @@
 
 module DaVinciPDexTestKit
   module PDexPayerServer
-    class CoverageToLinkHasMinimalDataTest < Inferno::Test
 
-      id :coverage_to_link_has_minimal_data
+    # Factorized test for Member Match Request CoverageToLink parameter validation on PDex v2.0.0 and HRex v1.0.0.
+    #
+    # See https://hl7.org/fhir/us/davinci-hrex/STU1/OperationDefinition-member-match.html#notes.
+    #
+    # ==== Inputs
+    #
+    # +member_match_request+ - Parameters FHIR resource JSON text with CoverageToLink parameter
+    #
+    # ==== Outputs
+    #
+    # (none)
+    #
+    # ==== Required Config
+    #
+    # (none)
+    #
+    # ==== Required Scratch
+    #
+    # (none)
+    #
+    # ==== Notes
+    #
+    # Skips if no CoverageToLink parameter provided.
+    #
+    class CoverageToLinkMinimalDataValidation < Inferno::Test
+
+      id :coverage_to_link_minimal_data_validation
       title '[USER INPUT VALIDATION] CoverageToLink parameter should not include any data elements not marked as mustSupport'
       optional
       description %{

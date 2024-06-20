@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-require_relative 'abstract_member_match_request_conformance_test'
-require_relative 'abstract_member_match_request_local_references_test'
-require_relative 'coverage_to_link_has_minimal_data_test'
-require_relative 'coverage_to_link_must_support_test'
+require_relative 'member_match_request_profile_validation'
+require_relative 'member_match_request_local_references_validation'
+require_relative 'coverage_to_link_minimal_data_test_validation'
+require_relative 'coverage_to_link_must_support_test_validation'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
@@ -20,8 +20,8 @@ module DaVinciPDexTestKit
 
         group_config = { inputs: { member_match_request: { name: :no_member_match_request } } }
 
-        test from: :abstract_member_match_request_conformance do
-          id :no_member_match_request_conformance
+        test from: :member_match_request_profile_validation do
+          id :no_member_match_request_profile_test
           config(group_config)
 
           title '[USER INPUT VALIDATION] Member match request for no matches is valid'
@@ -31,17 +31,12 @@ module DaVinciPDexTestKit
             ensuring subsequent tests can accurately simulate content. It also checks conformance to the [Parameters Resource](https://hl7.org/fhir/R4/parameters.html),
             mandatory elements, and terminology. It also checks that the Patient reference with the Consent and CoverageToMatch parameters are local references.
           }
-
-          # Inherits run
         end
 
-        test from: :abstract_member_match_request_local_references do
-          id :no_member_match_request_local_references
-          config(group_config)
-        end
+        test from: :member_match_request_local_references_validation, config: group_config
 
-        test from: :coverage_to_link_has_minimal_data, config: group_config
-        test from: :coverage_to_link_must_support, config: group_config
+        test from: :coverage_to_link_minimal_data_validation, config: group_config
+        test from: :coverage_to_link_must_support_validation, config: group_config
 
 
         test do

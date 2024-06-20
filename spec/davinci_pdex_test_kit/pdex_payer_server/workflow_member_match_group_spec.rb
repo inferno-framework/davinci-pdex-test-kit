@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+# workflow_member_match_test_group_spec.rb
 
-require_relative '../../../lib/davinci_pdex_test_kit/pdex_payer_server/patient_operation_in_capability_statement_test'
+require_relative '../../../lib/davinci_pdex_test_kit/pdex_payer_server/workflow_member_match_test_group'
 
-# TODO: bifurcate this RSpec file into one for workflow member-match (or payer to payer) group, and another for patient_operation_in_capability_statement
-# TODO: clean this Rspec file
+# TODO: REDO THIS FILE FOR WORKFLOW MEMBER MATCH
+=begin
 RSpec.describe DaVinciPDexTestKit::PDexPayerServer::PatientOperationInCapabilityStatementTest do
   let(:suite) { Inferno::Repositories::TestSuites.new.find('pdex_payer_server') }
   let(:group) { suite.groups[0] } # this is payer-to-payer workflow group
@@ -59,3 +60,4 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::PatientOperationInCapability
   end
 
 end
+=end

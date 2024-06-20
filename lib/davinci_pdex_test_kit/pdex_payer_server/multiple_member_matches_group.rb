@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-require_relative 'abstract_member_match_request_conformance_test'
-require_relative 'abstract_member_match_request_local_references_test'
-require_relative 'coverage_to_link_has_minimal_data_test'
-require_relative 'coverage_to_link_must_support_test'
+require_relative 'member_match_request_profile_validation'
+require_relative 'member_match_request_local_references_validation'
+require_relative 'coverage_to_link_minimal_data_validation'
+require_relative 'coverage_to_link_must_support_validation'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
@@ -21,8 +21,8 @@ module DaVinciPDexTestKit
 
         group_config = { inputs: { member_match_request: { name: :multiple_member_match_request } } }
   
-        test from: :abstract_member_match_request_conformance do
-          id :multiple_member_match_request_conformance
+        test from: :member_match_request_profile_validation do
+          id :multiple_member_match_request_profile_test
           config(group_config)
           title '[USER INPUT VALIDATION] Member match request for multiple matches is valid'
           description %{
@@ -35,13 +35,10 @@ module DaVinciPDexTestKit
           # Inherits
         end
 
-        test from: :abstract_member_match_request_local_references do
-          id :multiple_member_match_request_local_references
-          config(group_config)
-        end
+        test from: :member_match_request_local_references_validation, config: group_config
   
-        test from: :coverage_to_link_has_minimal_data, config: group_config
-        test from: :coverage_to_link_must_support, config: group_config
+        test from: :coverage_to_link_minimal_data_validation, config: group_config
+        test from: :coverage_to_link_must_support_validation, config: group_config
 
         test do
           id :member_match_has_multiple_matches
