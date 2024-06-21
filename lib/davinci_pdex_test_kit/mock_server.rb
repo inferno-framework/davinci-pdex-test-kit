@@ -205,6 +205,7 @@ module DaVinciPDexTestKit
     def replace_export_urls(export_status_output)
       reference_server_base = ENV.fetch('FHIR_REFERENCE_SERVER')
       export_status_output['output'].map! { |binary| {type: binary["type"], url: binary["url"].gsub(reference_server_base, new_link)} }
+      export_status_output['request'] = new_link + '/Patient/$export'
       export_status_output
     end
 
