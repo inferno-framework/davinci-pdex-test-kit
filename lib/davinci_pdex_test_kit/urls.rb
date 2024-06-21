@@ -2,6 +2,7 @@ module DaVinciPDexTestKit
   TOKEN_PATH = '/mock_auth/token'
   PATIENT_PATH = '/fhir/Patient'
   SUBMIT_PATH = '/fhir/:endpoint'
+  BINARY_PATH = '/fhir/Binary/:id'
   METADATA_PATH = '/fhir/metadata'
   EVERYTHING_PATH = '/fhir/Patient/:patient/$everything'
   MEMBER_MATCH_PATH = '/fhir/Patient/$member-match'
@@ -31,6 +32,10 @@ module DaVinciPDexTestKit
 
     def submit_url
       @submit_url ||= base_url + SUBMIT_PATH
+    end
+
+    def binary_url
+      @binary_url ||= base_url + BINARY_PATH
     end
 
     def metadata_url

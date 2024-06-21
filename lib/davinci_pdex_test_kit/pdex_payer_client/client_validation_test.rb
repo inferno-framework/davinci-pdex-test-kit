@@ -14,13 +14,13 @@ module DaVinciPDexTestKit
       end
     end
 
-    # def connect_bundle(export_binary)
-    #   export_binary.split(/(?<=}\n)(?={)/).map { |str| FHIR.from_contents(str)}
-    # end
+    def connect_bundle(export_binary)
+      export_binary.split(/(?<=}\n)(?={)/).map { |str| FHIR.from_contents(str)}
+    end
 
-    # def export_resources
-    #   @export_resources ||= collect_export_resources 
-    # end
+    def export_resources
+      @export_resources ||= (load_tagged_requests(BINARY_TAG).map { |binary_read| binary_read.response_body.split("\n") }.flatten).map { |resource_in_binary| FHIR.from_contents(resource_in_binary)}
+    end
 
     def previous_clinical_data_requests
       @previous_clinical_data_requests ||= load_tagged_requests(SUBMIT_TAG) + [everything_request].compact

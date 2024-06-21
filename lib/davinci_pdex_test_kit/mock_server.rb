@@ -17,7 +17,7 @@ module DaVinciPDexTestKit
       @server_proxy ||= Faraday.new(
           url: ENV.fetch('FHIR_REFERENCE_SERVER'),
           params: {},
-          headers: {'Content-Type' => 'application/json', 'Authorization' => 'Bearer SAMPLE_TOKEN'},
+          headers: {'Content-Type' => 'application/json', 'Authorization' => 'Bearer SAMPLE_TOKEN', 'Host' => ENV.fetch('HOST_HEADER')},
         )
     end
 
@@ -81,7 +81,16 @@ module DaVinciPDexTestKit
       end
       request.status = response.status
       request.response_headers = response.env.response_headers
-      request.response_body = response.status.to_i == 200 ? replace_export_urls(JSON.parse(response.body)).to_json : response.body.to_json
+      request.response_body = response.status.to_i == 200 ? replace_export_urls(JSON.parse(response.body)).to_json : response.body
+      request.response_header("content-length").value = request.response_body.length
+    end
+
+    def binary_read_response(request, test = nil, test_result = nil)
+      binary_id = request.url.split('/').last
+      response = server_proxy.get('Binary/'+binary_id)
+      request.status = response.status
+      request.response_headers = response.headers
+      request.response_body = response.body
     end
 
     def member_match_response(request, test = nil, test_result = nil)
@@ -200,7 +209,7 @@ module DaVinciPDexTestKit
     end
 
     def new_link
-      "#{Inferno::Application['base_url']}/custom/pdex_payer_client/fhir"
+      "#{Inferno::Application['base_url']}\/custom\/pdex_payer_client\/fhir"
     end
 
     # @private

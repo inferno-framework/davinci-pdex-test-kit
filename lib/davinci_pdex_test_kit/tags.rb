@@ -3,6 +3,7 @@
 module DaVinciPDexTestKit
   AUTH_TAG = 'pdex_auth'
   SUBMIT_TAG = 'pdex_submit'
+  BINARY_TAG = 'pdex_binary'
   EXPORT_TAG = 'pdex_export'
   EXPORT_STATUS_TAG = 'pdex_export_status'
   EVERYTHING_TAG = 'pdex_everything'

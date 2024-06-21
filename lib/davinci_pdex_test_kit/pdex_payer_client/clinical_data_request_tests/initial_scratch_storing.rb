@@ -17,17 +17,13 @@ module DaVinciPDexTestKit
           scratch[resource.resourceType.to_sym] |= [resource]
         end
       end
-      info export_request.request_headers.to_json if export_request
-      info export_status_request.to_json if export_status_request
-      # if export_resources
-      #   info "Attempted an $export request"
-      #   export_resources.each do |resource|
-      #     scratch[resource.resourceType.to_sym] ||= []
-      #     scratch[resource.resourceType.to_sym] |= [resource]
-      #   end
-      # elsif export_request
-      #   info "Found an $export request, but no resources found.  It may not have had enough time to build"
-      # end
+      if !export_resources.empty?
+        info "Attempted an $export request"
+        export_resources.each do |resource|
+          scratch[resource.resourceType.to_sym] ||= []
+          scratch[resource.resourceType.to_sym] |= [resource]
+        end
+      end
       if everything_request
         info "Attempted an $everything request"
       end

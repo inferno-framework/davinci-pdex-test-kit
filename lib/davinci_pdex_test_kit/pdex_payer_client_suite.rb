@@ -70,6 +70,11 @@ module DaVinciPDexTestKit
         PDexPayerClientSuite.extract_bearer_token(request)
       end
 
+      record_response_route :get, BINARY_PATH, BINARY_TAG, method(:binary_read_response),
+                            resumes: method(:test_resumes?) do |request|
+        PDexPayerClientSuite.extract_bearer_token(request)
+      end
+
       record_response_route :get, EVERYTHING_PATH, EVERYTHING_TAG, method(:everything_response),
                             resumes: method(:test_resumes?) do |request|
         PDexPayerClientSuite.extract_bearer_token(request)
