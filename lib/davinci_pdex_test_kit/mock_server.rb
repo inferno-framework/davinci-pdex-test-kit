@@ -17,7 +17,7 @@ module DaVinciPDexTestKit
       @server_proxy ||= Faraday.new(
           url: ENV.fetch('FHIR_REFERENCE_SERVER'),
           params: {},
-          headers: {'Content-Type' => 'application/json', 'Authorization' => 'Bearer SAMPLE_TOKEN'},
+          headers: {'Content-Type' => 'application/json', 'Authorization' => 'Bearer SAMPLE_TOKEN', 'Host' => ENV.fetch('HOST_HEADER')},
         )
     end
 
@@ -60,16 +60,38 @@ module DaVinciPDexTestKit
       request.response_body = replace_bundle_urls(FHIR.from_contents(response.body)).to_json
     end
 
-    # def export_response(request, test = nil, test_result = nil)
-    #   response = server_proxy.get do |req|
-    #     req.url 'Group/pdex-Group/$export' #TODO: change from static response
-    #     req.headers['Prefer'] = 'respond-async'
-    #     req.headers['Accept'] = 'application/fhir+json'
-    #   end
-    #   request.status = response.status
-    #   request.response_headers = response.env.response_headers
-    #   request.response_body = response.body
-    # end
+    def export_response(request, test = nil, test_result = nil)
+      headers_as_hash = request.request_headers.map { |header| {"#{header.name}": header.value}}.reduce({}) { |reduced, curr| reduced.merge(curr)}
+      response = server_proxy.get do |req|
+        req.url 'Group/pdex-Group/$export' #TODO: change from static response
+        req.headers = headers_as_hash.merge(server_proxy.headers)
+      end
+      request.status = response.status
+      request.response_headers = response.env.response_headers
+      request.response_header("content-location").value.gsub!(/(.*)\?/, "#{new_link}/$export-poll-status?")
+      request.response_body = response.body
+    end
+
+    def export_status_response(request, test = nil, test_result = nil)
+      headers_as_hash = request.request_headers.map { |header| {"#{header.name}": header.value}}.reduce({}) { |reduced, curr| reduced.merge(curr)}
+      response = server_proxy.get do |req|
+        req.url '$export-poll-status'
+        req.params = request.query_parameters
+        req.headers = headers_as_hash.merge(server_proxy.headers)
+      end
+      request.status = response.status
+      request.response_headers = response.env.response_headers
+      request.response_body = response.status.to_i == 200 ? replace_export_urls(JSON.parse(response.body)).to_json : response.body
+      request.response_header("content-length").value = request.response_body.length
+    end
+
+    def binary_read_response(request, test = nil, test_result = nil)
+      binary_id = request.url.split('/').last
+      response = server_proxy.get('Binary/'+binary_id)
+      request.status = response.status
+      request.response_headers = response.headers
+      request.response_body = response.body
+    end
 
     def member_match_response(request, test = nil, test_result = nil)
       #remove token from request as well
@@ -170,7 +192,7 @@ module DaVinciPDexTestKit
 
     def replace_bundle_urls(bundle)
       reference_server_base = ENV.fetch('FHIR_REFERENCE_SERVER')
-      bundle.link.map! {|link| {relation: link.relation, url: link.url.gsub(reference_server_base, new_link)}}
+      bundle&.link.map! {|link| {relation: link.relation, url: link.url.gsub(reference_server_base, new_link)}}
       bundle&.entry&.map! do |bundled_resource| 
         {fullUrl: bundled_resource.fullUrl.gsub(reference_server_base, new_link),
          resource: bundled_resource.resource,
@@ -180,8 +202,15 @@ module DaVinciPDexTestKit
       bundle
     end
 
+    def replace_export_urls(export_status_output)
+      reference_server_base = ENV.fetch('FHIR_REFERENCE_SERVER')
+      export_status_output['output'].map! { |binary| {type: binary["type"], url: binary["url"].gsub(reference_server_base, new_link)} }
+      export_status_output['request'] = new_link + '/Patient/$export'
+      export_status_output
+    end
+
     def new_link
-      "#{Inferno::Application['base_url']}/custom/pdex_payer_client/fhir"
+      "#{Inferno::Application['base_url']}\/custom\/pdex_payer_client\/fhir"
     end
 
     # @private

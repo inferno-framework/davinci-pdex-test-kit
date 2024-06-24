@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "77fbbca5-e1d0-4969-8358-8e69d5c08e0c",
+		"_postman_id": "11631c8a-c345-4c8c-bcbe-70eb417a4b4f",
 		"name": "PDEX",
 		"description": "The variables tab in this collection controls port for inferno and token used to establish a session.\n\n- url_prefix: points to a running instance of inferno. Typical values will be\n    \n    - Inferno production: https://inferno.healthit.gov/suites\n        \n    - Inferno QA: https://inferno-qa.healthit.gov/suites\n        \n    - Local docker: http://localhost\n        \n    - Local development: [http://localhost:4657](http://localhost:4657)\n        \n- token: placed in the Authentication header as a bearer token and used by Inferno to recognize requests for a test session. This value will need to be entered in the Access Token input of the PDex Payer Client test suite.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "32597978"
+		"_exporter_id": "29930935"
 	},
 	"item": [
 		{
@@ -723,6 +723,93 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "$export Requests",
+			"item": [
+				{
+					"name": "export base",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/fhir+json",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "respond-async",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Patient/$export",
+							"host": [
+								"{{url_prefix}}"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Patient",
+								"$export"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "export followup",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/fhir+ndjson",
+								"type": "text"
+							},
+							{
+								"key": "Prefer",
+								"value": "respond-async",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "*populate with url from content-location header from previous request*",
+							"host": [
+								"*populate with url from content-location header from previous request*"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Binary Retrieval",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "*fill with urls from the body of a successful $export-poll-status status 200 request*",
+							"host": [
+								"*fill with urls from the body of a successful $export-poll-status status 200 request*"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "These requests follow the Bulk Data workflow for the $export operation. The requests have been equipped with headers according to each step of the workflow, but you will need to populate the urls with results from previous requests as such\n\n1. Issue the $export request\n2. Check response for 202 (success) and pull the link from the `content-location` header.\n3. Paste that link in the url for the \"$export follow up\" request\n4. Send the request until you get a 200 and a body back\n5. Within the body, copy and paste any of the links to Binaries in the \"Binary read\" request."
 		}
 	],
 	"auth": {

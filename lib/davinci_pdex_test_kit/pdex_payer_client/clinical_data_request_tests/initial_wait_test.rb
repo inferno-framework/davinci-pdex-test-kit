@@ -19,6 +19,8 @@ module DaVinciPDexTestKit
           Submit PDex requests via at least one of the following methods:
           * Single Resource API: `#{submit_url}`, with `:endpoint` replaced with the endpoint you want to reach
           * $everything method: `#{everything_url}`, with `:patient` replaced with the patient you are matching
+          * $export method: `#{export_url}`, see workflow process at the [Bulk Data IG](https://hl7.org/fhir/uv/bulkdata/STU2/)
+          * $export-poll-status: `#{export_status_url}`, then continue to make reads from the binaries if a payload is delivered
           
           and [click here](#{resume_clinical_data_url}?token=#{access_token}) when done.
         )

@@ -88,8 +88,13 @@ module DaVinciPDexTestKit
                             resumes: method(:test_resumes?) do |request|
         PDexPayerClientSuite.extract_bearer_token(request)
       end
-  
+
       record_response_route :get, SUBMIT_PATH, SUBMIT_TAG, method(:claim_response),
+                            resumes: method(:test_resumes?) do |request|
+        PDexPayerClientSuite.extract_bearer_token(request)
+      end
+
+      record_response_route :get, BINARY_PATH, BINARY_TAG, method(:binary_read_response),
                             resumes: method(:test_resumes?) do |request|
         PDexPayerClientSuite.extract_bearer_token(request)
       end
@@ -99,10 +104,15 @@ module DaVinciPDexTestKit
         PDexPayerClientSuite.extract_bearer_token(request)
       end
 
-      # record_response_route :get, EXPORT_PATH, EXPORT_TAG, method(:export_response),
-      #                       resumes: method(:test_resumes?) do |request|
-      #   PDexPayerClientSuite.extract_bearer_token(request)
-      # end
+      record_response_route :get, EXPORT_PATH, EXPORT_TAG, method(:export_response),
+                            resumes: method(:test_resumes?) do |request|
+        PDexPayerClientSuite.extract_bearer_token(request)
+      end
+
+      record_response_route :get, EXPORT_STATUS_PATH, EXPORT_STATUS_TAG, method(:export_status_response),
+                            resumes: method(:test_resumes?) do |request|
+        PDexPayerClientSuite.extract_bearer_token(request)
+      end
 
       record_response_route :post, MEMBER_MATCH_PATH, MEMBER_MATCH_TAG, method(:member_match_response),
                             resumes: method(:test_resumes?) do |request|
