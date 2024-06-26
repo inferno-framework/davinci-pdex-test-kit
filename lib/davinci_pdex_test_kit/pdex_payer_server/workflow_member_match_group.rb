@@ -44,6 +44,7 @@ module DaVinciPDexTestKit
         type: 'textarea'
 
       test from: :patient_operation_in_capability_statement_validation,
+           id: :member_match_operation_in_capability_statement_test,
            title: 'Server declares support for Patient member match operation in CapabilityStatement',
            config: {
              options: { operation_name: 'member-match', operation_url: 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match' }

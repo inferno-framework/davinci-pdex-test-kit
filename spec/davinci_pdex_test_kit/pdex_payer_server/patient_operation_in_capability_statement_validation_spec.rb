@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../../lib/davinci_pdex_test_kit/pdex_payer_server/patient_operation_in_capability_statement_validation'
+require 'davinci_pdex_test_kit/pdex_payer_server/patient_operation_in_capability_statement_validation'
 
 # TODO: bifurcate this RSpec file into one for workflow member-match (or payer to payer) group, and another for patient_operation_in_capability_statement
 # TODO: clean this Rspec file
