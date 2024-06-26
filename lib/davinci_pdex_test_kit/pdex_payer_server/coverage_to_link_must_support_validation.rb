@@ -1,9 +1,35 @@
 
 module DaVinciPDexTestKit
   module PDexPayerServer
-    class CoverageToLinkMustSupportTest < Inferno::Test
 
-      id :coverage_to_link_must_support
+    # Factorized test for Member Match Request CoverageToLink parameter validation on PDex v2.0.0 and HRex v1.0.0.
+    #
+    # See Documentation for CoverageToLink parameter at
+    # https://hl7.org/fhir/us/davinci-hrex/STU1/OperationDefinition-member-match.html#membermatch
+    #
+    # ==== Inputs
+    #
+    # +member_match_request+ - Parameters FHIR resource JSON text with CoverageToLink parameter
+    #
+    # ==== Outputs
+    #
+    # (none)
+    #
+    # ==== Required Config
+    #
+    # (none)
+    #
+    # ==== Required Scratch
+    #
+    # (none)
+    #
+    # ==== Notes
+    #
+    # Fails if no CoverageToLink parameter provided.
+    #
+    class CoverageToLinkMustSupportValidation < Inferno::Test
+
+      id :pdex_coverage_to_link_must_support_validation
       title '[USER INPUT VALIDATION] CoverageToLink parameter is optional for generic FHIR clients, but required for Payer systems.'
       description 'See [CoverageToLink parameter documentation](https://hl7.org/fhir/us/davinci-hrex/STU1/OperationDefinition-member-match.html).'
       optional

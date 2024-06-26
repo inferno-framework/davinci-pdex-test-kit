@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require_relative '../../../lib/davinci_pdex_test_kit/pdex_payer_server/patient_operation_in_capability_statement_test'
+require_relative '../../../lib/davinci_pdex_test_kit/pdex_payer_server/patient_operation_in_capability_statement_validation'
 
 # TODO: bifurcate this RSpec file into one for workflow member-match (or payer to payer) group, and another for patient_operation_in_capability_statement
 # TODO: clean this Rspec file
-RSpec.describe DaVinciPDexTestKit::PDexPayerServer::PatientOperationInCapabilityStatementTest do
-  let(:suite) { Inferno::Repositories::TestSuites.new.find('pdex_payer_server') }
+RSpec.describe DaVinciPDexTestKit::PDexPayerServer::PatientOperationInCapabilityStatementValidation do
+  let(:suite) { Inferno::Repositories::TestSuites.new.find('pdex_payer_server_suite') }
   let(:group) { suite.groups[0] } # this is payer-to-payer workflow group
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: 'pdex_payer_server') }
+  let(:test_session) { repo_create(:test_session, test_suite_id: 'pdex_payer_server_suite') }
   let(:url) { 'http://example.com/fhir' }
 
   def run(runnable, inputs = {})

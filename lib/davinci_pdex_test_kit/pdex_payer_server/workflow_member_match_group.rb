@@ -4,14 +4,14 @@ require_relative 'member_match_request_local_references_validation'
 require_relative 'coverage_to_link_minimal_data_validation'
 require_relative 'coverage_to_link_must_support_validation'
 
-require_relative 'patient_operation_in_capability_statement_test'
+require_relative 'patient_operation_in_capability_statement_validation'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
-    class WorkflowMemberMatchTestGroup < Inferno::TestGroup
+    class WorkflowMemberMatchGroup < Inferno::TestGroup
       title 'Server can return a matching member in response to $member-match request'
       short_title '$member-match'
-      id :pdex_payer_server_workflow_member_match_test_group
+      id :pdex_workflow_member_match_group
       description %{
         # Background
 
@@ -43,13 +43,13 @@ module DaVinciPDexTestKit
         description: "A JSON payload for server's $member-match endpoint that has **exactly one match**",
         type: 'textarea'
 
-      test from: :patient_operation_in_capability_statement_test,
+      test from: :patient_operation_in_capability_statement_validation,
            title: 'Server declares support for Patient member match operation in CapabilityStatement',
            config: {
              options: { operation_name: 'member-match', operation_url: 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match' }
            }
 
-      test from: :member_match_request_profile_validation do
+      test from: :pdex_member_match_request_profile_validation do
         id :member_match_request_request_profile_test
         title '[USER INPUT VALIDATION] Member match request for exactly one match is valid'
         description %{
@@ -60,13 +60,13 @@ module DaVinciPDexTestKit
         }
       end
 
-      test from: :member_match_request_local_references_validation do
+      test from: :pdex_member_match_request_local_references_validation do
         id :member_match_request_local_references_test
         title '[USER INPUT VALIDATION] Member match request only uses local references'
       end
 
-      test from: :coverage_to_link_minimal_data_validation
-      test from: :coverage_to_link_must_support_validation
+      test from: :pdex_coverage_to_link_minimal_data_validation
+      test from: :pdex_coverage_to_link_must_support_validation
    
       test do
         id :member_match_on_server

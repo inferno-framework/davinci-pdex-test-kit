@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 require_relative 'member_match_request_profile_validation'
 require_relative 'member_match_request_local_references_validation'
-require_relative 'coverage_to_link_minimal_data_test_validation'
-require_relative 'coverage_to_link_must_support_test_validation'
+require_relative 'coverage_to_link_minimal_data_validation'
+require_relative 'coverage_to_link_must_support_validation'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
     class NoMemberMatchesGroup < Inferno::TestGroup
-        id :no_member_matches_group
+        id :pdex_no_member_matches_group
         title '$member-match with no matches'
 
         run_as_group
@@ -20,7 +20,7 @@ module DaVinciPDexTestKit
 
         group_config = { inputs: { member_match_request: { name: :no_member_match_request } } }
 
-        test from: :member_match_request_profile_validation do
+        test from: :pdex_member_match_request_profile_validation do
           id :no_member_match_request_profile_test
           config(group_config)
 
@@ -33,10 +33,10 @@ module DaVinciPDexTestKit
           }
         end
 
-        test from: :member_match_request_local_references_validation, config: group_config
+        test from: :pdex_member_match_request_local_references_validation, config: group_config
 
-        test from: :coverage_to_link_minimal_data_validation, config: group_config
-        test from: :coverage_to_link_must_support_validation, config: group_config
+        test from: :pdex_coverage_to_link_minimal_data_validation, config: group_config
+        test from: :pdex_coverage_to_link_must_support_validation, config: group_config
 
 
         test do

@@ -2,8 +2,8 @@
 
 module DaVinciPDexTestKit
   module PDexPayerServer
-    class WorkflowClinicalData < Inferno::TestGroup
-      id :workflow_clinical_data
+    class WorkflowClinicalDataGroup < Inferno::TestGroup
+      id :pdex_workflow_clinical_data_group
       title 'Server can respond to search requests for clinical data on the matched patient'
       short_title 'Clinical data query'
       description %{

@@ -125,10 +125,10 @@ module DaVinciPDexTestKit
           See the corresponding test group's description for the testing methodology of each part.
         )
 
-        group from: :pdex_payer_server_workflow_member_match_group
-        group from: :pdex_payer_server_workflow_clinical_data_group
-        group from: :pdex_payer_server_workflow_everything_group
-        group from: :pdex_payer_server_workflow_export_group
+        group from: :pdex_workflow_member_match_group
+        group from: :pdex_workflow_clinical_data_group
+        group from: :pdex_workflow_everything_group
+        group from: :pdex_workflow_export_group
       end
 
       group do
@@ -157,15 +157,15 @@ module DaVinciPDexTestKit
 
           input_order :url, :credentials, :no_member_match_request, :multiple_member_match_request
 
-          group from: :no_member_matches_group
-          group from: :multiple_member_matches_group
+          group from: :pdex_no_member_matches_group
+          group from: :pdex_multiple_member_matches_group
         end
 
         group do
           title 'PDEX Search and Read API (US Core plus additional PDex resource types)' 
           id :search_and_read_api_coverage
           
-          group from: :pdex_payer_server_explanation_of_benefit_test_group
+          group from: :pdex_explanation_of_benefit_group
 
           # Import all US Core v3.1.1 groups without the Suite
           Dir.glob(File.join($LOAD_PATH.find { |x| x.match? "us_core_test_kit" }, 'us_core_test_kit/generated/v3.1.1/*_group.rb')).each do |test_group_path|

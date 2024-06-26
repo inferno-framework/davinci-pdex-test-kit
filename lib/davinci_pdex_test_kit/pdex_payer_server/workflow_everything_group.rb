@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require_relative 'patient_operation_in_capability_statement_test'
+require_relative 'patient_operation_in_capability_statement_validation'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
     class WorkflowEverythingGroup < Inferno::TestGroup
       title 'Server can respond to $everything requests on matched patient'
       short_title '$everything'
-      id :workflow_everything_group
+      id :pdex_workflow_everything_group
       optional
       description %{
         # Background
@@ -27,7 +27,7 @@ module DaVinciPDexTestKit
         description: 'Manual Patient ID for testing Clinical Query and $everything $export without $member-match.',
         optional: true
 
-      test from: :patient_operation_in_capability_statement_test,
+      test from: :patient_operation_in_capability_statement_validation,
            title: 'Server declares support for Patient everything operation in CapabilityStatement',
            config: {
              options: { operation_name: 'everything', operation_url: 'http://hl7.org/fhir/OperationDefinition/Patient-everything' }

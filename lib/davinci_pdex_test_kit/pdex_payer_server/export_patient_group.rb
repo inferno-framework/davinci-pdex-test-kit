@@ -8,7 +8,7 @@ require 'bulk_data_test_kit/v1.0.1/bulk_data_export_kick_off_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_status_check_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_output_check_test'
 
-require_relative 'patient_operation_in_capability_statement_test'
+require_relative 'patient_operation_in_capability_statement_validation'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
@@ -39,7 +39,7 @@ module DaVinciPDexTestKit
 
       output :patient_requires_access_token, :patient_status_output, :patient_bulk_download_url
 
-      test from: :patient_operation_in_capability_statement,
+      test from: :patient_operation_in_capability_statement_validation,
            title: 'Bulk Data Server declares support for Patient export operation in CapabilityStatement',
            config: {
              options: { operation_name: 'export', operation_url: 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition/patient-export' }

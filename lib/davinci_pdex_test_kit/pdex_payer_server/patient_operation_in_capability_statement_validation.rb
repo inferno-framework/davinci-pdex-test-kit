@@ -2,8 +2,32 @@
 
 module DaVinciPDexTestKit
   module PDexPayerServer
-    class PatientOperationInCapabilityStatementTest < Inferno::Test
-      id :patient_operation_in_capability_statement_test
+    # Factorized test for asserting a patient resource opeartion in a Capability Statement
+    #
+    # ==== Inputs
+    #
+    # (none)
+    #
+    # ==== Outputs
+    #
+    # (none)
+    #
+    # ==== Required Config
+    #
+    # options:
+    #   operation_name: operation to check for, i.e: 'member-match'
+    #   operation_url: operation definition canonical URL
+    #
+    # ==== Required Scratch
+    #
+    # (none)
+    #
+    # ==== Notes
+    #
+    # Requires an Inferno fhir client configured.
+    #
+    class PatientOperationInCapabilityStatementValidation < Inferno::Test
+      id :patient_operation_in_capability_statement_validation
 
       description %{
         The [CapabilityStatement](https://hl7.org/fhir/R4/capabilitystatement.html) must declare support for the

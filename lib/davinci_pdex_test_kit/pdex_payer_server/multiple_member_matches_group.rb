@@ -8,7 +8,7 @@ module DaVinciPDexTestKit
   module PDexPayerServer
     class MultipleMemberMatchesGroup < Inferno::TestGroup
 
-        id :multiple_member_matches_group
+        id :pdex_multiple_member_matches_group
         title '$member-match with multiple matches'
 
         run_as_group
@@ -21,7 +21,7 @@ module DaVinciPDexTestKit
 
         group_config = { inputs: { member_match_request: { name: :multiple_member_match_request } } }
   
-        test from: :member_match_request_profile_validation do
+        test from: :pdex_member_match_request_profile_validation do
           id :multiple_member_match_request_profile_test
           config(group_config)
           title '[USER INPUT VALIDATION] Member match request for multiple matches is valid'
@@ -35,10 +35,10 @@ module DaVinciPDexTestKit
           # Inherits
         end
 
-        test from: :member_match_request_local_references_validation, config: group_config
+        test from: :pdex_member_match_request_local_references_validation, config: group_config
   
-        test from: :coverage_to_link_minimal_data_validation, config: group_config
-        test from: :coverage_to_link_must_support_validation, config: group_config
+        test from: :pdex_coverage_to_link_minimal_data_validation, config: group_config
+        test from: :pdex_coverage_to_link_must_support_validation, config: group_config
 
         test do
           id :member_match_has_multiple_matches

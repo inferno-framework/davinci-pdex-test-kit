@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # workflow_member_match_test_group_spec.rb
 
-require_relative '../../../lib/davinci_pdex_test_kit/pdex_payer_server/workflow_member_match_test_group'
+#require_relative '../../../lib/davinci_pdex_test_kit/pdex_payer_server/workflow_member_match_test_group'
 
 # TODO: REDO THIS FILE FOR WORKFLOW MEMBER MATCH
 =begin
