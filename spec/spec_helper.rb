@@ -116,7 +116,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   config.before(:suite) do
-    FactoryBot.definition_file_paths = [ File.expand_path('./factories', __dir__) ]
+    # FactoryBot.definition_file_paths = [ File.expand_path('./factories', __dir__) ]
     FactoryBot.find_definitions
   end
 end
@@ -131,7 +131,8 @@ Inferno::Application.finalize!
 require Inferno::SpecSupport::FACTORY_BOT_SUPPORT_PATH
 
 FactoryBot.definition_file_paths = [
-  Inferno::SpecSupport::FACTORY_PATH
+  Inferno::SpecSupport::FACTORY_PATH,
+  File.expand_path('./factories', __dir__)
 ]
 
 RSpec::Matchers.define_negated_matcher :exclude, :include
