@@ -56,14 +56,18 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
     let(:test) { group.tests[1] }
 
     it 'passes a correct member match request resource' do
-      parameters = "TODO" # create(:member_match_request)
-      result = run(test, {url:, member_match_request: parameters.json}
+      parameters = create(:member_match_request)
+      # TODO impl validator mock
+      stub_request(:post, "https://example.com/validatorapi/validate").to_return(status: 200)
+      result = run(test, {url:, member_match_request: parameters.to_json})
       expect(result.result).to eq('pass')
     end
 
     it 'fails a bad member match request resource' do
-      parameters = "TODO" # create(:bad_member_match_request)
-      result = run(test, {url:, member_match_request: parameters.json}
+      parameters = create(:bad_member_match_request)
+      stub_request(:post, "https://example.com/validatorapi/validate").to_return(status: 200)
+      # TODO impl validator mock
+      result = run(test, {url:, member_match_request: parameters.to_json})
       expect(result.result).to eq('pass')
     end
   end
@@ -72,8 +76,8 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
     let(:test) { group.tests[2] }
 
     it 'passes a correct member match request resource' do
-      parameters = "TODO" # create(:member_match_request)
-      result = run(test, {url:, member_match_request: parameters.json}
+      parameters = create(:member_match_request)
+      result = run(test, {url:, member_match_request: parameters.to_json})
       expect(result.result).to eq('pass')
     end
   end
@@ -82,7 +86,15 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
     let(:test) { group.tests[3] }
 
     it 'passes a correct member match request resource' do
+      parameters = create(:member_match_request)
+      result = run(test, {url:, member_match_request: parameters.to_json})
+      expect(result.result).to eq('pass')
+    end
 
+    it 'skips a member match request resource without coverage to link parameter' do
+      parameters = create(:member_match_request_without_coverage_to_link)
+      result = run(test, {url:, member_match_request: parameters.to_json})
+      expect(result.result).to eq('pass')
     end
   end
 
@@ -90,21 +102,25 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
     let(:test) { group.tests[4] }
 
     it 'passes a correct member match request resource' do
-
+      parameters = create(:member_match_request)
+      result = run(test, {url:, member_match_request: parameters.to_json})
+      expect(result.result).to eq('pass')
     end
   end
-
+=begin
   describe 'member match on server test' do
     let(:test) { group.tests[5] }
 
     it 'executes $member-match operation' do
+      expect('TODO').to eq('pass')
     end
 
     it 'passes a 200 response' do
-
+      expect('TODO').to eq('pass')
     end
 
     it 'fails 500 response' do
+      expect('TODO').to eq('fail')
     end
   end
 
@@ -112,9 +128,11 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
     let(:test) { group.tests[6] }
 
     it 'passes a correct member match request resource' do
+      expect('TODO').to eq('pass')
     end
 
     it 'outputs member identifier' do
+      expect('TODO').to eq('pass')
     end
   end
 
@@ -122,7 +140,8 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
     let(:test) { groups.tests[7] }
 
     it 'passes a correct member identifier' do
-
+      expect('TODO').to eq('pass')
     end
   end
+=end
 end
