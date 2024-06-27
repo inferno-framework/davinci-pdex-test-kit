@@ -45,9 +45,9 @@ module DaVinciPDexTestKit
           assert_resource_type(:capability_statement)
 
           assert(
-            resource.rest.one? do |rest_metadata|
-              rest_metadata.resource.select { |resource_metadata| resource_metadata.type == 'Patient' }.first
-                .operation.any? do |operation_metadata|
+            resource.rest&.one? do |rest_metadata|
+              rest_metadata.resource&.find{|resource_metadata| resource_metadata.type == 'Patient'}
+                &.operation&.any? do |operation_metadata|
                   operation_metadata.name == config.options[:operation_name] &&
                   operation_metadata.definition == config.options[:operation_url]
                 end

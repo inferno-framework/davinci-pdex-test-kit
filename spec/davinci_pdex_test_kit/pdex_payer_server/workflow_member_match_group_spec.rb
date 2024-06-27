@@ -8,8 +8,9 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:test_session) { repo_create(:test_session, test_suite_id: 'pdex_payer_server_suite') }
   let(:url) { 'http://example.com/fhir' }
+  # let(:group) { Inferno::Repositories::TestGroups.new.find('pdex_workflow_member_match_group') }
 
-  let(:group) { Inferno::Repositories::TestGroups.new.find('pdex_workflow_member_match_group') }
+  let(:group) { suite.groups.first.groups.first }
 
   def run(runnable, inputs = {})
     test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
@@ -84,13 +85,13 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
         ]
       })
 
-      stub_request(:get, "#{url}/metadata").to_return(status: 200, headers: {'Content-Type' => 'application/json+fhir'}, body: metadata.to_json)
+      stub_request(:get, "#{url}/metadata").to_return(status: 200, headers: {'Content-Type' => 'application/fhir+json'}, body: metadata.to_json)
 
       result = run(test, {url:, member_match_request: FHIR::Parameters.new().to_json})
-      expect(result.result).to eq('pass') # TODO fix - assertion fails
+
+      expect(result.result).to eq('pass')
     end
 
-=begin
     it 'fails if member-match is not declared in Capability Statement' do
       metadata = FHIR::CapabilityStatement.new({
         status: 'active',
@@ -114,7 +115,35 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
       result = run(test, {url:, member_match_request: FHIR::Parameters.new().to_json})
       expect(result.result).to eq('fail')
     end
-=end
+
+    it 'fails if member-match is declared under the wrong resource' do
+      metadata = FHIR::CapabilityStatement.new({
+        status: 'active',
+        date: '2024-06-12',
+        kind: 'instance',
+        implementation: {
+          description: 'TEST DUMMY'
+        },
+        fhirVersion: '4.0.1',
+        format: %w[json],
+        rest: [
+          {
+            mode: 'server',
+            resource: [
+              {
+                type: 'Observation',
+                operation: [
+                  {
+                    name: 'member-match',
+                    definition: 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      })
+    end
 
   end
 end
