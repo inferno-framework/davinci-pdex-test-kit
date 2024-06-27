@@ -8,8 +8,6 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:test_session) { repo_create(:test_session, test_suite_id: 'pdex_payer_server_suite') }
   let(:url) { 'http://example.com/fhir' }
-  # let(:group) { Inferno::Repositories::TestGroups.new.find('pdex_workflow_member_match_group') }
-
   let(:group) { suite.groups.first.groups.first }
 
   def run(runnable, inputs = {})
@@ -21,69 +19,12 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
     Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
   end
 
-=begin
-  # TODO delete
-  def deep_group_find(suite_or_group, target_id)
-    return nil if suite_or_group.nil?
-    return suite_or_group if suite_or_group.is_a?(Inferno::TestGroup) && (suite_or_group.id == target_id)
-
-    suite_or_group.groups.each do |g|
-      group = deep_group_find(g, target_id)
-      return group if group
-    end
-
-    nil
-  end
-
-  def deep_test_find(test_or_group, target_id)
-    return nil if test_or_group.nil?
-
-    if test_or_group.is_a? Inferno::Test
-      return test_or_group.id == target_id ? test_or_group : nil
-    else
-      test_or_group.tests.each do |t|
-        test = deep_test_find(t, target_id)
-        return test if test
-      end
-      test_or_group.groups.each do |g|
-        return deep_test_find(g, target_id)
-      end
-    end
-
-    nil
-  end
-=end
 
   describe 'member-match in capability statement test' do
     let(:test) { group.tests.first }
 
     it 'passes if member-match is declared in Capability Statement under Patient resource' do
-      metadata = FHIR::CapabilityStatement.new({
-        status: 'active',
-        date: '2024-06-12',
-        kind: 'instance',
-        implementation: {
-          description: 'TEST DUMMY'
-        },
-        fhirVersion: '4.0.1',
-        format: %w[json],
-        rest: [
-          {
-            mode: 'server',
-            resource: [
-              {
-                type: 'Patient',
-                operation: [
-                  {
-                    name: 'member-match',
-                    definition: 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match'
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      })
+      metadata = create(:capability_statement_with_patient_member_match)
 
       stub_request(:get, "#{url}/metadata").to_return(status: 200, headers: {'Content-Type' => 'application/fhir+json'}, body: metadata.to_json)
 
@@ -93,22 +34,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
     end
 
     it 'fails if member-match is not declared in Capability Statement' do
-      metadata = FHIR::CapabilityStatement.new({
-        status: 'active',
-        date: '2024-06-12',
-        kind: 'instance',
-        implementation: {
-          description: 'TEST DUMMY'
-        },
-        fhirVersion: '4.0.1',
-        format: %w[json],
-        rest: [
-          {
-            mode: 'server',
-            resource: []
-          }
-        ]
-      })
+      metadata = create(:capability_statement_with_patient_resource)
 
       stub_request(:get, "#{url}/metadata").to_return(status: 200, headers: {'Content-Type' => 'application/json+fhir'}, body: metadata.to_json)
 
@@ -117,32 +43,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
     end
 
     it 'fails if member-match is declared under the wrong resource' do
-      metadata = FHIR::CapabilityStatement.new({
-        status: 'active',
-        date: '2024-06-12',
-        kind: 'instance',
-        implementation: {
-          description: 'TEST DUMMY'
-        },
-        fhirVersion: '4.0.1',
-        format: %w[json],
-        rest: [
-          {
-            mode: 'server',
-            resource: [
-              {
-                type: 'Observation',
-                operation: [
-                  {
-                    name: 'member-match',
-                    definition: 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match'
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      })
+      metadata = create(:capability_statement_with_bad_member_match)
     end
 
   end
