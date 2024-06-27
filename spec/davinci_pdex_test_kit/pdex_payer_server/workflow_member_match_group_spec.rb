@@ -44,7 +44,85 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
 
     it 'fails if member-match is declared under the wrong resource' do
       metadata = create(:capability_statement_with_bad_member_match)
+
+      stub_request(:get, "#{url}/metadata").to_return(status: 200, headers: {'Content-Type' => 'application/json+fhir'}, body: metadata.to_json)
+
+      result = run(test, {url:, member_match_request: FHIR::Parameters.new().to_json})
+      expect(result.result).to eq('fail')
+    end
+  end
+
+  describe 'member match request profile test' do
+    let(:test) { group.tests[1] }
+
+    it 'passes a correct member match request resource' do
+      parameters = "TODO" # create(:member_match_request)
+      result = run(test, {url:, member_match_request: parameters.json}
+      expect(result.result).to eq('pass')
     end
 
+    it 'fails a bad member match request resource' do
+      parameters = "TODO" # create(:bad_member_match_request)
+      result = run(test, {url:, member_match_request: parameters.json}
+      expect(result.result).to eq('pass')
+    end
+  end
+
+  describe 'member match request local references test' do
+    let(:test) { group.tests[2] }
+
+    it 'passes a correct member match request resource' do
+      parameters = "TODO" # create(:member_match_request)
+      result = run(test, {url:, member_match_request: parameters.json}
+      expect(result.result).to eq('pass')
+    end
+  end
+
+  describe 'coverage to link minimal data test' do
+    let(:test) { group.tests[3] }
+
+    it 'passes a correct member match request resource' do
+
+    end
+  end
+
+  describe 'coverage to link must support test' do
+    let(:test) { group.tests[4] }
+
+    it 'passes a correct member match request resource' do
+
+    end
+  end
+
+  describe 'member match on server test' do
+    let(:test) { group.tests[5] }
+
+    it 'executes $member-match operation' do
+    end
+
+    it 'passes a 200 response' do
+
+    end
+
+    it 'fails 500 response' do
+    end
+  end
+
+  describe 'member match response profile test' do
+    let(:test) { group.tests[6] }
+
+    it 'passes a correct member match request resource' do
+    end
+
+    it 'outputs member identifier' do
+    end
+  end
+
+  describe 'member match identifier to id test' do
+    let(:test) { groups.tests[7] }
+
+    it 'passes a correct member identifier' do
+
+    end
   end
 end

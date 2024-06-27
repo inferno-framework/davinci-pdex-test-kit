@@ -51,7 +51,7 @@ module DaVinciPDexTestKit
            }
 
       test from: :pdex_member_match_request_profile_validation do
-        id :member_match_request_request_profile_test
+        id :member_match_request_profile_test
         title '[USER INPUT VALIDATION] Member match request for exactly one match is valid'
         description %{
           This test validates the conformity of the user input to the
@@ -70,7 +70,7 @@ module DaVinciPDexTestKit
       test from: :pdex_coverage_to_link_must_support_validation
    
       test do
-        id :member_match_on_server
+        id :member_match_on_server_test
         title 'Server handles $member-match operation successfully'
         description 'Server receives request `POST [baseURL]/Patient/$member-match` and returns 200'
            
@@ -85,7 +85,7 @@ module DaVinciPDexTestKit
       end
   
       test do
-        id :member_match_response_conformance
+        id :member_match_response_profile_test
         title 'Server $member-match response conforms to profile'
         description %{
           The response body from the previous POST request to $member-match must be valid FHIR JSON conforming to
