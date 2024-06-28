@@ -70,7 +70,7 @@ module DaVinciPDexTestKit
         assert !coverage.network, 'CoverageToLink parameter has unecessary network field'
         assert coverage.costToBeneficiary.nil? || coverage.costToBeneficiary.empty?, 'CoverageToLink parameter has unnecessary costToBeneficiary field'
         assert coverage.subrogation.nil?, 'CoverageToLink parameter has unnecessary subrogation field'
-        assert !coverage.contract, 'CoverageToLink parameter has uncessary contract field'
+        assert coverage.contract.nil? || coverage.contract.empty?, 'CoverageToLink parameter has uncessary contract field'
       end
 
     end
