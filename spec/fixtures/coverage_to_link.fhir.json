@@ -19,14 +19,6 @@
     "beneficiary": {
         "reference": "https://hl7.org/fhir/us/core/STU6.1/Patient/example"
     },
-    "relationship": {
-        "coding": [
-            {
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
-                "code": "unknown"
-            }
-        ]
-    },
     "payor": [
         {
             "identifier": {
