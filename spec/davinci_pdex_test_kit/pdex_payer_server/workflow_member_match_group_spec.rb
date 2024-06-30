@@ -55,20 +55,46 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
   describe 'member match request profile test' do
     let(:test) { group.tests[1] }
 
+    let(:success_outcome) do
+    {
+      outcomes: [{
+        issues: []
+      }],
+      sessionId: ''
+    }
+    end
+
+    let(:error_outcome) do
+    {
+      outcomes: [{
+        issues: [{
+          location: 'Parameters.id',
+          message: 'Test dummy error',
+          level: 'ERROR'
+        }]
+      }],
+      sessionId: ''
+    }
+    end
+
     it 'passes a correct member match request resource' do
       parameters = create(:member_match_request)
-      # TODO impl validator mock
-      stub_request(:post, "https://example.com/validatorapi/validate").to_return(status: 200)
+      stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+        .with(query: hash_including({}))
+        .to_return(status: 200, body: success_outcome.to_json)
+
       result = run(test, {url:, member_match_request: parameters.to_json})
       expect(result.result).to eq('pass'), result.result_message
     end
 
     it 'fails a bad member match request resource' do
       parameters = create(:bad_member_match_request)
-      stub_request(:post, "https://example.com/validatorapi/validate").to_return(status: 200)
-      # TODO impl validator mock
+      stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+        .with(query: hash_including({}))
+        .to_return(status: 200, body: error_outcome.to_json)
+
       result = run(test, {url:, member_match_request: parameters.to_json})
-      expect(result.result).to eq('pass'), result.result_message
+      expect(result.result).to eq('fail'), result.result_message
     end
   end
 
@@ -107,40 +133,62 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
       expect(result.result).to eq('pass'), result.result_message
     end
   end
-=begin
+
   describe 'member match on server test' do
     let(:test) { group.tests[5] }
+    let (:member_match_request) { create(:member_match_request).to_json }
 
     it 'executes $member-match operation' do
-      expect('TODO').to eq('pass'), result.result_message
+      stub_request(:post, "#{url}/Patient/$member-match").to_return(status: 200)
+
+      result = run(test, {url:, member_match_request:})
+      expect(WebMock).to have_requested(:post, "#{url}/Patient/$member-match").
+        with(body: member_match_request, headers: {'Content-Type' => 'application/fhir+json'})
     end
 
     it 'passes a 200 response' do
-      expect('TODO').to eq('pass'), result.result_message
+      stub_request(:post, "#{url}/Patient/$member-match").to_return(status: 200)
+
+      result = run(test, {url:, member_match_request:})
+      expect(result.result).to eq('pass'), result.result_message
     end
 
     it 'fails 500 response' do
-      expect('TODO').to eq('fail'), result.result_message
+      stub_request(:post, "#{url}/Patient/$member-match").to_return(status: 500)
+
+      result = run(test, {url:, member_match_request:})
+      expect(result.result).to eq('fail'), result.result_message
     end
   end
-
+=begin
   describe 'member match response profile test' do
     let(:test) { group.tests[6] }
+    let(:member_match_request) { create(:member_match_request).to_json }
+    let(:member_match_response) { create(:member_match_response) }
 
-    it 'passes a correct member match request resource' do
-      expect('TODO').to eq('pass'), result.result_message
+    it 'passes a correct member match response resource' do
+      inferno_request = double('request')
+      allow(inferno_request).to receive(:id).and_return(:member_match)
+      allow(inferno_request).to receive(:status).and_return('200')
+      allow(inferno_request).to recieve(:response_body).and_return( member_match_response.to_json )
+
+      result = run(test, {url:, member_match_request:})
+      expect(result.result).to eq('pass'), result.result_message
     end
 
     it 'outputs member identifier' do
-      expect('TODO').to eq('pass'), result.result_message
+      expect(1).to eq(2)
+      expect(result.result).to eq('pass'), result.result_message
     end
+
   end
 
   describe 'member match identifier to id test' do
     let(:test) { groups.tests[7] }
 
     it 'passes a correct member identifier' do
-      expect('TODO').to eq('pass'), result.result_message
+      expect(1).to eq(2)
+      expect(result.result).to eq('pass'), result.result_message
     end
   end
 =end
