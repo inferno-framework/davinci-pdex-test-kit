@@ -160,34 +160,65 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
       expect(result.result).to eq('fail'), result.result_message
     end
   end
-=begin
+
   describe 'member match response profile test' do
     let(:test) { group.tests[6] }
     let(:member_match_request) { create(:member_match_request).to_json }
     let(:member_match_response) { create(:member_match_response) }
 
+    let(:success_outcome) do
+    {
+      outcomes: [{
+        issues: []
+      }],
+      sessionId: ''
+    }
+    end
+
+    before(:each) do
+      allow(test).to receive(:requests).and_return(Inferno::Entities::Request.new({
+        name: 'member_match',
+        verb: 'post',
+        url: "#{url}/Patient/$member-match",
+        request_body: member_match_request,
+        response_body: member_match_response.to_json,
+        direction: 'outgoing',
+        headers: [
+          Inferno::Entities::Header.new({name: 'Accept', type: 'request', value: 'application/fhir+json'}),
+          Inferno::Entities::Header.new({name: 'Content-Type', type: 'response', value: 'application/fhir+json'})
+        ]
+      }))
+      allow(test).to receive(:load_named_requests).and_return(true)
+
+      #inferno_request = double('request')
+      #allow(inferno_request).to receive(:id).and_return(:member_match)
+      #allow(inferno_request).to receive(:status).and_return('200')
+      #allow(inferno_request).to receive(:response_body).and_return( member_match_response.to_json )
+
+      #inferno_response = double('response')
+
+      stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+        .with(query: hash_including({}))
+        .to_return(status: 200, body: success_outcome.to_json)
+    end
+
     it 'passes a correct member match response resource' do
-      inferno_request = double('request')
-      allow(inferno_request).to receive(:id).and_return(:member_match)
-      allow(inferno_request).to receive(:status).and_return('200')
-      allow(inferno_request).to recieve(:response_body).and_return( member_match_response.to_json )
-
-      result = run(test, {url:, member_match_request:})
+      result = run(stubbed_test, {url:, member_match_request:})
       expect(result.result).to eq('pass'), result.result_message
     end
 
+=begin
     it 'outputs member identifier' do
-      expect(1).to eq(2)
-      expect(result.result).to eq('pass'), result.result_message
+      result = run(test, {url:, member_match_request:})
+      expect( JSON.parse(result.output_json).empty?).to be(false), result.result_message
     end
-
+=end
   end
-
+=begin
   describe 'member match identifier to id test' do
     let(:test) { groups.tests[7] }
 
     it 'passes a correct member identifier' do
-      expect(1).to eq(2)
       expect(result.result).to eq('pass'), result.result_message
     end
   end
