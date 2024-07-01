@@ -11,15 +11,6 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::PatientOperationInCapability
   let(:test_session) { repo_create(:test_session, test_suite_id: 'pdex_payer_server_suite') }
   let(:url) { 'http://example.com/fhir' }
 
-  def run(runnable, inputs = {})
-    test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
-    test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)
-    inputs.each do |name, value|
-      session_data_repo.save(test_session_id: test_session.id, type: 'text', name: name, value: value)
-    end
-    Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
-  end
-
   describe 'member-match in capability statement test' do
     let(:test) { group.groups[0].tests[0] }
 
@@ -53,7 +44,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::PatientOperationInCapability
 
       stub_request(:get, "#{url}/metadata").to_return(status: 200, headers: {'Content-Type' => 'application/json+fhir'}, body: metadata.to_json)
 
-      result = run(test, {url:, member_match_request: FHIR::Parameters.new().to_json})
+      result = run(test_session, test, {url:, member_match_request: FHIR::Parameters.new().to_json})
       expect(result.result).to eq('pass')
     end
   end
