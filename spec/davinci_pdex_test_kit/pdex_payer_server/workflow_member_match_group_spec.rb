@@ -10,6 +10,28 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
   let(:url) { 'http://example.com/fhir' }
   let(:group) { suite.groups.first.groups.first }
 
+  let(:success_outcome) do
+    {
+      outcomes: [{
+        issues: []
+      }],
+      sessionId: ''
+    }
+  end
+
+  let(:error_outcome) do
+    {
+      outcomes: [{
+        issues: [{
+          location: 'Parameters.id',
+          message: 'Test dummy error',
+          level: 'ERROR'
+        }]
+      }],
+      sessionId: ''
+    }
+  end
+
   def run(runnable, inputs = {})
     test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
     test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)
@@ -54,28 +76,6 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
 
   describe 'member match request profile test' do
     let(:test) { group.tests[1] }
-
-    let(:success_outcome) do
-    {
-      outcomes: [{
-        issues: []
-      }],
-      sessionId: ''
-    }
-    end
-
-    let(:error_outcome) do
-    {
-      outcomes: [{
-        issues: [{
-          location: 'Parameters.id',
-          message: 'Test dummy error',
-          level: 'ERROR'
-        }]
-      }],
-      sessionId: ''
-    }
-    end
 
     it 'passes a correct member match request resource' do
       parameters = create(:member_match_request)
@@ -167,15 +167,6 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
   #   let(:member_match_request) { create(:member_match_request).to_json }
   #   let(:member_match_response) { create(:member_match_response) }
   # 
-  #   let(:success_outcome) do
-  #   {
-  #     outcomes: [{
-  #       issues: []
-  #     }],
-  #     sessionId: ''
-  #   }
-  #   end
-  # 
   #   before(:each) do
   #     allow(test).to receive(:requests).and_return(Inferno::Entities::Request.new({
   #       name: 'member_match',
@@ -197,7 +188,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
   #   end
   # 
   #   it 'passes a correct member match response resource' do
-  #     result = run(stubbed_test, {url:, member_match_request:})
+  #     result = run(test, {url:, member_match_request:})
   #     expect(result.result).to eq('pass'), result.result_message
   #   end
   # 
@@ -224,13 +215,17 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
 
       result = run(test, {url:, member_identifier:, member_match_request:})
 
-      expect(WebMock).to have_requested(:get, "#{url}/Patient")
+      expect(WebMock).to have_requested(:get, "#{url}/Patient?identifier=#{member_identifier}")
     end
 
     it 'passes when patient search returns successfully' do
       stub_request(:get, "#{url}/Patient")
         .with(query: {identifier: member_identifier})
         .to_return(status: 200, body: create(:patient_search_bundle).to_json)
+
+      stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+        .with(query: hash_including({}))
+        .to_return(status: 200, body: success_outcome.to_json)
 
       result = run(test, {url:, member_identifier:, member_match_request:})
 
@@ -241,6 +236,10 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
       stub_request(:get, "#{url}/Patient")
         .with(query: {identifier: member_identifier})
         .to_return(status: 200, body: create(:empty_search_bundle).to_json)
+
+      stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+        .with(query: hash_including({}))
+        .to_return(status: 200, body: success_outcome.to_json)
 
       result = run(test, {url:, member_identifier:, member_match_request:})
 
