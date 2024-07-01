@@ -143,5 +143,23 @@ FactoryBot.define do
         end
       end
     end
+
+    factory :bundle, class: 'FHIR::Bundle' do
+      type { 'collection' }
+
+      factory :search_bundle, aliases: ['empty_search_bundle'] do
+        type { 'searchset' }
+
+        factory :patient_search_bundle do
+          entry do
+            [
+              FHIR::Bundle::Entry.new({
+                resource: fixture('member_patient.fhir.json')
+              })
+            ]
+          end
+        end
+      end
+    end
   end
 end
