@@ -190,7 +190,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
 
   describe 'member match identifier to id test' do
     let(:test) { group.tests[7] }
-    let(:member_identifier) { '42' }    # Parameters.parameter:MemberIdentifier.valueIndentifier.value
+    let(:member_identifier) { Faker::Alphanumeric.alphanumeric }    # Parameters.parameter:MemberIdentifier.valueIndentifier.value
     let(:member_match_request) { '{}' } # FIXME: test still requires input when it shouldn't, probably because its nested
 
     it 'skips without a member identifier' do

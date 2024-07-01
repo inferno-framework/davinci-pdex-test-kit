@@ -69,6 +69,29 @@ FactoryBot.define do
           end
         end
       end
+
+      factory :capability_statement_with_encounter_search_interface do
+        transient do
+          resource do
+            [
+              {
+                type: 'Encounter',
+                interaction: [
+                  FHIR::CapabilityStatement::Rest::Resource::Interaction.new({
+                    code: 'search-type'
+                  })
+                ],
+                searchParam: [
+                  FHIR::CapabilityStatement::Rest::Resource::SearchParam.new({
+                    name: 'Encounter.subject',
+                    type: 'reference'
+                  })
+                ]
+              }
+            ]
+          end
+        end
+      end
     end
 
     factory :parameters, class: 'FHIR::Parameters' do
@@ -155,6 +178,16 @@ FactoryBot.define do
             [
               FHIR::Bundle::Entry.new({
                 resource: fixture('member_patient.fhir.json')
+              })
+            ]
+          end
+        end
+
+        factory :encounter_search_bundle do
+          entry do
+            [
+              FHIR::Bundle::Entry.new({
+                resource: fixture('encounter.fhir.json')
               })
             ]
           end

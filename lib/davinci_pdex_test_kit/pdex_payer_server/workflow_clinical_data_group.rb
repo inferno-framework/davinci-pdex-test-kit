@@ -44,7 +44,7 @@ module DaVinciPDexTestKit
       end
 
       test do
-        id :workflow_clinical_encounter_validation
+        id :workflow_clinical_encounter_test
         title 'Server returned Search bundle with valid Encounter data'
         description %{
             Server returned search Bundle of Encounters with least 1 resource entry.
