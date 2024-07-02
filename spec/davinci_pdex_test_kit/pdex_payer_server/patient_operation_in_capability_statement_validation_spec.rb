@@ -2,8 +2,6 @@
 
 require 'davinci_pdex_test_kit/pdex_payer_server/patient_operation_in_capability_statement_validation'
 
-# TODO: bifurcate this RSpec file into one for workflow member-match (or payer to payer) group, and another for patient_operation_in_capability_statement
-# TODO: clean this Rspec file
 RSpec.describe DaVinciPDexTestKit::PDexPayerServer::PatientOperationInCapabilityStatementValidation do
   let(:suite) { Inferno::Repositories::TestSuites.new.find('pdex_payer_server_suite') }
   let(:group) { suite.groups[0] } # this is payer-to-payer workflow group
@@ -15,32 +13,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::PatientOperationInCapability
     let(:test) { group.groups[0].tests[0] }
 
     it 'passes if member-match is declared in Capability Statement' do
-      metadata = FHIR::CapabilityStatement.new({
-        status: 'active',
-        date: '2024-06-12',
-        kind: 'instance',
-        implementation: {
-          description: 'TEST DUMMY'
-        },
-        fhirVersion: '4.0.1',
-        format: %w[json],
-        rest: [
-          {
-            mode: 'server',
-            resource: [
-              {
-                type: 'Patient',
-                operation: [
-                  {
-                    name: 'member-match',
-                    definition: 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match'
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      })
+      metadata = create(:capability_statement_with_patient_member_match)
 
       stub_request(:get, "#{url}/metadata").to_return(status: 200, headers: {'Content-Type' => 'application/json+fhir'}, body: metadata.to_json)
 
