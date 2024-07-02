@@ -34,49 +34,35 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowClinicalDataGroup do
     }
   end
 
-  #before(:each) do
-  #end
-
   describe 'clinical encounter query test' do
     let(:test) { group.tests[0] }
 
-    it 'skips without a patient id' do
+    before(:each) do
       stub_request(:get, "#{url}/metadata")
         .to_return({
           status: 200,
           body: create(:capability_statement_with_encounter_search_interface).to_json
-        })
+        })      
+    end
 
+    it 'skips without a patient id' do
       result = run(test_session, test, {url:, member_match_request:})
       expect(result.result).to eq('skip')
     end
 
     it 'sends an encounter search query' do     
-      stub_request(:get, "http://example.com/fhir/metadata")
-        .to_return({
-          status: 200,
-          body: create(:capability_statement_with_encounter_search_interface).to_json,
-          headers: {'Content-Type' => 'application/fhir+json'}
-        })
-
       stub_request(:get, "#{url}/Encounter")
         .with(query: {patient: "Patient/#{patient_id}"})
         .to_return(status: 501)
 
       result = run(test_session, test, {url:, patient_id:, member_match_request:})
 
+      # TODO: FHIR R4 Spec allows Encounter to be searched by `subject` parameter as well,
+      # but WebMock Matcher for RSpec does not support compount expectations with `or`
       expect(WebMock).to have_requested(:get, "#{url}/Encounter?patient=Patient/#{patient_id}")
     end
-  end
-=begin
-    it 'passes an HTTP 200 response' do
-      stub_request(:get, "#{url}/metadata")
-        .to_return({
-          status: 200,
-          #headers: {'Content-Type' => 'application/fhir+json'},
-          body: create(:capability_statement_with_encounter_search_interface).to_json
-        })
 
+    it 'passes an HTTP 200 response' do
       stub_request(:get, "#{url}/Encounter")
         .with(query: {patient: "Patient/#{patient_id}"})
         .to_return(status: 200, body: create(:encounter_search_bundle).to_json)
@@ -94,39 +80,38 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowClinicalDataGroup do
       expect(result.result).to eq('fail'), result.result_message
     end
   end
-=end
-=begin
-  # TODO uses request fix
-  describe 'clinical encounter data test' do
-    let(:test) { group.tests[1] }
 
-    it 'passes when encountersearch returns successfully' do
-      stub_request(:get, "#{url}/Encounter")
-        .with(query: {patient: "Patient/#{patient_id}"})
-        .to_return(status: 200, body: create(:encounter_search_bundle).to_json)
+  # TODO implement Inferno `uses_request` mock
+  # describe 'clinical encounter data test' do
+  #   let(:test) { group.tests[1] }
+  # 
+  #   it 'passes when encounter search returns successfully' do
+  #     stub_request(:get, "#{url}/Encounter")
+  #       .with(query: {patient: "Patient/#{patient_id}"})
+  #       .to_return(status: 200, body: create(:encounter_search_bundle).to_json)
+  # 
+  #     stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+  #       .with(query: hash_including({}))
+  #       .to_return(status: 200, body: success_outcome.to_json)
+  # 
+  #     result = run(test_session, test, {url:, patient_id:, member_match_request:})
+  #     expect(result.result).to eq('pass'), result.result_message
+  # 
+  #   end
+  #   
+  #   it 'fails when encounter search returns empty bundle' do
+  #     stub_request(:get, "#{url}/Encounter")
+  #       .with(query: {patient: "Patient/#{patient_id}"})
+  #       .to_return(status: 200, body: create(:empty_search_bundle).to_json)
+  # 
+  #     stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+  #       .with(query: hash_including({}))
+  #       .to_return(status: 200, body: success_outcome.to_json)
+  # 
+  #     result = run(test_session, test, {url:, patient_id:, member_match_request:})
+  # 
+  #     expect(result.result).to eq('fail'), result.result_message
+  #   end    
+  # end
 
-      stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
-        .with(query: hash_including({}))
-        .to_return(status: 200, body: success_outcome.to_json)
-
-      result = run(test_session, test, {url:, patient_id:, member_match_request:})
-      expect(result.result).to eq('pass'), result.result_message
-
-    end
-    
-    it 'fails when encounter search returns empty bundle' do
-      stub_request(:get, "#{url}/Encounter")
-        .with(query: {patient: "Patient/#{patient_id}"})
-        .to_return(status: 200, body: create(:empty_search_bundle).to_json)
-
-      stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
-        .with(query: hash_including({}))
-        .to_return(status: 200, body: success_outcome.to_json)
-
-      result = run(test_session, test, {url:, patient_id:, member_match_request:})
-
-      expect(result.result).to eq('fail'), result.result_message
-    end    
-  end
-=end
 end
