@@ -77,15 +77,15 @@ FactoryBot.define do
               {
                 type: 'Encounter',
                 interaction: [
-                  FHIR::CapabilityStatement::Rest::Resource::Interaction.new({
+                  {
                     code: 'search-type'
-                  })
+                  }
                 ],
                 searchParam: [
-                  FHIR::CapabilityStatement::Rest::Resource::SearchParam.new({
-                    name: 'Encounter.subject',
+                  {
+                    name: 'patient',
                     type: 'reference'
-                  })
+                  }
                 ]
               }
             ]
