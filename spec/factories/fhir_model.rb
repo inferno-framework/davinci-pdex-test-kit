@@ -52,6 +52,24 @@ FactoryBot.define do
         end
       end
 
+      factory :capability_statement_with_patient_everything do
+        transient do
+          resource do
+            [
+              {
+                type: 'Patient',
+                operation: [
+                  {
+                    name: 'everything',
+                    definition: 'http://hl7.org/fhir/OperationDefinition/Patient-everything'
+                  }
+                ]
+              }
+            ]
+          end
+        end
+      end
+
       factory :capability_statement_with_bad_member_match do
         transient do
           resource do
@@ -62,6 +80,24 @@ FactoryBot.define do
                   {
                     name: 'member-match',
                     definition: 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match'
+                  }
+                ]
+              }
+            ]
+          end
+        end
+      end
+
+      factory :capability_statement_with_bad_everything do
+        transient do
+          resource do
+            [
+              {
+                type: 'Observation',
+                operation: [
+                  {
+                    name: 'everything',
+                    definition: 'http://hl7.org/fhir/OperationDefinition/Patient-everything'
                   }
                 ]
               }
@@ -189,6 +225,15 @@ FactoryBot.define do
               FHIR::Bundle::Entry.new({
                 resource: fixture('encounter.fhir.json')
               })
+            ]
+          end
+        end
+
+        factory :everything_bundle do
+          entry do
+            [
+              {resource: fixture('member_patient.fhir.json')},
+              {resource: fixture('encounter.fhir.json')}
             ]
           end
         end

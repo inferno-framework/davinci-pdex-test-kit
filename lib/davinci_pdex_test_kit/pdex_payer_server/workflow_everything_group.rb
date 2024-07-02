@@ -36,8 +36,6 @@ module DaVinciPDexTestKit
       test do
         title 'Server can handle GET /Patient/[ID]/$everything'
 
-        # input :patient_id # borrows properties from workflow_clinical_data
-
         makes_request :pdex_patient_everything
 
         run do
@@ -58,9 +56,9 @@ module DaVinciPDexTestKit
         uses_request :pdex_patient_everything
 
         run do
-          skip_if response[:status] != 200, 'Skipped because previous test did not pass'
           skip_if !patient_id
             'No Patient ID was derived from $member-match nor supplied from user input'
+          skip_if response[:status] != 200, 'Skipped because previous test did not pass'
 
           assert_valid_resource
           assert_resource_type(:bundle)
@@ -72,7 +70,6 @@ module DaVinciPDexTestKit
                  end)
         end
       end
-
 
       # TODO: convert to attestation    
       # test do
