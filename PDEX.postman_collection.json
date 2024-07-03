@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "11631c8a-c345-4c8c-bcbe-70eb417a4b4f",
+		"_postman_id": "315195b9-bba1-42dc-99b1-8c98c2bf6942",
 		"name": "PDEX",
-		"description": "The variables tab in this collection controls port for inferno and token used to establish a session.\n\n- url_prefix: points to a running instance of inferno. Typical values will be\n    \n    - Inferno production: https://inferno.healthit.gov/suites\n        \n    - Inferno QA: https://inferno-qa.healthit.gov/suites\n        \n    - Local docker: http://localhost\n        \n    - Local development: [http://localhost:4657](http://localhost:4657)\n        \n- token: placed in the Authentication header as a bearer token and used by Inferno to recognize requests for a test session. This value will need to be entered in the Access Token input of the PDex Payer Client test suite.",
+		"description": "The variables tab in this collection controls port for inferno and token used to establish a session.\n\n- url_prefix: points to a running instance of inferno. Typical values will be\n    \n    - Inferno production: [https://inferno.healthit.gov/suites](https://inferno.healthit.gov/suites)\n        \n    - Inferno QA: [https://inferno-qa.healthit.gov/suites](https://inferno-qa.healthit.gov/suites)\n        \n    - Local docker: [http://localhost](http://localhost)\n        \n    - Local development: http://localhost:4567\n        \n- token: placed in the Authentication header as a bearer token and used by Inferno to recognize requests for a test session. This value will need to be entered in the Access Token input of the PDex Payer Client test suite.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29930935"
+		"_exporter_id": "32597978"
 	},
 	"item": [
 		{
@@ -728,7 +728,7 @@
 			"name": "$export Requests",
 			"item": [
 				{
-					"name": "export base",
+					"name": "export kick-off",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
 							"accept": true
@@ -765,7 +765,7 @@
 					"response": []
 				},
 				{
-					"name": "export followup",
+					"name": "export status",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {
 							"accept": true
@@ -795,7 +795,7 @@
 					"response": []
 				},
 				{
-					"name": "Binary Retrieval",
+					"name": "ndjson retrieval",
 					"request": {
 						"method": "GET",
 						"header": [],
