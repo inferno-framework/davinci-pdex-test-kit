@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'pdex_payer_server/workflow_member_match'
-require_relative 'pdex_payer_server/workflow_clinical_data'
-require_relative 'pdex_payer_server/workflow_everything'
-require_relative 'pdex_payer_server/workflow_export'
+require_relative 'pdex_payer_server/workflow_member_match_group'
+require_relative 'pdex_payer_server/workflow_clinical_data_group'
+require_relative 'pdex_payer_server/workflow_everything_group'
+require_relative 'pdex_payer_server/workflow_export_group'
 
 require_relative 'pdex_payer_server/no_member_matches_group'
 require_relative 'pdex_payer_server/multiple_member_matches_group'
@@ -12,7 +12,7 @@ require_relative 'pdex_payer_server/explanation_of_benefit_group'
 
 module DaVinciPDexTestKit
     class PDexPayerServerSuite < Inferno::TestSuite
-      id :pdex_payer_server
+      id :pdex_payer_server_suite
       title 'Da Vinci PDex Payer Server Test Suite'
       description File.read(File.join(__dir__, 'docs', 'payer_server_suite_description_v200.md'))
   
@@ -125,10 +125,10 @@ module DaVinciPDexTestKit
           See the corresponding test group's description for the testing methodology of each part.
         )
 
-        group from: :workflow_member_match
-        group from: :workflow_clinical_data
-        group from: :workflow_everything
-        group from: :workflow_export
+        group from: :pdex_workflow_member_match_group
+        group from: :pdex_workflow_clinical_data_group
+        group from: :pdex_workflow_everything_group
+        group from: :pdex_workflow_export_group
       end
 
       group do
@@ -157,15 +157,16 @@ module DaVinciPDexTestKit
 
           input_order :url, :credentials, :no_member_match_request, :multiple_member_match_request
 
-          group from: :no_member_matches_group
-          group from: :multiple_member_matches_group
+          group from: :pdex_no_member_matches_group
+          group from: :pdex_multiple_member_matches_group
         end
 
         group do
           title 'PDEX Search and Read API (US Core plus additional PDex resource types)' 
           id :search_and_read_api_coverage
           
-          group from: :pdex_explanation_of_benefit
+          group from: :pdex_explanation_of_benefit_group
+
           # Import all US Core v3.1.1 groups without the Suite
           Dir.glob(File.join($LOAD_PATH.find { |x| x.match? "us_core_test_kit" }, 'us_core_test_kit/generated/v3.1.1/*_group.rb')).each do |test_group_path|
             require_relative test_group_path

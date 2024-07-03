@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+require_relative 'patient_operation_in_capability_statement_validation'
+
 module DaVinciPDexTestKit
   module PDexPayerServer
-    class WorkflowEverythingTestGroup < Inferno::TestGroup
+    class WorkflowEverythingGroup < Inferno::TestGroup
       title 'Server can respond to $everything requests on matched patient'
       short_title '$everything'
-      id :workflow_everything
+      id :pdex_workflow_everything_group
       optional
       description %{
         # Background
@@ -25,29 +27,14 @@ module DaVinciPDexTestKit
         description: 'Manual Patient ID for testing Clinical Query and $everything $export without $member-match.',
         optional: true
 
-
-      test do
-        title 'Server asserts Patient instance operation $everything in Capability Statement'
-
-        run do
-          fhir_get_capability_statement
-
-          assert_response_status 200
-          assert(
-            resource.rest.one? do |rest_metadata|
-              rest_metadata.resource.select { |resource_metadata| resource_metadata.type == 'Patient' }.first
-                .operation.any? do |operation_metadata|
-                  operation_metadata.name == 'everything' && operation_metadata.definition == 'http://hl7.org/fhir/OperationDefinition/Patient-everything'
-                end
-            end
-          )
-        end
-      end
+      test from: :patient_operation_in_capability_statement_validation,
+           title: 'Server declares support for Patient everything operation in CapabilityStatement',
+           config: {
+             options: { operation_name: 'everything', operation_url: 'http://hl7.org/fhir/OperationDefinition/Patient-everything' }
+           }
 
       test do
         title 'Server can handle GET /Patient/[ID]/$everything'
-
-        # input :patient_id # borrows properties from workflow_clinical_data
 
         makes_request :pdex_patient_everything
 
@@ -69,9 +56,9 @@ module DaVinciPDexTestKit
         uses_request :pdex_patient_everything
 
         run do
-          skip_if response[:status] != 200, 'Skipped because previous test did not pass'
           skip_if !patient_id
             'No Patient ID was derived from $member-match nor supplied from user input'
+          skip_if response[:status] != 200, 'Skipped because previous test did not pass'
 
           assert_valid_resource
           assert_resource_type(:bundle)
@@ -83,7 +70,6 @@ module DaVinciPDexTestKit
                  end)
         end
       end
-
 
       # TODO: convert to attestation    
       # test do

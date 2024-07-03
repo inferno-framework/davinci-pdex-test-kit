@@ -1,15 +1,17 @@
 # frozen_string_literal: true
-require_relative 'abstract_member_match_request_conformance_test'
-require_relative 'abstract_member_match_request_local_references_test'
-require_relative 'coverage_to_link_has_minimal_data_test'
-require_relative 'coverage_to_link_must_support_test'
+require_relative 'member_match_request_profile_validation'
+require_relative 'member_match_request_local_references_validation'
+require_relative 'coverage_to_link_minimal_data_validation'
+require_relative 'coverage_to_link_must_support_validation'
+
+require_relative 'patient_operation_in_capability_statement_validation'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
-    class WorkflowMemberMatch < Inferno::TestGroup
+    class WorkflowMemberMatchGroup < Inferno::TestGroup
       title 'Server can return a matching member in response to $member-match request'
       short_title '$member-match'
-      id :workflow_member_match
+      id :pdex_workflow_member_match_group
       description %{
         # Background
 
@@ -36,35 +38,20 @@ module DaVinciPDexTestKit
 
       run_as_group
 
-      # TODO factorize cap statement tests
-      test do
-        id :member_match_in_capability_statement
-        title 'Server asserts Patient $member_match operation in capability statement.'
-
-        run do
-          fhir_get_capability_statement
-
-          assert_response_status(200)
-          assert_resource_type(:capability_statement)
-
-          assert(
-            resource.rest.one? do |rest_metadata|
-              rest_metadata.resource.select { |resource_metadata| resource_metadata.type == 'Patient' }.first
-                .operation.any? do |operation_metadata|
-                  operation_metadata.name == 'member-match' && operation_metadata.definition == 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match'
-                end
-            end
-          )
-        end
-      end
-
       input :member_match_request,
         title: 'Member Match Request for one match',
         description: "A JSON payload for server's $member-match endpoint that has **exactly one match**",
         type: 'textarea'
 
-      test from: :abstract_member_match_request_conformance do
-        id :member_match_request_request_conformance
+      test from: :patient_operation_in_capability_statement_validation,
+           id: :member_match_operation_in_capability_statement_test,
+           title: 'Server declares support for Patient member match operation in CapabilityStatement',
+           config: {
+             options: { operation_name: 'member-match', operation_url: 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match' }
+           }
+
+      test from: :pdex_member_match_request_profile_validation do
+        id :member_match_request_profile_test
         title '[USER INPUT VALIDATION] Member match request for exactly one match is valid'
         description %{
           This test validates the conformity of the user input to the
@@ -74,16 +61,16 @@ module DaVinciPDexTestKit
         }
       end
 
-      test from: :abstract_member_match_request_local_references do
-        id :member_match_request_local_references
+      test from: :pdex_member_match_request_local_references_validation do
+        id :member_match_request_local_references_test
         title '[USER INPUT VALIDATION] Member match request only uses local references'
       end
 
-      test from: :coverage_to_link_must_support
-      test from: :coverage_to_link_has_minimal_data
+      test from: :pdex_coverage_to_link_minimal_data_validation
+      test from: :pdex_coverage_to_link_must_support_validation
    
       test do
-        id :member_match_on_server
+        id :member_match_on_server_test
         title 'Server handles $member-match operation successfully'
         description 'Server receives request `POST [baseURL]/Patient/$member-match` and returns 200'
            
@@ -98,7 +85,7 @@ module DaVinciPDexTestKit
       end
   
       test do
-        id :member_match_response_conformance
+        id :member_match_response_profile_test
         title 'Server $member-match response conforms to profile'
         description %{
           The response body from the previous POST request to $member-match must be valid FHIR JSON conforming to

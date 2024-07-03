@@ -17,7 +17,8 @@ module DaVinciPDexTestKit
   module PDexPayerServer
 
     # PDex PriorAuthorization Profile for ExplanationOfBenefit Resource Test Group
-    class ExplanationOfBenefitTestGroup < Inferno::TestGroup
+    class ExplanationOfBenefitGroup < Inferno::TestGroup
+      id :pdex_explanation_of_benefit_group
       title 'PDex Prior Authorization Tests'
       short_description 'Verify support for the server capabilities required by the PDex Prior Authorization Profile.'
       description %(
@@ -81,7 +82,6 @@ The test will attempt to read each reference found and will fail if no
 read succeeds.
       )
 
-      id :pdex_explanation_of_benefit
       run_as_group
 
       def self.metadata

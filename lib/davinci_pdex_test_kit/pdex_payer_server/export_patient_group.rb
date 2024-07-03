@@ -2,11 +2,13 @@
 
 require 'tls_test_kit'
 
-require 'bulk_data_test_kit/v1.0.1/bulk_data_export_operation_support_test'
+# require 'bulk_data_test_kit/v1.0.1/bulk_data_export_operation_support_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_no_auth_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_export_kick_off_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_status_check_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_output_check_test'
+
+require_relative 'patient_operation_in_capability_statement_validation'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
@@ -37,38 +39,11 @@ module DaVinciPDexTestKit
 
       output :patient_requires_access_token, :patient_status_output, :patient_bulk_download_url
 
-      test from: :bulk_data_export_operation_support do
-        title 'Bulk Data Server declares support for Patient export operation in CapabilityStatement'
-        description <<~DESCRIPTION
-          This test verifies that the Bulk Data Server declares support for
-          `Patient/$export` operation in its server CapabilityStatement.
-
-          Given flexibility in the FHIR specification for declaring constrained
-          OperationDefinitions, this test only verifies that the server declares
-          any operation on the Patient resource.  It does not verify that it
-          declares the standard Patient export OperationDefinition provided in the
-          Bulk Data specification, nor does it attempt to resolve any non-standard
-          OperationDefinitions to verify if it is a constrained version of the
-          standard OperationDefintion.
-
-          This test will provide a warning if no operations are declared at
-          `Patient/$export`, via the
-          `CapabilityStatement.rest.resource.operation.name` element.  It will
-          also provide an informational message if an operation on the Patient
-          resource exists, but does not point to the standard OperationDefinition
-          canonical URL:
-          http://hl7.org/fhir/uv/bulkdata/OperationDefinition/patient-export
-
-          Additionally, this test provides a warning if the bulk data server does
-          not include the following URL in its `CapabilityStatement.instantiates`
-          element: http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data
-        DESCRIPTION
-        id :bulk_data_patient_export_operation_support
-
-        config(
-          options: { resource_type: 'Patient', require_absolute_urls_in_output: true }
-        )
-      end
+      test from: :patient_operation_in_capability_statement_validation,
+           title: 'Bulk Data Server declares support for Patient export operation in CapabilityStatement',
+           config: {
+             options: { operation_name: 'export', operation_url: 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition/patient-export' }
+           }
 
       test from: :bulk_data_kick_off,
            id: :pdex_export_patient_kick_off,

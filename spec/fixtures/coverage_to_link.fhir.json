@@ -1,0 +1,31 @@
+{
+    "resourceType": "Coverage",
+    "id": "AA87654",
+    "identifier": [
+        {
+            "type": {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        "code": "MB"
+                    }
+                ]
+            },
+            "system": "http://github.com/inferno-framework/new-payer/identifiers/coverage",
+            "value": "234567"
+        }
+    ],
+    "status": "active",
+    "beneficiary": {
+        "reference": "https://hl7.org/fhir/us/core/STU6.1/Patient/example"
+    },
+    "payor": [
+        {
+            "identifier": {
+                "system": "http://hl7.org/fhir/sid/us-npi",
+                "value": "0123456789"
+            },
+            "display": "New Health Plan"
+        }
+    ]
+}

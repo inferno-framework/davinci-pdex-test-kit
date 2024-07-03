@@ -1,9 +1,36 @@
+# frozen_string_literal: true
+
 module DaVinciPDexTestKit
   module PDexPayerServer
 
-    # Exists to factorize input validation
-    class AbstractMemberMatchRequestConformanceTest < Inferno::Test      
-      id :abstract_member_match_request_conformance
+    # Factorized test for Member Match Request Profile validation on PDex v2.0.0 and HRex v1.0.0.
+    #
+    # http://hl7.org/fhir/us/davinci-hrex/STU1/StructureDefinition-hrex-parameters-member-match-in.html
+    #
+    # ==== Inputs
+    #
+    # +member_match_request+ - *Optional:* JSON text to validate against profile
+    #
+    # ==== Outputs
+    #
+    # (none)
+    #
+    # ==== Required Config
+    #
+    # (none)
+    #
+    # ==== Required Scratch
+    #
+    # (none)
+    #
+    # ==== Notes
+    #
+    # Skips if no input provided. This test does not validate all requirements of a Member Match Request
+    # resource. 
+    #
+    class MemberMatchRequestProfileValidation < Inferno::Test
+      id :pdex_member_match_request_profile_validation
+
       input :member_match_request
 
       def assert_local_patient_references(member_match_request_parameters)
