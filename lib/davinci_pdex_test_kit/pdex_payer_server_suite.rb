@@ -12,7 +12,7 @@ require_relative 'pdex_payer_server/explanation_of_benefit_group'
 
 module DaVinciPDexTestKit
     class PDexPayerServerSuite < Inferno::TestSuite
-      id :pdex_payer_server_suite
+      id :pdex_payer_server
       title 'Da Vinci PDex Payer Server Test Suite'
       description File.read(File.join(__dir__, 'docs', 'payer_server_suite_description_v200.md'))
   
