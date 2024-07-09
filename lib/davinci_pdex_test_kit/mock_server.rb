@@ -18,7 +18,9 @@ module DaVinciPDexTestKit
           url: ENV.fetch('FHIR_REFERENCE_SERVER'),
           params: {},
           headers: {'Content-Type' => 'application/json', 'Authorization' => 'Bearer SAMPLE_TOKEN', 'Host' => ENV.fetch('HOST_HEADER')},
-        )
+        ) do |proxy| 
+          proxy.use FaradayMiddleware::Gzip
+        end
     end
 
     def token_response(request, _test = nil, _test_result = nil)
@@ -34,8 +36,9 @@ module DaVinciPDexTestKit
         response = server_proxy.get(endpoint, params)
         request.status = response.status
         response_resource = replace_bundle_urls(FHIR.from_contents(response.body))
-        request.response_headers = response.headers.reject!{|key, value| key == "transfer-encoding"} # chunked causes problems for client
+        request.response_headers = remove_transfer_encoding_header(response.headers)
         request.response_body = response_resource.to_json
+        request.response_header("content-length").value = request.response_body.length
       else
         response = server_proxy.get('Patient', {_id: 999})
         response_resource = FHIR.from_contents(response.body)
@@ -49,14 +52,14 @@ module DaVinciPDexTestKit
     def read_next_page(request, test = nil, test_result = nil)
       response = server_proxy.get('', request.query_parameters)
       request.status = response.status
-      request.response_headers = response.headers.reject!{|key, value| key == "transfer-encoding"}
+      request.response_headers = remove_transfer_encoding_header(response.headers)
       request.response_body = replace_bundle_urls(FHIR.from_contents(response.body)).to_json
     end
 
     def everything_response(request, test = nil, test_result = nil)
       response = server_proxy.get('Patient/999/$everything') #TODO: Change from static response
       request.status = response.status
-      request.response_headers = response.headers.reject!{|key, value| key == "transfer-encoding"}
+      request.response_headers = remove_transfer_encoding_header(response.headers)
       request.response_body = replace_bundle_urls(FHIR.from_contents(response.body)).to_json
     end
 
@@ -80,7 +83,7 @@ module DaVinciPDexTestKit
         req.headers = headers_as_hash.merge(server_proxy.headers)
       end
       request.status = response.status
-      request.response_headers = response.env.response_headers
+      request.response_headers = remove_transfer_encoding_header(response.env.response_headers)
       request.response_body = response.status.to_i == 200 ? replace_export_urls(JSON.parse(response.body)).to_json : response.body
       request.response_header("content-length").value = request.response_body.length
     end
@@ -126,6 +129,14 @@ module DaVinciPDexTestKit
 
     def get_metadata
       proc { [200, {'Content-Type' => 'application/fhir+json;charset=utf-8'}, [File.read("lib/davinci_pdex_test_kit/metadata/mock_capability_statement.json")]] }
+    end
+
+    def remove_transfer_encoding_header(headers)
+      if !headers["transfer-encoding"].nil?
+        headers.reject!{|key, value| key == "transfer-encoding"}
+      else
+        headers
+      end
     end
 
     def match_request_to_expectation(endpoint, params)
