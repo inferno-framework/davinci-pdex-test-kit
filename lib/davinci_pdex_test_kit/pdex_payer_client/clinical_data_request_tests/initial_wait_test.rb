@@ -23,7 +23,8 @@ module DaVinciPDexTestKit
           * $export-poll-status: `#{export_status_url}`, then continue to make reads from the binaries if a payload is delivered
           
           and [click here](#{resume_clinical_data_url}?token=#{access_token}) when done.
-        )
+        ),
+        timeout: 900
       )
     end
   end
