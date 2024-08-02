@@ -230,19 +230,32 @@
       :type: requiredBinding
       :path: category
       :values:
-      - submitted
-      - copay
-      - eligible
-      - deductible
-      - benefit
-      - coinsurance
-      - noncovered
-      - priorpayerpaid
-      - paidbypatient
-      - paidtopatient
-      - paidtoprovider
-      - memberliability
-      - discount
+      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+        :code: submitted
+      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+        :code: copay
+      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+        :code: eligible
+      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+        :code: deductible
+      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+        :code: benefit
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: coinsurance
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: noncovered
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: priorpayerpaid
+      - :sysstem: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: paidbypatient
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: paidtopatient
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: paidtoprovider
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: memberliability
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: discount
   - :slice_id: ExplanationOfBenefit.item.adjudication:allowedunits
     :slice_name: allowedunits
     :path: item.adjudication
@@ -277,19 +290,32 @@
       :type: requiredBinding
       :path: category
       :values:
-      - submitted
-      - copay
-      - eligible
-      - deductible
-      - benefit
-      - coinsurance
-      - noncovered
-      - priorpayerpaid
-      - paidbypatient
-      - paidtopatient
-      - paidtoprovider
-      - memberliability
-      - discount
+      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+        :code: submitted
+      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+        :code: copay
+      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+        :code: eligible
+      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+        :code: deductible
+      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+        :code: benefit
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: coinsurance
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: noncovered
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: priorpayerpaid
+      - :sysstem: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: paidbypatient
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: paidtopatient
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: paidtoprovider
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: memberliability
+      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+        :code: discount
   - :slice_id: ExplanationOfBenefit.adjudication:denialreason
     :slice_name: denialreason
     :path: adjudication
