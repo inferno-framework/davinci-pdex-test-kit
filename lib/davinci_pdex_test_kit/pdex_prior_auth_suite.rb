@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     title 'PDex STU 2.1 Prior Authorization'
 
     fhir_resource_validator do
-      # TODO 2.1 ig
+      igs 'igs/davinci-pdex-2.1.0.tgz'
     end
 
     input :explanation_of_benefit,
