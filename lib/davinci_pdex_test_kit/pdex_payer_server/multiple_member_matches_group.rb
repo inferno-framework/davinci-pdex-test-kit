@@ -20,10 +20,10 @@ module DaVinciPDexTestKit
           optional: true
 
         group_config = { inputs: { member_match_request: { name: :multiple_member_match_request } } }
+        config(group_config)
   
         test from: :pdex_member_match_request_profile_validation do
           id :multiple_member_match_request_profile_test
-          config(group_config)
           title '[USER INPUT VALIDATION] Member match request for multiple matches is valid'
           description %{
             This test validates the conformity of the user input to the
@@ -31,6 +31,8 @@ module DaVinciPDexTestKit
             ensuring subsequent tests can accurately simulate content. It also checks conformance to the [Parameters Resource](https://hl7.org/fhir/R4/parameters.html),
             mandatory elements, and terminology. It also checks that the Patient reference with the Consent and CoverageToMatch parameters are local references.
           }
+
+          # TODO check config works
 
           # Inherits
         end
