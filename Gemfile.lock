@@ -3,7 +3,7 @@ PATH
   specs:
     davinci_pdex_test_kit (0.10.5)
       bulk_data_test_kit (~> 0.10)
-      inferno_core (~> 0.4.38)
+      inferno_core (~> 0.4.42)
       us_core_test_kit (~> 0.8)
 
 GEM
@@ -154,7 +154,7 @@ GEM
     httpclient (2.8.3)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
-    inferno_core (0.4.39)
+    inferno_core (0.4.42)
       activesupport (~> 6.1.7.5)
       base62-rb (= 0.3.1)
       blueprinter (= 0.25.2)
