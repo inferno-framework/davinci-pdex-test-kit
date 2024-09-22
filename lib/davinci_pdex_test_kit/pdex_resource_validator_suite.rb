@@ -7,13 +7,12 @@ module DaVinciPDexTestKit
 
     fhir_resource_validator do
       igs 'igs/davinci-pdex-2.1.0.tgz'
+      igs 'igs/davinci-hrex-1.1.0.tgz'
 
       cli_context do
         allowExampleUrls true
       end
     end
-
-
 
     group from: :pdex_profile_validation_group,
           id: :pdex_prior_auth_profile_validation_group,
