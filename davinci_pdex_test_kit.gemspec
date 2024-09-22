@@ -13,6 +13,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'inferno_core', '~> 0.4.42'
   spec.add_runtime_dependency 'us_core_test_kit', '~> 0.8'
   spec.add_runtime_dependency 'bulk_data_test_kit', '~> 0.10'
+  spec.add_runtime_dependency 'smart_app_launch_test_kit', '~> 0.4'
   spec.add_development_dependency 'database_cleaner-sequel', '~> 1.8'
   spec.add_development_dependency 'factory_bot', '~> 6.1'
   spec.add_development_dependency 'rspec', '~> 3.10'

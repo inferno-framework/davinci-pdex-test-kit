@@ -5,7 +5,7 @@ require_relative 'pdex_profile_validation'
 module DaVinciPDexTestKit
   module PDexResourceValidator
 
-    # Group for full profile validation on PDex v2.1.0 and HRex 1.1.0
+    # Group for full profile validation on PDex v2.1.0 and HRex 1.1.0. FOR IMPORTING.
     #
     # ==== Inputs
     # 
@@ -23,9 +23,6 @@ module DaVinciPDexTestKit
     # +resource_type+     - FHIR resource type as String
     # +profile_name+      - Human-friendly profile name
     # +profile_url+       - FHIR canonical profile url
-    # +input_title+       - *Optional:* String
-    # +input_description+ - *Optional:* String
-    # +input_required+    - *Optional:* Boolean; by default all inputs are optional
     #
     # ==== Required Scratch
     #
@@ -33,7 +30,7 @@ module DaVinciPDexTestKit
     #
     # ==== Notes
     #
-    # (none)
+    # See pdex_profile_validation_suite.rb for an example.
     #
     class PDexProfileValidationGroup < Inferno::TestGroup
       id :pdex_profile_validation_group
@@ -52,9 +49,7 @@ module DaVinciPDexTestKit
 
       input :target,
         type: 'textarea',
-        title: config.options[:input_title].presence || config.options[:profile_name],
-        description: config.options[:input_description].presence || "JSON text",
-        optional: !config.options[:input_required]
+        title: config.options[:profile_name]
 
       test from: :pdex_json_validation,
            id: :pdex_json_test,

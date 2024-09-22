@@ -188,53 +188,54 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
   #   end
   # end
 
-  describe 'member match identifier to id test' do
-    let(:test) { group.tests[7] }
-    let(:member_identifier) { Faker::Alphanumeric.alphanumeric }    # Parameters.parameter:MemberIdentifier.valueIndentifier.value
-    let(:member_match_request) { '{}' } # FIXME: test still requires input when it shouldn't, probably because its nested
+  ## This Inferno test was removed for PDex STU 2.1
+  # describe 'member match identifier to id test' do
+  #   let(:test) { group.tests[7] }
+  #   let(:member_identifier) { Faker::Alphanumeric.alphanumeric }    # Parameters.parameter:MemberIdentifier.valueIndentifier.value
+  #   let(:member_match_request) { '{}' } # FIXME: test still requires input when it shouldn't, probably because its nested
 
-    it 'skips without a member identifier' do
-      result = run(test_session, test, {url:, member_match_request:})
-      expect(result.result).to eq('skip'), result.result_message
-    end
+  #   it 'skips without a member identifier' do
+  #     result = run(test_session, test, {url:, member_match_request:})
+  #     expect(result.result).to eq('skip'), result.result_message
+  #   end
 
-    it 'sends an identifier query' do
-      stub_request(:get, "#{url}/Patient")
-        .with(query: {identifier: member_identifier})
-        .to_return(status: 501)
+  #   it 'sends an identifier query' do
+  #     stub_request(:get, "#{url}/Patient")
+  #       .with(query: {identifier: member_identifier})
+  #       .to_return(status: 501)
 
-      result = run(test_session, test, {url:, member_identifier:, member_match_request:})
+  #     result = run(test_session, test, {url:, member_identifier:, member_match_request:})
 
-      expect(WebMock).to have_requested(:get, "#{url}/Patient?identifier=#{member_identifier}")
-    end
+  #     expect(WebMock).to have_requested(:get, "#{url}/Patient?identifier=#{member_identifier}")
+  #   end
 
-    it 'passes when patient search returns successfully' do
-      stub_request(:get, "#{url}/Patient")
-        .with(query: {identifier: member_identifier})
-        .to_return(status: 200, body: create(:patient_search_bundle).to_json)
+  #   it 'passes when patient search returns successfully' do
+  #     stub_request(:get, "#{url}/Patient")
+  #       .with(query: {identifier: member_identifier})
+  #       .to_return(status: 200, body: create(:patient_search_bundle).to_json)
 
-      stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
-        .with(query: hash_including({}))
-        .to_return(status: 200, body: success_outcome.to_json)
+  #     stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+  #       .with(query: hash_including({}))
+  #       .to_return(status: 200, body: success_outcome.to_json)
 
-      result = run(test_session, test, {url:, member_identifier:, member_match_request:})
+  #     result = run(test_session, test, {url:, member_identifier:, member_match_request:})
 
-      expect(result.result).to eq('pass'), result.result_message
-    end
-    
-    it 'fails when patient search returns empty bundle' do
-      stub_request(:get, "#{url}/Patient")
-        .with(query: {identifier: member_identifier})
-        .to_return(status: 200, body: create(:empty_search_bundle).to_json)
+  #     expect(result.result).to eq('pass'), result.result_message
+  #   end
+  #   
+  #   it 'fails when patient search returns empty bundle' do
+  #     stub_request(:get, "#{url}/Patient")
+  #       .with(query: {identifier: member_identifier})
+  #       .to_return(status: 200, body: create(:empty_search_bundle).to_json)
 
-      stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
-        .with(query: hash_including({}))
-        .to_return(status: 200, body: success_outcome.to_json)
+  #     stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+  #       .with(query: hash_including({}))
+  #       .to_return(status: 200, body: success_outcome.to_json)
 
-      result = run(test_session, test, {url:, member_identifier:, member_match_request:})
+  #     result = run(test_session, test, {url:, member_identifier:, member_match_request:})
 
-      expect(result.result).to eq('fail'), result.result_message
-    end    
-  end
+  #     expect(result.result).to eq('fail'), result.result_message
+  #   end    
+  # end
 
 end
