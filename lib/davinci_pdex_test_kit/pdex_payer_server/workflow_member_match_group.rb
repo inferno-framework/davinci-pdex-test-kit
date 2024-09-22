@@ -19,6 +19,8 @@ module DaVinciPDexTestKit
         for payer-to-payer workflows as
         [required by the PDex Implementation Guide](https://hl7.org/fhir/us/davinci-pdex/STU2/payertopayerexchange.html#member-match-with-consent).
 
+          **TODO update URL to STU 2.1**
+
         # Testing Methodology
         
         The developer must supply JSON FHIR input parameter conforming to the
@@ -58,6 +60,8 @@ module DaVinciPDexTestKit
           [HRex Member Match Request Profile](https://hl7.org/fhir/us/davinci-hrex/STU1/StructureDefinition-hrex-parameters-member-match-in.html),
           ensuring subsequent tests can accurately simulate content. It also checks conformance to the [Parameters Resource](https://hl7.org/fhir/R4/parameters.html),
           mandatory elements, and terminology.
+
+          **TODO update URL to STU 2.1**
         }
       end
 
@@ -90,6 +94,10 @@ module DaVinciPDexTestKit
         description %{
           The response body from the previous POST request to $member-match must be valid FHIR JSON conforming to
           [HRex Member Match Response Profile](https://hl7.org/fhir/us/davinci-hrex/STU1/StructureDefinition-hrex-parameters-member-match-out.html).
+
+          **TODO update URL to STU 2.1**
+
+          The response must now include a MemberIdentifier and logical FHIR ID
         }
 
         output :member_identifier
@@ -109,49 +117,51 @@ module DaVinciPDexTestKit
           assert_valid_resource(profile_url: 'http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-parameters-member-match-out')
         end
       end
+
   
-      test do
-        id :member_match_identifier_to_id
-        title 'Server member identifier from $member-match yields logical Patient id'
-        description %Q{
-          The $member-match operation returns a Member Identifier, and subsequent clinical queries and operations
-          are only required to support logical Patient FHIR ID. Hence server must be able to provide a Patient
-          FHIR ID from Member Identifier.
+      ## This test is no longer required in PDex 2.1
+      # test do
+      #   id :member_match_identifier_to_id
+      #   title 'Server member identifier from $member-match yields logical Patient id'
+      #   description %Q{
+      #     The $member-match operation returns a Member Identifier, and subsequent clinical queries and operations
+      #     are only required to support logical Patient FHIR ID. Hence server must be able to provide a Patient
+      #     FHIR ID from Member Identifier.
 
-          Server receives request `GET [baseURL]/Patient?identifier=[member_identifier]`
-          and returns 200 and a Bundle with a single FHIR Patient. The `[member_identifier]` is from Member Match Response
-          `Parameters.parameter:MemberIdentifier.valueIdentifier.value`.
-        }
+      #     Server receives request `GET [baseURL]/Patient?identifier=[member_identifier]`
+      #     and returns 200 and a Bundle with a single FHIR Patient. The `[member_identifier]` is from Member Match Response
+      #     `Parameters.parameter:MemberIdentifier.valueIdentifier.value`.
+      #   }
 
-        input :member_identifier
-        input :member_identifier_system, optional: true
-        output :patient_id
+      #   input :member_identifier
+      #   input :member_identifier_system, optional: true
+      #   output :patient_id
 
-        run do
-          skip_if !member_identifier, "No member identifier obtained from $member-match request"
+      #   run do
+      #     skip_if !member_identifier, "No member identifier obtained from $member-match request"
  
-          # We only query by identifier.value, and preset information happens to return a value with a system within it
-          # which may be a bug.
-          # Other options are to query by system|value or type-of:
-          # But future PDex IG is intending to include logical FHIR id with MemberMatchResponse so this won't be necessary
-          fhir_search(FHIR::Patient, params: { 'identifier' => member_identifier })
+      #     # We only query by identifier.value, and preset information happens to return a value with a system within it
+      #     # which may be a bug.
+      #     # Other options are to query by system|value or type-of:
+      #     # But future PDex IG is intending to include logical FHIR id with MemberMatchResponse so this won't be necessary
+      #     fhir_search(FHIR::Patient, params: { 'identifier' => member_identifier })
 
-          assert response[:body], 'Server HTTP response is missing body'
-          assert_valid_json(response[:body])
-          assert_resource_type('Bundle')
+      #     assert response[:body], 'Server HTTP response is missing body'
+      #     assert_valid_json(response[:body])
+      #     assert_resource_type('Bundle')
 
-          assert resource.entry.find{ |entry| entry.resource&.resourceType == 'Patient' }, "Bundle has no Patient resource."
+      #     assert resource.entry.find{ |entry| entry.resource&.resourceType == 'Patient' }, "Bundle has no Patient resource."
 
-          patient_id = resource.entry.reverse_each.find{ |entry| entry.resource&.resourceType == 'Patient' }&.resource&.id
-          assert patient_id, "Patient resource in Bundle has no logical resource id"
+      #     patient_id = resource.entry.reverse_each.find{ |entry| entry.resource&.resourceType == 'Patient' }&.resource&.id
+      #     assert patient_id, "Patient resource in Bundle has no logical resource id"
 
-          info "Multiple patients found, using the last patient id." if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length > 1
+      #     info "Multiple patients found, using the last patient id." if resource.entry.select{ |entry| entry.resource&.resourceType == 'Patient' }.length > 1
 
-          output :patient_id => patient_id
+      #     output :patient_id => patient_id
 
-          assert_valid_resource
-        end
-      end
+      #     assert_valid_resource
+      #   end
+      # end
 
     end
   end

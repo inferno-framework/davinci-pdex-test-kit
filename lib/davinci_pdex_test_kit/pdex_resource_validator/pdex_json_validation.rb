@@ -30,7 +30,7 @@ module DaVinciPDexTestKit
       input :target
 
       run do
-        skip_if !target
+        omit_if !target
         assert_valid_json(target)
       end
     end

@@ -34,7 +34,7 @@ module DaVinciPDexTestKit
       input :target
 
       run do
-        skip_if !target
+        omit_if !target
         assert_valid_resource(resource: FHIR.from_contents(target), profile_url: config.options[:profile_url])
       end
     end

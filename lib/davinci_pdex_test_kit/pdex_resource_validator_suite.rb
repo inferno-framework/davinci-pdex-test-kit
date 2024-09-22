@@ -6,8 +6,7 @@ module DaVinciPDexTestKit
     title 'PDex STU 2.1 Resource Validator'
 
     fhir_resource_validator do
-      igs 'igs/davinci-pdex-2.1.0.tgz'
-      igs 'igs/davinci-hrex-1.1.0.tgz'
+      igs 'igs/davinci-hrex-1.1.0.tgz', 'igs/davinci-pdex-2.1.0.tgz'
 
       cli_context do
         allowExampleUrls true
