@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'us_core_test_kit/generated/v3.1.1/us_core_test_suite'
+
 require_relative 'pdex_payer_server/workflow_member_match_group'
 require_relative 'pdex_payer_server/workflow_clinical_data_group'
 require_relative 'pdex_payer_server/workflow_everything_group'
@@ -168,6 +170,24 @@ module DaVinciPDexTestKit
           group from: :pdex_explanation_of_benefit_group
 
           # Import all US Core v3.1.1 groups without the Suite
+          USCoreTestKit::USCoreV311::USCoreTestSuite.groups[1].groups.each do |group|
+            test_group = group.ancestors[1]
+
+            next if test_group.optional?
+
+            id = test_group.id
+
+            group_config = {}
+            if test_group.respond_to?(:metadata) &&
+               test_group.metadata.delayed? &&
+               !test_group.metadata.searchable_delayed_resource?
+              test_group.children.reject! { |child| child.include? USCoreTestKit::SearchTest }
+              group_config[:options] = { read_all_resources: true }
+            end
+
+            group(from: id, exclude_optional: true, config: group_config)
+          end
+
           Dir.glob(File.join($LOAD_PATH.find { |x| x.match? "us_core_test_kit" }, 'us_core_test_kit/generated/v3.1.1/*_group.rb')).each do |test_group_path|
             require_relative test_group_path
 
