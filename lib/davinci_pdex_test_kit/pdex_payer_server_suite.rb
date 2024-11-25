@@ -165,7 +165,7 @@ module DaVinciPDexTestKit
 
         group do
           title 'PDEX Search and Read API (US Core plus additional PDex resource types)' 
-          id :search_and_read_api_coverage
+          id :pdex_search_and_read_api_coverage
           
           group from: :pdex_explanation_of_benefit_group
 
@@ -188,11 +188,11 @@ module DaVinciPDexTestKit
             group(from: id, exclude_optional: true, config: group_config)
           end
 
-          Dir.glob(File.join($LOAD_PATH.find { |x| x.match? "us_core_test_kit" }, 'us_core_test_kit/generated/v3.1.1/*_group.rb')).each do |test_group_path|
-            require_relative test_group_path
-
-            group from: "us_core_v311_#{File.basename(test_group_path).gsub('_group.rb','')}".to_sym
-          end
+#          Dir.glob(File.join($LOAD_PATH.find { |x| x.match? "us_core_test_kit" }, 'us_core_test_kit/generated/v3.1.1/*_group.rb')).each do |test_group_path|
+#            require_relative test_group_path
+#
+#            group from: "us_core_v311_#{File.basename(test_group_path).gsub('_group.rb','')}".to_sym
+#          end
         end
       end
 
