@@ -171,21 +171,8 @@ module DaVinciPDexTestKit
 
           # Import all US Core v3.1.1 groups without the Suite
           USCoreTestKit::USCoreV311::USCoreTestSuite.groups[1].groups.each do |group|
-            test_group = group.ancestors[1]
-
-            next if test_group.optional?
-
-            id = test_group.id
-
-            group_config = {}
-            if test_group.respond_to?(:metadata) &&
-               test_group.metadata.delayed? &&
-               !test_group.metadata.searchable_delayed_resource?
-              test_group.children.reject! { |child| child.include? USCoreTestKit::SearchTest }
-              group_config[:options] = { read_all_resources: true }
-            end
-
-            group(from: id, exclude_optional: true, config: group_config)
+            # This prevents a second OAuth credentials box from appearing in UI
+            group(from: group.ancestors[1].id)
           end
         end
       end
