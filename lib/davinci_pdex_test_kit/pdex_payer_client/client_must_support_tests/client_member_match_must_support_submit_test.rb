@@ -4,7 +4,7 @@ module DaVinciPDexTestKit
   class PDexClientMemberMatchMustSupportSubmitTest < Inferno::Test
     include URLs
 
-    id :initial_member_match_must_support_submit_test
+    id :pdex_initial_member_match_must_support_submit_test
     title '$member-match requests span all Must Supports'
     description %(
       This test will receive $member-match requests until the user specifies they are done.  It then checks all received $member-match requests for Must Support coverage.

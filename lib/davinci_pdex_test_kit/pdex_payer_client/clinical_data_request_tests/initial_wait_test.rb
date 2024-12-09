@@ -3,7 +3,7 @@ module DaVinciPDexTestKit
   class PDexClientSubmitMustSupportTest < Inferno::Test
     include URLs
 
-    id :initial_wait_test
+    id :pdex_initial_wait_test
     title 'Client makes clinical data requests'
     description %(
       This test will receive clinical data requests until the user confirms they are done. 

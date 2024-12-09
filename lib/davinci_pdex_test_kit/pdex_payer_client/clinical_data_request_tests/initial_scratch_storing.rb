@@ -3,7 +3,7 @@ module DaVinciPDexTestKit
   class PDexClientScratchStorage < Inferno::Test
     include DaVinciPDexTestKit::ClientValidationTest
 
-    id :initial_scratch_storing
+    id :pdex_initial_scratch_storing
     title 'Client makes clinical data requests that capture an entire patient'
     description %(
       This test organizes the received requests in order to validate all expected specific resources were returned

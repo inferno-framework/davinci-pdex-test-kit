@@ -6,7 +6,7 @@ module DaVinciPDexTestKit
     include URLs
     include DaVinciPDexTestKit::ClientValidationTest
 
-    id :organization_clinical_data_request_test
+    id :pdex_organization_clinical_data_request_test
     title 'Organization resources related to the patient matched are gathered'
     description %(
       This test will look through all returned Organization resources for a specific expected resource related to the matched patient.
