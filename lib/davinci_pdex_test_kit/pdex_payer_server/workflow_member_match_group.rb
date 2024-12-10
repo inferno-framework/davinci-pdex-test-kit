@@ -130,6 +130,9 @@ module DaVinciPDexTestKit
         run do
           skip_if !member_identifier, "No member identifier obtained from $member-match request"
  
+          # Delay because running the server suite on the client suite encounters a race condition
+          sleep(2)
+
           # We only query by identifier.value, and preset information happens to return a value with a system within it
           # which may be a bug.
           # Other options are to query by system|value or type-of:
