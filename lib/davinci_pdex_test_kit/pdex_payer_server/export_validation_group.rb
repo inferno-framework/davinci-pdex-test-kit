@@ -36,7 +36,7 @@ module DaVinciPDexTestKit
           server SHALL be secured using Transport Layer Security  (TLS)
           Protocol Version 1.2 (RFC5246).
         DESCRIPTION
-        id :bulk_file_server_tls_version
+        id :pdex_bulk_file_server_tls_version
 
         config(
           inputs: { url: { name: :patient_bulk_download_url } },
@@ -45,7 +45,7 @@ module DaVinciPDexTestKit
       end
 
       test from: :bulk_data_valid_resources,
-           id: :bulk_data_patient_valid_resources,
+           id: :pdex_bulk_data_patient_valid_resources,
            config: {
              inputs: {
                status_output: { name: :patient_status_output },

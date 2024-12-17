@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     include DaVinciPDexTestKit::ClientValidationTest
     include URLs
 
-    id :initial_member_match_validation_test
+    id :pdex_initial_member_match_validation_test
     title 'Client provides a valid $member-match request'
     description %(
       This test will validate the received $member-match-request input, ensuring it corresponds to the [HRex member-match-in profile](http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-parameters-member-match-in)

@@ -6,7 +6,7 @@ module DaVinciPDexTestKit
     include URLs
     include DaVinciPDexTestKit::ClientValidationTest
 
-    id :explanationofbenefit_clinical_data_request_test
+    id :pdex_explanationofbenefit_clinical_data_request_test
     title 'ExplanationOfBenefit resources related to the patient matched are gathered'
     description %(
       This test will look through all returned ExplanationOfBenefit resources for a specific expected resource related to the matched patient.

@@ -21,7 +21,7 @@ module DaVinciPDexTestKit
         group_config = { inputs: { member_match_request: { name: :no_member_match_request } } }
 
         test from: :pdex_member_match_request_profile_validation do
-          id :no_member_match_request_profile_test
+          id :pdex_no_member_match_request_profile_test
           config(group_config)
 
           title '[USER INPUT VALIDATION] Member match request for no matches is valid'
@@ -40,7 +40,7 @@ module DaVinciPDexTestKit
 
 
         test do
-          id :member_match_has_no_matches
+          id :pdex_member_match_has_no_matches
           title 'Server $member-match operation returns 422 Unprocessable Content if no matches are found'
           description %{
             See [member matching logic](https://hl7.org/fhir/us/davinci-hrex/STU1/OperationDefinition-member-match.html#member-matching-logic)

@@ -6,7 +6,7 @@ module DaVinciPDexTestKit
     include URLs
     include DaVinciPDexTestKit::ClientValidationTest
 
-    id :documentreference_clinical_data_request_test
+    id :pdex_documentreference_clinical_data_request_test
     title 'DocumentReference resources related to the patient matched are gathered'
     description %(
       This test will look through all returned DocumentReference resources for a specific expected resource related to the matched patient.

@@ -22,7 +22,7 @@ module DaVinciPDexTestKit
         group_config = { inputs: { member_match_request: { name: :multiple_member_match_request } } }
   
         test from: :pdex_member_match_request_profile_validation do
-          id :multiple_member_match_request_profile_test
+          id :pdex_multiple_member_match_request_profile_test
           config(group_config)
           title '[USER INPUT VALIDATION] Member match request for multiple matches is valid'
           description %{
@@ -41,7 +41,7 @@ module DaVinciPDexTestKit
         test from: :pdex_coverage_to_link_must_support_validation, config: group_config
 
         test do
-          id :member_match_has_multiple_matches
+          id :pdex_member_match_has_multiple_matches
           title 'Server $member-match operation returns 422 Unprocessable Content if multiple matches are found'
           description %{
             See [member matching logic](https://hl7.org/fhir/us/davinci-hrex/STU1/OperationDefinition-member-match.html#member-matching-logic)

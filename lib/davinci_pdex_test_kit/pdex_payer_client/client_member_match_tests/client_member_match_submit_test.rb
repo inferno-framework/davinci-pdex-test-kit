@@ -4,7 +4,7 @@ module DaVinciPDexTestKit
   class PDexClientMemberMatchSubmitTest < Inferno::Test
     include URLs
 
-    id :initial_member_match_submit_test
+    id :pdex_initial_member_match_submit_test
     title 'Client makes a $member-match request'
     description %(
       This test will await a $member-match request and proceed once a request is received.

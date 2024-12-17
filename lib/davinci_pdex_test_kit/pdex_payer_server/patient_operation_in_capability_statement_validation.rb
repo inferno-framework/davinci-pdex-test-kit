@@ -27,7 +27,7 @@ module DaVinciPDexTestKit
     # Requires an Inferno fhir client configured.
     #
     class PatientOperationInCapabilityStatementValidation < Inferno::Test
-      id :patient_operation_in_capability_statement_validation
+      id :pdex_patient_operation_in_capability_statement_validation
 
       description %{
         The [CapabilityStatement](https://hl7.org/fhir/R4/capabilitystatement.html) must declare support for the
