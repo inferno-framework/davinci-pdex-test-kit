@@ -25,83 +25,81 @@ module DaVinciPDexTestKit
 
     def token_response(request, _test = nil, _test_result = nil)
       # Placeholder for a more complete mock token endpoint
-      request.response_body = { access_token: SecureRandom.hex, token_type: 'bearer', expires_in: 300 }.to_json
-      request.status = 200
+      response.body = { access_token: SecureRandom.hex, token_type: 'bearer', expires_in: 300 }.to_json
+      response.status = 200
     end
 
-    def claim_response(request, test = nil, test_result = nil)
+    def resource_response(request, _test = nil, _test_result = nil)
       endpoint = resource_endpoint(request.url)
-      params = match_request_to_expectation(endpoint, request.query_parameters)
+      params = match_request_to_expectation(endpoint, request.params)
       if params
-        response = server_proxy.get(endpoint, params)
-        request.status = response.status
-        response_resource = replace_bundle_urls(FHIR.from_contents(response.body))
-        request.response_headers = remove_transfer_encoding_header(response.headers)
-        request.response_body = response_resource.to_json
-        request.response_header("content-length").value = request.response_body.length
+        server_response = server_proxy.get(endpoint, params)
+        response_resource_json = replace_bundle_urls(FHIR.from_contents(server_response.body)).to_json
+        response.response_headers = remove_transfer_encoding_header(server_response.headers)
+        response.body = response_resource
+        response.headers["content-length"] = response_resource_json.length
       else
-        response = server_proxy.get('Patient', {_id: 999})
-        response_resource = FHIR.from_contents(response.body)
+        server_response = server_proxy.get('Patient', {_id: 999})
+        response_resource = FHIR.from_contents(server_response.body)
         response_resource.entry = [{fullUrl: 'urn:uuid:2866af9c-137d-4458-a8a9-eeeec0ce5583', resource: mock_operation_outcome_resource, search: {mode: 'outcome'}}]
         response_resource.link.first.url = request.url #specific case for Operation Outcome handling
-        request.status = 400
-        request.response_body = response_resource.to_json
+        response.status = 400
+        response.body = response_resource.to_json
       end
     end
 
     def read_next_page(request, test = nil, test_result = nil)
-      response = server_proxy.get('', request.query_parameters)
-      request.status = response.status
-      request.response_headers = remove_transfer_encoding_header(response.headers)
-      request.response_body = replace_bundle_urls(FHIR.from_contents(response.body)).to_json
+      server_response = server_proxy.get('', JSON.parse(request.params.to_json))
+      response.status = server_response.status
+      response.response_headers = remove_transfer_encoding_header(server_response.headers)
+      response.body = replace_bundle_urls(FHIR.from_contents(server_response.body)).to_json
     end
 
     def everything_response(request, test = nil, test_result = nil)
-      response = server_proxy.get('Patient/999/$everything') #TODO: Change from static response
-      request.status = response.status
-      request.response_headers = remove_transfer_encoding_header(response.headers)
-      request.response_body = replace_bundle_urls(FHIR.from_contents(response.body)).to_json
+      server_response = server_proxy.get('Patient/999/$everything') #TODO: Change from static response
+      response.headers.merge(remove_transfer_encoding_header(server_response.headers))
+      response.body = replace_bundle_urls(FHIR.from_contents(server_response.body)).to_json
+      response.status = server_response.status
+      binding.pry
     end
 
     def export_response(request, test = nil, test_result = nil)
-      headers_as_hash = request.request_headers.map { |header| {"#{header.name}": header.value}}.reduce({}) { |reduced, curr| reduced.merge(curr)}
-      response = server_proxy.get do |req|
+      headers_as_hash = request.headers.map { |header| {"#{header.name}": header.value}}.reduce({}) { |reduced, curr| reduced.merge(curr)}
+      server_response = server_proxy.get do |req|
         req.url 'Group/pdex-Group/$export' #TODO: change from static response
         req.headers = headers_as_hash.merge(server_proxy.headers)
       end
-      request.status = response.status
-      request.response_headers = response.env.response_headers
-      request.response_header("content-location").value.gsub!(/(.*)\?/, "#{new_link}/$export-poll-status?")
-      request.response_body = response.body
+      response.response_headers = server_response.headers
+      response.headers["content-location"].gsub!(/(.*)\?/, "#{new_link}/$export-poll-status?")
+      response.body = server_response.body
     end
 
     def export_status_response(request, test = nil, test_result = nil)
-      headers_as_hash = request.request_headers.map { |header| {"#{header.name}": header.value}}.reduce({}) { |reduced, curr| reduced.merge(curr)}
-      response = server_proxy.get do |req|
+      headers_as_hash = request.headers.map { |header| {"#{header.name}": header.value}}.reduce({}) { |reduced, curr| reduced.merge(curr)}
+      server_response = server_proxy.get do |req|
         req.url '$export-poll-status'
-        req.params = request.query_parameters
+        req.params = request.params
         req.headers = headers_as_hash.merge(server_proxy.headers)
       end
-      request.status = response.status
-      request.response_headers = remove_transfer_encoding_header(response.env.response_headers)
-      request.response_body = response.status.to_i == 200 ? replace_export_urls(JSON.parse(response.body)).to_json : response.body
-      request.response_header("content-length").value = request.response_body.length
+      response.response_headers = remove_transfer_encoding_header(response.response_headers)
+      response.body = server_response.status.to_i == 200 ? replace_export_urls(JSON.parse(server_response.body)).to_json : server_response.body
+      response.headers["content-length"] = server_response.body.length
     end
 
-    def binary_read_response(request, test = nil, test_result = nil)
+    def binary_read_response(request, _test = nil, _test_result = nil)
       binary_id = request.url.split('/').last
-      response = server_proxy.get('Binary/'+binary_id)
-      request.status = response.status
-      request.response_headers = response.headers
-      request.response_body = response.body
+      server_response = server_proxy.get('Binary/'+binary_id)
+      response.response_headers = server_response.headers
+      response.body = server_response.body
+      response.status = server_response.status
     end
 
     def member_match_response(request, test = nil, test_result = nil)
       #remove token from request as well
-      original_request_as_hash = JSON.parse(request.request_body).to_h
-      request.request_body = original_request_as_hash.to_json
+      original_request_as_hash = JSON.parse(request.body.string).to_h
+      request.body.string = original_request_as_hash.to_json
       #TODO: Change from static response
-      request.response_body = {
+      response.body = {
         resourceType: "Parameters",
         parameter: [
           {
@@ -124,7 +122,7 @@ module DaVinciPDexTestKit
           }
         ]
       }.to_json
-      request.status = 200
+      response.status = 200
     end
 
     def get_metadata
@@ -156,15 +154,15 @@ module DaVinciPDexTestKit
     end
 
     def extract_client_id(request)
-      URI.decode_www_form(request.request_body).to_h['client_id']
+      URI.decode_www_form(request.body.read).to_h['client_id']
     end
 
     # Header expected to be a bearer token of the form "Bearer: <token>"
     def extract_bearer_token(request)
-      request.request_header('Authorization')&.value&.split&.last
+      request.headers['authorization']&.delete_prefix('Bearer ')
     end
 
-    def extract_token_from_query_params(request)  
+    def extract_token_from_query_params(request)
       request.query_parameters['token']
     end
 

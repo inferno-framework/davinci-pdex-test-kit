@@ -1,7 +1,12 @@
 require 'inferno/dsl/oauth_credentials'
-require_relative 'ext/inferno_core/record_response_route'
-require_relative 'ext/inferno_core/runnable'
-require_relative 'ext/inferno_core/request'
+require_relative 'endpoints/token_endpoint'
+require_relative 'endpoints/resource_api_endpoint'
+require_relative 'endpoints/binary_endpoint'
+require_relative 'endpoints/patient_everything_endpoint'
+require_relative 'endpoints/export_endpoint'
+require_relative 'endpoints/export_status_endpoint'
+require_relative 'endpoints/member_match_endpoint'
+require_relative 'endpoints/next_page_endpoint'
 require_relative 'urls'
 require_relative 'mock_server'
 require_relative 'tags'
@@ -46,10 +51,6 @@ module DaVinciPDexTestKit
       id :pdex_payer_client
       title 'Da Vinci PDex Payer Client Test Suite'
       description File.read(File.join(__dir__, 'docs', 'payer_client_suite_description_v200.md'))
-
-      def self.test_resumes?(test)
-        !test.config.options[:accepts_multiple_requests]
-      end
       
       links [
         {
@@ -80,49 +81,23 @@ module DaVinciPDexTestKit
         end
       end
 
-      record_response_route :post, TOKEN_PATH, AUTH_TAG, method(:token_response) do |request|
-        PDexPayerClientSuite.extract_client_id(request)
-      end
+      suite_endpoint :post, TOKEN_PATH, TokenEndpoint
 
-      record_response_route :get, PATIENT_PATH, SUBMIT_TAG, method(:claim_response), # Patient needs a specific definition
-                            resumes: method(:test_resumes?) do |request|
-        PDexPayerClientSuite.extract_bearer_token(request)
-      end
+      suite_endpoint :get, PATIENT_PATH, ResourceAPIEndpoint
 
-      record_response_route :get, SUBMIT_PATH, SUBMIT_TAG, method(:claim_response),
-                            resumes: method(:test_resumes?) do |request|
-        PDexPayerClientSuite.extract_bearer_token(request)
-      end
+      suite_endpoint :get, RESOURCE_PATH, ResourceAPIEndpoint
 
-      record_response_route :get, BINARY_PATH, BINARY_TAG, method(:binary_read_response),
-                            resumes: method(:test_resumes?) do |request|
-        PDexPayerClientSuite.extract_bearer_token(request)
-      end
+      suite_endpoint :get, BINARY_PATH, BinaryEndpoint
 
-      record_response_route :get, EVERYTHING_PATH, EVERYTHING_TAG, method(:everything_response),
-                            resumes: method(:test_resumes?) do |request|
-        PDexPayerClientSuite.extract_bearer_token(request)
-      end
+      suite_endpoint :get, EVERYTHING_PATH, PatientEverythingEndpoint
 
-      record_response_route :get, EXPORT_PATH, EXPORT_TAG, method(:export_response),
-                            resumes: method(:test_resumes?) do |request|
-        PDexPayerClientSuite.extract_bearer_token(request)
-      end
+      suite_endpoint :get, EXPORT_PATH, ExportEndpoint
 
-      record_response_route :get, EXPORT_STATUS_PATH, EXPORT_STATUS_TAG, method(:export_status_response),
-                            resumes: method(:test_resumes?) do |request|
-        PDexPayerClientSuite.extract_bearer_token(request)
-      end
+      suite_endpoint :get, EXPORT_STATUS_PATH, ExportStatusEndpoint
 
-      record_response_route :post, MEMBER_MATCH_PATH, MEMBER_MATCH_TAG, method(:member_match_response),
-                            resumes: method(:test_resumes?) do |request|
-        PDexPayerClientSuite.extract_bearer_token(request)
-      end
+      suite_endpoint :post, MEMBER_MATCH_PATH, MemberMatchEndpoint
 
-      record_response_route :get, BASE_FHIR_PATH, SUBMIT_TAG, method(:read_next_page),
-                            resumes: method(:test_resumes?) do |request|
-        PDexPayerClientSuite.extract_bearer_token(request)
-      end
+      suite_endpoint :get, BASE_FHIR_PATH, NextPageEndpoint
   
       resume_test_route :get, RESUME_PASS_PATH do |request|
         PDexPayerClientSuite.extract_token_from_query_params(request)
