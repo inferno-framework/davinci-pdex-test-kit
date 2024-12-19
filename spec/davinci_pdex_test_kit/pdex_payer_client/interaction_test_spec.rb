@@ -4,7 +4,7 @@ RSpec.describe DaVinciPDexTestKit::PDexClientSubmitMustSupportTest, :request do
   def valid_json?(json)
     JSON.parse(json)
     true
-  rescue JSON::ParserError, TypeError => e
+  rescue JSON::ParserError, TypeError
     false
   end
 
