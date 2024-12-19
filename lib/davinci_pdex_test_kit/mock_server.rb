@@ -6,10 +6,6 @@ require_relative 'pdex_payer_client/client_validation_test'
 
 
 module DaVinciPDexTestKit
-  # Serve responses to PAS requests
-  #
-  # Note that there are numerous expected validation issues that can safely be ignored.
-  # See here for full list: https://hl7.org/fhir/us/davinci-pas/STU2/qa.html#suppressed
   module MockServer
     include URLs
 
@@ -31,13 +27,15 @@ module DaVinciPDexTestKit
 
     def resource_response(request, _test = nil, _test_result = nil)
       endpoint = resource_endpoint(request.url)
-      params = match_request_to_expectation(endpoint, request.params)
+      param_hash = {}
+      request.params.each { |name, value| param_hash[name] = value }
+      params = match_request_to_expectation(endpoint, param_hash)
       if params
         server_response = server_proxy.get(endpoint, params)
         response_resource_json = replace_bundle_urls(FHIR.from_contents(server_response.body)).to_json
-        response.response_headers = remove_transfer_encoding_header(server_response.headers)
-        response.body = response_resource
-        response.headers["content-length"] = response_resource_json.length
+        response.format = 'application/fhir+json'
+        response.body = response_resource_json
+        response.status = server_response.status
       else
         server_response = server_proxy.get('Patient', {_id: 999})
         response_resource = FHIR.from_contents(server_response.body)
@@ -45,51 +43,48 @@ module DaVinciPDexTestKit
         response_resource.link.first.url = request.url #specific case for Operation Outcome handling
         response.status = 400
         response.body = response_resource.to_json
+        response.format = 'application/fhir+json'
       end
     end
 
     def read_next_page(request, test = nil, test_result = nil)
       server_response = server_proxy.get('', JSON.parse(request.params.to_json))
       response.status = server_response.status
-      response.response_headers = remove_transfer_encoding_header(server_response.headers)
+      response.format = 'application/fhir+json'
       response.body = replace_bundle_urls(FHIR.from_contents(server_response.body)).to_json
     end
 
     def everything_response(request, test = nil, test_result = nil)
       server_response = server_proxy.get('Patient/999/$everything') #TODO: Change from static response
-      response.headers.merge(remove_transfer_encoding_header(server_response.headers))
+      response.format = 'application/fhir+json'
       response.body = replace_bundle_urls(FHIR.from_contents(server_response.body)).to_json
       response.status = server_response.status
-      binding.pry
     end
 
     def export_response(request, test = nil, test_result = nil)
-      headers_as_hash = request.headers.map { |header| {"#{header.name}": header.value}}.reduce({}) { |reduced, curr| reduced.merge(curr)}
+      http_headers_as_hash = request.env.select { |k,v| k.start_with? 'HTTP_'}.transform_keys { |k| k.sub(/^HTTP_/, '').split('_').map(&:capitalize).join('-') }
       server_response = server_proxy.get do |req|
         req.url 'Group/pdex-Group/$export' #TODO: change from static response
-        req.headers = headers_as_hash.merge(server_proxy.headers)
+        req.headers = http_headers_as_hash.merge(server_proxy.headers)
       end
-      response.response_headers = server_response.headers
-      response.headers["content-location"].gsub!(/(.*)\?/, "#{new_link}/$export-poll-status?")
+      response.headers["content-location"] = server_response.headers["content-location"]&.gsub(/(.*)\?/, "#{new_link}/$export-poll-status?")
       response.body = server_response.body
     end
 
     def export_status_response(request, test = nil, test_result = nil)
-      headers_as_hash = request.headers.map { |header| {"#{header.name}": header.value}}.reduce({}) { |reduced, curr| reduced.merge(curr)}
+      http_headers_as_hash = request.env.select { |k,v| k.start_with? 'HTTP_'}.transform_keys { |k| k.sub(/^HTTP_/, '').split('_').map(&:capitalize).join('-') }
       server_response = server_proxy.get do |req|
         req.url '$export-poll-status'
         req.params = request.params
-        req.headers = headers_as_hash.merge(server_proxy.headers)
+        req.headers = http_headers_as_hash.merge(server_proxy.headers)
       end
-      response.response_headers = remove_transfer_encoding_header(response.response_headers)
       response.body = server_response.status.to_i == 200 ? replace_export_urls(JSON.parse(server_response.body)).to_json : server_response.body
-      response.headers["content-length"] = server_response.body.length
     end
 
     def binary_read_response(request, _test = nil, _test_result = nil)
       binary_id = request.url.split('/').last
       server_response = server_proxy.get('Binary/'+binary_id)
-      response.response_headers = server_response.headers
+      response.format = 'application/fhir+ndjson'
       response.body = server_response.body
       response.status = server_response.status
     end
@@ -123,6 +118,7 @@ module DaVinciPDexTestKit
         ]
       }.to_json
       response.status = 200
+      response.format = 'application/fhir+json'
     end
 
     def get_metadata
@@ -260,7 +256,7 @@ module DaVinciPDexTestKit
 
         page_count += 1
       end
-      valid_resource_types = [resource_type, 'OperationOutcome'].concat(additional_resource_types)
+      # valid_resource_types = [resource_type, 'OperationOutcome'].concat(additional_resource_types)
       resources
     end
 
