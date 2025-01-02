@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
 module DaVinciPDexTestKit
-  VERSION = '0.10.6'
+  LAST_UPDATED = '2024-11-07'.freeze
+  VERSION = '0.10.6'.freeze
 end

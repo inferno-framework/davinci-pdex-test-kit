@@ -4,13 +4,10 @@
 require 'davinci_pdex_test_kit/pdex_payer_server/workflow_clinical_data_group'
 
 RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowClinicalDataGroup do
-  let(:suite) { Inferno::Repositories::TestSuites.new.find('pdex_payer_server') }
-  let(:session_data_repo) { Inferno::Repositories::SessionData.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: suite.id) }
+  let(:suite_id) { 'pdex_payer_server' }
   let(:url) { 'http://example.com/fhir' }
   let(:group) { suite.groups.first.groups[1] }
   let(:patient_id) { Faker::Alphanumeric.alphanumeric }
-  let(:member_match_request) { '{}' }
 
   let(:success_outcome) do
     {
@@ -42,11 +39,11 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowClinicalDataGroup do
         .to_return({
           status: 200,
           body: create(:capability_statement_with_encounter_search_interface).to_json
-        })      
+        })
     end
 
     it 'skips without a patient id' do
-      result = run(test_session, test, {url:, member_match_request:})
+      result = run(test, url:)
       expect(result.result).to eq('skip')
     end
 
@@ -55,7 +52,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowClinicalDataGroup do
         .with(query: {patient: "Patient/#{patient_id}"})
         .to_return(status: 501)
 
-      result = run(test_session, test, {url:, patient_id:, member_match_request:})
+      result = run(test, url:, patient_id:)
 
       # TODO: FHIR R4 Spec allows Encounter to be searched by `subject` parameter as well,
       # but WebMock Matcher for RSpec does not support compount expectations with `or`
@@ -67,7 +64,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowClinicalDataGroup do
         .with(query: {patient: "Patient/#{patient_id}"})
         .to_return(status: 200, body: create(:encounter_search_bundle).to_json)
 
-      result = run(test_session, test, {url:, patient_id:, member_match_request:})
+      result = run(test, url:, patient_id:)
       expect(result.result).to eq('pass'), result.result_message
     end
 
@@ -76,7 +73,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowClinicalDataGroup do
         .with(query: {patient: "Patient/#{patient_id}"})
         .to_return(status: 404)
 
-      result = run(test_session, test, {url:, patient_id:, member_match_request:})
+      result = run(test, url:, patient_id:)
       expect(result.result).to eq('fail'), result.result_message
     end
   end
@@ -94,7 +91,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowClinicalDataGroup do
   #       .with(query: hash_including({}))
   #       .to_return(status: 200, body: success_outcome.to_json)
   # 
-  #     result = run(test_session, test, {url:, patient_id:, member_match_request:})
+  #     result = run(test, url:, patient_id:)
   #     expect(result.result).to eq('pass'), result.result_message
   # 
   #   end
@@ -108,7 +105,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowClinicalDataGroup do
   #       .with(query: hash_including({}))
   #       .to_return(status: 200, body: success_outcome.to_json)
   # 
-  #     result = run(test_session, test, {url:, patient_id:, member_match_request:})
+  #     result = run(test, url:, patient_id:)
   # 
   #     expect(result.result).to eq('fail'), result.result_message
   #   end    

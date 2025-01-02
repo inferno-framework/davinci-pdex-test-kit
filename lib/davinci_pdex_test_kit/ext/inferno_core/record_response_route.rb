@@ -88,7 +88,7 @@ module Inferno
 
         instance_exec(request, test, waiting_result, &build_response_block)
 
-        Inferno::Entities::Request.to_hanami_response(request, res)
+        res = Inferno::Entities::Request.to_hanami_response(request, res)
         persist_request(request, test_run, waiting_result, test)
 
         Jobs.perform(Jobs::ResumeTestRun, test_run.id) if resumes? test

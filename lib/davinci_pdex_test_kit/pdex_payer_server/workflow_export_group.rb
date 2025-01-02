@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'bulk_data_test_kit/v2.0.0/bulk_data_patient_export_test_group'
 # require 'bulk_data_test_kit/v1.0.1/patient/bulk_data_patient_export_group'
 require_relative 'export_patient_group'

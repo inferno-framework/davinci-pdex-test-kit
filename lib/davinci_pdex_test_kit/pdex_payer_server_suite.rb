@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'us_core_test_kit/generated/v3.1.1/us_core_test_suite'
 
 require_relative 'pdex_payer_server/workflow_member_match_group'

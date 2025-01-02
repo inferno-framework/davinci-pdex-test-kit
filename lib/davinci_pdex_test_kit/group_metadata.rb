@@ -1,3 +1,7 @@
+# group_metadata
+# This file was borrowed from the US Core Generator
+# for must support validation.
+
 module DaVinciPDexTestKit
   class GroupMetadata
     ATTRIBUTES = [

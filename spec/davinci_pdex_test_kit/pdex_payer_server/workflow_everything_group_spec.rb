@@ -1,16 +1,10 @@
-# frozen_string_literal: true
-# workflow_everything_group_spec.rb
-
 require 'davinci_pdex_test_kit/pdex_payer_server/workflow_everything_group'
 
 RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowEverythingGroup do
-  let(:suite) { Inferno::Repositories::TestSuites.new.find('pdex_payer_server') }
-  let(:session_data_repo) { Inferno::Repositories::SessionData.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: suite.id) }
+  let(:suite_id) { 'pdex_payer_server' }
   let(:url) { 'http://example.com/fhir' }
   let(:group) { suite.groups.first.groups[2] }
   let(:patient_id) { Faker::Alphanumeric.alphanumeric }
-  let(:member_match_request) { '{}' }
 
   let(:success_outcome) do
     {
@@ -42,7 +36,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowEverythingGroup do
 
       stub_request(:get, "#{url}/metadata").to_return(status: 200, headers: {'Content-Type' => 'application/fhir+json'}, body: metadata.to_json)
 
-      result = run(test_session, test, {url:, member_match_request: FHIR::Parameters.new().to_json})
+      result = run(test, url:)
 
       expect(result.result).to eq('pass'), result.result_message
     end
@@ -52,7 +46,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowEverythingGroup do
 
       stub_request(:get, "#{url}/metadata").to_return(status: 200, headers: {'Content-Type' => 'application/json+fhir'}, body: metadata.to_json)
 
-      result = run(test_session, test, {url:, member_match_request: FHIR::Parameters.new().to_json})
+      result = run(test, url:)
       expect(result.result).to eq('fail'), result.result_message
     end
 
@@ -61,7 +55,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowEverythingGroup do
 
       stub_request(:get, "#{url}/metadata").to_return(status: 200, headers: {'Content-Type' => 'application/json+fhir'}, body: metadata.to_json)
 
-      result = run(test_session, test, {url:, member_match_request: FHIR::Parameters.new().to_json})
+      result = run(test, url:)
       expect(result.result).to eq('fail'), result.result_message
     end
 
@@ -79,7 +73,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowEverythingGroup do
     end
 
     it 'skips without a patient id' do
-      result = run(test_session, test, {url:, member_match_request:})
+      result = run(test, url:)
       expect(result.result).to eq('skip'), result.result_message
     end
 
@@ -87,7 +81,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowEverythingGroup do
       stub_request(:get, "#{url}/Patient/#{patient_id}/$everything")
         .to_return(status: 501)
 
-      result = run(test_session, test, {url:, patient_id:, member_match_request:})
+      result = run(test, url:, patient_id:)
 
       expect(WebMock).to have_requested(:get, "#{url}/Patient/#{patient_id}/$everything")
     end
@@ -96,7 +90,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowEverythingGroup do
       stub_request(:get, "#{url}/Patient/#{patient_id}/$everything")
         .to_return(status: 200, body: create(:everything_bundle).to_json)
 
-      result = run(test_session, test, {url:, patient_id:, member_match_request:})
+      result = run(test, url:, patient_id:)
       expect(result.result).to eq('pass'), result.result_message
     end
 
@@ -104,7 +98,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowEverythingGroup do
       stub_request(:get, "#{url}/Patient/#{patient_id}/$everything")
         .to_return(status: 404)
 
-      result = run(test_session, test, {url:, patient_id:, member_match_request:})
+      result = run(test, url:, patient_id:)
       expect(result.result).to eq('fail'), result.result_message
     end
   end
@@ -121,7 +115,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowEverythingGroup do
   #       .with(query: hash_including({}))
   #       .to_return(status: 200, body: success_outcome.to_json)
   # 
-  #     result = run(test_session, test, {url:, patient_id:, member_match_request:})
+  #     result = run(test, url:, patient_id:)
   #     expect(result.result).to eq('pass'), result.result_message
   # 
   #   end
@@ -134,7 +128,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowEverythingGroup do
   #       .with(query: hash_including({}))
   #       .to_return(status: 200, body: success_outcome.to_json)
   # 
-  #     result = run(test_session, test, {url:, patient_id:, member_match_request:})
+  #     result = run(test, url:, patient_id:)
   # 
   #     expect(result.result).to eq('fail'), result.result_message
   #   end    

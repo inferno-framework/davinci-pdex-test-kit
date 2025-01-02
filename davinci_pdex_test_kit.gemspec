@@ -10,25 +10,20 @@ Gem::Specification.new do |spec|
   spec.description   = 'Test Kit for the Da Vinci Payer Data Exchange (PDex) FHIR Implementation Guide'
   spec.homepage      = 'https://github.com/inferno-framework/davinci-pdex-test-kit/'
   spec.license       = 'Apache-2.0'
-  spec.add_runtime_dependency 'inferno_core', '~> 0.5.0'
+  spec.add_runtime_dependency 'inferno_core', '~> 0.6.2'
   spec.add_runtime_dependency 'us_core_test_kit', '~> 0.9.0'
   spec.add_runtime_dependency 'bulk_data_test_kit', '~> 0.10.0'
+  spec.add_runtime_dependency 'faraday', '~> 1.10.4'
+  spec.add_runtime_dependency 'faraday_middleware', '~> 1.2.1'
   spec.add_development_dependency 'database_cleaner-sequel', '~> 1.8'
   spec.add_development_dependency 'factory_bot', '~> 6.1'
   spec.add_development_dependency 'rspec', '~> 3.10'
   spec.add_development_dependency 'webmock', '~> 3.11'
   spec.add_development_dependency 'faker', '~> 3.4'
-  spec.required_ruby_version = Gem::Requirement.new('>= 3.1.2')
+  spec.required_ruby_version = Gem::Requirement.new('>= 3.3.6')
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/inferno-framework/davinci-pdex-test-kit/'
-  spec.files = [
-    Dir['lib/**/*.rb'],
-    Dir['lib/**/*.json'],
-    Dir['lib/**/*.md'],
-    Dir['lib/**/*.yml'],
-    Dir['lib/**/*.yaml'],
-    'LICENSE'
-  ].flatten
-
+  spec.files         = `[ -d .git ] && git ls-files -z lib config/presets LICENSE`.split("\x0")
   spec.require_paths = ['lib']
+  spec.metadata['inferno_test_kit'] = 'true'
 end
