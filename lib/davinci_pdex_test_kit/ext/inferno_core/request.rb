@@ -8,7 +8,7 @@ module Inferno
           response.headers[header.name] = header.value
         end
 
-        response
+        response.finish
       end
 
       def response_headers=(headers_hash)

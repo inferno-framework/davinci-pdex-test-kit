@@ -3,13 +3,11 @@ require_relative 'urls'
 require_relative 'pdex_payer_client/collection'
 require_relative 'pdex_payer_client/client_validation_test'
 #require_relative 'metadata/mock_capability_statement'
-
+require 'faraday'
+require 'faraday_middleware'
 
 module DaVinciPDexTestKit
-  # Serve responses to PAS requests
-  #
-  # Note that there are numerous expected validation issues that can safely be ignored.
-  # See here for full list: https://hl7.org/fhir/us/davinci-pas/STU2/qa.html#suppressed
+  # Serve responses to PDex requests
   module MockServer
     include URLs
 
@@ -17,9 +15,15 @@ module DaVinciPDexTestKit
       @server_proxy ||= Faraday.new(
           url: ENV.fetch('FHIR_REFERENCE_SERVER'),
           params: {},
-          headers: {'Content-Type' => 'application/json', 'Authorization' => 'Bearer SAMPLE_TOKEN', 'Host' => ENV.fetch('HOST_HEADER')},
-        ) do |proxy| 
-          proxy.use FaradayMiddleware::Gzip
+          headers: {
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer SAMPLE_TOKEN',
+            'Host' => ENV.fetch('HOST_HEADER'),
+            'Accept-Encoding' => 'identity',
+        },
+        ) do |proxy|
+          # proxy.use FaradayMiddleware::Chunked
+          # proxy.use FaradayMiddleware::Gzip
         end
     end
 
@@ -57,16 +61,32 @@ module DaVinciPDexTestKit
     end
 
     def everything_response(request, test = nil, test_result = nil)
-      response = server_proxy.get('Patient/999/$everything') #TODO: Change from static response
+      stream = []
+      # TODO: Change from static response
+      response = server_proxy.get('Patient/999/$everything') do |req|
+        puts "DEBUGGING: #{req.options}"
+        # Stream response because something causes PDex $everything proxy to clip response
+        # req.options.on_data = Proc.new do |chunk, _total_bytes_received, _env|
+        #   puts "Mock server recieved #{_total_bytes_received} bytes so far"
+        #   puts "======================"
+        #   puts chunk
+        #   puts "======================"
+        #   stream << chunk
+        # end
+      end
+
       request.status = response.status
       request.response_headers = remove_transfer_encoding_header(response.headers)
-      request.response_body = replace_bundle_urls(FHIR.from_contents(response.body)).to_json
+      # request.response_body = replace_bundle_urls(FHIR.from_contents(response.body)).to_json
+      request.response_body = response.body.gsub(ENV['FHIR_REFERENCE_SERVER'], new_link)
+      # request.response_body = stream.join.gsub(ENV['FHIR_REFERENCE_SERVER'], new_link)
+      
     end
 
     def export_response(request, test = nil, test_result = nil)
       headers_as_hash = request.request_headers.map { |header| {"#{header.name}": header.value}}.reduce({}) { |reduced, curr| reduced.merge(curr)}
       response = server_proxy.get do |req|
-        req.url 'Group/pdex-Group/$export' #TODO: change from static response
+        req.url 'Group/pdex-Group/$export' # TODO: change from static response
         req.headers = headers_as_hash.merge(server_proxy.headers)
       end
       request.status = response.status
@@ -97,10 +117,10 @@ module DaVinciPDexTestKit
     end
 
     def member_match_response(request, test = nil, test_result = nil)
-      #remove token from request as well
+      # remove token from request as well
       original_request_as_hash = JSON.parse(request.request_body).to_h
       request.request_body = original_request_as_hash.to_json
-      #TODO: Change from static response
+      # TODO: Change from static response
       request.response_body = {
         resourceType: "Parameters",
         parameter: [
@@ -202,14 +222,15 @@ module DaVinciPDexTestKit
     end
 
     def replace_bundle_urls(bundle)
-      reference_server_base = ENV.fetch('FHIR_REFERENCE_SERVER')
-      bundle&.link.map! {|link| {relation: link.relation, url: link.url.gsub(reference_server_base, new_link)}}
-      bundle&.entry&.map! do |bundled_resource| 
-        {fullUrl: bundled_resource.fullUrl.gsub(reference_server_base, new_link),
-         resource: bundled_resource.resource,
-         search: bundled_resource.search
-        }
-      end
+      # reference_server_base = ENV.fetch('FHIR_REFERENCE_SERVER')
+      # bundle&.link.map! {|link| {relation: link.relation, url: link.url.gsub(reference_server_base, new_link)}}
+      # bundle&.entry&.map! do |bundled_resource| 
+      #   {
+      #    fullUrl: bundled_resource.fullUrl.gsub(reference_server_base, new_link),
+      #    resource: bundled_resource.resource,
+      #    search: bundled_resource.search
+      #   }
+      # end
       bundle
     end
 
