@@ -2,7 +2,6 @@ require_relative 'user_input_response'
 require_relative 'urls'
 require_relative 'pdex_payer_client/collection'
 require_relative 'pdex_payer_client/client_validation_test'
-#require_relative 'metadata/mock_capability_statement'
 require 'faraday'
 require 'faraday_middleware'
 
@@ -16,14 +15,13 @@ module DaVinciPDexTestKit
           url: ENV.fetch('FHIR_REFERENCE_SERVER'),
           params: {},
           headers: {
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer SAMPLE_TOKEN',
-            'Host' => ENV.fetch('HOST_HEADER'),
+            'Accept' => 'application/fhir+json,application/json',
             'Accept-Encoding' => 'identity',
-        },
+            'Authorization' => 'Bearer SAMPLE_TOKEN',
+            'Host' => ENV.fetch('HOST_HEADER')
+          }
         ) do |proxy|
-          # proxy.use FaradayMiddleware::Chunked
-          # proxy.use FaradayMiddleware::Gzip
+          proxy.use Faraday::Response::Logger
         end
     end
 
@@ -62,25 +60,12 @@ module DaVinciPDexTestKit
 
     def everything_response(request, test = nil, test_result = nil)
       stream = []
-      # TODO: Change from static response
-      response = server_proxy.get('Patient/999/$everything') do |req|
-        puts "DEBUGGING: #{req.options}"
-        # Stream response because something causes PDex $everything proxy to clip response
-        # req.options.on_data = Proc.new do |chunk, _total_bytes_received, _env|
-        #   puts "Mock server recieved #{_total_bytes_received} bytes so far"
-        #   puts "======================"
-        #   puts chunk
-        #   puts "======================"
-        #   stream << chunk
-        # end
-      end
+      # TODO: Change from static request
+      response = server_proxy.get('Patient/999/$everything')
 
       request.status = response.status
       request.response_headers = remove_transfer_encoding_header(response.headers)
-      # request.response_body = replace_bundle_urls(FHIR.from_contents(response.body)).to_json
-      request.response_body = response.body.gsub(ENV['FHIR_REFERENCE_SERVER'], new_link)
-      # request.response_body = stream.join.gsub(ENV['FHIR_REFERENCE_SERVER'], new_link)
-      
+      request.response_body = replace_bundle_urls(FHIR.from_contents(response.body)).to_json
     end
 
     def export_response(request, test = nil, test_result = nil)
@@ -222,15 +207,15 @@ module DaVinciPDexTestKit
     end
 
     def replace_bundle_urls(bundle)
-      # reference_server_base = ENV.fetch('FHIR_REFERENCE_SERVER')
-      # bundle&.link.map! {|link| {relation: link.relation, url: link.url.gsub(reference_server_base, new_link)}}
-      # bundle&.entry&.map! do |bundled_resource| 
-      #   {
-      #    fullUrl: bundled_resource.fullUrl.gsub(reference_server_base, new_link),
-      #    resource: bundled_resource.resource,
-      #    search: bundled_resource.search
-      #   }
-      # end
+      reference_server_base = ENV.fetch('FHIR_REFERENCE_SERVER')
+      bundle&.link.map! {|link| {relation: link.relation, url: link.url.gsub(reference_server_base, new_link)}}
+      bundle&.entry&.map! do |bundled_resource| 
+        {
+         fullUrl: bundled_resource.fullUrl.gsub(reference_server_base, new_link),
+         resource: bundled_resource.resource,
+         search: bundled_resource.search
+        }
+      end
       bundle
     end
 
