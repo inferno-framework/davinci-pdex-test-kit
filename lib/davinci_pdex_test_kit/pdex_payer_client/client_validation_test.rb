@@ -23,7 +23,7 @@ module DaVinciPDexTestKit
     end
 
     def previous_clinical_data_requests
-      @previous_clinical_data_requests ||= load_tagged_requests(SUBMIT_TAG) + [everything_request].compact
+      @previous_clinical_data_requests ||= load_tagged_requests(RESOURCE_REQUEST_TAG) + [everything_request].compact
     end
 
     def everything_request

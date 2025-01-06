@@ -1,7 +1,7 @@
 module DaVinciPDexTestKit
   TOKEN_PATH = '/mock_auth/token'
   PATIENT_PATH = '/fhir/Patient'
-  SUBMIT_PATH = '/fhir/:endpoint'
+  RESOURCE_PATH = '/fhir/:endpoint'
   BINARY_PATH = '/fhir/Binary/:id'
   METADATA_PATH = '/fhir/metadata'
   EVERYTHING_PATH = '/fhir/Patient/:patient/$everything'
@@ -31,7 +31,7 @@ module DaVinciPDexTestKit
     end
 
     def submit_url
-      @submit_url ||= base_url + SUBMIT_PATH
+      @submit_url ||= base_url + RESOURCE_PATH
     end
 
     def binary_url
