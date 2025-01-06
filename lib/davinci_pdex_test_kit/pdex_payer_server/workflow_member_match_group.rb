@@ -43,15 +43,15 @@ module DaVinciPDexTestKit
         description: "A JSON payload for server's $member-match endpoint that has **exactly one match**",
         type: 'textarea'
 
-      test from: :patient_operation_in_capability_statement_validation,
-           id: :member_match_operation_in_capability_statement_test,
+      test from: :pdex_patient_operation_in_capability_statement_validation,
+           id: :pdex_member_match_operation_in_capability_statement_test,
            title: 'Server declares support for Patient member match operation in CapabilityStatement',
            config: {
              options: { operation_name: 'member-match', operation_url: 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match' }
            }
 
       test from: :pdex_member_match_request_profile_validation do
-        id :member_match_request_profile_test
+        id :pdex_member_match_request_profile_test
         title '[USER INPUT VALIDATION] Member match request for exactly one match is valid'
         description %{
           This test validates the conformity of the user input to the
@@ -62,7 +62,7 @@ module DaVinciPDexTestKit
       end
 
       test from: :pdex_member_match_request_local_references_validation do
-        id :member_match_request_local_references_test
+        id :pdex_member_match_request_local_references_test
         title '[USER INPUT VALIDATION] Member match request only uses local references'
       end
 
@@ -70,7 +70,7 @@ module DaVinciPDexTestKit
       test from: :pdex_coverage_to_link_must_support_validation
    
       test do
-        id :member_match_on_server_test
+        id :pdex_member_match_on_server_test
         title 'Server handles $member-match operation successfully'
         description 'Server receives request `POST [baseURL]/Patient/$member-match` and returns 200'
            
@@ -85,7 +85,7 @@ module DaVinciPDexTestKit
       end
   
       test do
-        id :member_match_response_profile_test
+        id :pdex_member_match_response_profile_test
         title 'Server $member-match response conforms to profile'
         description %{
           The response body from the previous POST request to $member-match must be valid FHIR JSON conforming to
@@ -111,7 +111,7 @@ module DaVinciPDexTestKit
       end
   
       test do
-        id :member_match_identifier_to_id
+        id :pdex_member_match_identifier_to_id
         title 'Server member identifier from $member-match yields logical Patient id'
         description %Q{
           The $member-match operation returns a Member Identifier, and subsequent clinical queries and operations

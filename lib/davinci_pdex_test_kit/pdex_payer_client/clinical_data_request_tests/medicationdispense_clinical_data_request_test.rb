@@ -6,7 +6,7 @@ module DaVinciPDexTestKit
     include URLs
     include DaVinciPDexTestKit::ClientValidationTest
 
-    id :medicationdispense_clinical_data_request_test
+    id :pdex_medicationdispense_clinical_data_request_test
     title 'MedicationDispense resources related to the patient matched are gathered'
     description %(
       This test will look through all returned MedicationDispense resources for a specific expected resource related to the matched patient.

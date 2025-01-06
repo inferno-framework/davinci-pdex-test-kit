@@ -7,7 +7,7 @@ module DaVinciPDexTestKit
     include DaVinciPDexTestKit::ClientValidationTest
     include URLs
 
-    id :initial_member_match_must_support_validation_test
+    id :pdex_initial_member_match_must_support_validation_test
     title 'All must support elements are provided in the received $member-match requests'
     description %(
       This test verifies that the client is capable of making $member-match requests 

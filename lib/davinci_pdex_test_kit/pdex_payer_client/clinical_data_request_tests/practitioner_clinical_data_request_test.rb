@@ -6,7 +6,7 @@ module DaVinciPDexTestKit
     include URLs
     include DaVinciPDexTestKit::ClientValidationTest
 
-    id :practitioner_clinical_data_request_test
+    id :pdex_practitioner_clinical_data_request_test
     title 'Practitioner resources related to the patient matched are gathered'
     description %(
       This test will look through all returned Practitioner resources for a specific expected resource related to the matched patient.
