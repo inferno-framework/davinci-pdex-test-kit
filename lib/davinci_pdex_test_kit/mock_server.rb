@@ -45,7 +45,7 @@ module DaVinciPDexTestKit
         response = server_proxy.get('Patient', {_id: 999})
         response_resource = FHIR.from_contents(response.body)
         response_resource.entry = [{fullUrl: 'urn:uuid:2866af9c-137d-4458-a8a9-eeeec0ce5583', resource: mock_operation_outcome_resource, search: {mode: 'outcome'}}]
-        response_resource.link.first.url = request.url #specific case for Operation Outcome handling
+        response_resource.link.first.url = request.url # specific case for Operation Outcome handling
         request.status = 400
         request.response_body = response_resource.to_json
       end
@@ -59,9 +59,7 @@ module DaVinciPDexTestKit
     end
 
     def everything_response(request, test = nil, test_result = nil)
-      stream = []
-      # TODO: Change from static request
-      response = server_proxy.get('Patient/999/$everything')
+      response = server_proxy.get('Patient/999/$everything') # TODO: Change from static request
 
       request.status = response.status
       request.response_headers = remove_transfer_encoding_header(response.headers)
