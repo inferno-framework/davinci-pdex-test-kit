@@ -1,12 +1,4 @@
 require 'inferno/dsl/oauth_credentials'
-require_relative 'endpoints/token_endpoint'
-require_relative 'endpoints/resource_api_endpoint'
-require_relative 'endpoints/binary_endpoint'
-require_relative 'endpoints/patient_everything_endpoint'
-require_relative 'endpoints/export_endpoint'
-require_relative 'endpoints/export_status_endpoint'
-require_relative 'endpoints/member_match_endpoint'
-require_relative 'endpoints/next_page_endpoint'
 require_relative 'urls'
 require_relative 'mock_server'
 require_relative 'tags'
@@ -81,23 +73,6 @@ module DaVinciPDexTestKit
         end
       end
 
-      suite_endpoint :post, TOKEN_PATH, TokenEndpoint
-
-      suite_endpoint :get, PATIENT_PATH, ResourceAPIEndpoint
-
-      suite_endpoint :get, RESOURCE_PATH, ResourceAPIEndpoint
-
-      suite_endpoint :get, BINARY_PATH, BinaryEndpoint
-
-      suite_endpoint :get, EVERYTHING_PATH, PatientEverythingEndpoint
-
-      suite_endpoint :get, EXPORT_PATH, ExportEndpoint
-
-      suite_endpoint :get, EXPORT_STATUS_PATH, ExportStatusEndpoint
-
-      suite_endpoint :post, MEMBER_MATCH_PATH, MemberMatchEndpoint
-
-      suite_endpoint :get, BASE_FHIR_PATH, NextPageEndpoint
   
       resume_test_route :get, RESUME_PASS_PATH do |request|
         PDexPayerClientSuite.extract_token_from_query_params(request)
