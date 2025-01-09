@@ -1,7 +1,6 @@
 require 'inferno/dsl/oauth_credentials'
-require_relative 'urls'
-require_relative 'mock_server'
-require_relative 'tags'
+require_relative 'pdex_payer_client/urls'
+require_relative 'pdex_payer_client/tags'
 require_relative 'pdex_payer_client/collection'
 require_relative 'must_support_test'
 require_relative 'pdex_payer_client/client_validation_test'
@@ -37,7 +36,7 @@ require_relative 'pdex_payer_client/client_member_match_tests/client_member_matc
 
 module DaVinciPDexTestKit
     class PDexPayerClientSuite < Inferno::TestSuite
-      include MockServer
+      include URLs
       extend ClientValidationTest
 
       id :pdex_payer_client
@@ -73,6 +72,9 @@ module DaVinciPDexTestKit
         end
       end
 
+      # Mount mock FHIR Server endpoints
+      # require this here so Inferno::TestSuite is loaded
+      require_relative 'pdex_payer_client/mock_server'
   
       resume_test_route :get, RESUME_PASS_PATH do |request|
         PDexPayerClientSuite.extract_token_from_query_params(request)
