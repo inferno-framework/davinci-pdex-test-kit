@@ -37,7 +37,7 @@ require_relative 'pdex_payer_client/client_member_match_tests/client_member_matc
 
 module DaVinciPDexTestKit
     class PDexPayerClientSuite < Inferno::TestSuite
-      extend MockServer
+      include MockServer
       extend ClientValidationTest
 
       id :pdex_payer_client
@@ -85,8 +85,6 @@ module DaVinciPDexTestKit
       resume_test_route :get, RESUME_FAIL_PATH, result: 'fail' do |request|
         PDexPayerClientSuite.extract_token_from_query_params(request)
       end
-
-      route(:get, METADATA_PATH, get_metadata)
 
       group do
         run_as_group

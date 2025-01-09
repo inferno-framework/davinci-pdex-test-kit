@@ -1,5 +1,5 @@
 require 'faraday'
-require 'faraday_middlware'
+require 'faraday_middleware'
 
 require_relative '../urls'
 
