@@ -4,7 +4,7 @@ module DaVinciPDexTestKit
   class PDexPayerClientSuite
     class PDexClientConditionSubmitClinicalDataRequestTest < Inferno::Test
       include URLs
-      include DaVinciPDexTestKit::ClientValidationTest
+      include ClientValidationTest
   
       id :pdex_condition_clinical_data_request_test
       title 'Condition resources related to the patient matched are gathered'

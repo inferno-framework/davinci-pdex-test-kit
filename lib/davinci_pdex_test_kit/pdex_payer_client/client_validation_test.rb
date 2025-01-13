@@ -1,7 +1,6 @@
 module DaVinciPDexTestKit
   class PDexPayerClientSuite
-    module ClientValidationTest
-  
+    module ClientValidationTest  
       def previous_clinical_data_request_resources
         hash = Hash.new { |hash, key| hash[key] = [] }
         previous_clinical_data_requests.each_with_object(hash) do |request, request_resource_hash|

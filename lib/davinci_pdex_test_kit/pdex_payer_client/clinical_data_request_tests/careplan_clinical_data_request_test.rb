@@ -3,7 +3,7 @@ require_relative '../client_validation_test.rb'
 module DaVinciPDexTestKit
   class PDexPayerClientSuite
     class PDexClientCarePlanSubmitClinicalDataRequestTest < Inferno::Test
-      include DaVinciPDexTestKit::ClientValidationTest
+      include ClientValidationTest
   
       id :pdex_careplan_clinical_data_request_test
       title 'CarePlan resources related to the patient matched are gathered'

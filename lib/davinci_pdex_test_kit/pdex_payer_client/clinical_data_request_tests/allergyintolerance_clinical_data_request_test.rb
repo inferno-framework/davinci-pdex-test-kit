@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
   class PDexPayerClientSuite
     class PDexClientAllergyIntoleranceSubmitClinicalDataRequestTest < Inferno::Test
       include URLs
-      include DaVinciPDexTestKit::ClientValidationTest
+      include ClientValidationTest
   
       id :pdex_allergyintolerance_clinical_data_request_test
       title 'AllergyIntolerance resources related to the patient matched are gathered'
