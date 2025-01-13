@@ -9,8 +9,8 @@ module DaVinciPDexTestKit
       class MemberMatchEndpoint < ProxyEndpoint    
         def make_response
           #remove token from request as well
-          original_request_as_hash = JSON.parse(request.body.string).to_h
-          request.body.string = original_request_as_hash.to_json
+          #original_request_as_hash = JSON.parse(request.body.string).to_h
+          #request.body.string = original_request_as_hash.to_json
   
           #TODO: Change from static response
           response.body = {

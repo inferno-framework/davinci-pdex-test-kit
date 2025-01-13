@@ -60,7 +60,7 @@ module DaVinciPDexTestKit
           server_params = request.params.to_hash
           server_params = match_request_to_expectation(fhir_endpoint, server_params)
 
-          server_proxy.get(fhir_endpoint, server_params)
+          server_proxy.get(fhir_endpoint, server_params).tap {|response| pp "DEBUG: response: #{response}" }
           # if params
             # server_response = server_proxy.get(fhir_endpoint, server_params)
             # response.body = replace_bundle_urls(FHIR.from_contents(server_response.body)).to_json
@@ -80,11 +80,11 @@ module DaVinciPDexTestKit
         # Pull resource type from url
         # @return [String | nil]
         # @example
-        #   resource_endpoint('http://example.org/fhir/Patient/123') # => 'Patient'
+        #   resource_endpoint('http://localhost:4567/custom/pdex_payer_client/fhir/Patient/1') # => 'Patient'
         def resource_endpoint(url)
           return unless url.start_with?('http://', 'https://')
     
-          /custom\/pdex_payer_client\/fhir\/(.*)\?/.match(url)[1]
+          /custom\/pdex_payer_client\/fhir\/([a-zA-Z_-]+)([\/\?].*)?/.match(url)&.to_a&.at(1)
         end
 
         # Filter request parameters to only include those allowed by PDex API (hardcoded in collections.rb)

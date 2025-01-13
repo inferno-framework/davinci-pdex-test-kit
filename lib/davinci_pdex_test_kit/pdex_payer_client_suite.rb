@@ -3,7 +3,7 @@ require_relative 'pdex_payer_client/urls'
 require_relative 'pdex_payer_client/tags'
 require_relative 'pdex_payer_client/collection'
 require_relative 'pdex_payer_client/mock_server'
-require_relative 'must_support_test'
+# require_relative 'must_support_test'
 require_relative 'pdex_payer_client/client_validation_test'
 
 require_relative 'pdex_payer_client/clinical_data_request_tests/initial_wait_test'
@@ -71,8 +71,6 @@ module DaVinciPDexTestKit
       end
     end
 
-    # TODO delete require_relative 'pdex_payer_client/mock_server'
-  
     resume_test_route :get, RESUME_PASS_PATH do |request|
       PDexPayerClientSuite.extract_token_from_query_params(request)
     end
@@ -88,6 +86,7 @@ module DaVinciPDexTestKit
     group do
       run_as_group
       title "Workflow Tests"
+
       group do
         title "$member-match validation"
         test from: :pdex_initial_member_match_submit_test

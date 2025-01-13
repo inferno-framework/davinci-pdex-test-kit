@@ -9,8 +9,8 @@ module DaVinciPDexTestKit
       class MetadataEndpoint < ProxyEndpoint
     
         def make_response
-          response.body = File.read("resources/mock_capability_statement.json")
-          response.headers.merge('Content-Type' => 'application/fhir+json;charset=utf8')
+          response.body = File.read(File.expand_path("resources/mock_capability_statement.json", __dir__))
+          response.headers.merge!('Content-Type' => 'application/fhir+json;charset=utf8')
           response.status = 200
         end
     
