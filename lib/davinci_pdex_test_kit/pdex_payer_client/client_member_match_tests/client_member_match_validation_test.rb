@@ -3,7 +3,7 @@ require_relative '../client_validation_test.rb'
 module DaVinciPDexTestKit
   class PDexPayerClientSuite
     class PDexInitialMemberMatchValidationTest < Inferno::Test
-      include DaVinciPDexTestKit::ClientValidationTest
+      include ClientValidationTest
   
       id :pdex_initial_member_match_validation_test
       title 'Client provides a valid $member-match request'

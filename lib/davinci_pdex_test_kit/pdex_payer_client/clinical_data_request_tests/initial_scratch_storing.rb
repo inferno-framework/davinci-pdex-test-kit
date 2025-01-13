@@ -1,8 +1,9 @@
 require_relative '../client_validation_test.rb'
+
 module DaVinciPDexTestKit
   class PDexPayerClientSuite
     class PDexClientScratchStorage < Inferno::Test
-      include DaVinciPDexTestKit::ClientValidationTest
+      include ClientValidationTest
   
       id :pdex_initial_scratch_storing
       title 'Client makes clinical data requests that capture an entire patient'

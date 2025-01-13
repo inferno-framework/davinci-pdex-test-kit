@@ -73,10 +73,6 @@ module DaVinciPDexTestKit
         #   request.headers['authorization']&.delete_prefix('Bearer ')
         # end
     
-        def extract_token_from_query_params(request)
-          request.query_parameters['token']
-        end
-    
         # Pull resource type from url
         # e.g. http://example.org/fhir/Patient/123 -> Patient
         # @private

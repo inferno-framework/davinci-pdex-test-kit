@@ -3,7 +3,6 @@ require_relative '../client_validation_test.rb'
 module DaVinciPDexTestKit
   class PDexPayerClientSuite
     class PDexClientConditionSubmitClinicalDataRequestTest < Inferno::Test
-      include URLs
       include ClientValidationTest
   
       id :pdex_condition_clinical_data_request_test

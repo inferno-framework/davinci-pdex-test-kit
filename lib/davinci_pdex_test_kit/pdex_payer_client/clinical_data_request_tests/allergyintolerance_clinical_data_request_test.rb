@@ -1,10 +1,8 @@
-require_relative '../../urls'
 require_relative '../client_validation_test.rb'
 
 module DaVinciPDexTestKit
   class PDexPayerClientSuite
     class PDexClientAllergyIntoleranceSubmitClinicalDataRequestTest < Inferno::Test
-      include URLs
       include ClientValidationTest
   
       id :pdex_allergyintolerance_clinical_data_request_test

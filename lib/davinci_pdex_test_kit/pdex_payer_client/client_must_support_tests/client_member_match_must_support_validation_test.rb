@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
   class PDexPayerClientSuite
     class PDexInitialMemberMatchMustSupportValidationTest < Inferno::Test
       include DaVinciPDexTestKit::MustSupportTest
-      include DaVinciPDexTestKit::ClientValidationTest
+      include ClientValidationTest
   
       id :pdex_initial_member_match_must_support_validation_test
       title 'All must support elements are provided in the received $member-match requests'

@@ -14,7 +14,7 @@ require_relative 'collection'
 require_relative 'client_validation_test'
 
 module DaVinciPDexTestKit
-  class PDexPayerClientSuite
+  module PDexPayerClient
     # FHIR Server for Client TestSuite
     # Requires URLs and Inferno::DSL::Runnable modules to be included in Client TestSuite
     module MockServer
