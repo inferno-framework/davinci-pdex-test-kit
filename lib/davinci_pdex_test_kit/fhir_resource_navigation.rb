@@ -1,3 +1,7 @@
+# fhir_resource_navigation.rb
+# This file was borrowed from the US Core Generator for
+# must support validation.
+
 module DaVinciPDexTestKit
   module FHIRResourceNavigation
     DAR_EXTENSION_URL = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason'.freeze
