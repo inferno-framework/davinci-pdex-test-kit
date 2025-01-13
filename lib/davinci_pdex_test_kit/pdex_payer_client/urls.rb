@@ -33,35 +33,35 @@ module DaVinciPDexTestKit
       end
   
       def patient_url
-        @patient_url ||= base_url + PATIENT_PATH
+        @patient_url ||= base_url + PATIENT_PATH.delete_prefix('/fhir')
       end
   
       def submit_url
-        @submit_url ||= base_url + RESOURCE_PATH
+        @submit_url ||= base_url + RESOURCE_PATH.delete_prefix('/fhir')
       end
   
       def binary_url
-        @binary_url ||= base_url + BINARY_PATH
+        @binary_url ||= base_url + BINARY_PATH.delete_prefix('/fhir')
       end
   
       def metadata_url
-        @metadata_url ||= base_url + METADATA_PATH
+        @metadata_url ||= base_url + METADATA_PATH.delete_prefix('/fhir')
       end
   
       def everything_url
-        @everything_url ||= base_url + EVERYTHING_PATH
+        @everything_url ||= base_url + EVERYTHING_PATH.delete_prefix('/fhir')
       end
   
       def member_match_url
-        @member_match_url ||= base_url + MEMBER_MATCH_PATH
+        @member_match_url ||= base_url + MEMBER_MATCH_PATH.delete_prefix('/fhir')
       end
   
       def export_url
-        @export_url ||= base_url + EXPORT_PATH
+        @export_url ||= base_url + EXPORT_PATH.delete_prefix('/fhir')
       end
   
       def export_status_url
-        @export_status_url ||= base_url + EXPORT_STATUS_PATH
+        @export_status_url ||= base_url + EXPORT_STATUS_PATH.delete_prefix('/fhir')
       end
   
       def resume_pass_url

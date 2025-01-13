@@ -16,9 +16,14 @@ module DaVinciPDexTestKit
           request.headers['authorization']&.delete_prefix('Bearer ')
         end
   
+        def make_response
+          server_response = proxy_request(request)
+          response = proxy_response(response, server_response)
+        end
+
         def update_result
           results_repo.update(result.id, result: 'pass') unless test.config.options[:accepts_multiple_requests]
-        end      
+        end
     
         # REST Client that proxies request to server at `ENV[FHIR_REFERENCE_SERVER]`
         # @return [Faraday] - A Faraday 1.x REST Client
@@ -27,7 +32,7 @@ module DaVinciPDexTestKit
         #   server_response.body # => FHIR JSON String
         def server_proxy
           @server_proxy ||= Faraday.new(
-              url: ENV.fetch('FHIR_REFERENCE_SERVER'),
+              url: fhir_reference_server,
               params: {},
               headers: {
                 'Accept' => 'application/fhir+json,application/json',
@@ -39,7 +44,109 @@ module DaVinciPDexTestKit
               proxy.use Faraday::Response::Logger
             end
         end
+
+        protected
+
+        def fhir_reference_server
+          ENV.fetch('FHIR_REFERENCE_SERVER')
+        end
+
+        # Modify and send request to server proxy. Intended for use in {#make_response}.
+        # @param request [Hanami::Action::Request]
+        # @return [Faraday::Response]
+        def proxy_request(request)
+          fhir_endpoint = resource_endpoint(request.url)
+
+          server_params = request.params.to_hash
+          server_params = match_request_to_expectation(fhir_endpoint, server_params)
+
+          server_proxy.get(fhir_endpoint, server_params)
+          # if params
+            # server_response = server_proxy.get(fhir_endpoint, server_params)
+            # response.body = replace_bundle_urls(FHIR.from_contents(server_response.body)).to_json
+            # response.status = server_response.status
+
+          # TODO fix or remove
+          # else
+          #   server_response = server_proxy.get('Patient', {_id: 999})
+          #   response_resource = FHIR.from_contents(server_response.body)
+          #   response_resource.entry = [{fullUrl: 'urn:uuid:2866af9c-137d-4458-a8a9-eeeec0ce5583', resource: mock_operation_outcome_resource, search: {mode: 'outcome'}}]
+          #   response_resource.link.first.url = request.url # specific case for Operation Outcome handling
+          #   response.status = 400
+          #   response.body = response_resource.to_json
+          # end
+        end
+
+        # Pull resource type from url
+        # @return [String | nil]
+        # @example
+        #   resource_endpoint('http://example.org/fhir/Patient/123') # => 'Patient'
+        def resource_endpoint(url)
+          return unless url.start_with?('http://', 'https://')
     
+          /custom\/pdex_payer_client\/fhir\/(.*)\?/.match(url)[1]
+        end
+
+        # Filter request parameters to only include those allowed by PDex API (hardcoded in collections.rb)
+        # This allows a non-strict client requests
+        # @return [Hash]
+        def match_request_to_expectation(endpoint, params)
+          matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} & expectation).sort == expectation}
+    
+          if matched_search
+            params.select {|key, value| matched_search.include?(key.to_s) || key == "_revInclude" || key == "_include"}
+          else
+            {}
+          end
+        end
+
+        # Modify response to pretend mock server generated it
+        # @param inferno_response [Hanami::Action::Response]
+        # @param server_response [Faraday::Response]
+        # @yield [FHIR::Model] If response is FHIR yield the resource for modifications
+        # @yieldreturn [FHIR::Model]
+        # @return [Hanami::Action::Response] the inferno_response
+        # @example
+        #   def make_response
+        #     response = proxy_response(response, Faraday.get('https://hapi.fhir.org/baseR4/Patient/1234321') do |patient|
+        #       patient.meta.profile << "http://example.com/fhir/my-ig-profile"
+        #     end
+        #   end
+        def proxy_response(inferno_response, server_response, &block)
+          inferno_response.status = server_response.status
+
+          headers = remove_transfer_encoding_header(server_response.headers)
+          headers.each { |k,v| inferno_response.headers.merge!(k,v) }
+          inferno_response.headers.merge!('Server', self.name.deconstantize)
+
+          if is_fhir?(server_response.body)
+            inferno_response.format = 'application/fhir+json'
+            resource = FHIR.from_contents(server_response.body)
+            resource = replace_bundle_urls(resource) if resource.resourceType == 'Bundle'
+            resource = yield(resource)
+            inferno_response.body = resource.to_json
+
+          elsif is_json?(server_response.body)
+            inferno_response.format = 'application/json'
+            # Uncomment to recklessly replace all proxy urls with our urls:
+            # inferno_response.body = server_response.body.gsub(fhir_reference_server, base_fhir_url)
+            inferno_response.body = server_response.body
+
+          else
+            # Uncomment to recklessly replace all proxy urls with our urls:
+            # inferno_response.body = server_response.body.gsub(fhir_reference_server, base_fhir_url)
+            inferno_response.body = server_response.body
+          end
+
+          inferno_response
+        rescue StandardError => e
+          inferno_response.status = 500
+          inferno_response.body = e.to_json
+          inferno_response.format = :json
+
+          inferno_response 
+        end
+
         def remove_transfer_encoding_header(headers)
           if !headers["transfer-encoding"].nil?
             headers.reject!{|key, value| key == "transfer-encoding"}
@@ -47,92 +154,90 @@ module DaVinciPDexTestKit
             headers
           end
         end
-    
-        def match_request_to_expectation(endpoint, params)
-          matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} & expectation).sort == expectation}
-          # matched_search_without_patient = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} << "patient" & expectation) == expectation}
-    
-          if matched_search
-            params.select {|key, value| matched_search.include?(key.to_s) || key == "_revInclude" || key == "_include"}
-          else
-            nil
-          end
-          # else
-          #   new_params = params.select {|key, value| matched_search_without_patient.include?(key.to_s) || key == "_revInclude" || key == "_include"}
-          #   new_params["patient"] = patient_id_from_match_request
-          #   new_params
-          # end
+
+        def is_fhir?(str)
+          !!FHIR.from_contents(str)
+        rescue StandardError
+          false
         end
-    
-        def extract_client_id(request)
-          URI.decode_www_form(request.body.read).to_h['client_id']
-        end
-    
-        # TODO delete
-        # def extract_bearer_token(request)
-        #   request.headers['authorization']&.delete_prefix('Bearer ')
-        # end
-    
-        # Pull resource type from url
-        # e.g. http://example.org/fhir/Patient/123 -> Patient
-        # @private
-        def resource_endpoint(url)
-          return unless url.start_with?('http://', 'https://')
-    
-          /custom\/pdex_payer_client\/fhir\/(.*)\?/.match(url)[1]
-        end
-    
-        # @private
-        def referenced_entities(resource, entries, root_url)
-          matches = []
-          attributes = resource&.source_hash&.keys
-          attributes.each do |attr|
-            value = resource.send(attr.to_sym)
-            if value.is_a?(FHIR::Reference) && value.reference.present?
-              match = find_matching_entry(value.reference, entries, root_url)
-              if match.present? && matches.none?(match)
-                value.reference = match.fullUrl
-                matches.concat([match], referenced_entities(match.resource, entries, root_url))
-              end
-            elsif value.is_a?(Array) && value.all? { |elmt| elmt.is_a?(FHIR::Model) }
-              value.each { |val| matches.concat(referenced_entities(val, entries, root_url)) }
-            end
-          end
-    
-          matches
-        end
-    
-        def mock_operation_outcome_resource
-          FHIR.from_contents(File.read("lib/davinci_pdex_test_kit/metadata/mock_operation_outcome_resource.json"))
-        end
-    
+
         def replace_bundle_urls(bundle)
-          reference_server_base = ENV.fetch('FHIR_REFERENCE_SERVER')
-          bundle&.link.map! {|link| {relation: link.relation, url: link.url.gsub(reference_server_base, URLs.base_fhir_url)}}
+          bundle&.link.map! {|link| {relation: link.relation, url: link.url.gsub(fhir_reference_server, base_fhir_url)}}
           bundle&.entry&.map! do |bundled_resource| 
             {
-             fullUrl: bundled_resource.fullUrl.gsub(reference_server_base, URLs.base_fhir_url),
+             fullUrl: bundled_resource.fullUrl.gsub(fhir_reference_server, base_fhir_url),
              resource: bundled_resource.resource,
              search: bundled_resource.search
             }
           end
           bundle
         end
-    
-        def replace_export_urls(export_status_output)
-          reference_server_base = ENV.fetch('FHIR_REFERENCE_SERVER')
-          export_status_output['output'].map! { |binary| {type: binary["type"], url: binary["url"].gsub(reference_server_base, URLs.base_fhir_url)} }
-          export_status_output['request'] = URLs.base_fhir_url + '/Patient/$export'
-          export_status_output
+
+        def base_fhir_url
+          PDexPayerClient::URLs.base_fhir_url
         end
+        
+        def is_json?(str)
+          !!JSON.parse(str)
+        rescue StandardError
+          false
+        end
+
+        # TODO fix/test or remove
+        def mock_operation_outcome_resource
+          # TODO fix ruby path access
+          FHIR.from_contents(File.read("lib/davinci_pdex_test_kit/metadata/mock_operation_outcome_resource.json"))
+        end
+        
+        # TODO delete
+        # def extract_client_id(request)
+        #   URI.decode_www_form(request.body.read).to_h['client_id']
+        # end
+    
+        # TODO delete
+        # def extract_bearer_token(request)
+        #   request.headers['authorization']&.delete_prefix('Bearer ')
+        # end
+        
+        # TODO: fix/test and incorporate this into replace_bundle_urls
+        # def referenced_entities(resource, entries, root_url)
+        #   matches = []
+        #   attributes = resource&.source_hash&.keys
+        #   attributes.each do |attr|
+        #     value = resource.send(attr.to_sym)
+        #     if value.is_a?(FHIR::Reference) && value.reference.present?
+        #       match = find_matching_entry(value.reference, entries, root_url)
+        #       if match.present? && matches.none?(match)
+        #         value.reference = match.fullUrl
+        #         matches.concat([match], referenced_entities(match.resource, entries, root_url))
+        #       end
+        #     elsif value.is_a?(Array) && value.all? { |elmt| elmt.is_a?(FHIR::Model) }
+        #       value.each { |val| matches.concat(referenced_entities(val, entries, root_url)) }
+        #     end
+        #   end    
+        #   matches
+        # end
+
+        # @private
+        # def absolute_reference(ref, entries, root_url)
+        #   url = find_matching_entry(ref&.reference, entries, root_url)&.fullUrl
+        #   ref.reference = url if url
+        #   ref
+        # end
+
+        # @private
+        # def find_matching_entry(ref, entries, root_url = '')
+        #   ref = "#{root_url}/#{ref}" if relative_reference?(ref) && root_url&.present?
+    
+        #   entries&.find { |entry| entry&.fullUrl == ref }
+        # end
     
         # @private
-        def absolute_reference(ref, entries, root_url)
-          url = find_matching_entry(ref&.reference, entries, root_url)&.fullUrl
-          ref.reference = url if url
-          ref
-        end
-    
+        # def relative_reference?(ref)
+        #   ref&.count('/') == 1
+        # end  
+
+        # TODO: fix/test this if we want to handle pagination at the proxy    
         # def fetch_all_bundled_resources(
         #       # reply_handler: nil,
         #       # max_pages: 0,
@@ -167,18 +272,7 @@ module DaVinciPDexTestKit
         #   # valid_resource_types = [resource_type, 'OperationOutcome'].concat(additional_resource_types) # XXX
         #   resources
         # end
-    
-        # @private
-        def find_matching_entry(ref, entries, root_url = '')
-          ref = "#{root_url}/#{ref}" if relative_reference?(ref) && root_url&.present?
-    
-          entries&.find { |entry| entry&.fullUrl == ref }
-        end
-    
-        # @private
-        def relative_reference?(ref)
-          ref&.count('/') == 1
-        end  
+
       end
     end
   end

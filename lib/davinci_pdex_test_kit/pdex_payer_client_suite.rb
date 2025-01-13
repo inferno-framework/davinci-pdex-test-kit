@@ -71,9 +71,7 @@ module DaVinciPDexTestKit
       end
     end
 
-    # Mount mock FHIR Server endpoints
-    # require this here so Inferno::TestSuite is loaded
-    require_relative 'pdex_payer_client/mock_server'
+    # TODO delete require_relative 'pdex_payer_client/mock_server'
   
     resume_test_route :get, RESUME_PASS_PATH do |request|
       PDexPayerClientSuite.extract_token_from_query_params(request)

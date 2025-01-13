@@ -4,6 +4,8 @@ require_relative 'proxy_endpoint'
 module DaVinciPDexTestKit
   module PDexPayerClient
     module MockServer
+      # Although this enpoint is not actually proxying, inherit from ProxyEndpoint to keep
+      # #test_run_identifier and #update_result
       class MemberMatchEndpoint < ProxyEndpoint    
         def make_response
           #remove token from request as well
