@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module DaVinciPDexTestKit
-  class PDexPayerClientSuite
+  module PDexPayerClient
 
     # TODO metaprogram:
 

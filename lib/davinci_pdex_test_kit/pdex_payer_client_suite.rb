@@ -2,6 +2,7 @@ require 'inferno/dsl/oauth_credentials'
 require_relative 'pdex_payer_client/urls'
 require_relative 'pdex_payer_client/tags'
 require_relative 'pdex_payer_client/collection'
+require_relative 'pdex_payer_client/mock_server'
 require_relative 'must_support_test'
 require_relative 'pdex_payer_client/client_validation_test'
 
@@ -36,9 +37,10 @@ require_relative 'pdex_payer_client/client_member_match_tests/client_member_matc
 
 module DaVinciPDexTestKit
   class PDexPayerClientSuite < Inferno::TestSuite
-    include URLs
-    # include PDexPayerClient # TODO delete
-    extend ClientValidationTest
+    include PDexPayerClient
+    include PDexPayerClient::URLs
+    include PDexPayerClient::MockServer
+    # extend ClientValidationTest # TODO delete
 
     id :pdex_payer_client
     title 'Da Vinci PDex Payer Client Test Suite'

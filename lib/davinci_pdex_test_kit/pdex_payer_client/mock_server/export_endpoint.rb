@@ -2,7 +2,7 @@ require_relative '../tags'
 require_relative 'proxy_endpoint'
 
 module DaVinciPDexTestKit
-  class PDexPayerClientSuite
+  module PDexPayerClient
     module MockServer
       class ExportEndpoint < ProxyEndpoint
     

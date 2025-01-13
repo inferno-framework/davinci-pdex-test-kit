@@ -1,5 +1,5 @@
 module DaVinciPDexTestKit
-  class PDexPayerClientSuite
+  module PDexPayerClient
     class PDexClientMemberMatchMustSupportSubmitTest < Inferno::Test
   
       id :pdex_initial_member_match_must_support_submit_test

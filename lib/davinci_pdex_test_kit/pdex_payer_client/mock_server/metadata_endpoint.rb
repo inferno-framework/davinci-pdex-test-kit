@@ -2,7 +2,7 @@ require_relative '../tags'
 require_relative 'proxy_endpoint'
 
 module DaVinciPDexTestKit
-  class PDexPayerClientSuite
+  module PDexPayerClient
     module MockServer
       # Serve custom metadata from resources/
       # Although this does not proxy the request, it requires ProxyEndpoint#test_run_identifier

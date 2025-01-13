@@ -1,5 +1,5 @@
 module DaVinciPDexTestKit
-  class PDexPayerClientSuite
+  module PDexPayerClient
     SET_TO_BE_GATHERED = {AllergyIntolerance: ['pdex-AllergyIntolerance'],
                           CarePlan: ['pdex-CarePlan'],
                           CareTeam: ['pdex-CareTeam'],

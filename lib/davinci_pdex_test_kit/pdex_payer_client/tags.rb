@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module DaVinciPDexTestKit
-  class PDexPayerClientSuite
+  module PDexPayerClient
     AUTH_TAG = 'pdex_auth'
     RESOURCE_REQUEST_TAG = 'pdex_resource_request'
     BINARY_TAG = 'pdex_binary'

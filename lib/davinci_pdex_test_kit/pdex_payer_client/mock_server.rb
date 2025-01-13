@@ -19,18 +19,26 @@ module DaVinciPDexTestKit
     # Requires URLs and Inferno::DSL::Runnable modules to be included in Client TestSuite
     module MockServer
   
-      # Add your routes here, order matters
-      suite_endpoint :get, METADATA_PATH, MetadataEndpoint
-      suite_endpoint :post, TOKEN_PATH, TokenEndpoint
-      suite_endpoint :get, PATIENT_PATH, ResourceAPIEndpoint
-      suite_endpoint :get, RESOURCE_PATH, ResourceAPIEndpoint
-      suite_endpoint :get, BINARY_PATH, BinaryEndpoint
-      suite_endpoint :get, EVERYTHING_PATH, PatientEverythingEndpoint
-      suite_endpoint :get, EXPORT_PATH, ExportEndpoint
-      suite_endpoint :get, EXPORT_STATUS_PATH, ExportStatusEndpoint
-      suite_endpoint :post, MEMBER_MATCH_PATH, MemberMatchEndpoint
-      suite_endpoint :get, BASE_FHIR_PATH, NextPageEndpoint # TODO: better pagination route?
+      # The `suite_endpoint` function is only available in a Runnable, so
+      # we define a hook where when this module is included into a class it's
+      # executed in the class' namespace.
+      def self.included(klass)
+        klass.class_eval do
 
+          # Add your routes here, order matters
+          suite_endpoint :get, METADATA_PATH, MetadataEndpoint
+          suite_endpoint :post, TOKEN_PATH, TokenEndpoint
+          suite_endpoint :get, PATIENT_PATH, ResourceAPIEndpoint
+          suite_endpoint :get, RESOURCE_PATH, ResourceAPIEndpoint
+          suite_endpoint :get, BINARY_PATH, BinaryEndpoint
+          suite_endpoint :get, EVERYTHING_PATH, PatientEverythingEndpoint
+          suite_endpoint :get, EXPORT_PATH, ExportEndpoint
+          suite_endpoint :get, EXPORT_STATUS_PATH, ExportStatusEndpoint
+          suite_endpoint :post, MEMBER_MATCH_PATH, MemberMatchEndpoint
+          suite_endpoint :get, BASE_FHIR_PATH, NextPageEndpoint # TODO: better pagination route?
+
+        end
+      end
     end
   end
 end

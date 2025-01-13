@@ -1,5 +1,5 @@
 module DaVinciPDexTestKit
-  class PDexPayerClientSuite
+  module PDexPayerClient
     class PDexInitialWaitTest < Inferno::Test
   
       id :pdex_initial_wait_test

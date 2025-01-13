@@ -4,7 +4,7 @@ require 'faraday_middleware'
 require_relative '../urls'
 
 module DaVinciPDexTestKit
-  class PDexPayerClientSuite
+  module PDexPayerClient
     module MockServer
       # @abstract
       # This class defines

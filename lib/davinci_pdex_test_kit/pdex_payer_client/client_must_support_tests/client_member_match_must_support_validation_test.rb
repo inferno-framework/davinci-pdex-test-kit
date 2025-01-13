@@ -2,7 +2,7 @@ require_relative '../client_validation_test.rb'
 require_relative '../../group_metadata.rb'
 
 module DaVinciPDexTestKit
-  class PDexPayerClientSuite
+  module PDexPayerClient
     class PDexInitialMemberMatchMustSupportValidationTest < Inferno::Test
       include DaVinciPDexTestKit::MustSupportTest
       include ClientValidationTest

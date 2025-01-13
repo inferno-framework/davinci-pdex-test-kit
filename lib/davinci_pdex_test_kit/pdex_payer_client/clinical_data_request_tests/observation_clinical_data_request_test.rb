@@ -1,7 +1,7 @@
 require_relative '../client_validation_test.rb'
 
 module DaVinciPDexTestKit
-  class PDexPayerClientSuite
+  module PDexPayerClient
     class PDexClientObservationSubmitClinicalDataRequestTest < Inferno::Test
       include ClientValidationTest
   
