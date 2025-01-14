@@ -1,6 +1,7 @@
 require_relative 'mock_server/metadata_endpoint'
 require_relative 'mock_server/token_endpoint'
 require_relative 'mock_server/resource_api_endpoint'
+require_relative 'mock_server/patient_endpoint'
 require_relative 'mock_server/binary_endpoint'
 require_relative 'mock_server/patient_everything_endpoint'
 require_relative 'mock_server/export_endpoint'
@@ -26,16 +27,24 @@ module DaVinciPDexTestKit
       def self.included(klass)
         klass.class_eval do
 
-          # Add your routes here, order matters
-          suite_endpoint :get, METADATA_PATH, MetadataEndpoint
+          # Add your routes here, order matters!
+          # suite_endpoint :get, METADATA_PATH, MetadataEndpoint
+          route :get, METADATA_PATH, Proc.new {
+            [
+              200,
+              {'Content-Type' => 'application/fhir+json;charset=utf8'},
+              File.readlines(File.expand_path('mock_server/resources/mock_capability_statement.json', __dir__))
+            ]
+          }
+
           suite_endpoint :post, TOKEN_PATH, TokenEndpoint
-          # suite_endpoint :get, PATIENT_PATH, ResourceAPIEndpoint # TODO: do we need this?
-          suite_endpoint :get, RESOURCE_PATH, ResourceAPIEndpoint
-          suite_endpoint :get, BINARY_PATH, BinaryEndpoint
+          suite_endpoint :post, MEMBER_MATCH_PATH, MemberMatchEndpoint
           suite_endpoint :get, EVERYTHING_PATH, PatientEverythingEndpoint
           suite_endpoint :get, EXPORT_PATH, ExportEndpoint
           suite_endpoint :get, EXPORT_STATUS_PATH, ExportStatusEndpoint
-          suite_endpoint :post, MEMBER_MATCH_PATH, MemberMatchEndpoint
+          suite_endpoint :get, BINARY_PATH, BinaryEndpoint
+          suite_endpoint :get, PATIENT_PATH, PatientEndpoint # PDex Patient query needs its own endpoint
+          suite_endpoint :get, RESOURCE_PATH, ResourceAPIEndpoint
           suite_endpoint :get, BASE_FHIR_PATH, NextPageEndpoint # TODO: better pagination route?
 
         end

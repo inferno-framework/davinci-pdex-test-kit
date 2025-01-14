@@ -55,20 +55,32 @@ module DaVinciPDexTestKit
 
         # Modify and send request to server proxy. Intended for use in {#make_response}.
         # @param request [Hanami::Action::Request]
+        # @option strict [Boolean] if true will return 400 for any requests not allowed by PDex API.
+        #   The implementation of 'strict' is based on {#match_request_to_expectation} and collections.rb
         # @return [Faraday::Response]
-        def proxy_request(request)
+        def proxy_request(request, strict: true)
           fhir_endpoint = resource_endpoint(request.url)
 
           server_params = request.params.to_hash
           server_params = match_request_to_expectation(fhir_endpoint, server_params)
 
-          server_proxy.get(fhir_endpoint, server_params) # .tap {|response| pp "DEBUG: response: #{response}" }
+          if strict && server_params.empty?
+            Faraday::Response.new(
+              Faraday::Env.new({
+                request: request,
+                status: 400,
+                response_body: File.read(File.expand_path('resources/mock_operation_outcome_resource.json', __dir__))
+              })
+            )
+          else
+            server_proxy.get(fhir_endpoint, server_params)
+          end
+
+          # TODO: delete
           # if params
             # server_response = server_proxy.get(fhir_endpoint, server_params)
             # response.body = replace_bundle_urls(FHIR.from_contents(server_response.body)).to_json
             # response.status = server_response.status
-
-          # TODO fix or remove
           # else
           #   server_response = server_proxy.get('Patient', {_id: 999})
           #   response_resource = FHIR.from_contents(server_response.body)
@@ -90,7 +102,6 @@ module DaVinciPDexTestKit
         end
 
         # Filter request parameters to only include those allowed by PDex API (hardcoded in collections.rb)
-        # This allows a non-strict client requests
         # @return [Hash]
         def match_request_to_expectation(endpoint, params)
           matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} & expectation).sort == expectation}
