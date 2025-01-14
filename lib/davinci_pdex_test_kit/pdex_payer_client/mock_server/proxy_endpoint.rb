@@ -11,6 +11,8 @@ module DaVinciPDexTestKit
       # - a Faraday connection for proxying requests to ENV['FHIR_REFERENCE_SERVER']
       # - common methods across PDex endpoints
       class ProxyEndpoint < Inferno::DSL::SuiteEndpoint
+
+        # include ::DaVinciPDexTestKit::PDexPayerClient::URLs
   
         def test_run_identifier
           request.headers['authorization']&.delete_prefix('Bearer ')
@@ -18,7 +20,7 @@ module DaVinciPDexTestKit
   
         def make_response
           server_response = proxy_request(request)
-          response = proxy_response(response, server_response)
+          response = proxy_response(server_response)
         end
 
         def update_result
@@ -100,45 +102,44 @@ module DaVinciPDexTestKit
           end
         end
 
-        # Modify response to pretend that mock server generated it
-        # @param inferno_response [Hanami::Action::Response]
+        # Modify response to pretend that mock server generated it.
         # @param server_response [Faraday::Response]
         # @yield [FHIR::Model] If response is FHIR yield the resource for modifications
         # @yieldreturn [FHIR::Model]
-        # @return [Hanami::Action::Response] the inferno_response
+        # @return [Hanami::Action::Response] Inferno mock server response
         # @example
         #   def make_response
         #     response = proxy_response(response, Faraday.get('https://example.com/fhir/Patient/1')) do |patient|
         #       patient.meta.profile << "http://example.com/fhir/my-ig-profile"
         #     end
         #   end
-        def proxy_response(inferno_response, server_response, &block)
-          inferno_response.status = server_response.status
+        def proxy_response(server_response, &block)
+          response.status = server_response.status
 
           headers = remove_transfer_encoding_header(server_response.headers)
-          headers.each { |k,v| inferno_response.headers.merge!(k,v) }
-          inferno_response.headers.merge!('Server', self.name.deconstantize)
+          response.headers.merge!(headers)
+          response.headers.merge!({'Server' => self.class.name.deconstantize})
 
           if is_fhir?(server_response.body)
-            inferno_response.format = 'application/fhir+json'
+            response.format = 'application/fhir+json'
             resource = FHIR.from_contents(server_response.body)
             resource = replace_bundle_urls(resource) if resource.resourceType == 'Bundle'
             resource = yield(resource)
-            inferno_response.body = resource.to_json
+            response.body = resource.to_json
 
           elsif is_json?(server_response.body)
-            inferno_response.format = 'application/json'
+            response.format = 'application/json'
             # Uncomment to recklessly replace all proxy urls with our urls:
-            # inferno_response.body = server_response.body.gsub(fhir_reference_server, base_fhir_url)
-            inferno_response.body = server_response.body
+            # response.body = server_response.body.gsub(fhir_reference_server, base_fhir_url)
+            response.body = server_response.body
 
           else
             # Uncomment to recklessly replace all proxy urls with our urls:
-            # inferno_response.body = server_response.body.gsub(fhir_reference_server, base_fhir_url)
-            inferno_response.body = server_response.body
+            # response.body = server_response.body.gsub(fhir_reference_server, base_fhir_url)
+            response.body = server_response.body
           end
 
-          inferno_response
+          response
         end
 
         def remove_transfer_encoding_header(headers)
@@ -167,10 +168,6 @@ module DaVinciPDexTestKit
           bundle
         end
 
-        def base_fhir_url
-          PDexPayerClient::URLs.base_fhir_url
-        end
-        
         def is_json?(str)
           !!JSON.parse(str)
         rescue StandardError
@@ -179,8 +176,7 @@ module DaVinciPDexTestKit
 
         # TODO fix/test or remove
         def mock_operation_outcome_resource
-          # TODO fix ruby path access
-          FHIR.from_contents(File.read("lib/davinci_pdex_test_kit/metadata/mock_operation_outcome_resource.json"))
+          FHIR.from_contents(File.read(File.expand_path('resources/mock_operation_outcome_resource.json', __dir__)))
         end
         
         # TODO delete

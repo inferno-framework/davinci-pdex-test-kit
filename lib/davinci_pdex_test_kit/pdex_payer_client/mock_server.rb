@@ -18,6 +18,7 @@ module DaVinciPDexTestKit
     # FHIR Server for Client TestSuite
     # Requires URLs and Inferno::DSL::Runnable modules to be included in Client TestSuite
     module MockServer
+      include URLs
   
       # The `suite_endpoint` function is only available in a Runnable, so
       # we define a hook where when this module is included into a class it's

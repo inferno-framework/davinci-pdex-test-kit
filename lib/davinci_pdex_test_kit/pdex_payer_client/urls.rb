@@ -3,85 +3,48 @@
 module DaVinciPDexTestKit
   module PDexPayerClient
 
-    # TODO metaprogram:
-
-    TOKEN_PATH = '/mock_auth/token'
-    PATIENT_PATH = '/fhir/Patient'
-    RESOURCE_PATH = '/fhir/:endpoint'
-    BINARY_PATH = '/fhir/Binary/:id'
-    METADATA_PATH = '/fhir/metadata'
-    EVERYTHING_PATH = '/fhir/Patient/:patient/$everything'
-    MEMBER_MATCH_PATH = '/fhir/Patient/$member-match'
-    EXPORT_PATH = '/fhir/Patient/$export'
-    EXPORT_STATUS_PATH = '/fhir/$export-poll-status'
-    BASE_FHIR_PATH = '/fhir'
-    RESUME_PASS_PATH = '/resume_pass'
-    RESUME_CLINICAL_DATA_PATH = '/resume_clinical_data'
-    RESUME_FAIL_PATH = '/resume_fail'
-  
     module URLs
-      def base_url
-        @base_url ||= "#{Inferno::Application['base_url']}/custom/#{suite_id}"
-      end
-  
-      def token_url
-        @token_url ||= base_url + TOKEN_PATH
-      end
-      
-      def base_fhir_url
-        @base_fhir_url ||= base_url + BASE_FHIR_PATH
-      end
-  
-      def patient_url
-        @patient_url ||= base_url + PATIENT_PATH.delete_prefix('/fhir')
-      end
-  
-      def submit_url
-        @submit_url ||= base_url + RESOURCE_PATH.delete_prefix('/fhir')
-      end
-  
-      def binary_url
-        @binary_url ||= base_url + BINARY_PATH.delete_prefix('/fhir')
-      end
-  
-      def metadata_url
-        @metadata_url ||= base_url + METADATA_PATH.delete_prefix('/fhir')
-      end
-  
-      def everything_url
-        @everything_url ||= base_url + EVERYTHING_PATH.delete_prefix('/fhir')
-      end
-  
-      def member_match_url
-        @member_match_url ||= base_url + MEMBER_MATCH_PATH.delete_prefix('/fhir')
-      end
-  
-      def export_url
-        @export_url ||= base_url + EXPORT_PATH.delete_prefix('/fhir')
-      end
-  
-      def export_status_url
-        @export_status_url ||= base_url + EXPORT_STATUS_PATH.delete_prefix('/fhir')
-      end
-  
-      def resume_pass_url
-        @resume_pass_url ||= base_url + RESUME_PASS_PATH
-      end
-  
-      def resume_clinical_data_url
-        @resume_clinical_data_url ||= base_url + RESUME_CLINICAL_DATA_PATH
-      end
-  
-      def resume_fail_url
-        @resume_fail_url ||= base_url + RESUME_FAIL_PATH
+      BASE_PATH = "#{Inferno::Application['base_url']}/custom/pdex_payer_client"
+      TOKEN_PATH = '/mock_auth/token'
+      PATIENT_PATH = '/fhir/Patient'
+      RESOURCE_PATH = '/fhir/:endpoint'
+      SUBMIT_PATH = '/fhir/:endpoint'   # FIXME duplicate
+      BINARY_PATH = '/fhir/Binary/:id'
+      METADATA_PATH = '/fhir/metadata'
+      EVERYTHING_PATH = '/fhir/Patient/:patient/$everything'
+      MEMBER_MATCH_PATH = '/fhir/Patient/$member-match'
+      EXPORT_PATH = '/fhir/Patient/$export'
+      EXPORT_STATUS_PATH = '/fhir/$export-poll-status'
+      BASE_FHIR_PATH = '/fhir'
+      RESUME_PASS_PATH = '/resume_pass'
+      RESUME_CLINICAL_DATA_PATH = '/resume_clinical_data'
+      RESUME_FAIL_PATH = '/resume_fail'    
+
+      constants.each do |path_constant|
+        # For each constant X_PATH, define x_path()
+        define_method(path_constant.to_s.downcase.to_sym) do
+          URLs.const_get(path_constant)
+        end
+
+        # For each constant X_PATH, define x_url(), which includes base
+        define_method(path_constant.to_s.downcase.gsub(/_path$/, '_url')) do
+          File.join(BASE_PATH, URLs.const_get(path_constant).delete_prefix('/fhir'))
+        end
       end
 
-      private
-  
-      def suite_id
-        self.class.suite.id
+      # overwrite base_url which is irregular
+      def base_url
+        BASE_PATH
       end
-  
+
+      # overwrite base_fhir_url which is irregular
+      def base_fhir_url
+        File.join(BASE_PATH, BASE_FHIR_PATH)
+      end
+
     end
+
+    # Add all constants and dynamically defined methods to PDexPayerClient namespace
+    include URLs
   end
 end

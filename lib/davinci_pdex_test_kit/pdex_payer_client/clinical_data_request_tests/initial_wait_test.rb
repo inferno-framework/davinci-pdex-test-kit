@@ -1,7 +1,8 @@
+
 module DaVinciPDexTestKit
   module PDexPayerClient
     class PDexInitialWaitTest < Inferno::Test
-  
+
       id :pdex_initial_wait_test
       title 'Client makes clinical data requests'
       description %(
