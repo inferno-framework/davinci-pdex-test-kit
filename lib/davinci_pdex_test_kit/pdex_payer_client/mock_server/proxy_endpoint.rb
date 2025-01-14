@@ -100,7 +100,7 @@ module DaVinciPDexTestKit
           end
         end
 
-        # Modify response to pretend mock server generated it
+        # Modify response to pretend that mock server generated it
         # @param inferno_response [Hanami::Action::Response]
         # @param server_response [Faraday::Response]
         # @yield [FHIR::Model] If response is FHIR yield the resource for modifications
@@ -108,7 +108,7 @@ module DaVinciPDexTestKit
         # @return [Hanami::Action::Response] the inferno_response
         # @example
         #   def make_response
-        #     response = proxy_response(response, Faraday.get('https://hapi.fhir.org/baseR4/Patient/1234321') do |patient|
+        #     response = proxy_response(response, Faraday.get('https://example.com/fhir/Patient/1')) do |patient|
         #       patient.meta.profile << "http://example.com/fhir/my-ig-profile"
         #     end
         #   end
@@ -139,12 +139,6 @@ module DaVinciPDexTestKit
           end
 
           inferno_response
-        rescue StandardError => e
-          inferno_response.status = 500
-          inferno_response.body = e.to_json
-          inferno_response.format = :json
-
-          inferno_response 
         end
 
         def remove_transfer_encoding_header(headers)
