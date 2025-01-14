@@ -4,14 +4,14 @@ module DaVinciPDexTestKit
     # This module will be included in Inferno::Entities::Test
     module ClientValidationTest
 
-      # TODO document and fix method
+      # @return [Hash<Inferno::Entities::Request, Array<FHIR::Model>>]
       def previous_clinical_data_request_resources
-        hash = Hash.new { |hash, key| hash[key] = [] }
+        return_hash = Hash.new { |hash, key| hash[key] = [] }
 
-        previous_clinical_data_requests.each_with_object(hash) do |request, request_resource_hash|
+        previous_clinical_data_requests.each_with_object(return_hash) do |request, request_resource_hash|
 
           request_resources = []
-          if (request.status == 200) && request.resource
+          if (request.status == 200) && request.resource # XXX request.response_body ?
             case request.resource.resourceType
             when 'Bundle'
               request_resources = request.resource.entry.map(&:resource)
@@ -23,8 +23,6 @@ module DaVinciPDexTestKit
 
           request_resource_hash[request].concat(request_resources)
         end
-
-        # hash
       end
 
       # @return [Array<Inferno::Entities::Request>]

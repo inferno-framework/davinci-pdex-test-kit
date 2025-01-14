@@ -29,7 +29,7 @@ module DaVinciPDexTestKit
           # Add your routes here, order matters
           suite_endpoint :get, METADATA_PATH, MetadataEndpoint
           suite_endpoint :post, TOKEN_PATH, TokenEndpoint
-          suite_endpoint :get, PATIENT_PATH, ResourceAPIEndpoint
+          # suite_endpoint :get, PATIENT_PATH, ResourceAPIEndpoint # TODO: do we need this?
           suite_endpoint :get, RESOURCE_PATH, ResourceAPIEndpoint
           suite_endpoint :get, BINARY_PATH, BinaryEndpoint
           suite_endpoint :get, EVERYTHING_PATH, PatientEverythingEndpoint

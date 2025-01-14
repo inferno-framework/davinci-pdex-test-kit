@@ -4,8 +4,7 @@ require_relative 'proxy_endpoint'
 module DaVinciPDexTestKit
   module PDexPayerClient
     module MockServer
-      # Serve custom metadata from resources/
-      # Although this does not proxy the request, it requires ProxyEndpoint#test_run_identifier
+      # TODO this should be a generic route, not a suite endpoint
       class MetadataEndpoint < ProxyEndpoint
     
         def make_response
@@ -19,7 +18,7 @@ module DaVinciPDexTestKit
         end
     
         def update_result
-          # results_repo.update(result.id, result: 'pass') unless test.config.options[:accepts_multiple_requests] # TODO delete
+          results_repo.update(result.id, result: 'pass') unless test.config.options[:accepts_multiple_requests]
         end
       end
     end

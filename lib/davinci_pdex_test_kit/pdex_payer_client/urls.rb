@@ -28,7 +28,7 @@ module DaVinciPDexTestKit
 
         # For each constant X_PATH, define x_url(), which includes base
         define_method(path_constant.to_s.downcase.gsub(/_path$/, '_url')) do
-          File.join(BASE_PATH, URLs.const_get(path_constant).delete_prefix('/fhir'))
+          File.join(BASE_PATH, URLs.const_get(path_constant))
         end
       end
 

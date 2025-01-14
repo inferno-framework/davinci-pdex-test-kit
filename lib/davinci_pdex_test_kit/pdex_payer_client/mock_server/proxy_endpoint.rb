@@ -62,7 +62,7 @@ module DaVinciPDexTestKit
           server_params = request.params.to_hash
           server_params = match_request_to_expectation(fhir_endpoint, server_params)
 
-          server_proxy.get(fhir_endpoint, server_params).tap {|response| pp "DEBUG: response: #{response}" }
+          server_proxy.get(fhir_endpoint, server_params) # .tap {|response| pp "DEBUG: response: #{response}" }
           # if params
             # server_response = server_proxy.get(fhir_endpoint, server_params)
             # response.body = replace_bundle_urls(FHIR.from_contents(server_response.body)).to_json

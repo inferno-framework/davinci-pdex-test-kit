@@ -13,12 +13,14 @@ module DaVinciPDexTestKit
       input :access_token
   
       run do
+
         previous_clinical_data_request_resources.each do |request, resources|
           resources.each do |resource|
             scratch[resource.resourceType.to_sym] ||= []
             scratch[resource.resourceType.to_sym] |= [resource]
           end
         end
+
         if !export_resources.empty?
           info "Attempted an $export request"
           export_resources.each do |resource|
@@ -26,9 +28,11 @@ module DaVinciPDexTestKit
             scratch[resource.resourceType.to_sym] |= [resource]
           end
         end
+
         if everything_request
           info "Attempted an $everything request"
         end
+
       end
     end
   end

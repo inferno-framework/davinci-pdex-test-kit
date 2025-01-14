@@ -6,7 +6,6 @@ module DaVinciPDexTestKit
     module MockServer
       class ResourceAPIEndpoint < ProxyEndpoint
 
-        # TODO test    
         def make_response
           super
         end
@@ -14,9 +13,6 @@ module DaVinciPDexTestKit
         def tags
           [RESOURCE_REQUEST_TAG]
         end
-    
-        private
-  
     
       end
     end
