@@ -12,7 +12,7 @@ module DaVinciPDexTestKit
 
           request_resources = []
           if (request.status == 200) && request.resource
-            case request.resourceType
+            case request.resource.resourceType
             when 'Bundle'
               request_resources = request.resource.entry.map(&:resource)
             # when '...' # TODO handle other special resources
@@ -23,6 +23,8 @@ module DaVinciPDexTestKit
 
           request_resource_hash[request].concat(request_resources)
         end
+
+        # hash
       end
 
       # @return [Array<Inferno::Entities::Request>]

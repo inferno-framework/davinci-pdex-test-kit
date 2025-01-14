@@ -12,7 +12,7 @@ module DaVinciPDexTestKit
       # - common methods across PDex endpoints
       class ProxyEndpoint < Inferno::DSL::SuiteEndpoint
 
-        # include ::DaVinciPDexTestKit::PDexPayerClient::URLs
+        include ::DaVinciPDexTestKit::PDexPayerClient::URLs
   
         def test_run_identifier
           request.headers['authorization']&.delete_prefix('Bearer ')
@@ -102,7 +102,7 @@ module DaVinciPDexTestKit
           end
         end
 
-        # Modify response to pretend that mock server generated it.
+        # Modify response to pretend that mock server generated it. Optionally pass a block to make more modifications.
         # @param server_response [Faraday::Response]
         # @yield [FHIR::Model] If response is FHIR yield the resource for modifications
         # @yieldreturn [FHIR::Model]
@@ -124,7 +124,9 @@ module DaVinciPDexTestKit
             response.format = 'application/fhir+json'
             resource = FHIR.from_contents(server_response.body)
             resource = replace_bundle_urls(resource) if resource.resourceType == 'Bundle'
-            resource = yield(resource)
+
+            resource = yield(resource) if block_given?
+
             response.body = resource.to_json
 
           elsif is_json?(server_response.body)
