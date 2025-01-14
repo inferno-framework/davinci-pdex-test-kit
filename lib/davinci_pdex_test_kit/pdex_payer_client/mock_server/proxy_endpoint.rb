@@ -20,7 +20,7 @@ module DaVinciPDexTestKit
   
         def make_response
           server_response = proxy_request(request)
-          response = proxy_response(server_response)
+          proxy_response(server_response)
         end
 
         def update_result
@@ -104,7 +104,7 @@ module DaVinciPDexTestKit
         # Filter request parameters to only include those allowed by PDex API (hardcoded in collections.rb)
         # @return [Hash]
         def match_request_to_expectation(endpoint, params)
-          matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym].find {|expectation| (params.keys.map{|key| key.to_s} & expectation).sort == expectation}
+          matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym]&.find {|expectation| (params.keys.map{|key| key.to_s} & expectation).sort == expectation}
     
           if matched_search
             params.select {|key, value| matched_search.include?(key.to_s) || key == "_revInclude" || key == "_include"}
