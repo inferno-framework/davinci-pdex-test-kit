@@ -66,11 +66,8 @@ module DaVinciPDexTestKit
 
           if strict && server_params.empty?
             Faraday::Response.new(
-              Faraday::Env.new({
-                request: request,
-                status: 400,
-                response_body: File.read(File.expand_path('resources/mock_operation_outcome_resource.json', __dir__))
-              })
+              status: 400,
+              response_body: File.read(File.expand_path('resources/mock_operation_outcome_resource.json', __dir__))
             )
           else
             server_proxy.get(fhir_endpoint, server_params)
@@ -127,8 +124,10 @@ module DaVinciPDexTestKit
         def proxy_response(server_response, &block)
           response.status = server_response.status
 
-          headers = remove_transfer_encoding_header(server_response.headers)
-          response.headers.merge!(headers)
+          if server_response.headers.present?
+            headers = remove_transfer_encoding_header(server_response.headers) 
+            response.headers.merge!(headers)
+          end
           response.headers.merge!({'Server' => self.class.name.deconstantize})
 
           if is_fhir?(server_response.body)
