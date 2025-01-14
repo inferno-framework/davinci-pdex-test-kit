@@ -9,7 +9,7 @@ module DaVinciPDexTestKit
       # @abstract
       # This class defines
       # - a Faraday connection for proxying requests to ENV['FHIR_REFERENCE_SERVER']
-      # - common methods across PDex endpoints
+      # - common methods and conventions for PDex Client Testing endpoints
       class ProxyEndpoint < Inferno::DSL::SuiteEndpoint
 
         include ::DaVinciPDexTestKit::PDexPayerClient::URLs
@@ -62,7 +62,7 @@ module DaVinciPDexTestKit
           fhir_endpoint = resource_endpoint(request.url)
 
           server_params = request.params.to_hash
-          server_params = match_request_to_expectation(fhir_endpoint, server_params)
+          server_params = match_request_to_expectation(fhir_endpoint, server_params) unless request.url.include?('$') # exclude operations as hotfix
 
           if strict && server_params.empty?
             Faraday::Response.new(
@@ -187,7 +187,7 @@ module DaVinciPDexTestKit
           false
         end
 
-        # TODO fix/test or remove
+        # TODO remove
         def mock_operation_outcome_resource
           FHIR.from_contents(File.read(File.expand_path('resources/mock_operation_outcome_resource.json', __dir__)))
         end

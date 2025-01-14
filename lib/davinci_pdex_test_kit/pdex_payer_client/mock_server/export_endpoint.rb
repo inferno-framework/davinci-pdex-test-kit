@@ -1,10 +1,13 @@
 require_relative '../tags'
+require_relative '../urls'
 require_relative 'proxy_endpoint'
 
 module DaVinciPDexTestKit
   module PDexPayerClient
     module MockServer
       class ExportEndpoint < ProxyEndpoint
+
+        include ::DaVinciPDexTestKit::PDexPayerClient::URLs
     
         def make_response
           http_headers_as_hash = request.env.select { |k,v| k.start_with? 'HTTP_'}.transform_keys { |k| k.sub(/^HTTP_/, '').split('_').map(&:capitalize).join('-') }
