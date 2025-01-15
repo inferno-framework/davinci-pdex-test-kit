@@ -14,6 +14,8 @@ module DaVinciPDexTestKit
   
   
       run do
+        load_clinical_data_into_scratch
+        
         skip_if scratch[:Observation].nil?, "No requests made for Observation resources"
   
         assert scratch[:Observation].any? {|resource| resource.id == 'pdex-Observation'}, "Unable to find expected resource: pdex-Observation" 

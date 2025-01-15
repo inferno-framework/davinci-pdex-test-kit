@@ -14,6 +14,8 @@ module DaVinciPDexTestKit
   
   
       run do
+        load_clinical_data_into_scratch
+        
         skip_if scratch[:Immunization].nil?, "No requests made for Immunization resources"
   
         assert scratch[:Immunization].any? {|resource| resource.id == 'pdex-Immunization'}, "Unable to find expected resource: pdex-Immunization" 

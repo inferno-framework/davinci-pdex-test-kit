@@ -25,6 +25,27 @@ module DaVinciPDexTestKit
         end
       end
 
+      def load_clinical_data_into_scratch
+        return if scratch['loaded'].present?
+
+        previous_clinical_data_request_resources.each do |request, resources|
+          resources.each do |resource|
+            scratch[resource.resourceType.to_sym] ||= []
+            scratch[resource.resourceType.to_sym] |= [resource]
+          end
+        end
+
+        if !export_resources.empty?
+          info "Attempted an $export request"
+          export_resources.each do |resource|
+            scratch[resource.resourceType.to_sym] ||= []
+            scratch[resource.resourceType.to_sym] |= [resource]
+          end
+        end
+
+        scratch['loaded'] = true
+      end
+
       # @return [Array<Inferno::Entities::Request>]
       def previous_clinical_data_requests
         [] + load_tagged_requests(RESOURCE_REQUEST_TAG) + load_tagged_requests(EVERYTHING_TAG) # TODO add export request
