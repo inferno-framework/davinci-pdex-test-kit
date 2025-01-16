@@ -79,6 +79,11 @@ module DaVinciPDexTestKit
       #   @patient_id_from_match_request ||= member_match_request ? "999" : nil #TODO: Change from static response
       # end
   
+
+      def all_patient_id_search_requests
+        @everything_request ||= load_tagged_requests(PATIENT_ID_REQUEST_TAG)
+      end
+
       def all_member_match_requests
         @all_member_match_requests ||= load_tagged_requests(MEMBER_MATCH_TAG)
       end
