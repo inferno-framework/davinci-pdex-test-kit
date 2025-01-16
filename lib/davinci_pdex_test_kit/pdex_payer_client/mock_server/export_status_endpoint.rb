@@ -18,6 +18,7 @@ module DaVinciPDexTestKit
             req.headers = http_headers_as_hash.merge(server_proxy.headers)
           end
 
+          response.format = 'application/fhir+json'
           response.body = (server_response.status.to_i == 200) ? replace_export_urls(JSON.parse(server_response.body)).to_json : server_response.body
         end
     
