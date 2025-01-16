@@ -37,7 +37,7 @@ the demographics are:
 - **Gender**: female
 - **Birth Date**: 1980-01-15
 
-This patient contains examples instances for most of the profiles in the PDex [member health
+This patient contains examples instances for all resource types in the PDex [member health
 history](https://hl7.org/fhir/us/davinci-pdex/STU2/introduction.html#member-health-history),
 so accessing the complete set of data on that patient starting from the `$member-match`
 response allows systems to demonstrate the required capabilities.
@@ -84,22 +84,36 @@ If you do not have a PDex client but would like to try the tests out, you can us
 [this postman collection](https://github.com/inferno-framework/davinci-pdex-test-kit/blob/main/PDEX.postman_collection.json)
 to make requests against Inferno for these tests. To use the Postman demo on this test session
 
-1. Download the [collection](https://github.com/inferno-framework/davinci-pdex-test-kit/blob/main/PDEX.postman_collection.json) and import it into [Postman](https://www.postman.com/downloads/).
+1. Download the [collection](https://github.com/inferno-framework/davinci-pdex-test-kit/blob/main/PDEX.postman_collection.json) 
+   and import it into [Postman](https://www.postman.com/downloads/).
 2. Select the `PDex Payer Client Postman Demo` from the preset dropdown in the upper left.
 3. Click `Run All Tests` button in the upper right and click the `Submit` button in the dialog
   that appears.
-4. When a `User Action Required` dialog will appear requesting a `$member-match` request be made, 
-   use Postman to send the `$member-match` request found in the `$member-match Requests` folder.
-5. When a new `User Action Required` dialog will appear requesting clinical data requests be made,
-   use Postman to send some or all of the requests in the `Clinical Data Requests` folder and click
-   on the link in the dialog when done. If not all the requests are made, the test will not pass 
-   because the test requires that all available data be accessed.
-
-The tests will complete and the results made available for review.
-
-Note that the requests within the Postman collection do not represent a conheret workflow that a
-realistic client would follow. Instead, they represent requests Inferno is required to respond to
-successfully based on the requirements in the [PDex Server CapabilityStatement](https://hl7.org/fhir/us/davinci-pdex/STU2/CapabilityStatement-pdex-server.json.html).
+4. When a `User Action Required` dialog appears, use Postman to first send a `$member-match` request
+   found in the "$member-match Requests" folder (the `missing CoverageToMatch` entry will return
+   a result, but will fail request validation). 
+5. Next, use the "Patient GET by identifier" request in the "Patient id Search" folder to turn the
+   returned Patient identifier (`99999` in system 
+   `http://github.com/inferno-framework/target-payer/identifiers/member`) into a Patient resource id (`999`).  
+6. Now, make clinical data requests found in the other
+   folders representing the three data access approaches: "Read and Search Requests", 
+   "Patient $everything Requests", or "$export Requests". Specific paths that will completely pass
+   the tests include:
+   - Make each request within the "Read and Search Requests" folder to individually request instances
+     for each resource type associated with the returned patient.
+   - Make the "$everything" request in the "Patient $everything Requests". Then use the response to
+     get the next page by copying the url in the `Bundle.link` entry with `relation` "next" and put
+     it as the URL for the "$everything next page" request. Make that request to get the next page
+     of the response Bundle and then repeat with that response until there are no more "next" links.
+     You should need to make 2 next page requests total.
+   - Perform an `$export` by first making the "export kick-off" request. Then, copy the value of
+     the `content-location` response header into the URL of the "export status" request. Make that
+     request until it returns a body with JSON content (will be a few minutes). Next for each
+     `output` entry, copy the `url` into the URL of the "ndjson retrieval" request and make it to
+     get the data. Finally, make the "Read and Search Requests" to Read the Location
+     and PractitionerRole instances since those aren't returned by the `$export` operation.
+7. After making all the requests you want, click the "Click here" link to finish the tests
+   and make the results available for review.
 
 ## Testing Limitations
 
@@ -126,9 +140,9 @@ request. Instead, it will return a hardcoded match regardless of what demographi
 ### Data Set
 
 The set of data available on the matched patient is incomplete in the following ways:
-- Does not contain instances of the following [member health 
-history](https://hl7.org/fhir/us/davinci-pdex/STU2/introduction.html#member-health-history)
-profiles:
+- While it contains instances of all resource types in the [member health 
+history](https://hl7.org/fhir/us/davinci-pdex/STU2/introduction.html#member-health-history),
+it does not contain instances of the following profiles:
   - US Core DiagnosticReport Profile for Report and Note exchange
   - US Core Implantable Device Profile
   - US Core Pediatric BMI for Age Observation Profile
@@ -140,6 +154,7 @@ profiles:
   - US Core Pulse Oximetry Profile
   - US Core Smoking Status Observation Profile
 - Does not contain examples of all must support elements populated on the demonstrated profiles.
+- Not all instances have corresponding Provenance resources.
 - May not represent a coherent and clinically valid scenario.
 
 ### Authorization
@@ -149,3 +164,15 @@ workflow](https://hl7.org/fhir/us/davinci-pdex/STU2/payertopayerexchange.html#me
 includes two auth steps, one for obtaining a token that allows `$member-match` invocations and another
 that gets access for a specific member Patient. Inferno requires that clients choose and send a single
 bearer token for the duration of the tests.
+
+### Requireed Patient id Search 
+
+The [HRex 1.0.0 $member-match
+operation](https://hl7.org/fhir/us/davinci-hrex/STU1/OperationDefinition-member-match.html#membermatch)
+returns a patient `identifier`, but not the id of the Patient instance. While the [current version of HRex 
+`$member-match`](https://build.fhir.org/ig/HL7/davinci-ehrx/OperationDefinition-member-match.html#parameters)
+does support returning, HRex 1.0.0 was the version published when PDex 2.0.0 was published so this test suite's
+simulation of `$member-match` does not return the Patient resource id. Thus, client systems need to perform a
+Patient-level search interaction using that identifier to get resource id which can then be used to request
+additional clinical data. This isn't explicitly required by PDex but it is supported and is needed to
+accomplish the workflow goals with the available operations.

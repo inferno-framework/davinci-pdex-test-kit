@@ -23,7 +23,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"resourceType\" : \"Parameters\",\r\n  \"id\" : \"member-match-in\",\r\n  \"parameter\" : [\r\n    {\r\n      \"name\" : \"MemberPatient\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Patient\",\r\n        \"id\": \"12345\",\r\n        \"identifier\" : [\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n                  \"code\" : \"MB\"\r\n                }\r\n              ]\r\n            },\r\n            \"system\" : \"http://github.com/inferno-framework/target-payer/identifiers/member\",\r\n            \"value\" : \"99999\",\r\n            \"assigner\" : {\r\n              \"display\" : \"Old Payer\"\r\n            }\r\n          }\r\n        ],\r\n        \"name\" : [\r\n          {\r\n            \"use\" : \"official\",\r\n            \"family\" : \"Person\",\r\n            \"given\" : [\r\n              \"Patricia\",\r\n              \"Ann\"\r\n            ]\r\n          }\r\n        ],\r\n        \"gender\" : \"female\",\r\n        \"birthDate\" : \"1974-12-25\"\r\n      }\r\n    },\r\n    {\r\n      \"name\" : \"CoverageToMatch\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Coverage\",\r\n        \"id\" : \"9876B1\",\r\n        \"identifier\" : [\r\n          {\r\n            \"system\" : \"http://github.com/inferno-framework/old-payer\",\r\n            \"value\" : \"DH10001235\"\r\n          }\r\n        ],\r\n        \"status\" : \"draft\",\r\n        \"beneficiary\" : {\r\n          \"reference\" : \"Patient/12345\"\r\n        },\r\n        \"period\" : {\r\n          \"start\" : \"2011-05-23\",\r\n          \"end\" : \"2012-05-23\"\r\n        },\r\n        \"payor\" : [\r\n          {\r\n            \"identifier\" : {\r\n              \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n              \"value\" : \"9876543210\"\r\n            },\r\n            \"display\" : \"Old Health Plan\"\r\n          }\r\n        ],\r\n        \"class\" : [\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n                  \"code\" : \"group\"\r\n                }\r\n              ]\r\n            },\r\n            \"value\" : \"CB135\"\r\n          },\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n                  \"code\" : \"plan\"\r\n                }\r\n              ]\r\n            },\r\n            \"value\" : \"B37FC\"\r\n          },\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n                  \"code\" : \"subplan\"\r\n                }\r\n              ]\r\n            },\r\n            \"value\" : \"P7\"\r\n          },\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n                  \"code\" : \"class\"\r\n                }\r\n              ]\r\n            },\r\n            \"value\" : \"SILVER\"\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    {\r\n      \"name\" : \"CoverageToLink\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Coverage\",\r\n        \"id\" : \"AA87654\",\r\n        \"identifier\" : [\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n                  \"code\" : \"MB\"\r\n                }\r\n              ]\r\n            },\r\n            \"system\" : \"http://github.com/inferno-framework/new-payer/identifiers/coverage\",\r\n            \"value\" : \"234567\"\r\n          }\r\n        ],\r\n        \"status\" : \"active\",\r\n        \"beneficiary\" : {\r\n          \"reference\" : \"Patient/12345\"\r\n        },\r\n        \"relationship\" : {\r\n          \"coding\" : [\r\n            {\r\n              \"system\" : \"http://terminology.hl7.org/CodeSystem/data-absent-reason\",\r\n              \"code\" : \"unknown\"\r\n            }\r\n          ]\r\n        },\r\n        \"payor\" : [\r\n          {\r\n            \"identifier\" : {\r\n              \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n              \"value\" : \"0123456789\"\r\n            },\r\n            \"display\" : \"New Health Plan\"\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    {\r\n      \"name\" : \"Consent\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Consent\",\r\n        \"status\" : \"active\",\r\n        \"scope\" : {\r\n          \"coding\" : [\r\n            {\r\n              \"system\" : \"http://terminology.hl7.org/CodeSystem/consentscope\",\r\n              \"code\" : \"patient-privacy\"\r\n            }\r\n          ]\r\n        },\r\n        \"category\" : [\r\n          {\r\n            \"coding\" : [\r\n              {\r\n                \"system\" : \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\r\n                \"code\" : \"IDSCL\"\r\n              }\r\n            ]\r\n          }\r\n        ],\r\n        \"patient\" : {\r\n          \"reference\" : \"Patient/12345\"\r\n        },\r\n        \"performer\" : [\r\n          {\r\n            \"reference\" : \"Patient/12345\"\r\n          }\r\n        ],\r\n        \"sourceReference\" : {\r\n          \"reference\" : \"http://github.com/inferno-framework/DocumentReference/someconsent.pdf\"\r\n        },\r\n        \"policy\" : [\r\n          {\r\n            \"uri\" : \"http://hl7.org/fhir/us/davinci-hrex/StructureDefinition-hrex-consent.html#regular\"\r\n          }\r\n        ],\r\n        \"provision\" : {\r\n          \"type\" : \"permit\",\r\n          \"period\" : {\r\n            \"start\" : \"2022-01-01\",\r\n            \"end\" : \"2022-01-31\"\r\n          },\r\n          \"actor\" : [\r\n            {\r\n              \"role\" : {\r\n                \"coding\" : [\r\n                  {\r\n                    \"system\" : \"http://terminology.hl7.org/CodeSystem/provenance-participant-type\",\r\n                    \"code\" : \"performer\"\r\n                  }\r\n                ]\r\n              },\r\n              \"reference\" : {\r\n                \"identifier\" : {\r\n                  \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n                  \"value\" : \"9876543210\"\r\n                },\r\n                \"display\" : \"Old Health Plan\"\r\n              }\r\n            },\r\n            {\r\n              \"role\" : {\r\n                \"coding\" : [\r\n                  {\r\n                    \"system\" : \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\r\n                    \"code\" : \"IRCP\"\r\n                  }\r\n                ]\r\n              },\r\n              \"reference\" : {\r\n                \"identifier\" : {\r\n                  \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n                  \"value\" : \"0000000001\"\r\n                },\r\n                \"display\" : \"Provider organization\"\r\n              }\r\n            }\r\n          ],\r\n          \"action\" : [\r\n            {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/consentaction\",\r\n                  \"code\" : \"disclose\"\r\n                }\r\n              ]\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}",
+							"raw": "{\r\n  \"resourceType\" : \"Parameters\",\r\n  \"parameter\" : [\r\n    {\r\n      \"name\" : \"MemberPatient\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Patient\",\r\n        \"id\": \"12345\",\r\n        \"identifier\" : [\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n                  \"code\" : \"MB\"\r\n                }\r\n              ]\r\n            },\r\n            \"system\" : \"http://github.com/inferno-framework/target-payer/identifiers/member\",\r\n            \"value\" : \"99999\",\r\n            \"assigner\" : {\r\n              \"display\" : \"Old Payer\"\r\n            }\r\n          }\r\n        ],\r\n        \"name\" : [\r\n          {\r\n            \"use\" : \"official\",\r\n            \"family\" : \"Dexter882\",\r\n            \"given\" : [\r\n              \"Patty408\"\r\n            ]\r\n          }\r\n        ],\r\n        \"gender\" : \"female\",\r\n        \"birthDate\" : \"1980-01-15\"\r\n      }\r\n    },\r\n    {\r\n      \"name\" : \"CoverageToMatch\",\r\n      \"resource\" : {\r\n        \"resourceType\": \"Coverage\",\r\n        \"identifier\": [\r\n          {\r\n            \"type\": {\r\n              \"coding\": [\r\n                {\r\n                  \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n                  \"code\": \"MB\"\r\n                }\r\n              ]\r\n            },\r\n            \"system\": \"http://github.com/inferno-framework/someOrg/identifiers/whatever\",\r\n            \"value\": \"1039399818\"\r\n          }\r\n        ],\r\n        \"status\": \"active\",\r\n        \"subscriberId\": \"97531\",\r\n        \"beneficiary\": {\r\n          \"reference\": \"Patient/12345\"\r\n        },\r\n        \"relationship\": {\r\n          \"coding\": [\r\n            {\r\n              \"system\": \"http://terminology.hl7.org/CodeSystem/subscriber-relationship\",\r\n              \"code\": \"self\"\r\n            }\r\n          ]\r\n        },\r\n        \"payor\": [\r\n          {\r\n            \"reference\": \"Organization/pdex-Payor-Organization\"\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    {\r\n      \"name\" : \"CoverageToLink\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Coverage\",\r\n        \"id\" : \"AA87654\",\r\n        \"identifier\" : [\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n                  \"code\" : \"MB\"\r\n                }\r\n              ]\r\n            },\r\n            \"system\" : \"http://github.com/inferno-framework/new-payer/identifiers/coverage\",\r\n            \"value\" : \"234567\"\r\n          }\r\n        ],\r\n        \"status\" : \"active\",\r\n        \"beneficiary\" : {\r\n          \"reference\" : \"Patient/12345\"\r\n        },\r\n        \"relationship\" : {\r\n          \"coding\" : [\r\n            {\r\n              \"system\" : \"http://terminology.hl7.org/CodeSystem/data-absent-reason\",\r\n              \"code\" : \"unknown\"\r\n            }\r\n          ]\r\n        },\r\n        \"payor\" : [\r\n          {\r\n            \"identifier\" : {\r\n              \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n              \"value\" : \"0123456789\"\r\n            },\r\n            \"display\" : \"New Health Plan\"\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    {\r\n      \"name\" : \"Consent\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Consent\",\r\n        \"status\" : \"active\",\r\n        \"scope\" : {\r\n          \"coding\" : [\r\n            {\r\n              \"system\" : \"http://terminology.hl7.org/CodeSystem/consentscope\",\r\n              \"code\" : \"patient-privacy\"\r\n            }\r\n          ]\r\n        },\r\n        \"category\" : [\r\n          {\r\n            \"coding\" : [\r\n              {\r\n                \"system\" : \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\r\n                \"code\" : \"IDSCL\"\r\n              }\r\n            ]\r\n          }\r\n        ],\r\n        \"patient\" : {\r\n          \"reference\" : \"Patient/12345\"\r\n        },\r\n        \"performer\" : [\r\n          {\r\n            \"reference\" : \"Patient/12345\"\r\n          }\r\n        ],\r\n        \"sourceReference\" : {\r\n          \"reference\" : \"http://github.com/inferno-framework/DocumentReference/someconsent.pdf\"\r\n        },\r\n        \"policy\" : [\r\n          {\r\n            \"uri\" : \"http://hl7.org/fhir/us/davinci-hrex/StructureDefinition-hrex-consent.html#regular\"\r\n          }\r\n        ],\r\n        \"provision\" : {\r\n          \"type\" : \"permit\",\r\n          \"period\" : {\r\n            \"start\" : \"2025-01-01\",\r\n            \"end\" : \"2025-01-31\"\r\n          },\r\n          \"actor\" : [\r\n            {\r\n              \"role\" : {\r\n                \"coding\" : [\r\n                  {\r\n                    \"system\" : \"http://terminology.hl7.org/CodeSystem/provenance-participant-type\",\r\n                    \"code\" : \"performer\"\r\n                  }\r\n                ]\r\n              },\r\n              \"reference\" : {\r\n                \"identifier\" : {\r\n                  \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n                  \"value\" : \"9876543210\"\r\n                },\r\n                \"display\" : \"Old Health Plan\"\r\n              }\r\n            },\r\n            {\r\n              \"role\" : {\r\n                \"coding\" : [\r\n                  {\r\n                    \"system\" : \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\r\n                    \"code\" : \"IRCP\"\r\n                  }\r\n                ]\r\n              },\r\n              \"reference\" : {\r\n                \"identifier\" : {\r\n                  \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n                  \"value\" : \"0000000001\"\r\n                },\r\n                \"display\" : \"Provider organization\"\r\n              }\r\n            }\r\n          ],\r\n          \"action\" : [\r\n            {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/consentaction\",\r\n                  \"code\" : \"disclose\"\r\n                }\r\n              ]\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -59,7 +59,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"resourceType\" : \"Parameters\",\r\n  \"id\" : \"member-match-in\",\r\n  \"parameter\" : [\r\n    {\r\n      \"name\" : \"MemberPatient\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Patient\",\r\n        \"id\": \"12345\",\r\n        \"identifier\" : [\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n                  \"code\" : \"MB\"\r\n                }\r\n              ]\r\n            },\r\n            \"system\" : \"http://github.com/inferno-framework/target-payer/identifiers/member\",\r\n            \"value\" : \"99999\",\r\n            \"assigner\" : {\r\n              \"display\" : \"Old Payer\"\r\n            }\r\n          }\r\n        ],\r\n        \"name\" : [\r\n          {\r\n            \"use\" : \"official\",\r\n            \"family\" : \"Person\",\r\n            \"given\" : [\r\n              \"Patricia\",\r\n              \"Ann\"\r\n            ]\r\n          }\r\n        ],\r\n        \"gender\" : \"female\",\r\n        \"birthDate\" : \"1974-12-25\"\r\n      }\r\n    },\r\n    {\r\n      \"name\" : \"Consent\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Consent\",\r\n        \"status\" : \"active\",\r\n        \"scope\" : {\r\n          \"coding\" : [\r\n            {\r\n              \"system\" : \"http://terminology.hl7.org/CodeSystem/consentscope\",\r\n              \"code\" : \"patient-privacy\"\r\n            }\r\n          ]\r\n        },\r\n        \"category\" : [\r\n          {\r\n            \"coding\" : [\r\n              {\r\n                \"system\" : \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\r\n                \"code\" : \"IDSCL\"\r\n              }\r\n            ]\r\n          }\r\n        ],\r\n        \"patient\" : {\r\n          \"reference\" : \"Patient/12345\"\r\n        },\r\n        \"performer\" : [\r\n          {\r\n            \"reference\" : \"Patient/12345\"\r\n          }\r\n        ],\r\n        \"sourceReference\" : {\r\n          \"reference\" : \"http://github.com/inferno-framework/DocumentReference/someconsent.pdf\"\r\n        },\r\n        \"policy\" : [\r\n          {\r\n            \"uri\" : \"http://hl7.org/fhir/us/davinci-hrex/StructureDefinition-hrex-consent.html#regular\"\r\n          }\r\n        ],\r\n        \"provision\" : {\r\n          \"type\" : \"permit\",\r\n          \"period\" : {\r\n            \"start\" : \"2022-01-01\",\r\n            \"end\" : \"2022-01-31\"\r\n          },\r\n          \"actor\" : [\r\n            {\r\n              \"role\" : {\r\n                \"coding\" : [\r\n                  {\r\n                    \"system\" : \"http://terminology.hl7.org/CodeSystem/provenance-participant-type\",\r\n                    \"code\" : \"performer\"\r\n                  }\r\n                ]\r\n              },\r\n              \"reference\" : {\r\n                \"identifier\" : {\r\n                  \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n                  \"value\" : \"9876543210\"\r\n                },\r\n                \"display\" : \"Old Health Plan\"\r\n              }\r\n            },\r\n            {\r\n              \"role\" : {\r\n                \"coding\" : [\r\n                  {\r\n                    \"system\" : \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\r\n                    \"code\" : \"IRCP\"\r\n                  }\r\n                ]\r\n              },\r\n              \"reference\" : {\r\n                \"identifier\" : {\r\n                  \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n                  \"value\" : \"0000000001\"\r\n                },\r\n                \"display\" : \"Provider organization\"\r\n              }\r\n            }\r\n          ],\r\n          \"action\" : [\r\n            {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/consentaction\",\r\n                  \"code\" : \"disclose\"\r\n                }\r\n              ]\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}",
+							"raw": "{\r\n  \"resourceType\" : \"Parameters\",\r\n  \"parameter\" : [\r\n    {\r\n      \"name\" : \"MemberPatient\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Patient\",\r\n        \"id\": \"12345\",\r\n        \"identifier\" : [\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n                  \"code\" : \"MB\"\r\n                }\r\n              ]\r\n            },\r\n            \"system\" : \"http://github.com/inferno-framework/target-payer/identifiers/member\",\r\n            \"value\" : \"99999\",\r\n            \"assigner\" : {\r\n              \"display\" : \"Old Payer\"\r\n            }\r\n          }\r\n        ],\r\n        \"name\" : [\r\n          {\r\n            \"use\" : \"official\",\r\n            \"family\" : \"Dexter882\",\r\n            \"given\" : [\r\n              \"Patty408\"\r\n            ]\r\n          }\r\n        ],\r\n        \"gender\" : \"female\",\r\n        \"birthDate\" : \"1980-01-15\"\r\n      }\r\n    },\r\n    {\r\n      \"name\" : \"CoverageToLink\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Coverage\",\r\n        \"id\" : \"AA87654\",\r\n        \"identifier\" : [\r\n          {\r\n            \"type\" : {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n                  \"code\" : \"MB\"\r\n                }\r\n              ]\r\n            },\r\n            \"system\" : \"http://github.com/inferno-framework/new-payer/identifiers/coverage\",\r\n            \"value\" : \"234567\"\r\n          }\r\n        ],\r\n        \"status\" : \"active\",\r\n        \"beneficiary\" : {\r\n          \"reference\" : \"Patient/12345\"\r\n        },\r\n        \"relationship\" : {\r\n          \"coding\" : [\r\n            {\r\n              \"system\" : \"http://terminology.hl7.org/CodeSystem/data-absent-reason\",\r\n              \"code\" : \"unknown\"\r\n            }\r\n          ]\r\n        },\r\n        \"payor\" : [\r\n          {\r\n            \"identifier\" : {\r\n              \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n              \"value\" : \"0123456789\"\r\n            },\r\n            \"display\" : \"New Health Plan\"\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    {\r\n      \"name\" : \"Consent\",\r\n      \"resource\" : {\r\n        \"resourceType\" : \"Consent\",\r\n        \"status\" : \"active\",\r\n        \"scope\" : {\r\n          \"coding\" : [\r\n            {\r\n              \"system\" : \"http://terminology.hl7.org/CodeSystem/consentscope\",\r\n              \"code\" : \"patient-privacy\"\r\n            }\r\n          ]\r\n        },\r\n        \"category\" : [\r\n          {\r\n            \"coding\" : [\r\n              {\r\n                \"system\" : \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\r\n                \"code\" : \"IDSCL\"\r\n              }\r\n            ]\r\n          }\r\n        ],\r\n        \"patient\" : {\r\n          \"reference\" : \"Patient/12345\"\r\n        },\r\n        \"performer\" : [\r\n          {\r\n            \"reference\" : \"Patient/12345\"\r\n          }\r\n        ],\r\n        \"sourceReference\" : {\r\n          \"reference\" : \"http://github.com/inferno-framework/DocumentReference/someconsent.pdf\"\r\n        },\r\n        \"policy\" : [\r\n          {\r\n            \"uri\" : \"http://hl7.org/fhir/us/davinci-hrex/StructureDefinition-hrex-consent.html#regular\"\r\n          }\r\n        ],\r\n        \"provision\" : {\r\n          \"type\" : \"permit\",\r\n          \"period\" : {\r\n            \"start\" : \"2025-01-01\",\r\n            \"end\" : \"2025-01-31\"\r\n          },\r\n          \"actor\" : [\r\n            {\r\n              \"role\" : {\r\n                \"coding\" : [\r\n                  {\r\n                    \"system\" : \"http://terminology.hl7.org/CodeSystem/provenance-participant-type\",\r\n                    \"code\" : \"performer\"\r\n                  }\r\n                ]\r\n              },\r\n              \"reference\" : {\r\n                \"identifier\" : {\r\n                  \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n                  \"value\" : \"9876543210\"\r\n                },\r\n                \"display\" : \"Old Health Plan\"\r\n              }\r\n            },\r\n            {\r\n              \"role\" : {\r\n                \"coding\" : [\r\n                  {\r\n                    \"system\" : \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\r\n                    \"code\" : \"IRCP\"\r\n                  }\r\n                ]\r\n              },\r\n              \"reference\" : {\r\n                \"identifier\" : {\r\n                  \"system\" : \"http://hl7.org/fhir/sid/us-npi\",\r\n                  \"value\" : \"0000000001\"\r\n                },\r\n                \"display\" : \"Provider organization\"\r\n              }\r\n            }\r\n          ],\r\n          \"action\" : [\r\n            {\r\n              \"coding\" : [\r\n                {\r\n                  \"system\" : \"http://terminology.hl7.org/CodeSystem/consentaction\",\r\n                  \"code\" : \"disclose\"\r\n                }\r\n              ]\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -107,7 +107,7 @@
 			]
 		},
 		{
-			"name": "Clinical Data Requests",
+			"name": "Patient Id Search",
 			"item": [
 				{
 					"name": "Patient GET by identifier",
@@ -134,7 +134,12 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Read and Search Requests",
+			"item": [
 				{
 					"name": "AllergyIntolerance GET by patient",
 					"request": {
@@ -436,32 +441,6 @@
 					"response": []
 				},
 				{
-					"name": "Location GET by name",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Location?name=pdex-Location",
-							"host": [
-								"{{url_prefix}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Location"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": "pdex-Location"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "MedicationDispense GET by patient",
 					"request": {
 						"method": "GET",
@@ -518,7 +497,7 @@
 					"response": []
 				},
 				{
-					"name": "Observation GET by patient+category",
+					"name": "Observation GET by patient+category (vitals)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -548,12 +527,12 @@
 					"response": []
 				},
 				{
-					"name": "Organization GET by name",
+					"name": "Observation GET by patient+category (lab)",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Organization?name=pdex-Organization",
+							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Observation?patient=999&category=laboratory",
 							"host": [
 								"{{url_prefix}}"
 							],
@@ -561,90 +540,16 @@
 								"custom",
 								"pdex_payer_client",
 								"fhir",
-								"Organization"
+								"Observation"
 							],
 							"query": [
 								{
-									"key": "name",
-									"value": "pdex-Organization"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Patient GET",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Patient?_id=999",
-							"host": [
-								"{{url_prefix}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Patient"
-							],
-							"query": [
-								{
-									"key": "_id",
+									"key": "patient",
 									"value": "999"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Practitioner GET by name",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Practitioner?name=pdex-Practitioner",
-							"host": [
-								"{{url_prefix}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"Practitioner"
-							],
-							"query": [
+								},
 								{
-									"key": "name",
-									"value": "pdex-Practitioner"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PractitionerRole GET by specialty",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/PractitionerRole?specialty=208D00000X",
-							"host": [
-								"{{url_prefix}}"
-							],
-							"path": [
-								"custom",
-								"pdex_payer_client",
-								"fhir",
-								"PractitionerRole"
-							],
-							"query": [
-								{
-									"key": "specialty",
-									"value": "208D00000X"
+									"key": "category",
+									"value": "laboratory"
 								}
 							]
 						}
@@ -678,12 +583,12 @@
 					"response": []
 				},
 				{
-					"name": "$everything",
+					"name": "Location Read",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Patient/999/$everything",
+							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Location/pdex-Location",
 							"host": [
 								"{{url_prefix}}"
 							],
@@ -691,9 +596,92 @@
 								"custom",
 								"pdex_payer_client",
 								"fhir",
-								"Patient",
-								"999",
-								"$everything"
+								"Location",
+								"pdex-Location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Organization Read",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Organization/pdex-Organization",
+							"host": [
+								"{{url_prefix}}"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Organization",
+								"pdex-Organization"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Organization Read (payor)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Organization/pdex-Payor-Organization",
+							"host": [
+								"{{url_prefix}}"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Organization",
+								"pdex-Payor-Organization"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Practitioner Read",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Practitioner/pdex-Practitioner",
+							"host": [
+								"{{url_prefix}}"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Practitioner",
+								"pdex-Practitioner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PractitionerRole Read",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/PractitionerRole/pdex-PractitionerRole",
+							"host": [
+								"{{url_prefix}}"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"PractitionerRole",
+								"pdex-PractitionerRole"
 							]
 						}
 					},
@@ -721,6 +709,76 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "Patient $everything Requests",
+			"item": [
+				{
+					"name": "$everything",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_prefix}}/custom/pdex_payer_client/fhir/Patient/999/$everything",
+							"host": [
+								"{{url_prefix}}"
+							],
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Patient",
+								"999",
+								"$everything"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "$everything next page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4567/custom/pdex_payer_client/fhir?_getpages=f3010202-3db2-433d-b8ab-2fbb06fa8a04&_getpagesoffset=20&_count=10&_pretty=true&_bundletype=searchset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4567",
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir"
+							],
+							"query": [
+								{
+									"key": "_getpages",
+									"value": "f3010202-3db2-433d-b8ab-2fbb06fa8a04"
+								},
+								{
+									"key": "_getpagesoffset",
+									"value": "20"
+								},
+								{
+									"key": "_count",
+									"value": "10"
+								},
+								{
+									"key": "_pretty",
+									"value": "true"
+								},
+								{
+									"key": "_bundletype",
+									"value": "searchset"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -786,9 +844,23 @@
 							}
 						],
 						"url": {
-							"raw": "*populate with url from content-location header from previous request*",
+							"raw": "http://localhost:4567/custom/pdex_payer_client/fhir/$export-poll-status?_jobId=f295d854-6dfb-44e3-bbfb-6845bba6fbc7",
+							"protocol": "http",
 							"host": [
-								"*populate with url from content-location header from previous request*"
+								"localhost"
+							],
+							"port": "4567",
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"$export-poll-status"
+							],
+							"query": [
+								{
+									"key": "_jobId",
+									"value": "f295d854-6dfb-44e3-bbfb-6845bba6fbc7"
+								}
 							]
 						}
 					},
@@ -796,13 +868,33 @@
 				},
 				{
 					"name": "ndjson retrieval",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/fhir+ndjson",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "*fill with urls from the body of a successful $export-poll-status status 200 request*",
+							"raw": "http://localhost:4567/custom/pdex_payer_client/fhir/Binary/VqGTZ9jAbbk10v9jZnbFxMrgZDWHHuCs",
+							"protocol": "http",
 							"host": [
-								"*fill with urls from the body of a successful $export-poll-status status 200 request*"
+								"localhost"
+							],
+							"port": "4567",
+							"path": [
+								"custom",
+								"pdex_payer_client",
+								"fhir",
+								"Binary",
+								"VqGTZ9jAbbk10v9jZnbFxMrgZDWHHuCs"
 							]
 						}
 					},
