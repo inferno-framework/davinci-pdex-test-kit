@@ -8,6 +8,7 @@ module DaVinciPDexTestKit
       TOKEN_PATH = '/mock_auth/token'
       PATIENT_PATH = '/fhir/Patient'
       RESOURCE_PATH = '/fhir/:endpoint'
+      INSTANCE_PATH = '/fhir/:endpoint/:id'
       SUBMIT_PATH = '/fhir/:endpoint'   # FIXME duplicate
       BINARY_PATH = '/fhir/Binary/:id'
       METADATA_PATH = '/fhir/metadata'

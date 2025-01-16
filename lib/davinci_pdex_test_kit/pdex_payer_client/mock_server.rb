@@ -1,6 +1,7 @@
 require_relative 'mock_server/metadata_endpoint'
 require_relative 'mock_server/token_endpoint'
-require_relative 'mock_server/resource_api_endpoint'
+require_relative 'mock_server/resource_search_endpoint'
+require_relative 'mock_server/resource_read_endpoint'
 require_relative 'mock_server/patient_endpoint'
 require_relative 'mock_server/binary_endpoint'
 require_relative 'mock_server/patient_everything_endpoint'
@@ -44,7 +45,8 @@ module DaVinciPDexTestKit
           suite_endpoint :get, EXPORT_STATUS_PATH, ExportStatusEndpoint
           suite_endpoint :get, BINARY_PATH, BinaryEndpoint
           suite_endpoint :get, PATIENT_PATH, PatientEndpoint # PDex Patient query needs its own endpoint
-          suite_endpoint :get, RESOURCE_PATH, ResourceAPIEndpoint
+          suite_endpoint :get, RESOURCE_PATH, ResourceSearchEndpoint
+          suite_endpoint :get, INSTANCE_PATH, ResourceReadEndpoint
           suite_endpoint :get, BASE_FHIR_PATH, NextPageEndpoint # TODO: better pagination route?
 
         end

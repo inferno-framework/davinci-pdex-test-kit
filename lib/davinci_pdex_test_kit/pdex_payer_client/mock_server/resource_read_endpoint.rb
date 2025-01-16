@@ -4,12 +4,11 @@ require_relative 'proxy_endpoint'
 module DaVinciPDexTestKit
   module PDexPayerClient
     module MockServer
-      # FIXME: this class is intercepting $export-poll-status requests for some reason
-      # however the $export workflow still works
-      class ResourceAPIEndpoint < ProxyEndpoint
+      class ResourceReadEndpoint < ProxyEndpoint
 
-        def make_response
-          super
+        def proxy_request(request)
+          target_resource = request.url.split('/')[-2..-1].join('/')
+          server_proxy.get(target_resource)
         end
     
         def tags
