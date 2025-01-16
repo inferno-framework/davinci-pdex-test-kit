@@ -14,6 +14,8 @@ module DaVinciPDexTestKit
   
   
       run do
+        load_clinical_data_into_scratch
+        
         skip_if scratch[:PractitionerRole].nil?, "No requests made for PractitionerRole resources"
   
         assert scratch[:PractitionerRole].any? {|resource| resource.id == 'pdex-PractitionerRole'}, "Unable to find expected resource: pdex-PractitionerRole" 

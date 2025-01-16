@@ -6,11 +6,11 @@ require_relative 'pdex_payer_client/mock_server'
 # require_relative 'must_support_test'
 # require_relative 'pdex_payer_client/client_validation_test'
 
-require_relative 'pdex_payer_client/client_member_match_tests/client_member_match_submit_test'
+require_relative 'pdex_payer_client/client_workflow_interaction_test'
 require_relative 'pdex_payer_client/client_member_match_tests/client_member_match_validation_test'
 
-require_relative 'pdex_payer_client/clinical_data_request_tests/initial_wait_test'
-require_relative 'pdex_payer_client/clinical_data_request_tests/initial_scratch_storing'
+require_relative 'pdex_payer_client/clinical_data_request_tests/clinical_data_request_check_test'
+require_relative 'pdex_payer_client/clinical_data_request_tests/patient_id_search_request_check_test'
 require_relative 'pdex_payer_client/clinical_data_request_tests/allergyintolerance_clinical_data_request_test'
 require_relative 'pdex_payer_client/clinical_data_request_tests/careplan_clinical_data_request_test'
 require_relative 'pdex_payer_client/clinical_data_request_tests/careteam_clinical_data_request_test'
@@ -88,17 +88,22 @@ module DaVinciPDexTestKit
       title "Workflow Tests"
 
       group do
+        title "Interaction Tests"
+
+        test from: :pdex_client_workflow_interaction_test
+      end
+
+      group do
         title "$member-match validation"
 
-        test from: :pdex_initial_member_match_submit_test
         test from: :pdex_initial_member_match_validation_test
       end
 
       group do
-        title "Clinical data request tests"
+        title "Clinical data request validation"
 
-        test from: :pdex_initial_wait_test
-        test from: :pdex_initial_scratch_storing
+        test from: :pdex_clinical_data_request_check_test
+        test from: :pdex_patient_id_search_request_check_test
         test from: :pdex_allergyintolerance_clinical_data_request_test
         test from: :pdex_careplan_clinical_data_request_test
         test from: :pdex_careteam_clinical_data_request_test

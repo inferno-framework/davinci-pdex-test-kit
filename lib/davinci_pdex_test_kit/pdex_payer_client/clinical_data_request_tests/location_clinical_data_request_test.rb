@@ -14,6 +14,8 @@ module DaVinciPDexTestKit
   
   
       run do
+        load_clinical_data_into_scratch
+        
         skip_if scratch[:Location].nil?, "No requests made for Location resources"
   
         assert scratch[:Location].any? {|resource| resource.id == 'pdex-Location'}, "Unable to find expected resource: pdex-Location" 

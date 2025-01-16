@@ -14,6 +14,8 @@ module DaVinciPDexTestKit
   
   
       run do
+        load_clinical_data_into_scratch
+        
         skip_if scratch[:Patient].nil?, "No requests made for Patient resources"
   
         assert scratch[:Patient].any? {|resource| resource.id == '999'}, "Unable to find expected resource: 999" 

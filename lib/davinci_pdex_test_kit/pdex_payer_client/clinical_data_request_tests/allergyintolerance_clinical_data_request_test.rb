@@ -14,6 +14,8 @@ module DaVinciPDexTestKit
   
   
       run do
+        load_clinical_data_into_scratch
+        
         skip_if scratch[:AllergyIntolerance].nil?, "No requests made for AllergyIntolerance resources"
   
         assert scratch[:AllergyIntolerance].any? {|resource| resource.id == 'pdex-AllergyIntolerance'}, "Unable to find expected resource: pdex-AllergyIntolerance" 
