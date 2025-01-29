@@ -26,7 +26,7 @@ module DaVinciPDexTestKit
         optional: true
 
       test do
-        id :workflow_clinical_encounter_query_test
+        id :pdex_workflow_clinical_encounter_query_test
         title 'Server can provide clinical Encounter data from matched member identifier'
         description %{
           Server receives request `GET [baseURL]/Encounter?subject=Patient/[id]` and returns 200.
@@ -44,7 +44,7 @@ module DaVinciPDexTestKit
       end
 
       test do
-        id :workflow_clinical_encounter_test
+        id :pdex_workflow_clinical_encounter_test
         title 'Server returned Search bundle with valid Encounter data'
         description %{
             Server returned search Bundle of Encounters with least 1 resource entry.

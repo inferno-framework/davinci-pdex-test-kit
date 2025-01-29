@@ -89,9 +89,6 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 
-  # Ensure Faker RNG seed is derived from RSpec seed
-  Faker::Config.random = Random.new(config.seed)
-
   # These two settings work together to allow you to limit a spec run
   # to individual examples or groups you care about by tagging them with
   # `:focus` metadata. When nothing is tagged with `:focus`, all examples
@@ -122,6 +119,8 @@ RSpec.configure do |config|
   config.before(:suite) do
     FactoryBot.find_definitions
   end
+
+  config.shared_context_metadata_behavior = :apply_to_host_groups
 end
 
 require 'inferno/config/application'
@@ -131,6 +130,7 @@ Inferno::Utils::Migration.new.run
 require 'inferno'
 Inferno::Application.finalize!
 
+# Inferno::SpecSupport.require_helpers
 require Inferno::SpecSupport::FACTORY_BOT_SUPPORT_PATH
 
 FactoryBot.definition_file_paths = [
@@ -146,6 +146,7 @@ DatabaseCleaner[:sequel].strategy = :truncation
 DatabaseCleaner[:sequel].db = Inferno::Application['db.connection']
 
 def run(test_session, runnable, inputs = {})
+  session_data_repo = Inferno::Repositories::SessionData.new
   test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
   test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)
   inputs.each do |name, value|
@@ -153,3 +154,4 @@ def run(test_session, runnable, inputs = {})
   end
   Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
 end
+

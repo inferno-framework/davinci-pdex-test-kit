@@ -1,3 +1,6 @@
+# must_support.rb
+# This file was borrowed from the US Core Generator.
+
 require_relative 'fhir_resource_navigation'
 
 module DaVinciPDexTestKit
