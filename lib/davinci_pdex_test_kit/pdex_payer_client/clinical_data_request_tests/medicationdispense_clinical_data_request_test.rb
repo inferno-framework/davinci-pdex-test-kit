@@ -8,17 +8,17 @@ module DaVinciPDexTestKit
       id :pdex_medicationdispense_clinical_data_request_test
       title 'MedicationDispense resources related to the patient matched are gathered'
       description %(
-        This test will look through all returned MedicationDispense resources for a specific expected resource related to the matched patient.
+        This test verify that the expected instances of resource type MedicationDispense
+        were fetched by the client.
       )
       input :access_token
-  
+
+      def target_resource_type
+        :MedicationDispense
+      end
   
       run do
-        load_clinical_data_into_scratch
-        
-        skip_if scratch[:MedicationDispense].nil?, "No requests made for MedicationDispense resources"
-  
-        assert scratch[:MedicationDispense].any? {|resource| resource.id == 'pdex-MedicationDispense'}, "Unable to find expected resource: pdex-MedicationDispense" 
+        check_resource_type_fetched_instances(target_resource_type)
       end
     end
   end

@@ -8,17 +8,17 @@ module DaVinciPDexTestKit
       id :pdex_goal_clinical_data_request_test
       title 'Goal resources related to the patient matched are gathered'
       description %(
-        This test will look through all returned Goal resources for a specific expected resource related to the matched patient.
+        This test verify that the expected instances of resource type Goal
+        were fetched by the client.
       )
       input :access_token
-  
+
+      def target_resource_type
+        :Goal
+      end
   
       run do
-        load_clinical_data_into_scratch
-        
-        skip_if scratch[:Goal].nil?, "No requests made for Goal resources"
-  
-        assert scratch[:Goal].any? {|resource| resource.id == 'pdex-Goal'}, "Unable to find expected resource: pdex-Goal" 
+        check_resource_type_fetched_instances(target_resource_type)
       end
     end
   end

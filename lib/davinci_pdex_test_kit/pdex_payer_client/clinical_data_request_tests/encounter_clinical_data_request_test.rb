@@ -8,17 +8,17 @@ module DaVinciPDexTestKit
       id :pdex_encounter_clinical_data_request_test
       title 'Encounter resources related to the patient matched are gathered'
       description %(
-        This test will look through all returned Encounter resources for a specific expected resource related to the matched patient.
+        This test verify that the expected instances of resource type Encounter
+        were fetched by the client.
       )
       input :access_token
-  
+
+      def target_resource_type
+        :Encounter
+      end
   
       run do
-        load_clinical_data_into_scratch
-        
-        skip_if scratch[:Encounter].nil?, "No requests made for Encounter resources"
-  
-        assert scratch[:Encounter].any? {|resource| resource.id == 'pdex-Encounter'}, "Unable to find expected resource: pdex-Encounter" 
+        check_resource_type_fetched_instances(target_resource_type)
       end
     end
   end
