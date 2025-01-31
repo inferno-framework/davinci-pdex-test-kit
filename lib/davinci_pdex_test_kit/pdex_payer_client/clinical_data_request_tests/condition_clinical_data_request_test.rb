@@ -8,17 +8,17 @@ module DaVinciPDexTestKit
       id :pdex_condition_clinical_data_request_test
       title 'Condition resources related to the patient matched are gathered'
       description %(
-        This test will look through all returned Condition resources for a specific expected resource related to the matched patient.
+        This test verify that the expected instances of resource type Condition
+        were fetched by the client.
       )
       input :access_token
-  
+
+      def target_resource_type
+        :Condition
+      end
   
       run do
-        load_clinical_data_into_scratch
-        
-        skip_if scratch[:Condition].nil?, "No requests made for Condition resources"
-  
-        assert scratch[:Condition].any? {|resource| resource.id == 'pdex-Condition'}, "Unable to find expected resource: pdex-Condition" 
+        check_resource_type_fetched_instances(target_resource_type)
       end
     end
   end

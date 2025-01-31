@@ -4,6 +4,20 @@ module DaVinciPDexTestKit
     # This module will be included in Inferno::Entities::Test
     module ClientValidationTest
 
+      def check_resource_type_fetched_instances(resource_type)
+        load_clinical_data_into_scratch
+        
+        skip_if scratch[resource_type].nil?, "No requests made for #{resource_type.to_s} resources."
+        
+        not_fetched = []
+        SET_TO_BE_GATHERED[resource_type].each do |target_id|
+          not_fetched << target_id unless scratch[resource_type].any? { |resource| resource.id == target_id }
+        end
+
+        assert not_fetched.length == 0, 
+              "Expected #{resource_type.to_s} instances not fetched: #{not_fetched.join(', ')}." 
+      end
+
       # @return [Hash<Inferno::Entities::Request, Array<FHIR::Model>>]
       def previous_clinical_data_request_resources
         return_hash = Hash.new { |hash, key| hash[key] = [] }

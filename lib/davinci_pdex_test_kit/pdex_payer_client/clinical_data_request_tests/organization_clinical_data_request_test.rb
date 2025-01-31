@@ -8,17 +8,17 @@ module DaVinciPDexTestKit
       id :pdex_organization_clinical_data_request_test
       title 'Organization resources related to the patient matched are gathered'
       description %(
-        This test will look through all returned Organization resources for a specific expected resource related to the matched patient.
+        This test verify that the expected instances of resource type Organization
+        were fetched by the client.
       )
       input :access_token
-  
+
+      def target_resource_type
+        :Organization
+      end
   
       run do
-        load_clinical_data_into_scratch
-        
-        skip_if scratch[:Organization].nil?, "No requests made for Organization resources"
-  
-        assert scratch[:Organization].any? {|resource| resource.id == 'pdex-Organization'}, "Unable to find expected resource: pdex-Organization" 
+        check_resource_type_fetched_instances(target_resource_type)
       end
     end
   end
