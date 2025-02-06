@@ -1,23 +1,25 @@
-require_relative '../../urls'
 require_relative '../client_validation_test.rb'
 
 module DaVinciPDexTestKit
-  class PDexClientDocumentReferenceSubmitClinicalDataRequestTest < Inferno::Test
-    include URLs
-    include DaVinciPDexTestKit::ClientValidationTest
+  module PDexPayerClient
+    class PDexClientDocumentReferenceSubmitClinicalDataRequestTest < Inferno::Test
+      include ClientValidationTest
+  
+      id :pdex_documentreference_clinical_data_request_test
+      title 'DocumentReference resources related to the patient matched are gathered'
+      description %(
+        This test verify that the expected instances of resource type DocumentReference
+        were fetched by the client.
+      )
+      input :access_token
 
-    id :documentreference_clinical_data_request_test
-    title 'DocumentReference resources related to the patient matched are gathered'
-    description %(
-      This test will look through all returned DocumentReference resources for a specific expected resource related to the matched patient.
-    )
-    input :access_token
-
-
-    run do
-      skip_if scratch[:DocumentReference].nil?, "No requests made for DocumentReference resources"
-
-      assert scratch[:DocumentReference].any? {|resource| resource.id == 'pdex-DocumentReference'}, "Unable to find expected resource: pdex-DocumentReference" 
+      def target_resource_type
+        :DocumentReference
+      end
+  
+      run do
+        check_resource_type_fetched_instances(target_resource_type)
+      end
     end
   end
 end
