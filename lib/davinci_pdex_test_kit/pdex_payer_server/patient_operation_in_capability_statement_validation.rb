@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module DaVinciPDexTestKit
   module PDexPayerServer
     # Factorized test for asserting a patient resource opeartion in a Capability Statement

@@ -34,7 +34,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerClientSuite, :request do
   #         to_return(status: 200, body: File.read(File.expand_path("../../fixtures/everything_response.fhir.json", __dir__)), headers: {})
 
   #       inputs = { access_token: }
-  #       result = run(test_session, test, inputs)
+  #       result = run(test, inputs)
   #       
   #       expect(result.result).to eq('wait')
 
@@ -55,7 +55,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerClientSuite, :request do
   #         to_return(status: 200, body: File.read(File.expand_path("../../fixtures/patient_identifier_response.fhir.json", __dir__)), headers: {})
 
   #       inputs = { access_token: }
-  #       result = run(test_session, test, inputs)
+  #       result = run(test, inputs)
 
   #       expect(result.result).to eq('wait')
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'tls_test_kit'
 
 # require 'bulk_data_test_kit/v1.0.1/bulk_data_export_operation_support_test'

@@ -130,8 +130,7 @@ Inferno::Utils::Migration.new.run
 require 'inferno'
 Inferno::Application.finalize!
 
-# Inferno::SpecSupport.require_helpers
-require Inferno::SpecSupport::FACTORY_BOT_SUPPORT_PATH
+Inferno::SpecSupport.require_helpers
 
 FactoryBot.definition_file_paths = [
   Inferno::SpecSupport::FACTORY_PATH,
@@ -144,14 +143,3 @@ FHIR.logger = Inferno::Application['logger']
 
 DatabaseCleaner[:sequel].strategy = :truncation
 DatabaseCleaner[:sequel].db = Inferno::Application['db.connection']
-
-def run(test_session, runnable, inputs = {})
-  session_data_repo = Inferno::Repositories::SessionData.new
-  test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
-  test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)
-  inputs.each do |name, value|
-    session_data_repo.save(test_session_id: test_session.id, type: 'text', name: name, value: value)
-  end
-  Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
-end
-
