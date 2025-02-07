@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 require_relative 'member_match_request_profile_validation'
 require_relative 'member_match_request_local_references_validation'
 require_relative 'coverage_to_link_minimal_data_validation'
