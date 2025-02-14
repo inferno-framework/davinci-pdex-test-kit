@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class PDexClientPatientIdSearchRequestCheckTest < Inferno::Test
       include ClientValidationTest
   
-      id :pdex_patient_id_search_request_check_test
+      id :pdex_patient_id_search_request_check
       title 'Check for Patient Id Search'
       description %(
         This test will check that a Patient search was made to get the Patient's

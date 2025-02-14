@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class PDexClientDeviceSubmitClinicalDataRequestTest < Inferno::Test
       include ClientValidationTest
   
-      id :pdex_device_clinical_data_request_test
+      id :pdex_device_clinical_data_request
       title 'Device resources related to the patient matched are gathered'
       description %(
         This test verify that the expected instances of resource type Device

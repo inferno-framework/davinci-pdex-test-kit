@@ -29,7 +29,7 @@ module DaVinciPDexTestKit
     # resource. 
     #
     class MemberMatchRequestProfileValidation < Inferno::Test
-      id :pdex_member_match_request_profile_validation
+      id :pdex_member_match_profile_validation
 
       input :member_match_request
 

@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class PDexClientImmunizationSubmitClinicalDataRequestTest < Inferno::Test
       include ClientValidationTest
   
-      id :pdex_immunization_clinical_data_request_test
+      id :pdex_immunization_clinical_data_request
       title 'Immunization resources related to the patient matched are gathered'
       description %(
         This test verify that the expected instances of resource type Immunization

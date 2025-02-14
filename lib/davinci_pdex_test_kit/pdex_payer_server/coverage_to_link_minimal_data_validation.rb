@@ -28,7 +28,7 @@ module DaVinciPDexTestKit
     #
     class CoverageToLinkMinimalDataValidation < Inferno::Test
 
-      id :pdex_coverage_to_link_minimal_data_validation
+      id :pdex_coverage_to_link_minimal_validation
       title '[USER INPUT VALIDATION] CoverageToLink parameter should not include any data elements not marked as mustSupport'
       optional
       description %{

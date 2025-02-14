@@ -8,7 +8,7 @@ require_relative 'export_validation_group'
 module DaVinciTestKit
   module PDexPayerServer
     class WorkflowExportGroup < Inferno::TestGroup
-      id :pdex_workflow_export_group
+      id :pdex_workflow_export
       title 'Server can respond to FHIR Bulk $export requests on the matched patient'
       short_title 'Bulk $export'
       optional
@@ -56,7 +56,7 @@ module DaVinciTestKit
         headers {'Authorization' => "Bearer #{bearer_token}"}
       end
 
-      group from: :pdex_patient_export_group
+      group from: :pdex_patient_export
 
       group from: :pdex_export_validation,
             title: 'Patient Export Validation Tests',

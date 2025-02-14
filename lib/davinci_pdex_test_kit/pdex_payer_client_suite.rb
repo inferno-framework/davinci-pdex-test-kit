@@ -86,44 +86,48 @@ module DaVinciPDexTestKit
     group do
       run_as_group
       title "Workflow Tests"
+      id :payer_to_payer_workflow
 
       group do
         title "Interaction Tests"
+        id :client_workflow_interaction
 
-        test from: :pdex_client_workflow_interaction_test
+        test from: :pdex_client_workflow_interaction
       end
 
       group do
         title "$member-match validation"
+        id :member_match_validation
 
-        test from: :pdex_initial_member_match_validation_test
+        test from: :pdex_initial_member_match_validation
       end
 
       group do
         title "Clinical data request validation"
+        id :clinical_data_validation
 
-        test from: :pdex_clinical_data_request_check_test
-        test from: :pdex_patient_id_search_request_check_test
-        test from: :pdex_allergyintolerance_clinical_data_request_test
-        test from: :pdex_careplan_clinical_data_request_test
-        test from: :pdex_careteam_clinical_data_request_test
-        test from: :pdex_condition_clinical_data_request_test
-        test from: :pdex_device_clinical_data_request_test
-        test from: :pdex_diagnosticreport_clinical_data_request_test
-        test from: :pdex_documentreference_clinical_data_request_test
-        test from: :pdex_encounter_clinical_data_request_test
-        test from: :pdex_explanationofbenefit_clinical_data_request_test
-        test from: :pdex_goal_clinical_data_request_test
-        test from: :pdex_immunization_clinical_data_request_test
-        test from: :pdex_location_clinical_data_request_test
-        test from: :pdex_medicationdispense_clinical_data_request_test
-        test from: :pdex_medicationrequest_clinical_data_request_test
-        test from: :pdex_observation_clinical_data_request_test
-        test from: :pdex_organization_clinical_data_request_test
-        test from: :pdex_patient_clinical_data_request_test
-        test from: :pdex_practitioner_clinical_data_request_test
-        test from: :pdex_practitionerrole_clinical_data_request_test
-        test from: :pdex_procedure_clinical_data_request_test
+        test from: :pdex_clinical_data_request_check
+        test from: :pdex_patient_id_search_request_check
+        test from: :pdex_allergyintolerance_clinical_data_request
+        test from: :pdex_careplan_clinical_data_request
+        test from: :pdex_careteam_clinical_data_request
+        test from: :pdex_condition_clinical_data_request
+        test from: :pdex_device_clinical_data_request
+        test from: :pdex_diagnosticreport_clinical_data_request
+        test from: :pdex_documentreference_clinical_data_request
+        test from: :pdex_encounter_clinical_data_request
+        test from: :pdex_explanationofbenefit_clinical_data_request
+        test from: :pdex_goal_clinical_data_request
+        test from: :pdex_immunization_clinical_data_request
+        test from: :pdex_location_clinical_data_request
+        test from: :pdex_medicationdispense_clinical_data_request
+        test from: :pdex_medicationrequest_clinical_data_request
+        test from: :pdex_observation_clinical_data_request
+        test from: :pdex_organization_clinical_data_request
+        test from: :pdex_patient_clinical_data_request
+        test from: :pdex_practitioner_clinical_data_request
+        test from: :pdex_practitionerrole_clinical_data_request
+        test from: :pdex_procedure_clinical_data_request
       end
     end
     

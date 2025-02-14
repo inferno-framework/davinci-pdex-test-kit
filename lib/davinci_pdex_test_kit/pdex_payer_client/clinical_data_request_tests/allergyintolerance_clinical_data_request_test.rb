@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class PDexClientAllergyIntoleranceSubmitClinicalDataRequestTest < Inferno::Test
       include ClientValidationTest
   
-      id :pdex_allergyintolerance_clinical_data_request_test
+      id :pdex_allergyintolerance_clinical_data_request
       title 'AllergyIntolerance resources related to the patient matched are gathered'
       description %(
         This test verify that the expected instances of resource type AllergyIntollerance
