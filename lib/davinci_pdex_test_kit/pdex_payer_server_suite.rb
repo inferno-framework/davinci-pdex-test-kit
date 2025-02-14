@@ -135,7 +135,7 @@ module DaVinciPDexTestKit
 
       group do
         title 'API Capability and Must Support Coverage'
-        id :api_and_must_support_coverage
+        id :api_and_ms_coverage
         
         group do
           title '$member-match failure cases'
@@ -165,9 +165,9 @@ module DaVinciPDexTestKit
 
         group do
           title 'PDEX Search and Read API (US Core plus additional PDex resource types)' 
-          id :pdex_search_and_read_api_coverage
+          id :pdex_fhir_api_coverage
           
-          group from: :pdex_explanation_of_benefit_group
+          group from: :pdex_eob_group
 
           # Import all US Core v3.1.1 groups without the Suite
           USCoreTestKit::USCoreV311::USCoreTestSuite.groups[1].groups.each do |group|

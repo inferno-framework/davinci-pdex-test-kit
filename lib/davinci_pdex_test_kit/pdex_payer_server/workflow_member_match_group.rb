@@ -43,15 +43,15 @@ module DaVinciPDexTestKit
         description: "A JSON payload for server's $member-match endpoint that has **exactly one match**",
         type: 'textarea'
 
-      test from: :pdex_patient_operation_in_capability_statement_validation,
-           id: :pdex_member_match_operation_in_capability_statement_test,
+      test from: :pdex_patient_operation_in_cap_stat_validation,
+           id: :pdex_member_match_operation_in_cap_stat_test,
            title: 'Server declares support for Patient member match operation in CapabilityStatement',
            config: {
              options: { operation_name: 'member-match', operation_url: 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match' }
            }
 
-      test from: :pdex_member_match_request_profile_validation do
-        id :pdex_member_match_request_profile_test
+      test from: :pdex_member_match_profile_validation do
+        id :pdex_member_match_profile_test
         title '[USER INPUT VALIDATION] Member match request for exactly one match is valid'
         description %{
           This test validates the conformity of the user input to the
@@ -61,13 +61,13 @@ module DaVinciPDexTestKit
         }
       end
 
-      test from: :pdex_member_match_request_local_references_validation do
-        id :pdex_member_match_request_local_references_test
+      test from: :pdex_member_match_local_ref_validation do
+        id :pdex_member_match_local_ref_test
         title '[USER INPUT VALIDATION] Member match request only uses local references'
       end
 
-      test from: :pdex_coverage_to_link_minimal_data_validation
-      test from: :pdex_coverage_to_link_must_support_validation
+      test from: :pdex_coverage_to_link_minimal_validation
+      test from: :pdex_coverage_to_link_ms_validation
    
       test do
         id :pdex_member_match_on_server_test

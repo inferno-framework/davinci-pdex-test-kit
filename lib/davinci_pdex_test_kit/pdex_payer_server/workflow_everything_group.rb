@@ -27,7 +27,7 @@ module DaVinciPDexTestKit
         description: 'Manual Patient ID for testing Clinical Query and $everything $export without $member-match.',
         optional: true
 
-      test from: :pdex_patient_operation_in_capability_statement_validation,
+      test from: :pdex_patient_operation_in_cap_stat_validation,
            title: 'Server declares support for Patient everything operation in CapabilityStatement',
            config: {
              options: { operation_name: 'everything', operation_url: 'http://hl7.org/fhir/OperationDefinition/Patient-everything' }

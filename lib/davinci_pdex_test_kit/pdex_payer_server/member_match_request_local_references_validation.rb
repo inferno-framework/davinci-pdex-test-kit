@@ -27,7 +27,7 @@ module DaVinciPDexTestKit
     # resource. 
     #
     class MemberMatchRequestLocalReferencesValidation < Inferno::Test
-      id :pdex_member_match_request_local_references_validation
+      id :pdex_member_match_local_ref_validation
 
       title '[USER INPUT VALIDATION] Member match request only uses local references'
 

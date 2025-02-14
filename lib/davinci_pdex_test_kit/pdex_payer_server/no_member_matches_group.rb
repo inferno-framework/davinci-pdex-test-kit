@@ -20,8 +20,8 @@ module DaVinciPDexTestKit
 
         group_config = { inputs: { member_match_request: { name: :no_member_match_request } } }
 
-        test from: :pdex_member_match_request_profile_validation do
-          id :pdex_no_member_match_request_profile_test
+        test from: :pdex_member_match_profile_validation do
+          id :pdex_no_member_match_profile_test
           config(group_config)
 
           title '[USER INPUT VALIDATION] Member match request for no matches is valid'
@@ -33,10 +33,10 @@ module DaVinciPDexTestKit
           }
         end
 
-        test from: :pdex_member_match_request_local_references_validation, config: group_config
+        test from: :pdex_member_match_local_ref_validation, config: group_config
 
-        test from: :pdex_coverage_to_link_minimal_data_validation, config: group_config
-        test from: :pdex_coverage_to_link_must_support_validation, config: group_config
+        test from: :pdex_coverage_to_link_minimal_validation, config: group_config
+        test from: :pdex_coverage_to_link_ms_validation, config: group_config
 
 
         test do

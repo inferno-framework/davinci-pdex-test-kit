@@ -32,12 +32,12 @@ requirement of PDex v2.0.0.
 
       )
 
-      id :pdex_explanation_of_benefit_patient_use_search_test
+      id :pdex_eob_patient_use_search_test
 
       input :patient_ids,
-        title: 'Patient IDs',
-        description: 'Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements'
-  
+            title: 'Patient IDs',
+            description: 'Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements'
+
       def self.properties
         @properties ||= USCoreTestKit::SearchTestProperties.new(
           first_search: true,
@@ -53,7 +53,8 @@ requirement of PDex v2.0.0.
       end
 
       def self.metadata
-        @metadata ||= USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'metadata.yml'), aliases: true))
+        @metadata ||= USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'metadata.yml'),
+                                                                                 aliases: true))
       end
 
       def scratch_resources

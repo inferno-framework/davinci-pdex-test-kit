@@ -18,14 +18,15 @@ module DaVinciPDexTestKit
         * ...
       )
 
-      id :pdex_explanation_of_benefit_must_support_test
+      id :pdex_eob_must_support_test
 
       def resource_type
         'ExplanationOfBenefit'
       end
 
       def self.metadata
-        @metadata ||= USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'metadata.yml'), aliases: true))
+        @metadata ||= USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'metadata.yml'),
+                                                                                 aliases: true))
       end
 
       def scratch_resources

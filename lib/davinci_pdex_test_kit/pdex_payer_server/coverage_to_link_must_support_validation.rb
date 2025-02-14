@@ -29,7 +29,7 @@ module DaVinciPDexTestKit
     #
     class CoverageToLinkMustSupportValidation < Inferno::Test
 
-      id :pdex_coverage_to_link_must_support_validation
+      id :pdex_coverage_to_link_ms_validation
       title '[USER INPUT VALIDATION] CoverageToLink parameter is optional for generic FHIR clients, but required for Payer systems.'
       description 'See [CoverageToLink parameter documentation](https://hl7.org/fhir/us/davinci-hrex/STU1/OperationDefinition-member-match.html).'
       optional
