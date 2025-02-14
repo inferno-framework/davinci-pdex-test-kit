@@ -562,30 +562,30 @@
   - http://hl7.org/fhir/R4/location
 
 :tests:
-- :id: pdex_explanation_of_benefit_patient_use_search_test
+- :id: pdex_eob_patient_use_search
   :file_name: explanation_of_benefit_patient_use_search_test.rb
-- :id: pdex_explanation_of_benefit__id_search_test
+- :id: pdex_eob_id_search
   :file_name: explanation_of_benefit_id_search_test.rb
-- :id: pdex_explanation_of_benefit_patient__last_updated_search_test
+- :id: pdex_eob_patient_last_updated
   :file_name: explanation_of_benefit_patient_last_updated_search_test.rb
-- :id: pdex_explanation_of_benefit_service_date_search_test
+- :id: pdex_eob_service_date
   :file_name: explanation_of_benefit_service_date_search_test.rb
-- :id: pdex_explanation_of_benefit_patient_type_search_test
+- :id: pdex_eob_patient_type_search
   :file_name: explanation_of_benefit_patient_type_search_test.rb
-- :id: pdex_explanation_of_benefit_identifier_search_test
+- :id: pdex_eob_identifier_search
   :file_name: explanation_of_benefit_identifier_search_test.rb
-- :id: pdex_explanation_of_benefit_read_test
+- :id: pdex_eob_read
   :file_name: explanation_of_benefit_read_test.rb
-- :id: pdex_explanation_of_benefit_provenance_revinclude_search_test
+- :id: pdex_eob_provenance_revinclude
   :file_name: explanation_of_benefit_provenance_revinclude_search_test.rb
-- :id: pdex_explanation_of_benefit_validation_test
+- :id: pdex_eob_validation
   :file_name: explanation_of_benefit_validation_test.rb
-- :id: pdex_explanation_of_benefit_must_support_test
+- :id: pdex_eob_must_support
   :file_name: explanation_of_benefit_must_support_test.rb
-- :id: pdex_explanation_of_benefit_reference_resolution_test
+- :id: pdex_eob_ref_resolution
   :file_name: explanation_of_benefit_reference_resolution_test.rb
 
-:id: pdex_explanation_of_benefit
+:id: pdex_eob
 :file_name: explanation_of_benefit_group.rb
 
 # NOTE: delayed_references is set as false above
