@@ -32,7 +32,7 @@ requirement of PDex v2.0.0.
 
       )
 
-      id :pdex_eob_patient_last_updated_test
+      id :pdex_eob_patient_last_updated
 
       input :patient_ids,
             title: 'Patient IDs',

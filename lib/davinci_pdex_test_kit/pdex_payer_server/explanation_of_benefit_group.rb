@@ -18,7 +18,7 @@ module DaVinciPDexTestKit
 
     # PDex PriorAuthorization Profile for ExplanationOfBenefit Resource Test Group
     class ExplanationOfBenefitGroup < Inferno::TestGroup
-      id :pdex_eob_group
+      id :pdex_eob
       title 'PDex Prior Authorization Tests'
       short_description 'Verify support for the server capabilities required by the PDex Prior Authorization Profile.'
       description %(
@@ -89,17 +89,17 @@ read succeeds.
         @metadata ||= USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'explanation_of_benefit', 'metadata.yml')), aliases: true)
       end
 
-      test from: :pdex_eob_patient_use_search_test
-      test from: :pdex_eob_id_search_test
-      test from: :pdex_eob_patient_last_updated_test
-      test from: :pdex_eob_patient_service_date_test
-      test from: :pdex_eob_patient_type_search_test
-      test from: :pdex_eob_identifier_search_test
-      test from: :pdex_eob_read_test
-      test from: :pdex_eob_provenance_revinclude_test
-      test from: :pdex_eob_validation_test
-      test from: :pdex_eob_must_support_test
-      # test from: :pdex_eob_ref_resolution_test
+      test from: :pdex_eob_patient_use_search
+      test from: :pdex_eob_id_search
+      test from: :pdex_eob_patient_last_updated
+      test from: :pdex_eob_patient_service_date
+      test from: :pdex_eob_patient_type_search
+      test from: :pdex_eob_identifier_search
+      test from: :pdex_eob_read
+      test from: :pdex_eob_provenance_revinclude
+      test from: :pdex_eob_validation
+      test from: :pdex_eob_must_support
+      # test from: :pdex_eob_ref_resolution
     end
   end
 end

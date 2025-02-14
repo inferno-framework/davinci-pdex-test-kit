@@ -15,7 +15,7 @@ module USCoreTestKit
         will pass if a Provenance resource is found in the response.
       %)
 
-      id :pdex_eob_provenance_revinclude_test
+      id :pdex_eob_provenance_revinclude
 
       input :patient_ids,
             title: 'Patient IDs',

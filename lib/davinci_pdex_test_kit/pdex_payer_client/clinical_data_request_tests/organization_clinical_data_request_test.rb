@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class PDexClientOrganizationSubmitClinicalDataRequestTest < Inferno::Test
       include ClientValidationTest
   
-      id :pdex_organization_clinical_data_request_test
+      id :pdex_organization_clinical_data_request
       title 'Organization resources related to the patient matched are gathered'
       description %(
         This test verify that the expected instances of resource type Organization

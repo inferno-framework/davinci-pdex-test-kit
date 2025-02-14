@@ -26,7 +26,7 @@ requirement of DaVinci PDex v2.0.0.
 
       )
 
-      id :pdex_eob_identifier_search_test
+      id :pdex_eob_identifier_search
 
       input :patient_ids,
             title: 'Patient IDs',

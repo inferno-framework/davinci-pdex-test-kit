@@ -7,7 +7,7 @@ require_relative 'coverage_to_link_must_support_validation'
 module DaVinciPDexTestKit
   module PDexPayerServer
     class NoMemberMatchesGroup < Inferno::TestGroup
-        id :pdex_no_member_matches_group
+        id :pdex_no_member_matches
         title '$member-match with no matches'
 
         run_as_group
@@ -21,7 +21,7 @@ module DaVinciPDexTestKit
         group_config = { inputs: { member_match_request: { name: :no_member_match_request } } }
 
         test from: :pdex_member_match_profile_validation do
-          id :pdex_no_member_match_profile_test
+          id :pdex_no_member_match_profile
           config(group_config)
 
           title '[USER INPUT VALIDATION] Member match request for no matches is valid'

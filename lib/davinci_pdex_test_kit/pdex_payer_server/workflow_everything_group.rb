@@ -7,7 +7,7 @@ module DaVinciPDexTestKit
     class WorkflowEverythingGroup < Inferno::TestGroup
       title 'Server can respond to $everything requests on matched patient'
       short_title '$everything'
-      id :pdex_workflow_everything_group
+      id :pdex_workflow_everything
       optional
       description %{
         # Background

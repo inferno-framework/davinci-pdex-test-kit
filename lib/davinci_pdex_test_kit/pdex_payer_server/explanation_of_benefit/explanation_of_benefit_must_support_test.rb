@@ -18,7 +18,7 @@ module DaVinciPDexTestKit
         * ...
       )
 
-      id :pdex_eob_must_support_test
+      id :pdex_eob_must_support
 
       def resource_type
         'ExplanationOfBenefit'

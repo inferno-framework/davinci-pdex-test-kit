@@ -127,10 +127,10 @@ module DaVinciPDexTestKit
           See the corresponding test group's description for the testing methodology of each part.
         )
 
-        group from: :pdex_workflow_member_match_group
-        group from: :pdex_workflow_clinical_data_group
-        group from: :pdex_workflow_everything_group
-        group from: :pdex_workflow_export_group
+        group from: :pdex_workflow_member_match
+        group from: :pdex_workflow_clinical_data
+        group from: :pdex_workflow_everything
+        group from: :pdex_workflow_export
       end
 
       group do
@@ -159,20 +159,20 @@ module DaVinciPDexTestKit
 
           input_order :url, :credentials, :no_member_match_request, :multiple_member_match_request
 
-          group from: :pdex_no_member_matches_group
-          group from: :pdex_multiple_member_matches_group
+          group from: :pdex_no_member_matches
+          group from: :pdex_multiple_member_matches
         end
 
         group do
           title 'PDEX Search and Read API (US Core plus additional PDex resource types)' 
           id :pdex_fhir_api_coverage
           
-          group from: :pdex_eob_group
+          group from: :pdex_eob
 
           # Import all US Core v3.1.1 groups without the Suite
           USCoreTestKit::USCoreV311::USCoreTestSuite.groups[1].groups.each do |group|
             # This prevents a second OAuth credentials box from appearing in UI
-            group(from: group.ancestors[1].id)
+            group(from: group.ancestors[1].id, id: group.ancestors[1].id.delete_prefix('us_core_v311_'))
           end
         end
       end

@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class PDexClientGoalSubmitClinicalDataRequestTest < Inferno::Test
       include ClientValidationTest
   
-      id :pdex_goal_clinical_data_request_test
+      id :pdex_goal_clinical_data_request
       title 'Goal resources related to the patient matched are gathered'
       description %(
         This test verify that the expected instances of resource type Goal

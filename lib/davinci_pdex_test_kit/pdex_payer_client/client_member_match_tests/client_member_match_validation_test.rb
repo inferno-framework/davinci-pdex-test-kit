@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class PDexInitialMemberMatchValidationTest < Inferno::Test
       include ClientValidationTest
   
-      id :pdex_initial_member_match_validation_test
+      id :pdex_initial_member_match_validation
       title 'Client provides a valid $member-match request'
       description %(
         This test will validate the received $member-match-request input, ensuring it corresponds to the

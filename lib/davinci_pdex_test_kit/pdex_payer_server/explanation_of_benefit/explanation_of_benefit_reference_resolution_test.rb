@@ -21,7 +21,7 @@ module DaVinciPDexTestKit
         * ...
       )
 
-      id :pdex_explanation_of_benefit_reference_resolution_test
+      id :pdex_explanation_of_benefit_reference_resolution
 
       def resource_type
         'ExplanationOfBenefit'
