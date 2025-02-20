@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class PDexClientPractitionerRoleSubmitClinicalDataRequestTest < Inferno::Test
       include ClientValidationTest
   
-      id :pdex_practitionerrole_clinical_data_request_test
+      id :pdex_practitionerrole_clinical_data_request
       title 'PractitionerRole resources related to the patient matched are gathered'
       description %(
         This test verify that the expected instances of resource type PractitionerRole

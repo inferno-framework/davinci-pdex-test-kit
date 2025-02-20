@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class PDexClientClinicalDataRequestCheckTest < Inferno::Test
       include ClientValidationTest
   
-      id :pdex_clinical_data_request_check_test
+      id :pdex_clinical_data_request_check
       title 'Check for Clinical Data Requests'
       description %(
         This test will check that clinical data requests were made and that

@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class PDexClientExplanationOfBenefitSubmitClinicalDataRequestTest < Inferno::Test
       include ClientValidationTest
   
-      id :pdex_explanationofbenefit_clinical_data_request_test
+      id :pdex_explanationofbenefit_clinical_data_request
       title 'ExplanationOfBenefit resources related to the patient matched are gathered'
       description %(
         This test verify that the expected instances of resource type ExplanationOfBenefit

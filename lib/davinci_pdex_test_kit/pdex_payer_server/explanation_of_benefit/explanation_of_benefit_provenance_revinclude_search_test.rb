@@ -15,16 +15,16 @@ module USCoreTestKit
         will pass if a Provenance resource is found in the response.
       %)
 
-      id :pdex_explanation_of_benefit_provenance_revinclude_search_test
-  
+      id :pdex_eob_provenance_revinclude_search
+
       input :patient_ids,
-        title: 'Patient IDs',
-        description: 'Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements'
-  
+            title: 'Patient IDs',
+            description: 'Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements'
+
       def properties
         @properties ||= USCoreTestKit::SearchTestProperties.new(
           resource_type: 'ExplanationOfBenefit',
-        search_param_names: ['patient']
+          search_param_names: ['patient']
         )
       end
 
@@ -33,7 +33,10 @@ module USCoreTestKit
       end
 
       def self.provenance_metadata
-        @provenance_metadata ||= USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, '..', 'provenance', 'metadata.yml'), aliases: true))
+        @provenance_metadata ||= USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(
+                                                                               File.join(__dir__, '..', 'provenance',
+                                                                                         'metadata.yml'), aliases: true
+                                                                             ))
       end
 
       def scratch_resources

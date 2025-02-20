@@ -32,23 +32,24 @@ requirement of PDex v2.0.0.
 
       )
 
-      id :pdex_explanation_of_benefit_patient_service_date_search_test
+      id :pdex_eob_patient_service_date_search
 
       input :patient_ids,
-        title: 'Patient IDs',
-        description: 'Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements'
-  
+            title: 'Patient IDs',
+            description: 'Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements'
+
       def self.properties
         @properties ||= USCoreTestKit::SearchTestProperties.new(
           resource_type: 'ExplanationOfBenefit',
           search_param_names: ['patient', 'service-date'],
           test_post_search: true
-          # TODO other properties?
+          # TODO: other properties?
         )
       end
 
       def self.metadata
-        @metadata ||= USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'metadata.yml'), aliases: true))
+        @metadata ||= USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'metadata.yml'),
+                                                                                 aliases: true))
       end
 
       def scratch_resources

@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class PDexClientDiagnosticReportSubmitClinicalDataRequestTest < Inferno::Test
       include ClientValidationTest
   
-      id :pdex_diagnosticreport_clinical_data_request_test
+      id :pdex_diagnosticreport_clinical_data_request
       title 'DiagnosticReport resources related to the patient matched are gathered'
       description %(
         This test verify that the expected instances of resource type DiagnosticReport

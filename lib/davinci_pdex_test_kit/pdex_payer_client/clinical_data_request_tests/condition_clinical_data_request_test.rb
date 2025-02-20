@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class PDexClientConditionSubmitClinicalDataRequestTest < Inferno::Test
       include ClientValidationTest
   
-      id :pdex_condition_clinical_data_request_test
+      id :pdex_condition_clinical_data_request
       title 'Condition resources related to the patient matched are gathered'
       description %(
         This test verify that the expected instances of resource type Condition

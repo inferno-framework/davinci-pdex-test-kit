@@ -2,7 +2,7 @@ module DaVinciPDexTestKit
   module PDexPayerClient
     class PDexClientWorkflowInteractionTest < Inferno::Test
   
-      id :pdex_client_workflow_interaction_test
+      id :pdex_client_workflow_interaction
       title 'Client makes requests to Inferno'
       description %(
         This test will await requests from the client under test to demonstrate

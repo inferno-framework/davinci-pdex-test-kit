@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class ExplanationOfBenefitValidationTest < Inferno::Test
       include USCoreTestKit::ValidationTest
 
-      id :pdex_explanation_of_benefit_validation_test
+      id :pdex_eob_validation
       title 'ExplanationOfBenefit resources returned during previous tests conform to the US Core ExplanationOfBenefit Profile'
       description %(
 This test verifies resources returned from the first search conform to
