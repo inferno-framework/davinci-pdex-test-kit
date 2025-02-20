@@ -21,7 +21,7 @@ module DaVinciPDexTestKit
         group_config = { inputs: { member_match_request: { name: :no_member_match_request } } }
 
         test from: :pdex_member_match_profile_validation do
-          id :pdex_no_member_match_profile
+          id :pdex_no_match_profile_validation
           config(group_config)
 
           title '[USER INPUT VALIDATION] Member match request for no matches is valid'

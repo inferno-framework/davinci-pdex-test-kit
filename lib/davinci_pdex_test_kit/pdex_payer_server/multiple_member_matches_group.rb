@@ -22,7 +22,7 @@ module DaVinciPDexTestKit
         group_config = { inputs: { member_match_request: { name: :multiple_member_match_request } } }
   
         test from: :pdex_member_match_profile_validation do
-          id :pdex_multiple_member_match_request_profile
+          id :pdex_multiple_match_profile_validation
           config(group_config)
           title '[USER INPUT VALIDATION] Member match request for multiple matches is valid'
           description %{

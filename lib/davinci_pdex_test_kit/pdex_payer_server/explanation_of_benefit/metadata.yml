@@ -566,7 +566,7 @@
   :file_name: explanation_of_benefit_patient_use_search_test.rb
 - :id: pdex_eob_id_search
   :file_name: explanation_of_benefit_id_search_test.rb
-- :id: pdex_eob_patient_last_updated
+- :id: pdex_eob_patient_last_updated_search
   :file_name: explanation_of_benefit_patient_last_updated_search_test.rb
 - :id: pdex_eob_service_date
   :file_name: explanation_of_benefit_service_date_search_test.rb
@@ -576,7 +576,7 @@
   :file_name: explanation_of_benefit_identifier_search_test.rb
 - :id: pdex_eob_read
   :file_name: explanation_of_benefit_read_test.rb
-- :id: pdex_eob_provenance_revinclude
+- :id: pdex_eob_provenance_revinclude_search
   :file_name: explanation_of_benefit_provenance_revinclude_search_test.rb
 - :id: pdex_eob_validation
   :file_name: explanation_of_benefit_validation_test.rb

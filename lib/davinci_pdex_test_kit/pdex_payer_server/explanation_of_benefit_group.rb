@@ -91,12 +91,12 @@ read succeeds.
 
       test from: :pdex_eob_patient_use_search
       test from: :pdex_eob_id_search
-      test from: :pdex_eob_patient_last_updated
-      test from: :pdex_eob_patient_service_date
+      test from: :pdex_eob_patient_last_updated_search
+      test from: :pdex_eob_patient_service_date_search
       test from: :pdex_eob_patient_type_search
       test from: :pdex_eob_identifier_search
       test from: :pdex_eob_read
-      test from: :pdex_eob_provenance_revinclude
+      test from: :pdex_eob_provenance_revinclude_search
       test from: :pdex_eob_validation
       test from: :pdex_eob_must_support
       # test from: :pdex_eob_ref_resolution

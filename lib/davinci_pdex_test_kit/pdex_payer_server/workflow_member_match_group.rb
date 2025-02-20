@@ -43,15 +43,15 @@ module DaVinciPDexTestKit
         description: "A JSON payload for server's $member-match endpoint that has **exactly one match**",
         type: 'textarea'
 
-      test from: :pdex_patient_operation_in_cap_stat_validation,
-           id: :pdex_member_match_operation_in_cap_stat,
+      test from: :pdex_patient_operation_in_cap_stmt_validation,
+           id: :pdex_member_match_operation_in_cap_stmt,
            title: 'Server declares support for Patient member match operation in CapabilityStatement',
            config: {
              options: { operation_name: 'member-match', operation_url: 'http://hl7.org/fhir/us/davinci-hrex/OperationDefinition/member-match' }
            }
 
       test from: :pdex_member_match_profile_validation do
-        id :pdex_member_match_profile
+        id :pdex_one_match_profile_validation
         title '[USER INPUT VALIDATION] Member match request for exactly one match is valid'
         description %{
           This test validates the conformity of the user input to the

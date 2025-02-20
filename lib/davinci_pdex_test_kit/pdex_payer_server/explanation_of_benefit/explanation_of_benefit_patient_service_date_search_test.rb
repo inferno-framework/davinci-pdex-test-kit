@@ -32,7 +32,7 @@ requirement of PDex v2.0.0.
 
       )
 
-      id :pdex_eob_patient_service_date
+      id :pdex_eob_patient_service_date_search
 
       input :patient_ids,
             title: 'Patient IDs',
