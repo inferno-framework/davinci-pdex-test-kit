@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'patient_operation_in_capability_statement_validation'
 
 module DaVinciPDexTestKit

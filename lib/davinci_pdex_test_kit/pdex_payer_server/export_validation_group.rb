@@ -1,7 +1,3 @@
-# export_validation_group.rb
-
-# frozen_string_literal: true
-
 # require 'bulk_data_test_kit/v1.0.1/bulk_data_multiple_patients_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_ndjson_download_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_valid_resources_test'
