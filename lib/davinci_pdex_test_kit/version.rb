@@ -1,4 +1,4 @@
 module DaVinciPDexTestKit
-  VERSION = '0.10.6'.freeze          # TODO breaking change
-  LAST_UPDATED = '2024-11-07'.freeze # TODO update w/ version
+  VERSION = '0.11.0'.freeze
+  LAST_UPDATED = '2025-02-25'.freeze
 end
