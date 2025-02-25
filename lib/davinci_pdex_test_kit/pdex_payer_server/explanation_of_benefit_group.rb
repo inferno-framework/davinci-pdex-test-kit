@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'us_core_test_kit/generator/group_metadata'
 require_relative 'explanation_of_benefit/explanation_of_benefit_patient_use_search_test'
 require_relative 'explanation_of_benefit/explanation_of_benefit_id_search_test'

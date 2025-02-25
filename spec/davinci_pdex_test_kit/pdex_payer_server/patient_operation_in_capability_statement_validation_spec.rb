@@ -17,7 +17,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::PatientOperationInCapability
 
       stub_request(:get, "#{url}/metadata").to_return(status: 200, headers: {'Content-Type' => 'application/json+fhir'}, body: metadata.to_json)
 
-      result = run(test_session, test, {url:, member_match_request: FHIR::Parameters.new().to_json})
+      result = run(test, {url:, member_match_request: FHIR::Parameters.new().to_json})
       expect(result.result).to eq('pass')
     end
   end
