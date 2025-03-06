@@ -18,25 +18,27 @@ module DaVinciPDexTestKit
         for this test. If neither is available tests are skipped.
       }
 
+      verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@42'
+
       input :patient_id,
-        title: 'Patient ID',
-        description: 'Manual Patient ID for testing Clinical Query and $everything without $member-match.',
-        optional: true
+            title: 'Patient ID',
+            description: 'Manual Patient ID for testing Clinical Query and $everything without $member-match.',
+            optional: true
 
       test do
         id :pdex_workflow_clinical_encounter_query_test
         title 'Server can provide clinical Encounter data from matched member identifier'
-        description %{
+        description %(
           Server receives request `GET [baseURL]/Encounter?subject=Patient/[id]` and returns 200.
-        }
+        )
 
         makes_request :pdex_clinical_query
 
         run do
           skip_if !patient_id,
-            'No Patient FHIR ID was derived from $member-match response or supplied by user input'
+                  'No Patient FHIR ID was derived from $member-match response or supplied by user input'
 
-          fhir_search(FHIR::Encounter, params: {patient: "Patient/#{patient_id}"}, name: :pdex_clinical_query)
+          fhir_search(FHIR::Encounter, params: { patient: "Patient/#{patient_id}" }, name: :pdex_clinical_query)
           assert_response_status(200)
         end
       end
@@ -44,9 +46,9 @@ module DaVinciPDexTestKit
       test do
         id :pdex_workflow_clinical_encounter_test
         title 'Server returned Search bundle with valid Encounter data'
-        description %{
+        description %(
             Server returned search Bundle of Encounters with least 1 resource entry.
-        }
+        )
 
         uses_request :pdex_clinical_query
 
@@ -54,11 +56,10 @@ module DaVinciPDexTestKit
           assert_valid_resource
           assert_resource_type('Bundle')
           assert resource.entry.length > 0, 'Response Bundle must have at least one entry'
-          assert resource.entry.map{|entry| entry.resource}.all? { |res| res.resourceType == 'Encounter' },
+          assert resource.entry.map { |entry| entry.resource }.all? { |res| res.resourceType == 'Encounter' },
                  'Response Bundle must only have Encounter resources'
         end
       end
     end
   end
 end
-

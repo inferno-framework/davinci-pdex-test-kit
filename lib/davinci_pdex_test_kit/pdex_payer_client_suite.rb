@@ -41,7 +41,7 @@ module DaVinciPDexTestKit
     id :pdex_payer_client
     title 'Da Vinci PDex Payer Client Test Suite'
     description File.read(File.join(__dir__, 'docs', 'payer_client_suite_description_v200.md'))
-    
+
     links [
       {
         label: 'Report Issue',
@@ -78,33 +78,35 @@ module DaVinciPDexTestKit
     resume_test_route :get, RESUME_CLINICAL_DATA_PATH do |request|
       PDexPayerClientSuite.extract_token_from_query_params(request)
     end
-  
+
     resume_test_route :get, RESUME_FAIL_PATH, result: 'fail' do |request|
       PDexPayerClientSuite.extract_token_from_query_params(request)
     end
 
     group do
       run_as_group
-      title "Workflow Tests"
+      title 'Workflow Tests'
       id :payer_to_payer_workflow
 
       group do
-        title "Interaction Tests"
+        title 'Interaction Tests'
         id :client_workflow_interaction
 
         test from: :pdex_client_workflow_interaction
       end
 
       group do
-        title "$member-match validation"
+        title '$member-match validation'
         id :member_match_validation
 
         test from: :pdex_initial_member_match_validation
       end
 
       group do
-        title "Clinical data request validation"
+        title 'Clinical data request validation'
         id :clinical_data_validation
+
+        verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@4', 'hl7.fhir.us.davinci-pdex_2.0.0@8'
 
         test from: :pdex_clinical_data_request_check
         test from: :pdex_patient_id_search_request_check
@@ -130,8 +132,8 @@ module DaVinciPDexTestKit
         test from: :pdex_procedure_clinical_data_request
       end
     end
-    
-    # TODO must support validation
+
+    # TODO: must support validation
 
     private
 
@@ -140,4 +142,3 @@ module DaVinciPDexTestKit
     end
   end
 end
-  

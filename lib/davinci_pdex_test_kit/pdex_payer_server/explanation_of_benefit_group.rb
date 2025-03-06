@@ -13,7 +13,6 @@ require_relative 'explanation_of_benefit/explanation_of_benefit_reference_resolu
 
 module DaVinciPDexTestKit
   module PDexPayerServer
-
     # PDex PriorAuthorization Profile for ExplanationOfBenefit Resource Test Group
     class ExplanationOfBenefitGroup < Inferno::TestGroup
       id :pdex_eob
@@ -84,7 +83,9 @@ read succeeds.
 
       def self.metadata
         # TODO: create metadata.yml to fit GroupMetadata OR circumvent metadata
-        @metadata ||= USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'explanation_of_benefit', 'metadata.yml')), aliases: true)
+        @metadata ||= USCoreTestKit::Generator::GroupMetadata.new(
+          YAML.load_file(File.join(__dir__, 'explanation_of_benefit', 'metadata.yml')), aliases: true
+        )
       end
 
       test from: :pdex_eob_patient_use_search

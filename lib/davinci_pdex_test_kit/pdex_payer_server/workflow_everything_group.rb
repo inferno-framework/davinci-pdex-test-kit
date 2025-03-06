@@ -19,11 +19,12 @@ module DaVinciPDexTestKit
         This test sequence takes a patient id input and executes the `$everything` FHIR operation on it.
       }
 
+      verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@42'
 
       input :patient_id,
-        title: 'Patient ID',
-        description: 'Manual Patient ID for testing Clinical Query and $everything $export without $member-match.',
-        optional: true
+            title: 'Patient ID',
+            description: 'Manual Patient ID for testing Clinical Query and $everything $export without $member-match.',
+            optional: true
 
       test from: :pdex_patient_operation_in_cap_stmt_validation,
            title: 'Server declares support for Patient everything operation in CapabilityStatement',
@@ -34,11 +35,13 @@ module DaVinciPDexTestKit
       test do
         title 'Server can handle GET /Patient/[ID]/$everything'
 
+        verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@46'
+
         makes_request :pdex_patient_everything
 
         run do
           skip_if !patient_id,
-            "No Patient FHIR ID was derived from $member-match response or supplied by user input"
+                  'No Patient FHIR ID was derived from $member-match response or supplied by user input'
 
           fhir_operation("/Patient/#{patient_id}/$everything", operation_method: :get, name: :pdex_patient_everything)
 
@@ -55,7 +58,7 @@ module DaVinciPDexTestKit
 
         run do
           skip_if !patient_id
-            'No Patient ID was derived from $member-match nor supplied from user input'
+          'No Patient ID was derived from $member-match nor supplied from user input'
           skip_if response[:status] != 200, 'Skipped because previous test did not pass'
 
           assert_valid_resource
@@ -69,7 +72,7 @@ module DaVinciPDexTestKit
         end
       end
 
-      # TODO: convert to attestation    
+      # TODO: convert to attestation
       # test do
       #   title %{
       #     The resources returned SHALL include all the data covered by the meaningful use common data elements as

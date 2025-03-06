@@ -36,21 +36,23 @@ module DaVinciPDexTestKit
         The operation shall only be declared in one object in the `rest` array.
       }
 
+      verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@30'
+
       run do
-          fhir_get_capability_statement
+        fhir_get_capability_statement
 
-          assert_response_status(200)
-          assert_resource_type(:capability_statement)
+        assert_response_status(200)
+        assert_resource_type(:capability_statement)
 
-          assert(
-            resource.rest&.one? do |rest_metadata|
-              rest_metadata.resource&.find{|resource_metadata| resource_metadata.type == 'Patient'}
-                &.operation&.any? do |operation_metadata|
-                  operation_metadata.name == config.options[:operation_name] &&
-                  operation_metadata.definition == config.options[:operation_url]
-                end
-            end
-          )
+        assert(
+          resource.rest&.one? do |rest_metadata|
+            rest_metadata.resource&.find { |resource_metadata| resource_metadata.type == 'Patient' }
+              &.operation&.any? do |operation_metadata|
+                operation_metadata.name == config.options[:operation_name] &&
+                operation_metadata.definition == config.options[:operation_url]
+              end
+          end
+        )
       end
     end
   end

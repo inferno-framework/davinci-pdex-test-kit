@@ -1,7 +1,6 @@
 module DaVinciPDexTestKit
   module PDexPayerClient
     class PDexClientWorkflowInteractionTest < Inferno::Test
-  
       id :pdex_client_workflow_interaction
       title 'Client makes requests to Inferno'
       description %(
@@ -13,21 +12,23 @@ module DaVinciPDexTestKit
       )
       input :access_token
       config options: { accepts_multiple_requests: true }
-  
+
+      verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@27', 'hl7.fhir.us.davinci-pdex_2.0.0@41'
+
       run do
         wait(
           identifier: access_token,
           message: %(
             Submit PDex requests to find a matching member and retrieve clinical data covering the
-            complete scope of [member health history data defined by 
+            complete scope of [member health history data defined by
             PDex](https://hl7.org/fhir/us/davinci-pdex/STU2/introduction.html#member-health-history).
-            Available APIs under the Inferno base FHIR include: 
+            Available APIs under the Inferno base FHIR include:
             * Single patient $member-match: `#{member_match_url}`
-            * Single Resource read and search API: `#{submit_url}`, with `:endpoint` replaced with 
+            * Single Resource read and search API: `#{submit_url}`, with `:endpoint` replaced with
               the target resource type.
             * Patient-level $everything: `#{everything_url}`, with `:patient` replaced with the
               id for the target patient.
-            * All Patients $export: see workflow process at 
+            * All Patients $export: see workflow process at
               the [Bulk Data IG](https://hl7.org/fhir/uv/bulkdata/STU2/export.html#sequence-overview)
               * Kick-off requests: `#{export_url}`.
               * Export status requests: `#{export_status_url}?_jobId=:job` as returned in the `content-location`
@@ -35,7 +36,7 @@ module DaVinciPDexTestKit
               * Retrieval file Requests: `#{binary_url}` with `:id` replaced with an actual id as indicated
                 in the JSON manifest returned with the export status request when the job is completed.
                 Note that the `Accept` header should be `application/fhir+ndjson` on these requests.
-            
+
             All requests must include the `Authorization` header with value `Bearer #{access_token}`.
 
             [Click here](#{resume_clinical_data_url}?token=#{access_token}) when finished making requests
