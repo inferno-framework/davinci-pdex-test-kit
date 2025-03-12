@@ -135,6 +135,8 @@ module DaVinciPDexTestKit
       title 'API Capability and Must Support Coverage'
       id :api_and_ms_coverage
 
+      verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@9', 'hl7.fhir.us.davinci-pdex_2.0.0@14'
+
       group do
         title '$member-match failure cases'
         id :member_match_failure_cases
