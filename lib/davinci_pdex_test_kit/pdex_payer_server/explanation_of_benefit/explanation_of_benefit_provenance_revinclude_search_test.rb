@@ -17,6 +17,8 @@ module USCoreTestKit
 
       id :pdex_eob_provenance_revinclude_search
 
+      verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@44'
+
       input :patient_ids,
             title: 'Patient IDs',
             description: 'Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements'

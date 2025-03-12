@@ -21,6 +21,8 @@ module DaVinciPDexTestKit
 
       run_as_group
 
+      verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@42'
+
       input :bearer_token,
             title: 'Bulk Data Authorization Bearer Token',
             description: 'The authorization bearer token for the Bulk FHIR server. If not required, leave blank.',
@@ -42,7 +44,8 @@ module DaVinciPDexTestKit
            title: 'Bulk Data Server declares support for Patient export operation in CapabilityStatement',
            config: {
              options: { operation_name: 'export', operation_url: 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition/patient-export' }
-           }
+           },
+           verifies_requirements: 'hl7.fhir.us.davinci-pdex_2.0.0@47'
 
       test from: :bulk_data_kick_off,
            id: :pdex_export_patient_kick_off,
