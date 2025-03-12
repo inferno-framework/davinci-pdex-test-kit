@@ -106,8 +106,6 @@ module DaVinciPDexTestKit
         title 'Clinical data request validation'
         id :clinical_data_validation
 
-        verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@4', 'hl7.fhir.us.davinci-pdex_2.0.0@8'
-
         test from: :pdex_clinical_data_request_check
         test from: :pdex_patient_id_search_request_check
         test from: :pdex_allergyintolerance_clinical_data_request
