@@ -42,7 +42,14 @@ module DaVinciPDexTestKit
           title: 'OAuth Credentials',
           type: :auth_info,
           optional: true,
-          default: {auth_type: 'backend_services'}.to_json
+          options: {
+            components: [
+              {
+                name: :auth_type,
+                default: 'backend_services'
+              }
+            ]
+          }
 
     fhir_client do
       url :url
