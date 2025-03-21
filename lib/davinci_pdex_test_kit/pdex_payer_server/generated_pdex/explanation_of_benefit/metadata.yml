@@ -449,11 +449,11 @@
 - :type: CodeableConcept
   :strength: required
   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudication
-  :path: item.adjudication.category
+  :path: item.adjudication:adjudicationamounttype.category
 - :type: CodeableConcept
   :strength: required
   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes
-  :path: item.adjudication.reason
+  :path: ExplanationOfBenefit.item.adjudication:denialreason.reason
 - :type: CodeableConcept
   :strength: required
   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudicationCategoryDiscriminator
@@ -461,7 +461,11 @@
 - :type: CodeableConcept
   :strength: required
   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudication
-  :path: adjudication.category
+  :path: adjudication:adjudicationamounttype.category
+- :type: CodeableConcept
+  :strength: extensible
+  :system: https://hl7.org/fhir/us/davinci-pdex/ValueSet-PriorAuthorizationAmounts
+  :path: total.category
 - :type: code
   :strength: required
   :system: http://hl7.org/fhir/ValueSet/note-type
@@ -469,23 +473,23 @@
 - :type: CodeableConcept
   :strength: required
   :system: https://valueset.x12.org/x217/005010/request/2000E/UM/1/06/00/1338
-  :path: value
+  :path: levelOfServiceType
   :extensions:
   - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-levelOfServiceCode
-- :type: CodeableConcept
-  :strength: required
-  :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
-  :path: value
-  :extensions:
-  - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
-  - reasonCode
-- :type: CodeableConcept
-  :strength: required
-  :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
-  :path: value
-  :extensions:
-  - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
-  - reasonCode
+# - :type: CodeableConcept  TODO
+#   :strength: required
+#   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
+#   :path: value
+#   :extensions:
+#   - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
+#   - reasonCode
+# - :type: CodeableConcept
+#   :strength: required
+#   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
+#   :path: value
+#   :extensions:
+#   - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
+#   - reasonCode
 :references:
 - :path: ExplanationOfBenefit.patient
   :profiles:
@@ -536,6 +540,21 @@
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
+- :path: ExplanationOfBenefit.supportingInfo.valueReference
+  :profiles:
+  - http://hl7.org/fhir/R4/resource
+- :path: ExplanationOfBenefit.diagnosis.diagnosisReference
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Condition
+- :path: ExplanationOfBenefit.procedure.procedureReference
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Procedure
+- :path: ExplanationOfBenefit.accident.locationReference
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Location
+- :path: ExplanationOfBenefit.item.locationReference
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Location
 - :path: ExplanationOfBenefit.procedure.udi
   :profiles:
   - http://hl7.org/fhir/StructureDefinition/Device
@@ -559,27 +578,27 @@
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
-:tests:
-- :id: us_core_v200_explanation_of_benefit_patient_search_test
+:tests: #TODO: Don't see revinclude listed as required for eob
+- :id: pdex_eob_patient_search
   :file_name: explanation_of_benefit_patient_search_test.rb
-- :id: us_core_v200_explanation_of_benefit__id_search_test
+- :id: pdex_eob_id_search
   :file_name: explanation_of_benefit_id_search_test.rb
-- :id: us_core_v200_explanation_of_benefit_patient__lastUpdated_search_test
-  :file_name: explanation_of_benefit_patient_lastupdated_search_test.rb
-- :id: us_core_v200_explanation_of_benefit_patient_type_search_test
+- :id: pdex_eob_patient_last_updated_search
+  :file_name: explanation_of_benefit_patient_last_updated_search_test.rb
+- :id: pdex_eob_patient_type_search
   :file_name: explanation_of_benefit_patient_type_search_test.rb
-- :id: us_core_v200_explanation_of_benefit_identifier_search_test
+- :id: pdex_eob_identifier_search
   :file_name: explanation_of_benefit_identifier_search_test.rb
-- :id: us_core_v200_explanation_of_benefit_patient_service_date_search_test
+- :id: pdex_eob_patient_service_date_search
   :file_name: explanation_of_benefit_patient_service_date_search_test.rb
-- :id: us_core_v200_explanation_of_benefit_read_test
+- :id: pdex_eob_read
   :file_name: explanation_of_benefit_read_test.rb
-- :id: us_core_v200_explanation_of_benefit_validation_test
+- :id: pdex_eob_validation
   :file_name: explanation_of_benefit_validation_test.rb
-- :id: us_core_v200_explanation_of_benefit_must_support_test
+- :id: pdex_eob_must_support
   :file_name: explanation_of_benefit_must_support_test.rb
-- :id: us_core_v200_explanation_of_benefit_reference_resolution_test
+- :id: pdex_eob_reference_resolution
   :file_name: explanation_of_benefit_reference_resolution_test.rb
-:id: us_core_v200_explanation_of_benefit
+:id: pdex_eob
 :file_name: explanation_of_benefit_group.rb
 :delayed_references: []

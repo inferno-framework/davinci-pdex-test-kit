@@ -588,11 +588,11 @@
   - :type: CodeableConcept
     :strength: required
     :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudication
-    :path: item.adjudication.category
+    :path: item.adjudication:adjudicationamounttype.category
   - :type: CodeableConcept
     :strength: required
     :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes
-    :path: item.adjudication.reason
+    :path: ExplanationOfBenefit.item.adjudication:denialreason.reason
   - :type: CodeableConcept
     :strength: required
     :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudicationCategoryDiscriminator
@@ -600,7 +600,11 @@
   - :type: CodeableConcept
     :strength: required
     :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudication
-    :path: adjudication.category
+    :path: adjudication:adjudicationamounttype.category
+  - :type: CodeableConcept
+    :strength: extensible
+    :system: https://hl7.org/fhir/us/davinci-pdex/ValueSet-PriorAuthorizationAmounts
+    :path: total.category
   - :type: code
     :strength: required
     :system: http://hl7.org/fhir/ValueSet/note-type
@@ -608,23 +612,23 @@
   - :type: CodeableConcept
     :strength: required
     :system: https://valueset.x12.org/x217/005010/request/2000E/UM/1/06/00/1338
-    :path: value
+    :path: levelOfServiceType
     :extensions:
     - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-levelOfServiceCode
-  - :type: CodeableConcept
-    :strength: required
-    :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
-    :path: value
-    :extensions:
-    - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
-    - reasonCode
-  - :type: CodeableConcept
-    :strength: required
-    :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
-    :path: value
-    :extensions:
-    - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
-    - reasonCode
+  # - :type: CodeableConcept  TODO
+  #   :strength: required
+  #   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
+  #   :path: value
+  #   :extensions:
+  #   - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
+  #   - reasonCode
+  # - :type: CodeableConcept
+  #   :strength: required
+  #   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
+  #   :path: value
+  #   :extensions:
+  #   - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
+  #   - reasonCode
   :references:
   - :path: ExplanationOfBenefit.patient
     :profiles:
@@ -675,6 +679,21 @@
     - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
     - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole
     - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
+  - :path: ExplanationOfBenefit.supportingInfo.valueReference
+    :profiles:
+    - http://hl7.org/fhir/R4/resource
+  - :path: ExplanationOfBenefit.diagnosis.diagnosisReference
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Condition
+  - :path: ExplanationOfBenefit.procedure.procedureReference
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Procedure
+  - :path: ExplanationOfBenefit.accident.locationReference
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Location
+  - :path: ExplanationOfBenefit.item.locationReference
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Location
   - :path: ExplanationOfBenefit.procedure.udi
     :profiles:
     - http://hl7.org/fhir/StructureDefinition/Device
