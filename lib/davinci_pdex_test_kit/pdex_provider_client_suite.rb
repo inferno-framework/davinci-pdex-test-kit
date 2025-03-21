@@ -8,7 +8,7 @@ module DaVinciPDexTestKit
         This suite validates that a provider system can act as a client
         retrieving patient data from a payer system using
         the APIs described in the PDex implementation
-        guide. Inferno will act as a payer server that the 
+        guide. Inferno will act as a payer server that the
         system under test will connect to and retrieve data from.
       )
 
@@ -30,22 +30,22 @@ module DaVinciPDexTestKit
           url: 'https://hl7.org/fhir/us/davinci-pdex/STU2/'
         }
       ]
-  
+
       # These inputs will be available to all tests in this suite
       input :url,
             title: 'FHIR Server Base Url'
-  
-      input :credentials,
+
+      input :smart_auth_info,
             title: 'OAuth Credentials',
-            type: :oauth_credentials,
+            type: :auth_info,
             optional: true
-  
+
       # All FHIR requests in this suite will use this FHIR client
       fhir_client do
         url :url
-        oauth_credentials :credentials
+        auth_info :smart_auth_info
       end
-  
+
       # Hl7 Validator Wrapper:
       fhir_resource_validator do
         igs 'hl7.fhir.us.davinci-pdex#2.0.0'
