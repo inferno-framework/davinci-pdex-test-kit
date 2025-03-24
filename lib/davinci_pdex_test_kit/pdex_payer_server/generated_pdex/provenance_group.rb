@@ -47,8 +47,8 @@ read succeeds.
       run_as_group
 
       def self.metadata
-        @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'provenance', 'metadata.yml'),
-                                                                  aliases: true))
+        @metadata ||= USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'provenance', 'metadata.yml'),
+                                                                                 aliases: true))
       end
 
       test from: :pdex_provenance_read_test

@@ -81,10 +81,10 @@ read succeeds.
       run_as_group
 
       def self.metadata
-        @metadata ||= Generator::GroupMetadata.new(YAML.load_file(
-                                                     File.join(__dir__, 'explanation_of_benefit',
-                                                               'metadata.yml'), aliases: true
-                                                   ))
+        @metadata ||= USCoreTestKit::USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(
+                                                                                   File.join(__dir__, 'explanation_of_benefit',
+                                                                                             'metadata.yml'), aliases: true
+                                                                                 ))
       end
 
       test from: :pdex_eob_patient_search_test

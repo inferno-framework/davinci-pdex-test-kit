@@ -28,14 +28,14 @@ module DaVinciPDexTestKit
       end
 
       def self.metadata
-        @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'metadata.yml')))
+        @metadata ||= USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'metadata.yml')))
       end
 
       def self.provenance_metadata
-        @provenance_metadata ||= Generator::GroupMetadata.new(YAML.load_file(
-                                                                File.join(__dir__, '..', 'provenance',
-                                                                          'metadata.yml'), aliases: true
-                                                              ))
+        @provenance_metadata ||= USCoreTestKit::Generator::GroupMetadata.new(YAML.load_file(
+                                                                               File.join(__dir__, '..', 'provenance',
+                                                                                         'metadata.yml'), aliases: true
+                                                                             ))
       end
 
       def scratch_resources
