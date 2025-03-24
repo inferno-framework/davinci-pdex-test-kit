@@ -35,6 +35,12 @@
   - type
   :names_not_must_support_or_mandatory: []
   :must_support_or_mandatory: true
+# - :expectation: SHOULD # TODO: Should this be included?
+#   :names:
+#   - patient
+#   - status
+#   :names_not_must_support_or_mandatory: []
+#   :must_support_or_mandatory: true
 :search_definitions:
   :patient:
     :paths:
@@ -56,6 +62,16 @@
     :type: CodeableConcept
     :contains_multiple: false
     :multiple_or: MAY
+  # :status: # TODO: Should this be included?
+  #   :paths:
+  #   - status
+  #   :full_paths:
+  #   - Device.status
+  #   :comparators: {}
+  #   :values: []
+  #   :type: CodeableConcept
+  #   :contains_multiple: false
+  #   :multiple_or: MAY
 :include_params: []
 :revincludes:
 - Provenance:target
@@ -119,20 +135,20 @@
   :profiles:
   - http://hl7.org/fhir/StructureDefinition/Device
 :tests:
-- :id: us_core_v200_device_patient_search_test
+- :id: pdex_device_patient_search_test
   :file_name: device_patient_search_test.rb
-- :id: us_core_v200_device_patient_type_search_test
+- :id: pdex_device_patient_type_search_test
   :file_name: device_patient_type_search_test.rb
-- :id: us_core_v200_device_read_test
+- :id: pdex_device_read_test
   :file_name: device_read_test.rb
-- :id: us_core_v200_device_provenance_revinclude_search_test
+- :id: pdex_device_provenance_revinclude_search_test
   :file_name: device_provenance_revinclude_search_test.rb
-- :id: us_core_v200_device_validation_test
+- :id: pdex_device_validation_test
   :file_name: device_validation_test.rb
-- :id: us_core_v200_device_must_support_test
+- :id: pdex_device_must_support_test
   :file_name: device_must_support_test.rb
-- :id: us_core_v200_device_reference_resolution_test
+- :id: pdex_device_reference_resolution_test
   :file_name: device_reference_resolution_test.rb
-:id: us_core_v200_device
+:id: pdex_device
 :file_name: device_group.rb
 :delayed_references: []

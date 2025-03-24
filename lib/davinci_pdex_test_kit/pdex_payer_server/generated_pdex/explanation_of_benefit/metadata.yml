@@ -146,7 +146,7 @@
 - ExplanationOfBenefit:coverage
 - ExplanationOfBenefit:insurer
 - ExplanationOfBenefit:*
-:revincludes: [] #TODO: Capability statament doesn't list revincludes for EOB
+:revincludes: [] #TODO: Capability statament doesn't list revincludes for EOB but it is in manual one
 :required_concepts:
 - priority
 - item.category
@@ -476,7 +476,7 @@
   :path: levelOfServiceType
   :extensions:
   - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-levelOfServiceCode
-# - :type: CodeableConcept  TODO
+# - :type: CodeableConcept  TODO Not sure if these are needed or put in here correctly
 #   :strength: required
 #   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
 #   :path: value

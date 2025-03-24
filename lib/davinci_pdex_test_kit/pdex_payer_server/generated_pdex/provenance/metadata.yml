@@ -30,8 +30,8 @@
 :include_params: []
 :revincludes: []
 :required_concepts:
-- agent.type
-- entity.extension.valueCodeableConcept
+- agent.type # TODO: Should this be agent.who? or agent:ProvenanceAuthor.type?
+- entity.extension.valueCodeableConcept # TODO: This doesn't look required
 :must_supports:
   :extensions:
   - :id: Provenance.entity.extension:sourceFormat
@@ -64,6 +64,9 @@
   - :path: agent.who
     :types:
     - Reference
+    :target_profiles:
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
   - :path: agent.onBehalfOf
     :types:
     - Reference
@@ -73,10 +76,16 @@
   - :path: agent:ProvenanceAuthor.who
     :types:
     - Reference
+    :target_profiles:
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
   - :path: agent:ProvenanceTransmitter.type
   - :path: agent:ProvenanceTransmitter.who
     :types:
     - Reference
+    :target_profiles:
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
 :mandatory_elements:
 - Provenance.target
 - Provenance.recorded
@@ -94,16 +103,16 @@
 - :type: CodeableConcept
   :strength: required
   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenanceAgentType
-  :path: agent.type
+  :path: agent:ProvenanceAuthor.type
 - :type: CodeableConcept
   :strength: required
   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenancePayerSourceFormat
-  :path: entity.extension.value
+  :path: entity.extension:sourceFormat.value
 - :type: code
   :strength: required
   :system: http://hl7.org/fhir/ValueSet/provenance-entity-role
   :path: entity.role
-- :type: CodeableConcept
+- :type: CodeableConcept # TODO: Not sure if this needs to be here: confused as to why this is listed twice for Provenance both at the entity:sourceFormat and at entity:sourceFormat.valueCodeableConcept (one is listed as extensible, other as required)
   :strength: extensible
   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenancePayerSourceFormat
   :path: value
@@ -123,11 +132,11 @@
 - :path: Provenance.agent.onBehalfOf
   :profiles:
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
-- :path: Provenance.agent.who
+- :path: Provenance.agent:ProvenanceAuthor.who
   :profiles:
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
-- :path: Provenance.agent.onBehalfOf
+- :path: Provenance.agent:ProvenanceAuthor.onBehalfOf
   :profiles:
   - http://hl7.org/fhir/StructureDefinition/Practitioner
   - http://hl7.org/fhir/StructureDefinition/PractitionerRole
@@ -135,11 +144,11 @@
   - http://hl7.org/fhir/StructureDefinition/Patient
   - http://hl7.org/fhir/StructureDefinition/Device
   - http://hl7.org/fhir/StructureDefinition/Organization
-- :path: Provenance.agent.who
+- :path: Provenance.agent:ProvenanceTransmitter.who
   :profiles:
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
-- :path: Provenance.agent.onBehalfOf
+- :path: Provenance.agent:ProvenanceTransmitter.onBehalfOf
   :profiles:
   - http://hl7.org/fhir/StructureDefinition/Practitioner
   - http://hl7.org/fhir/StructureDefinition/PractitionerRole
@@ -151,14 +160,14 @@
   :profiles:
   - http://hl7.org/fhir/StructureDefinition/Resource
 :tests:
-- :id: us_core_v200_provenance_read_test
+- :id: pdex_provenance_read_test
   :file_name: provenance_read_test.rb
-- :id: us_core_v200_provenance_validation_test
+- :id: pdex_provenance_validation_test
   :file_name: provenance_validation_test.rb
-- :id: us_core_v200_provenance_must_support_test
+- :id: pdex_provenance_must_support_test
   :file_name: provenance_must_support_test.rb
-- :id: us_core_v200_provenance_reference_resolution_test
+- :id: pdex_provenance_reference_resolution_test
   :file_name: provenance_reference_resolution_test.rb
-:id: us_core_v200_provenance
+:id: pdex_provenance
 :file_name: provenance_group.rb
 :delayed_references: []

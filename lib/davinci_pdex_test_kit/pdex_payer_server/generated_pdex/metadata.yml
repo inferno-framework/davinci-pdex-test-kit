@@ -121,21 +121,21 @@
     :profiles:
     - http://hl7.org/fhir/StructureDefinition/Device
   :tests:
-  - :id: us_core_v200_device_patient_search_test
+  - :id: pdex_device_patient_search_test
     :file_name: device_patient_search_test.rb
-  - :id: us_core_v200_device_patient_type_search_test
+  - :id: pdex_device_patient_type_search_test
     :file_name: device_patient_type_search_test.rb
-  - :id: us_core_v200_device_read_test
+  - :id: pdex_device_read_test
     :file_name: device_read_test.rb
-  - :id: us_core_v200_device_provenance_revinclude_search_test
+  - :id: pdex_device_provenance_revinclude_search_test
     :file_name: device_provenance_revinclude_search_test.rb
-  - :id: us_core_v200_device_validation_test
+  - :id: pdex_device_validation_test
     :file_name: device_validation_test.rb
-  - :id: us_core_v200_device_must_support_test
+  - :id: pdex_device_must_support_test
     :file_name: device_must_support_test.rb
-  - :id: us_core_v200_device_reference_resolution_test
+  - :id: pdex_device_reference_resolution_test
     :file_name: device_reference_resolution_test.rb
-  :id: us_core_v200_device
+  :id: pdex_device
   :file_name: device_group.rb
   :delayed_references: []
 - :name: pdex_priorauthorization
@@ -718,27 +718,27 @@
     - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole
     - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
   :tests:
-  - :id: us_core_v200_explanation_of_benefit_patient_search_test
+  - :id: pdex_eob_patient_search_test
     :file_name: explanation_of_benefit_patient_search_test.rb
-  - :id: us_core_v200_explanation_of_benefit__id_search_test
+  - :id: pdex_eob_id_search_test
     :file_name: explanation_of_benefit_id_search_test.rb
-  - :id: us_core_v200_explanation_of_benefit_patient__lastUpdated_search_test
+  - :id: pdex_eob_patient_lastUpdated_search_test
     :file_name: explanation_of_benefit_patient_lastupdated_search_test.rb
-  - :id: us_core_v200_explanation_of_benefit_patient_type_search_test
+  - :id: pdex_eob_patient_type_search_test
     :file_name: explanation_of_benefit_patient_type_search_test.rb
-  - :id: us_core_v200_explanation_of_benefit_identifier_search_test
+  - :id: pdex_eob_identifier_search_test
     :file_name: explanation_of_benefit_identifier_search_test.rb
-  - :id: us_core_v200_explanation_of_benefit_patient_service_date_search_test
+  - :id: pdex_eob_patient_service_date_search_test
     :file_name: explanation_of_benefit_patient_service_date_search_test.rb
-  - :id: us_core_v200_explanation_of_benefit_read_test
+  - :id: pdex_eob_read_test
     :file_name: explanation_of_benefit_read_test.rb
-  - :id: us_core_v200_explanation_of_benefit_validation_test
+  - :id: pdex_eob_validation_test
     :file_name: explanation_of_benefit_validation_test.rb
-  - :id: us_core_v200_explanation_of_benefit_must_support_test
+  - :id: pdex_eob_must_support_test
     :file_name: explanation_of_benefit_must_support_test.rb
-  - :id: us_core_v200_explanation_of_benefit_reference_resolution_test
+  - :id: pdex_eob_reference_resolution_test
     :file_name: explanation_of_benefit_reference_resolution_test.rb
-  :id: us_core_v200_explanation_of_benefit
+  :id: pdex_eob
   :file_name: explanation_of_benefit_group.rb
   :delayed_references: []
 - :name: pdex_medicationdispense
@@ -766,6 +766,11 @@
     :expectation: MAY
   :operations: []
   :searches:
+  - :names: #TODO Should this be added?
+    - patient
+    :expectation: SHALL
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
   - :expectation: SHOULD
     :names:
     - patient
@@ -924,21 +929,21 @@
     :profiles:
     - http://hl7.org/fhir/StructureDefinition/Provenance
   :tests:
-  - :id: us_core_v200_medication_dispense_read_test
+  - :id: pdex_medication_dispense_read_test
     :file_name: medication_dispense_read_test.rb
-  - :id: us_core_v200_medication_dispense_patient_status_search_test
+  - :id: pdex_medication_dispense_patient_status_search_test
     :file_name: medication_dispense_patient_status_search_test.rb
-  - :id: us_core_v200_medication_dispense_patient_status_type_search_test
+  - :id: pdex_medication_dispense_patient_status_type_search_test
     :file_name: medication_dispense_patient_status_type_search_test.rb
-  - :id: us_core_v200_medication_dispense_provenance_revinclude_search_test
+  - :id: pdex_medication_dispense_provenance_revinclude_search_test
     :file_name: medication_dispense_provenance_revinclude_search_test.rb
-  - :id: us_core_v200_medication_dispense_validation_test
+  - :id: pdex_medication_dispense_validation_test
     :file_name: medication_dispense_validation_test.rb
-  - :id: us_core_v200_medication_dispense_must_support_test
+  - :id: pdex_medication_dispense_must_support_test
     :file_name: medication_dispense_must_support_test.rb
-  - :id: us_core_v200_medication_dispense_reference_resolution_test
+  - :id: pdex_medication_dispense_reference_resolution_test
     :file_name: medication_dispense_reference_resolution_test.rb
-  :id: us_core_v200_medication_dispense
+  :id: pdex_medication_dispense
   :file_name: medication_dispense_group.rb
   :delayed_references: []
 - :name: pdex_provenance
@@ -1006,6 +1011,9 @@
     - :path: agent.who
       :types:
       - Reference
+      :target_profiles:
+      - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
+      - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
     - :path: agent.onBehalfOf
       :types:
       - Reference
@@ -1015,10 +1023,16 @@
     - :path: agent:ProvenanceAuthor.who
       :types:
       - Reference
+      :target_profiles:
+      - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
+      - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
     - :path: agent:ProvenanceTransmitter.type
     - :path: agent:ProvenanceTransmitter.who
       :types:
       - Reference
+      :target_profiles:
+      - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
+      - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
   :mandatory_elements:
   - Provenance.target
   - Provenance.recorded
@@ -1036,11 +1050,11 @@
   - :type: CodeableConcept
     :strength: required
     :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenanceAgentType
-    :path: agent.type
+    :path: agent:ProvenanceAuthor.type
   - :type: CodeableConcept
     :strength: required
     :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenancePayerSourceFormat
-    :path: entity.extension.value
+    :path: entity.extension:sourceFormat.value
   - :type: code
     :strength: required
     :system: http://hl7.org/fhir/ValueSet/provenance-entity-role
@@ -1065,11 +1079,11 @@
   - :path: Provenance.agent.onBehalfOf
     :profiles:
     - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
-  - :path: Provenance.agent.who
+  - :path: Provenance.agent:ProvenanceAuthor.who
     :profiles:
     - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
     - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
-  - :path: Provenance.agent.onBehalfOf
+  - :path: Provenance.agent:ProvenanceAuthor.onBehalfOf
     :profiles:
     - http://hl7.org/fhir/StructureDefinition/Practitioner
     - http://hl7.org/fhir/StructureDefinition/PractitionerRole
@@ -1077,11 +1091,11 @@
     - http://hl7.org/fhir/StructureDefinition/Patient
     - http://hl7.org/fhir/StructureDefinition/Device
     - http://hl7.org/fhir/StructureDefinition/Organization
-  - :path: Provenance.agent.who
+  - :path: Provenance.agent:ProvenanceTransmitter.who
     :profiles:
     - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
     - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
-  - :path: Provenance.agent.onBehalfOf
+  - :path: Provenance.agent:ProvenanceTransmitter.onBehalfOf
     :profiles:
     - http://hl7.org/fhir/StructureDefinition/Practitioner
     - http://hl7.org/fhir/StructureDefinition/PractitionerRole
@@ -1093,15 +1107,15 @@
     :profiles:
     - http://hl7.org/fhir/StructureDefinition/Resource
   :tests:
-  - :id: us_core_v200_provenance_read_test
+  - :id: pdex_provenance_read_test
     :file_name: provenance_read_test.rb
-  - :id: us_core_v200_provenance_validation_test
+  - :id: pdex_provenance_validation_test
     :file_name: provenance_validation_test.rb
-  - :id: us_core_v200_provenance_must_support_test
+  - :id: pdex_provenance_must_support_test
     :file_name: provenance_must_support_test.rb
-  - :id: us_core_v200_provenance_reference_resolution_test
+  - :id: pdex_provenance_reference_resolution_test
     :file_name: provenance_reference_resolution_test.rb
-  :id: us_core_v200_provenance
+  :id: pdex_provenance
   :file_name: provenance_group.rb
   :delayed_references: []
 :granular_scope_resource_type_groups: {}
