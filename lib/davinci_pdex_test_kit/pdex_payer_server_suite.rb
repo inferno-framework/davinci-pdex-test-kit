@@ -41,15 +41,7 @@ module DaVinciPDexTestKit
     input :smart_auth_info,
           title: 'OAuth Credentials',
           type: :auth_info,
-          optional: true,
-          options: {
-            components: [
-              {
-                name: :auth_type,
-                default: 'backend_services'
-              }
-            ]
-          }
+          optional: true
 
     fhir_client do
       url :url
