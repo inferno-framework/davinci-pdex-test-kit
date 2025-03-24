@@ -3,18 +3,18 @@ require_relative 'provenance/provenance_validation_test'
 require_relative 'provenance/provenance_must_support_test'
 require_relative 'provenance/provenance_reference_resolution_test'
 
-module USCoreTestKit
-  module USCoreV200
+module DaVinciPDexTestKit
+  module PDexPayerServer
     class ProvenanceGroup < Inferno::TestGroup
       title 'PDex Provenance Tests'
       short_description 'Verify support for the server capabilities required by the PDex Provenance.'
       description %(
   # Background
 
-The US Core PDex Provenance sequence verifies that the system under test is
+The PDex Provenance sequence verifies that the system under test is
 able to provide correct responses for Provenance queries. These queries
 must contain resources conforming to the PDex Provenance as
-specified in the US Core v2.0.0 Implementation Guide.
+specified in the PDex v2.0.0 Implementation Guide.
 
 # Testing Methodology
 
@@ -43,17 +43,18 @@ read succeeds.
 
       )
 
-      id :us_core_v200_provenance
+      id :pdex_provenance
       run_as_group
 
       def self.metadata
-        @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'provenance', 'metadata.yml'), aliases: true))
+        @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'provenance', 'metadata.yml'),
+                                                                  aliases: true))
       end
-  
-      test from: :us_core_v200_provenance_read_test
-      test from: :us_core_v200_provenance_validation_test
-      test from: :us_core_v200_provenance_must_support_test
-      test from: :us_core_v200_provenance_reference_resolution_test
+
+      test from: :pdex_provenance_read_test
+      test from: :pdex_provenance_validation_test
+      test from: :pdex_provenance_must_support_test
+      test from: :pdex_provenance_reference_resolution_test
     end
   end
 end

@@ -1,11 +1,11 @@
 require_relative '../../../validation_test'
 
-module USCoreTestKit
-  module USCoreV200
+module DaVinciPDexTestKit
+  module PDexPayerServer
     class ProvenanceValidationTest < Inferno::Test
       include USCoreTestKit::ValidationTest
 
-      id :us_core_v200_provenance_validation_test
+      id :pdex_provenance_validation_test
       title 'Provenance resources returned during previous tests conform to the PDex Provenance'
       description %(
 This test verifies resources returned from the first search conform to

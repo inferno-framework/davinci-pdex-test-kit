@@ -1,7 +1,7 @@
 require_relative '../../../reference_resolution_test'
 
-module USCoreTestKit
-  module USCoreV200
+module DaVinciPDexTestKit
+  module PDexPayerServer
     class ProvenanceReferenceResolutionTest < Inferno::Test
       include USCoreTestKit::ReferenceResolutionTest
 
@@ -11,7 +11,7 @@ module USCoreTestKit
         marked as 'MustSupport', if any are available.
 
         It verifies that at least one external reference for each MustSupport Reference element
-        can be accessed by the test client, and conforms to corresponding US Core profile.
+        can be accessed by the test client, and conforms to corresponding PDex profile.
 
         Elements which may provide external references include:
 
@@ -22,7 +22,7 @@ module USCoreTestKit
         * Provenance.target
       )
 
-      id :us_core_v200_provenance_reference_resolution_test
+      id :pdex_provenance_reference_resolution_test
 
       def resource_type
         'Provenance'

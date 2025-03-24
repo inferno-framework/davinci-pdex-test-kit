@@ -1,8 +1,8 @@
 require_relative '../../../search_test'
 require_relative '../../../generator/group_metadata'
 
-module USCoreTestKit
-  module USCoreV200
+module DaVinciPDexTestKit
+  module PDexPayerServer
     class ExplanationOfBenefitIdSearchTest < Inferno::Test
       include USCoreTestKit::SearchTest
 
@@ -13,15 +13,15 @@ _id on the ExplanationOfBenefit resource. This test
 will pass if resources are returned and match the search criteria. If
 none are returned, the test is skipped.
 
-[US Core Server CapabilityStatement](/CapabilityStatement-us-core-server.html)
+[PDex Server CapabilityStatement](https://hl7.org/fhir/us/davinci-pdex/STU2/CapabilityStatement-pdex-server.html)
 
       )
 
-      id :us_core_v200_explanation_of_benefit__id_search_test
+      id :pdex_explanation_of_benefit__id_search_test
       def self.properties
         @properties ||= SearchTestProperties.new(
           resource_type: 'ExplanationOfBenefit',
-        search_param_names: ['_id']
+          search_param_names: ['_id']
         )
       end
 

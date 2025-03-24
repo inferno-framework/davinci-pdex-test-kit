@@ -1,14 +1,14 @@
 require_relative '../../../read_test'
 
-module USCoreTestKit
-  module USCoreV200
+module DaVinciPDexTestKit
+  module PDexPayerServer
     class DeviceReadTest < Inferno::Test
       include USCoreTestKit::ReadTest
 
       title 'Server returns correct Device resource from Device read interaction'
       description 'A server SHALL support the Device read interaction.'
 
-      id :us_core_v200_device_read_test
+      id :pdex_device_read_test
 
       def resource_type
         'Device'

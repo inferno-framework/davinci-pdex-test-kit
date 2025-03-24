@@ -1,11 +1,11 @@
 require_relative '../../../validation_test'
 
-module USCoreTestKit
-  module USCoreV200
+module DaVinciPDexTestKit
+  module PDexPayerServer
     class ExplanationOfBenefitValidationTest < Inferno::Test
       include USCoreTestKit::ValidationTest
 
-      id :us_core_v200_explanation_of_benefit_validation_test
+      id :pdex_eob_validation_test
       title 'ExplanationOfBenefit resources returned during previous tests conform to the PDex Prior Authorization'
       description %(
 This test verifies resources returned from the first search conform to

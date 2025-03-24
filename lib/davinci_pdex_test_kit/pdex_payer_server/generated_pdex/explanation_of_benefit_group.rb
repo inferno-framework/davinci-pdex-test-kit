@@ -9,18 +9,18 @@ require_relative 'explanation_of_benefit/explanation_of_benefit_validation_test'
 require_relative 'explanation_of_benefit/explanation_of_benefit_must_support_test'
 require_relative 'explanation_of_benefit/explanation_of_benefit_reference_resolution_test'
 
-module USCoreTestKit
-  module USCoreV200
+module DaVinciPDexTestKit
+  module PDexPayerServer
     class ExplanationOfBenefitGroup < Inferno::TestGroup
       title 'PDex Prior Authorization Tests'
       short_description 'Verify support for the server capabilities required by the PDex Prior Authorization.'
       description %(
   # Background
 
-The US Core PDex Prior Authorization sequence verifies that the system under test is
+The PDex Prior Authorization sequence verifies that the system under test is
 able to provide correct responses for ExplanationOfBenefit queries. These queries
 must contain resources conforming to the PDex Prior Authorization as
-specified in the US Core v2.0.0 Implementation Guide.
+specified in the PDex v2.0.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching
@@ -77,23 +77,26 @@ read succeeds.
 
       )
 
-      id :us_core_v200_explanation_of_benefit
+      id :pdex_eob
       run_as_group
 
       def self.metadata
-        @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'explanation_of_benefit', 'metadata.yml'), aliases: true))
+        @metadata ||= Generator::GroupMetadata.new(YAML.load_file(
+                                                     File.join(__dir__, 'explanation_of_benefit',
+                                                               'metadata.yml'), aliases: true
+                                                   ))
       end
-  
-      test from: :us_core_v200_explanation_of_benefit_patient_search_test
-      test from: :us_core_v200_explanation_of_benefit__id_search_test
-      test from: :us_core_v200_explanation_of_benefit_patient__lastUpdated_search_test
-      test from: :us_core_v200_explanation_of_benefit_patient_type_search_test
-      test from: :us_core_v200_explanation_of_benefit_identifier_search_test
-      test from: :us_core_v200_explanation_of_benefit_patient_service_date_search_test
-      test from: :us_core_v200_explanation_of_benefit_read_test
-      test from: :us_core_v200_explanation_of_benefit_validation_test
-      test from: :us_core_v200_explanation_of_benefit_must_support_test
-      test from: :us_core_v200_explanation_of_benefit_reference_resolution_test
+
+      test from: :pdex_eob_patient_search_test
+      test from: :pdex_eob_id_search_test
+      test from: :pdex_eob_patient_lastUpdated_search_test
+      test from: :pdex_eob_patient_type_search_test
+      test from: :pdex_eob_identifier_search_test
+      test from: :pdex_eob_patient_service_date_search_test
+      test from: :pdex_eob_read_test
+      test from: :pdex_eob_validation_test
+      test from: :pdex_eob_must_support_test
+      test from: :pdex_eob_reference_resolution_test
     end
   end
 end

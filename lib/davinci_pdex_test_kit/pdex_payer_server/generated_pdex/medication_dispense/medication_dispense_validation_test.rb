@@ -1,11 +1,11 @@
 require_relative '../../../validation_test'
 
-module USCoreTestKit
-  module USCoreV200
+module DaVinciPDexTestKit
+  module PDexPayerServer
     class MedicationDispenseValidationTest < Inferno::Test
       include USCoreTestKit::ValidationTest
 
-      id :us_core_v200_medication_dispense_validation_test
+      id :pdex_medication_dispense_validation_test
       title 'MedicationDispense resources returned during previous tests conform to the PDex MedicationDispense'
       description %(
 This test verifies resources returned from the first search conform to

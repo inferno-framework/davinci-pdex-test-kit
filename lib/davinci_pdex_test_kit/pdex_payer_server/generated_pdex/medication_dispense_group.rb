@@ -1,3 +1,4 @@
+require_relative 'medication_dispense/medication_dispense_patient_search_test'
 require_relative 'medication_dispense/medication_dispense_read_test'
 require_relative 'medication_dispense/medication_dispense_patient_status_search_test'
 require_relative 'medication_dispense/medication_dispense_patient_status_type_search_test'
@@ -6,18 +7,18 @@ require_relative 'medication_dispense/medication_dispense_validation_test'
 require_relative 'medication_dispense/medication_dispense_must_support_test'
 require_relative 'medication_dispense/medication_dispense_reference_resolution_test'
 
-module USCoreTestKit
-  module USCoreV200
+module DaVinciPDexTestKit
+  module PDexPayerServer
     class MedicationDispenseGroup < Inferno::TestGroup
       title 'PDex MedicationDispense Tests'
       short_description 'Verify support for the server capabilities required by the PDex MedicationDispense.'
       description %(
   # Background
 
-The US Core PDex MedicationDispense sequence verifies that the system under test is
+The PDex MedicationDispense sequence verifies that the system under test is
 able to provide correct responses for MedicationDispense queries. These queries
 must contain resources conforming to the PDex MedicationDispense as
-specified in the US Core v2.0.0 Implementation Guide.
+specified in the PDex v2.0.0 Implementation Guide.
 
 # Testing Methodology
 
@@ -46,20 +47,24 @@ read succeeds.
 
       )
 
-      id :us_core_v200_medication_dispense
+      id :pdex_medication_dispense
       run_as_group
 
       def self.metadata
-        @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'medication_dispense', 'metadata.yml'), aliases: true))
+        @metadata ||= Generator::GroupMetadata.new(YAML.load_file(
+                                                     File.join(__dir__, 'medication_dispense',
+                                                               'metadata.yml'), aliases: true
+                                                   ))
       end
-  
-      test from: :us_core_v200_medication_dispense_read_test
-      test from: :us_core_v200_medication_dispense_patient_status_search_test
-      test from: :us_core_v200_medication_dispense_patient_status_type_search_test
-      test from: :us_core_v200_medication_dispense_provenance_revinclude_search_test
-      test from: :us_core_v200_medication_dispense_validation_test
-      test from: :us_core_v200_medication_dispense_must_support_test
-      test from: :us_core_v200_medication_dispense_reference_resolution_test
+
+      test from: :pdex_medication_dispense_patient_search_test
+      test from: :pdex_medication_dispense_read_test
+      test from: :pdex_medication_dispense_patient_status_search_test
+      test from: :pdex_medication_dispense_patient_status_type_search_test
+      test from: :pdex_medication_dispense_provenance_revinclude_search_test
+      test from: :pdex_medication_dispense_validation_test
+      test from: :pdex_medication_dispense_must_support_test
+      test from: :pdex_medication_dispense_reference_resolution_test
     end
   end
 end

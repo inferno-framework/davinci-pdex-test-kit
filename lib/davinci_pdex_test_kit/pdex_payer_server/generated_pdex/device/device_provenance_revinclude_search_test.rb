@@ -1,8 +1,8 @@
 require_relative '../../../search_test'
 require_relative '../../../generator/group_metadata'
 
-module USCoreTestKit
-  module USCoreV200
+module DaVinciPDexTestKit
+  module PDexPayerServer
     class DeviceProvenanceRevincludeSearchTest < Inferno::Test
       include USCoreTestKit::SearchTest
 
@@ -14,16 +14,16 @@ module USCoreTestKit
         will pass if a Provenance resource is found in the response.
       %)
 
-      id :us_core_v200_device_provenance_revinclude_search_test
-  
+      id :pdex_device_provenance_revinclude_search_test
+
       input :patient_ids,
-        title: 'Patient IDs',
-        description: 'Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements'
-  
+            title: 'Patient IDs',
+            description: 'Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements'
+
       def properties
         @properties ||= SearchTestProperties.new(
           resource_type: 'Device',
-        search_param_names: ['patient']
+          search_param_names: ['patient']
         )
       end
 
@@ -32,7 +32,10 @@ module USCoreTestKit
       end
 
       def self.provenance_metadata
-        @provenance_metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, '..', 'provenance', 'metadata.yml'), aliases: true))
+        @provenance_metadata ||= Generator::GroupMetadata.new(YAML.load_file(
+                                                                File.join(__dir__, '..', 'provenance',
+                                                                          'metadata.yml'), aliases: true
+                                                              ))
       end
 
       def scratch_resources

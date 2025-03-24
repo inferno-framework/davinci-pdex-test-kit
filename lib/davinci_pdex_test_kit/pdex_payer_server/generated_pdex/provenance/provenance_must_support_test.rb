@@ -1,14 +1,14 @@
 require_relative '../../../must_support_test'
 
-module USCoreTestKit
-  module USCoreV200
+module DaVinciPDexTestKit
+  module PDexPayerServer
     class ProvenanceMustSupportTest < Inferno::Test
       include USCoreTestKit::MustSupportTest
 
       title 'All must support elements are provided in the Provenance resources returned'
       description %(
-        US Core Responders SHALL be capable of populating all data elements as
-        part of the query results as specified by the US Core Server Capability
+        PDex Responders SHALL be capable of populating all data elements as
+        part of the query results as specified by the PDex Server Capability
         Statement. This test will look through the Provenance resources
         found previously for the following must support elements:
 
@@ -27,7 +27,7 @@ module USCoreTestKit
         * Provenance.target
       )
 
-      id :us_core_v200_provenance_must_support_test
+      id :pdex_provenance_must_support_test
 
       def resource_type
         'Provenance'
