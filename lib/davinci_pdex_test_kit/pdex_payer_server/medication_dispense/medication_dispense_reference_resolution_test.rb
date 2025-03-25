@@ -3,10 +3,10 @@ require 'us_core_test_kit/generator/group_metadata'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
-    class ExplanationOfBenefitReferenceResolutionTest < Inferno::Test
+    class MedicationDispenseReferenceResolutionTest < Inferno::Test
       include USCoreTestKit::ReferenceResolutionTest
 
-      title 'MustSupport references within ExplanationOfBenefit resources are valid'
+      title 'MustSupport references within MedicationDispense resources are valid'
       description %(
         This test will attempt to read external references provided within elements
         marked as 'MustSupport', if any are available.
@@ -16,18 +16,13 @@ module DaVinciPDexTestKit
 
         Elements which may provide external references include:
 
-        * ExplanationOfBenefit.careTeam.provider
-        * ExplanationOfBenefit.enterer
-        * ExplanationOfBenefit.facility
-        * ExplanationOfBenefit.insurer
-        * ExplanationOfBenefit.patient
-        * ExplanationOfBenefit.provider
+        * MedicationDispense.subject
       )
 
-      id :pdex_eob_reference_resolution_test
+      id :pdex_medication_dispense_reference_resolution_test
 
       def resource_type
-        'ExplanationOfBenefit'
+        'MedicationDispense'
       end
 
       def self.metadata
@@ -36,7 +31,7 @@ module DaVinciPDexTestKit
       end
 
       def scratch_resources
-        scratch[:explanation_of_benefit_resources] ||= {}
+        scratch[:medication_dispense_resources] ||= {}
       end
 
       run do

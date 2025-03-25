@@ -1,72 +1,70 @@
 ---
-:name: pdex_prior_authorization
-:class_name: PDexExplanationOfBenefitSequence
+:name: pdex_priorauthorization
+:class_name: PdexPriorauthorizationSequence
 :version: v2.0.0
 :reformatted_version: v200
 :resource: ExplanationOfBenefit
-:profile_url: https://hl7.org/fhir/us/davinci-pdex/STU2/CapabilityStatement-pdex-server
+:profile_url: http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization
 :profile_name: PDex Prior Authorization
 :profile_version: 2.0.0
 :title: PDex Prior Authorization
-:short_description: Verify support for the server capabilities required by the PDex Prior Authorization Profile.
+:short_description: Verify support for the server capabilities required by the PDex
+  Prior Authorization.
 :is_delayed: false
 :interactions:
-- :code: create
-  :expectation: MAY   # Unspecified expectations are defaulted to MAY here
 - :code: search-type
   :expectation: SHALL
 - :code: read
   :expectation: SHALL
-- :code: vread
-  :expectation: MAY
-- :code: update
-  :expectation: MAY
-- :code: patch
-  :expectation: MAY
-- :code: delete
-  :expectation: MAY
-- :code: history-instance
-  :expectation: SHOULD
-- :code: history-type
-  :expectation: MAY
 :operations: []
 :searches:
-- :expectation: SHALL
-  :names:
+- :names:
   - patient
-  - use
+  :expectation: SHALL
   :names_not_must_support_or_mandatory: []
   :must_support_or_mandatory: true
-- :expectation: SHALL
-  :names:
+- :names:
   - _id
+  :expectation: SHALL
   :names_not_must_support_or_mandatory: []
   :must_support_or_mandatory: true
-- :expectation: SHALL
-  :names:
+- :names:
   - patient
   - _lastUpdated
-  :names_not_must_support_or_mandatory: []
-  :must_support_or_mandatory: true
-- :expectation: SHALL
-  :names:
-  - patient
-  - service-date
-  :names_not_must_support_or_mandatory: []
-  :must_support_or_mandatory: true
-- :expectation: SHALL
-  :names:
+  :expectation: SHALL
+  :names_not_must_support_or_mandatory:
+  - _lastUpdated
+  :must_support_or_mandatory: false
+- :names:
   - patient
   - type
+  :expectation: SHALL
   :names_not_must_support_or_mandatory: []
   :must_support_or_mandatory: true
-- :expectation: SHALL
-  :names:
+- :names:
   - identifier
-  :names_not_must_support_or_mandatory: []
-  :must_support_or_mandatory: true
-
+  :expectation: SHALL
+  :names_not_must_support_or_mandatory:
+  - identifier
+  :must_support_or_mandatory: false
+- :names:
+  - patient
+  - service-date
+  :expectation: SHALL
+  :names_not_must_support_or_mandatory:
+  - service-date
+  :must_support_or_mandatory: false
 :search_definitions:
+  :_id:
+    :paths:
+    - id
+    :full_paths:
+    - ExplanationOfBenefit.id
+    :comparators: {}
+    :values: []
+    :type: http://hl7.org/fhirpath/System.String
+    :contains_multiple: false
+    :multiple_or: MAY
   :patient:
     :paths:
     - patient
@@ -75,6 +73,35 @@
     :comparators: {}
     :values: []
     :type: Reference
+    :contains_multiple: false
+    :multiple_or: MAY
+  :_lastUpdated:
+    :paths:
+    - meta.lastUpdated
+    :full_paths:
+    - ExplanationOfBenefit.meta.lastUpdated
+    :comparators:
+      :eq: MAY
+      :ne: MAY
+      :gt: MAY
+      :ge: MAY
+      :lt: MAY
+      :le: MAY
+      :sa: MAY
+      :eb: MAY
+      :ap: MAY
+    :values: []
+    :type: instant
+    :contains_multiple: false
+    :multiple_or: MAY
+  :type:
+    :paths:
+    - type
+    :full_paths:
+    - ExplanationOfBenefit.type
+    :comparators: {}
+    :values: []
+    :type: CodeableConcept
     :contains_multiple: false
     :multiple_or: MAY
   :identifier:
@@ -112,97 +139,41 @@
     :type: date
     :contains_multiple: false
     :multiple_or: MAY
-  :type:
-    :paths:
-    - type
-    :full_paths:
-    - ExplanationOfBenefit.type
-    :comparators: {}
-    :values: []
-    :type: CodeableConcept
-    :contains_multiple: false
-    :multiple_or: MAY
-  :use:
-    :paths:
-    - use
-    :full_paths:
-    - ExplanationOfBenefit.use
-    :comparators: {}
-    :values:
-    - preauthorization
-    :type: code
-    :contains_multiple: false
-    :multiple_or: MAY
-  # I'm assuming metadata needs _id, even though its defined in FHIR Core
-  :_id:
-    :paths:
-    - id
-    :full_paths:
-    - ExplanationOfBenefit.id
-    :comparators: {}
-    :values: []
-    :type: http://hl7.org/fhirpath/System.String
-    :contains_multiple: false
-    :multiple_or: MAY
-  # Likewise assuming metadata needs _lastUpdated
-  :_lastUpdated:
-    :paths:
-    - meta.lastUpdated
-    :full_paths:
-    - ExplanationOfBenefit.meta.lastUpdated
-    :comparators:
-      :eq: MAY
-      :ne: MAY
-      :gt: MAY
-      :ge: MAY
-      :lt: MAY
-      :le: MAY
-      :sa: MAY
-      :eb: MAY
-      :ap: MAY
-    :values: []
-    :type: date
-    :contains_multiple: false
-    :multiple_or: MAY
-:include_params:
-  - ExplanationOfBenefit:patient:Patient
-  - ExplanationOfBenefit:provider:Practitioner
-  - ExplanationOfBenefit:provider:PractitionerRole
-  - ExplanationOfBenefit:provider:Organization
-  # 'care-team' search parameter maps to ExplanationOfBenefit.careTeam.provider
-  - ExplanationOfBenefit:care-team:Practitioner
-  - ExplanationOfBenefit:care-team:PractitionerRole
-  - ExplanationOfBenefit:care-team:Organization
-  - ExplanationOfBenefit:coverage:Coverage
-  - ExplanationOfBenefit:insurer:Organization
-  # Asserting '*' search parameter makes a lot of the above redundant
-  - ExplanationOfBenefit:*
-
-:revincludes:
-- Provenance:target
-:required_concepts: []
-
-## TODO: must supports
+:include_params: #TODO: Are the additional ones in the manually created metadata necessary?
+- ExplanationOfBenefit:patient
+- ExplanationOfBenefit:provider
+- ExplanationOfBenefit:care-team
+- ExplanationOfBenefit:coverage
+- ExplanationOfBenefit:insurer
+- ExplanationOfBenefit:*
+:revincludes: [] #TODO: Capability statament doesn't list revincludes for EOB but it is in manual one
+:required_concepts:
+- priority
+- item.category
+- item.productOrService
+- item.adjudication.category
+- item.adjudication.reason
+- adjudication.category
 :must_supports:
   :extensions:
   - :id: ExplanationOfBenefit.extension:levelOfServiceType
     :path: extension
-    :url: https://hl7.org/fhir/us/davinci-pdex/StructureDefinition-extension-levelOfServiceCode
+    :url: http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-levelOfServiceCode
   - :id: ExplanationOfBenefit.item.extension:itemTraceNumber
     :path: item.extension
-    :url: http://hl7.org/fhir/us/davinci-pas/StructureDefinition-extension-itemTraceNumber
+    :url: http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-itemTraceNumber
   - :id: ExplanationOfBenefit.item.extension:preAuthIssueDate
     :path: item.extension
-    :url: http://hl7.org/fhir/us/davinci-pas/StructureDefinition-extension-itemPreAuthIssueDate
-  - :id: ExplanationOfBenefit.item.extension:preAuthIssuePeriod
+    :url: http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-itemPreAuthIssueDate
+  - :id: ExplanationOfBenefit.item.extension:preAuthPeriod
     :path: item.extension
-    :url: http://hl7.org/fhir/us/davinci-pas/StructureDefinition-extension-itemPreAuthPeriod
+    :url: http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-itemPreAuthPeriod
   - :id: ExplanationOfBenefit.item.extension:previousAuthorizationNumber
     :path: item.extension
-    :url: http://hl7.org/fhir/us/davinci-pas/StructureDefinition-extension-authorizationNumber
+    :url: http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-authorizationNumber
   - :id: ExplanationOfBenefit.item.extension:administrationReferenceNumber
     :path: item.extension
-    :url: http://hl7.org/fhir/us/davinci-pas/StructureDefinition-extension-administrationReferenceNumber
+    :url: http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-administrationReferenceNumber
   - :id: ExplanationOfBenefit.item.extension:authorizedItemDetail
     :path: item.extension
     :url: http://hl7.org/fhir/us/davinci-pas/StructureDefinition/extension-itemAuthorizedDetail
@@ -212,16 +183,12 @@
   - :id: ExplanationOfBenefit.item.adjudication.extension:reviewAction
     :path: item.adjudication.extension
     :url: http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
-  # TODO item.detail.adjudication
-  # TODO item.detail.subdetail.adjudication
-  # TODO addItem
   - :id: ExplanationOfBenefit.adjudication.extension:reviewAction
     :path: adjudication.extension
     :url: http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
   - :id: ExplanationOfBenefit.total.extension:priorauth-utilization
     :path: total.extension
     :url: http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/PriorAuthorizationUtilization
-
   :slices:
   - :slice_id: ExplanationOfBenefit.item.adjudication:adjudicationamounttype
     :slice_name: adjudicationamounttype
@@ -230,32 +197,34 @@
       :type: requiredBinding
       :path: category
       :values:
-      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
         :code: submitted
-      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
         :code: copay
-      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
         :code: eligible
-      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
         :code: deductible
-      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
         :code: benefit
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: coinsurance
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: noncovered
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: priorpayerpaid
-      - :sysstem: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: paidbypatient
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: paidtopatient
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: paidtoprovider
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: memberliability
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: discount
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
+        :code: drugcost
   - :slice_id: ExplanationOfBenefit.item.adjudication:allowedunits
     :slice_name: allowedunits
     :path: item.adjudication
@@ -280,9 +249,6 @@
       :path: category
       :code: consumedunits
       :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator
-  # TODO item.detail.adjudication
-  # TODO item.detail.subdetail.adjudication
-  # TODO addItem
   - :slice_id: ExplanationOfBenefit.adjudication:adjudicationamounttype
     :slice_name: adjudicationamounttype
     :path: adjudication
@@ -290,41 +256,75 @@
       :type: requiredBinding
       :path: category
       :values:
-      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
         :code: submitted
-      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
         :code: copay
-      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
         :code: eligible
-      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
         :code: deductible
-      - :system: http://terminology.hl7.org/5.0.0/CodeSystem-adjudication
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
         :code: benefit
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: coinsurance
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: noncovered
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: priorpayerpaid
-      - :sysstem: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: paidbypatient
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: paidtopatient
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: paidtoprovider
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: memberliability
-      - :system: https://hl7.org/fhir/us/davinci-pdex/STU2/CodeSystem-PDexAdjudicationCS
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
         :code: discount
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
+        :code: drugcost
   - :slice_id: ExplanationOfBenefit.adjudication:denialreason
     :slice_name: denialreason
     :path: adjudication
     :discriminator:
-      :type: patternCodeableConcept
+      :type: requiredBinding
       :path: category
-      :code: denialreason
-      :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator
-
+      :values:
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
+        :code: submitted
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
+        :code: copay
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
+        :code: eligible
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
+        :code: deductible
+      - :system: http://terminology.hl7.org/CodeSystem/adjudication
+        :code: benefit
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
+        :code: coinsurance
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
+        :code: noncovered
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
+        :code: priorpayerpaid
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
+        :code: paidbypatient
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
+        :code: paidtopatient
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
+        :code: paidtoprovider
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
+        :code: memberliability
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
+        :code: discount
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS
+        :code: drugcost
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexPayerAdjudicationStatus
+        :code: innetwork
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexPayerAdjudicationStatus
+        :code: outofnetwork
+      - :system: http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexPayerAdjudicationStatus
+        :code: other
   :elements:
   - :path: status
   - :path: type
@@ -333,53 +333,50 @@
     :types:
     - Reference
     :target_profiles:
-    - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-patient
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient
   - :path: enterer
     :types:
     - Reference
     :target_profiles:
-    - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitioner
-    - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitionerrole
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole
   - :path: insurer
     :types:
     - Reference
     :target_profiles:
-    - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-organization
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
   - :path: provider
     :types:
     - Reference
-    :target_profiles:
-    - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitioner
-    - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitionerrole
-    - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-organization
+    target_profiles:
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
   - :path: facility
     :types:
     - Reference
     :target_profiles:
-    - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-location
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-location
   - :path: preAuthRefPeriod
   - :path: careTeam.provider
     :types:
     - Reference
     :target_profiles:
-    - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitioner
-    - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitionerrole
-    - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-organization
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole
+    - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
   - :path: item.category
   - :path: item.adjudication:adjudicationamounttype.amount
   - :path: item.adjudication:allowedunits.value
   - :path: item.adjudication:denialreason.reason
   - :path: item.adjudication:consumedunits.value
-  # TODO item.detail.adjudication
-  # TODO item.detail.subdetail.adjudication
-  # TODO addItem
+  - :path: adjudication
   - :path: adjudication.category
   # Header-level adjudication denialreason slice points to item-level adjudication for content reference,
   # however, header-level adjudication amounttype slice does not (and has no MS subelements).
   # Is this intentional by PDex authors?
   - :path: adjudication:denialreason.reason
   - :path: total.category
-
 :mandatory_elements:
 - ExplanationOfBenefit.meta.profile
 - ExplanationOfBenefit.status
@@ -404,189 +401,204 @@
 - ExplanationOfBenefit.item.sequence
 - ExplanationOfBenefit.item.productOrService
 - ExplanationOfBenefit.item.adjudication.category
-# Do slices count as mandatory elements?
-- ExplanationOfBenefit.item.adjudication:adjudicationamounttype.category
-- ExplanationOfBenefit.item.adjudication:adjudicationamounttype.amount
-- ExplanationOfBenefit.item.adjudication:adjudicationallowedunits.category
-- ExplanationOfBenefit.item.adjudication:adjudicationallowedunits.category.coding
-- ExplanationOfBenefit.item.adjudication:adjudicationallowedunits.category.coding.system
-- ExplanationOfBenefit.item.adjudication:adjudicationallowedunits.category.coding.code
-- ExplanationOfBenefit.item.adjudication:adjudicationallowedunits.value
-- ExplanationOfBenefit.item.adjudication:denialreason.category
-- ExplanationOfBenefit.item.adjudication:denialreason.category.coding
-- ExplanationOfBenefit.item.adjudication:denialreason.category.coding.system
-- ExplanationOfBenefit.item.adjudication:denialreason.category.coding.code
-- ExplanationOfBenefit.item.adjudication:denialreason.reason
-- ExplanationOfBenefit.item.adjudication:consumedunits.category
-- ExplanationOfBenefit.item.adjudication:consumedunits.category.coding
-- ExplanationOfBenefit.item.adjudication:consumedunits.category.coding.system
-- ExplanationOfBenefit.item.adjudication:consumedunits.category.coding.code
-- ExplanationOfBenefit.item.adjudication:consumedunits.value
-# TODO: ExplanationOfBenefit.item.detail.adjudication ... (== ExplanationOfBenefit.item.adjudication)
-# TODO: ExplanationOfBenefit.item.detail.subDetail
-# TODO: ExplanationOfBenefit.addItem
+- ExplanationOfBenefit.item.adjudication.amount
+- ExplanationOfBenefit.item.adjudication.value
+- ExplanationOfBenefit.item.adjudication.reason
+- ExplanationOfBenefit.item.detail.sequence
+- ExplanationOfBenefit.item.detail.productOrService
+- ExplanationOfBenefit.item.detail.subDetail.sequence
+- ExplanationOfBenefit.item.detail.subDetail.productOrService
+- ExplanationOfBenefit.addItem.productOrService
+- ExplanationOfBenefit.addItem.detail.productOrService
+- ExplanationOfBenefit.addItem.detail.subDetail.productOrService
 - ExplanationOfBenefit.adjudication.category
-- ExplanationOfBenefit.adjudication:adjudicationamounttype.category
-- ExplanationOfBenefit.adjudication:adjudicationamounttype.amount
-# TODO: ExplanationOfBenefit.adjudication:denialreason (== ExplanationOfBenefit.item.adjudication:denialreason)
+- ExplanationOfBenefit.adjudication.amount
 - ExplanationOfBenefit.total.category
 - ExplanationOfBenefit.total.amount
-
+- ExplanationOfBenefit.benefitBalance.category
+- ExplanationOfBenefit.benefitBalance.financial.type
 :bindings:
-# Only differential bindings for PDex PriorAuthorization Profile are here
-# Example-strength bindings are excluded
-- :path: priority
-  :type: CodeableConcept
+- :type: code
   :strength: required
-  :system: http://hl7.org/fhir/R4/valueset-process-priority
-- :path: item.category
-  :type: CodeableConcept
+  :system: http://hl7.org/fhir/ValueSet/explanationofbenefit-status
+  :path: status
+- :type: code
   :strength: required
-  :system: https://hl7.org/fhir/us/davinci-pdex/ValueSet-PriorAuthServiceTypeCodes
-- :path: item.productOrService
-  :type: CodeableConcept
+  :system: http://hl7.org/fhir/ValueSet/claim-use
+  :path: use
+- :type: CodeableConcept
   :strength: required
-  :system: https://hl7.org/fhir/us/davinci-pdex/ValueSet-PDexPAInstitutionalProcedureCodesVS
-- :path: item.adjudication.category
-  :type: CodeableConcept
+  :system: http://hl7.org/fhir/ValueSet/process-priority
+  :path: priority
+- :type: code
   :strength: required
-  :system: https://hl7.org/fhir/us/davinci-pdex/ValueSet-PDexAdjudicationCategoryDiscriminator
-- :path: item.adjudication:adjudicationamounttype.category
-  :type: CodeableConcept
+  :system: http://hl7.org/fhir/ValueSet/remittance-outcome
+  :path: outcome
+- :type: CodeableConcept
   :strength: required
-  :system: https://hl7.org/fhir/us/davinci-pdex/ValueSet-PDexAdjudication
-- :path: item.adjudication:denialreason.reason
-  :type: CodeableConcept
+  :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/PriorAuthServiceTypeCodes
+  :path: item.category
+- :type: CodeableConcept
   :strength: required
-  :system: https://hl7.org/fhir/us/davinci-pdex/ValueSet-X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes
-- :path: adjudication.category
-  :type: CodeableConcept
+  :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexPAInstitutionalProcedureCodesVS
+  :path: item.productOrService
+- :type: CodeableConcept
   :strength: required
-  :system: https://hl7.org/fhir/us/davinci-pdex/ValueSet-PDexAdjudicationCategoryDiscriminator
-- :path: adjudication:adjudicationamounttype.category
-  :type: CodeableConcept
+  :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudicationCategoryDiscriminator
+  :path: item.adjudication.category
+- :type: CodeableConcept
   :strength: required
-  :system: https://hl7.org/fhir/us/davinci-pdex/ValueSet-PDexAdjudication
-- :path: total.category
-  :type: CodeableConcept
+  :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudication
+  :path: item.adjudication:adjudicationamounttype.category
+- :type: CodeableConcept
+  :strength: required
+  :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes
+  :path: ExplanationOfBenefit.item.adjudication:denialreason.reason
+- :type: CodeableConcept
+  :strength: required
+  :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudicationCategoryDiscriminator
+  :path: adjudication.category
+- :type: CodeableConcept
+  :strength: required
+  :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudication
+  :path: adjudication:adjudicationamounttype.category
+- :type: CodeableConcept
   :strength: extensible
   :system: https://hl7.org/fhir/us/davinci-pdex/ValueSet-PriorAuthorizationAmounts
-
+  :path: total.category
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/note-type
+  :path: processNote.type
+- :type: CodeableConcept
+  :strength: required
+  :system: https://valueset.x12.org/x217/005010/request/2000E/UM/1/06/00/1338
+  :path: levelOfServiceType
+  :extensions:
+  - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-levelOfServiceCode
+# - :type: CodeableConcept  TODO Not sure if these are needed or put in here correctly
+#   :strength: required
+#   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
+#   :path: value
+#   :extensions:
+#   - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
+#   - reasonCode
+# - :type: CodeableConcept
+#   :strength: required
+#   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
+#   :path: value
+#   :extensions:
+#   - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
+#   - reasonCode
 :references:
 - :path: ExplanationOfBenefit.patient
   :profiles:
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-patient
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient
 - :path: ExplanationOfBenefit.enterer
   :profiles:
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitioner
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitionerrole
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole
 - :path: ExplanationOfBenefit.insurer
   :profiles:
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-organization
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
 - :path: ExplanationOfBenefit.provider
   :profiles:
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitioner
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitionerrole
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-organization
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
 - :path: ExplanationOfBenefit.related.claim
   :profiles:
-  - http://hl7.org/fhir/R4/claim
+  - http://hl7.org/fhir/StructureDefinition/Claim
 - :path: ExplanationOfBenefit.prescription
   :profiles:
-  - http://hl7.org/fhir/R4/medicationrequest
-  - http://hl7.org/fhir/R4/visionprescription
+  - http://hl7.org/fhir/StructureDefinition/MedicationRequest
+  - http://hl7.org/fhir/StructureDefinition/VisionPrescription
 - :path: ExplanationOfBenefit.originalPrescription
   :profiles:
-  - http://hl7.org/fhir/R4/medicationrequest
+  - http://hl7.org/fhir/StructureDefinition/MedicationRequest
 - :path: ExplanationOfBenefit.payee.party
   :profiles:
-  - http://hl7.org/fhir/R4/practitioner
-  - http://hl7.org/fhir/R4/practitionerrole
-  - http://hl7.org/fhir/R4/organization
-  - http://hl7.org/fhir/R4/patient
-  - http://hl7.org/fhir/R4/relatedperson
+  - http://hl7.org/fhir/StructureDefinition/Practitioner
+  - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+  - http://hl7.org/fhir/StructureDefinition/Organization
+  - http://hl7.org/fhir/StructureDefinition/Patient
+  - http://hl7.org/fhir/StructureDefinition/RelatedPerson
 - :path: ExplanationOfBenefit.referral
   :profiles:
-  - http://hl7.org/fhir/R4/servicerequest
+  - http://hl7.org/fhir/StructureDefinition/ServiceRequest
 - :path: ExplanationOfBenefit.facility
   :profiles:
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-location
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-location
 - :path: ExplanationOfBenefit.claim
   :profiles:
-  - http://hl7.org/fhir/R4/claim
+  - http://hl7.org/fhir/StructureDefinition/Claim
 - :path: ExplanationOfBenefit.claimResponse
   :profiles:
-  - http://hl7.org/fhir/R4/claimresponse
+  - http://hl7.org/fhir/StructureDefinition/ClaimResponse
 - :path: ExplanationOfBenefit.careTeam.provider
   :profiles:
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitioner
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitionerrole
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-organization
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
 - :path: ExplanationOfBenefit.supportingInfo.valueReference
   :profiles:
   - http://hl7.org/fhir/R4/resource
 - :path: ExplanationOfBenefit.diagnosis.diagnosisReference
   :profiles:
-  - http://hl7.org/fhir/R4/condition
+  - http://hl7.org/fhir/StructureDefinition/Condition
 - :path: ExplanationOfBenefit.procedure.procedureReference
   :profiles:
-  - http://hl7.org/fhir/R4/procedure
-- :path: ExplanationOfBenefit.insurance.coverage
+  - http://hl7.org/fhir/StructureDefinition/Procedure
+- :path: ExplanationOfBenefit.accident.locationReference
   :profiles:
-  - http://hl7.org/fhir/us/davinci-hrex/STU1/StructureDefinition-hrex-coverage
-- :path: ExplanationOfBenefit.acident.locationReference
-  :profiles:
-  - http://hl7.org/fhir/R4/location
+  - http://hl7.org/fhir/StructureDefinition/Location
 - :path: ExplanationOfBenefit.item.locationReference
   :profiles:
-  - http://hl7.org/fhir/R4/location
-- :path: ExplanationOfBenefit.item.udi # Unique Device Identifier
+  - http://hl7.org/fhir/StructureDefinition/Location
+- :path: ExplanationOfBenefit.procedure.udi
   :profiles:
-  - http://hl7.org/fhir/R4/device
+  - http://hl7.org/fhir/StructureDefinition/Device
+- :path: ExplanationOfBenefit.insurance.coverage
+  :profiles:
+  - http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-coverage
+- :path: ExplanationOfBenefit.item.udi
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Device
 - :path: ExplanationOfBenefit.item.encounter
   :profiles:
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-encounter
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter
 - :path: ExplanationOfBenefit.item.detail.udi
   :profiles:
-  - http://hl7.org/fhir/R4/device
+  - http://hl7.org/fhir/StructureDefinition/Device
 - :path: ExplanationOfBenefit.item.detail.subDetail.udi
   :profiles:
-  - http://hl7.org/fhir/R4/device
+  - http://hl7.org/fhir/StructureDefinition/Device
 - :path: ExplanationOfBenefit.addItem.provider
   :profiles:
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitioner
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-practitionerrole
-  - http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-organization
-- :path: ExplanationOfBenefit.addItem.locationReference
-  :profiles:
-  - http://hl7.org/fhir/R4/location
-
-:tests:
-- :id: pdex_eob_patient_use_search
-  :file_name: explanation_of_benefit_patient_use_search_test.rb
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
+:tests: #TODO: Don't see revinclude listed as required for eob
+- :id: pdex_eob_patient_search
+  :file_name: explanation_of_benefit_patient_search_test.rb
 - :id: pdex_eob_id_search
   :file_name: explanation_of_benefit_id_search_test.rb
 - :id: pdex_eob_patient_last_updated_search
   :file_name: explanation_of_benefit_patient_last_updated_search_test.rb
-- :id: pdex_eob_service_date
-  :file_name: explanation_of_benefit_service_date_search_test.rb
 - :id: pdex_eob_patient_type_search
   :file_name: explanation_of_benefit_patient_type_search_test.rb
 - :id: pdex_eob_identifier_search
   :file_name: explanation_of_benefit_identifier_search_test.rb
+- :id: pdex_eob_patient_service_date_search
+  :file_name: explanation_of_benefit_patient_service_date_search_test.rb
 - :id: pdex_eob_read
   :file_name: explanation_of_benefit_read_test.rb
-- :id: pdex_eob_provenance_revinclude_search
-  :file_name: explanation_of_benefit_provenance_revinclude_search_test.rb
 - :id: pdex_eob_validation
   :file_name: explanation_of_benefit_validation_test.rb
 - :id: pdex_eob_must_support
   :file_name: explanation_of_benefit_must_support_test.rb
-- :id: pdex_eob_ref_resolution
+- :id: pdex_eob_reference_resolution
   :file_name: explanation_of_benefit_reference_resolution_test.rb
-
 :id: pdex_eob
 :file_name: explanation_of_benefit_group.rb
-
-# NOTE: delayed_references is set as false above
 :delayed_references: []
