@@ -56,14 +56,14 @@ module DaVinciPDexTestKit
                                                                                  ))
       end
 
-      test from: :pdex_medication_dispense_patient_search_test
-      test from: :pdex_medication_dispense_patient_status_search_test
-      test from: :pdex_medication_dispense_patient_status_type_search_test
-      test from: :pdex_medication_dispense_read_test
-      test from: :pdex_medication_dispense_provenance_revinclude_search_test
-      test from: :pdex_medication_dispense_validation_test
-      test from: :pdex_medication_dispense_must_support_test
-      test from: :pdex_medication_dispense_reference_resolution_test
+      test from: :pdex_medication_dispense_patient_search
+      test from: :pdex_medication_dispense_patient_status_search
+      test from: :pdex_medication_dispense_patient_status_type_search
+      test from: :pdex_medication_dispense_read
+      test from: :pdex_medication_dispense_provenance_revinclude_search
+      test from: :pdex_medication_dispense_validation
+      test from: :pdex_medication_dispense_must_support
+      test from: :pdex_medication_dispense_ref_resolution
     end
   end
 end

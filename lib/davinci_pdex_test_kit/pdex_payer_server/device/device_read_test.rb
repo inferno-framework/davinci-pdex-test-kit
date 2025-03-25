@@ -8,7 +8,7 @@ module DaVinciPDexTestKit
       title 'Server returns correct Device resource from Device read interaction'
       description 'A server SHALL support the Device read interaction.'
 
-      id :pdex_device_read_test
+      id :pdex_device_read
 
       def resource_type
         'Device'

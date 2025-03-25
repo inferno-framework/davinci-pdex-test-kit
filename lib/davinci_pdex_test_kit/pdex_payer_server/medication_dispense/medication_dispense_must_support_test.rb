@@ -19,7 +19,7 @@ module DaVinciPDexTestKit
         * MedicationDispense.substitution.wasSubstituted
       )
 
-      id :pdex_medication_dispense_must_support_test
+      id :pdex_medication_dispense_must_support
 
       def resource_type
         'MedicationDispense'

@@ -135,19 +135,19 @@
   :profiles:
   - http://hl7.org/fhir/StructureDefinition/Device
 :tests:
-- :id: pdex_device_patient_search_test
+- :id: pdex_device_patient_search
   :file_name: device_patient_search_test.rb
-- :id: pdex_device_patient_type_search_test
+- :id: pdex_device_patient_type_search
   :file_name: device_patient_type_search_test.rb
-- :id: pdex_device_read_test
+- :id: pdex_device_read
   :file_name: device_read_test.rb
-- :id: pdex_device_provenance_revinclude_search_test
+- :id: pdex_device_provenance_revinclude_search
   :file_name: device_provenance_revinclude_search_test.rb
-- :id: pdex_device_validation_test
+- :id: pdex_device_validation
   :file_name: device_validation_test.rb
-- :id: pdex_device_must_support_test
+- :id: pdex_device_must_support
   :file_name: device_must_support_test.rb
-- :id: pdex_device_reference_resolution_test
+- :id: pdex_device_ref_resolution
   :file_name: device_reference_resolution_test.rb
 :id: pdex_device
 :file_name: device_group.rb

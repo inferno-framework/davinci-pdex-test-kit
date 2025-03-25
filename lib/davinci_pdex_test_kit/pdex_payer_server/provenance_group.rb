@@ -50,10 +50,10 @@ module DaVinciPDexTestKit
                                                                                  aliases: true))
       end
 
-      test from: :pdex_provenance_read_test
-      test from: :pdex_provenance_validation_test
-      test from: :pdex_provenance_must_support_test
-      test from: :pdex_provenance_reference_resolution_test
+      test from: :pdex_provenance_read
+      test from: :pdex_provenance_validation
+      test from: :pdex_provenance_must_support
+      test from: :pdex_provenance_ref_resolution
     end
   end
 end

@@ -23,7 +23,7 @@ module DaVinciPDexTestKit
         * Provenance.target
       )
 
-      id :pdex_provenance_reference_resolution_test
+      id :pdex_provenance_ref_resolution
 
       def resource_type
         'Provenance'

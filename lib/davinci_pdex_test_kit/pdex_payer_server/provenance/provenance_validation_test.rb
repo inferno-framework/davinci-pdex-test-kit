@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class ProvenanceValidationTest < Inferno::Test
       include USCoreTestKit::ValidationTest
 
-      id :pdex_provenance_validation_test
+      id :pdex_provenance_validation
       title 'Provenance resources returned during previous tests conform to the PDex Provenance'
       description %(
         This test verifies resources returned from the first search conform to

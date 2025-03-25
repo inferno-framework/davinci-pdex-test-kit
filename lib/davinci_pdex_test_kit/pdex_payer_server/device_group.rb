@@ -76,13 +76,13 @@ module DaVinciPDexTestKit
                                                                                                 aliases: true))
       end
 
-      test from: :pdex_device_patient_search_test
-      test from: :pdex_device_patient_type_search_test
-      test from: :pdex_device_read_test
-      test from: :pdex_device_provenance_revinclude_search_test
-      test from: :pdex_device_validation_test
-      test from: :pdex_device_must_support_test
-      test from: :pdex_device_reference_resolution_test
+      test from: :pdex_device_patient_search
+      test from: :pdex_device_patient_type_search
+      test from: :pdex_device_read
+      test from: :pdex_device_provenance_revinclude_search
+      test from: :pdex_device_validation
+      test from: :pdex_device_must_support
+      test from: :pdex_device_ref_resolution
     end
   end
 end

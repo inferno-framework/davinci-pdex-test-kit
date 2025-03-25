@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class MedicationDispenseValidationTest < Inferno::Test
       include USCoreTestKit::ValidationTest
 
-      id :pdex_medication_dispense_validation_test
+      id :pdex_medication_dispense_validation
       title 'MedicationDispense resources returned during previous tests conform to the PDex MedicationDispense'
       description %(
         This test verifies resources returned from the first search conform to

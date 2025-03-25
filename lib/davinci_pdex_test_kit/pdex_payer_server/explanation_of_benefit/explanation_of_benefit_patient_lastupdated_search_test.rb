@@ -17,7 +17,7 @@ module DaVinciPDexTestKit
         [PDex Server CapabilityStatement](https://hl7.org/fhir/us/davinci-pdex/STU2/CapabilityStatement-pdex-server.html)
       )
 
-      id :pdex_eob_patient_lastUpdated_search_test
+      id :pdex_eob_patient_last_updated_search
       optional
 
       input :patient_ids,

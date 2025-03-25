@@ -17,7 +17,7 @@ module DaVinciPDexTestKit
         [PDex Server CapabilityStatement](https://hl7.org/fhir/us/davinci-pdex/STU2/CapabilityStatement-pdex-server.html)
       )
 
-      id :pdex_eob_id_search_test
+      id :pdex_eob_id_search
       def self.properties
         @properties ||= USCoreTestKit::SearchTestProperties.new(
           resource_type: 'ExplanationOfBenefit',

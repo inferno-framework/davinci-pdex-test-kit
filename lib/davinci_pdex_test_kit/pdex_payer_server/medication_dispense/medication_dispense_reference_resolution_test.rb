@@ -19,7 +19,7 @@ module DaVinciPDexTestKit
         * MedicationDispense.subject
       )
 
-      id :pdex_medication_dispense_reference_resolution_test
+      id :pdex_medication_dispense_ref_resolution
 
       def resource_type
         'MedicationDispense'

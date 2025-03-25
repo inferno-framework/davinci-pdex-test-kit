@@ -8,7 +8,7 @@ module DaVinciPDexTestKit
       title 'Server returns correct MedicationDispense resource from MedicationDispense read interaction'
       description 'A server SHALL support the MedicationDispense read interaction.'
 
-      id :pdex_medication_dispense_read_test
+      id :pdex_medication_dispense_read
 
       def resource_type
         'MedicationDispense'

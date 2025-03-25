@@ -160,13 +160,13 @@
   :profiles:
   - http://hl7.org/fhir/StructureDefinition/Resource
 :tests:
-- :id: pdex_provenance_read_test
+- :id: pdex_provenance_read
   :file_name: provenance_read_test.rb
-- :id: pdex_provenance_validation_test
+- :id: pdex_provenance_validation
   :file_name: provenance_validation_test.rb
-- :id: pdex_provenance_must_support_test
+- :id: pdex_provenance_must_support
   :file_name: provenance_must_support_test.rb
-- :id: pdex_provenance_reference_resolution_test
+- :id: pdex_provenance_ref_resolution
   :file_name: provenance_reference_resolution_test.rb
 :id: pdex_provenance
 :file_name: provenance_group.rb

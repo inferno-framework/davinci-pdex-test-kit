@@ -597,7 +597,7 @@
   :file_name: explanation_of_benefit_validation_test.rb
 - :id: pdex_eob_must_support
   :file_name: explanation_of_benefit_must_support_test.rb
-- :id: pdex_eob_reference_resolution
+- :id: pdex_eob_ref_resolution
   :file_name: explanation_of_benefit_reference_resolution_test.rb
 :id: pdex_eob
 :file_name: explanation_of_benefit_group.rb

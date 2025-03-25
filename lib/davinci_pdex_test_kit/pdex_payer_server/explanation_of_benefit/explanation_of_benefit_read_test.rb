@@ -8,7 +8,7 @@ module DaVinciPDexTestKit
       title 'Server returns correct ExplanationOfBenefit resource from ExplanationOfBenefit read interaction'
       description 'A server SHALL support the ExplanationOfBenefit read interaction.'
 
-      id :pdex_eob_read_test
+      id :pdex_eob_read
 
       def resource_type
         'ExplanationOfBenefit'

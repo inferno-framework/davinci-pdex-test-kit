@@ -27,7 +27,7 @@ module DaVinciPDexTestKit
         * Device.url
       )
 
-      id :pdex_device_must_support_test
+      id :pdex_device_must_support
 
       def resource_type
         'Device'

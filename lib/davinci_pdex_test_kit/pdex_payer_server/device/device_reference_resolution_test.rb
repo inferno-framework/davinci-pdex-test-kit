@@ -19,7 +19,7 @@ module DaVinciPDexTestKit
         * Device.patient
       )
 
-      id :pdex_device_reference_resolution_test
+      id :pdex_device_ref_resolution
 
       def resource_type
         'Device'

@@ -86,16 +86,16 @@ module DaVinciPDexTestKit
                                                                                  ))
       end
 
-      test from: :pdex_eob_patient_search_test
-      test from: :pdex_eob_id_search_test
-      test from: :pdex_eob_patient_lastUpdated_search_test
-      test from: :pdex_eob_patient_type_search_test
-      test from: :pdex_eob_identifier_search_test
-      test from: :pdex_eob_patient_service_date_search_test
-      test from: :pdex_eob_read_test
-      test from: :pdex_eob_validation_test
-      test from: :pdex_eob_must_support_test
-      test from: :pdex_eob_reference_resolution_test
+      test from: :pdex_eob_patient_search
+      test from: :pdex_eob_id_search
+      test from: :pdex_eob_patient_last_updated_search
+      test from: :pdex_eob_patient_type_search
+      test from: :pdex_eob_identifier_search
+      test from: :pdex_eob_patient_service_date_search
+      test from: :pdex_eob_read
+      test from: :pdex_eob_validation
+      test from: :pdex_eob_must_support
+      test from: :pdex_eob_ref_resolution
     end
   end
 end

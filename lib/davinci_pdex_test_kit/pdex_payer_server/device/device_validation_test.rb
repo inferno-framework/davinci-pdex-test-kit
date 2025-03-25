@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class DeviceValidationTest < Inferno::Test
       include USCoreTestKit::ValidationTest
 
-      id :pdex_device_validation_test
+      id :pdex_device_validation
       title 'Device resources returned during previous tests conform to the PDex Device'
       description %(
         This test verifies resources returned from the first search conform to

@@ -8,7 +8,7 @@ module DaVinciPDexTestKit
       title 'Server returns correct Provenance resource from Provenance read interaction'
       description 'A server SHALL support the Provenance read interaction.'
 
-      id :pdex_provenance_read_test
+      id :pdex_provenance_read
 
       def resource_type
         'Provenance'

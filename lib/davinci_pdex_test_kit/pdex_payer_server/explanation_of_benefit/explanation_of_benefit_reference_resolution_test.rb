@@ -24,7 +24,7 @@ module DaVinciPDexTestKit
         * ExplanationOfBenefit.provider
       )
 
-      id :pdex_eob_reference_resolution_test
+      id :pdex_eob_ref_resolution
 
       def resource_type
         'ExplanationOfBenefit'

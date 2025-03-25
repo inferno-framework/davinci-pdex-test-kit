@@ -14,7 +14,7 @@ module DaVinciPDexTestKit
         will pass if a Provenance resource is found in the response.
       %)
 
-      id :pdex_medication_dispense_provenance_revinclude_search_test
+      id :pdex_medication_dispense_provenance_revinclude_search
 
       input :patient_ids,
             title: 'Patient IDs',

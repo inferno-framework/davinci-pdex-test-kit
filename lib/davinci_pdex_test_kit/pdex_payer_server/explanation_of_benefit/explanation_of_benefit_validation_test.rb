@@ -5,7 +5,7 @@ module DaVinciPDexTestKit
     class ExplanationOfBenefitValidationTest < Inferno::Test
       include USCoreTestKit::ValidationTest
 
-      id :pdex_eob_validation_test
+      id :pdex_eob_validation
       title 'ExplanationOfBenefit resources returned during previous tests conform to the PDex Prior Authorization'
       description %(
         This test verifies resources returned from the first search conform to

@@ -21,7 +21,7 @@ module DaVinciPDexTestKit
         [PDex Server CapabilityStatement](https://hl7.org/fhir/us/davinci-pdex/STU2/CapabilityStatement-pdex-server.html)
       )
 
-      id :pdex_medication_dispense_patient_status_search_test
+      id :pdex_medication_dispense_patient_status_search
       optional
 
       input :patient_ids,
