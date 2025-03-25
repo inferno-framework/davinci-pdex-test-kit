@@ -10,10 +10,10 @@
       "_type": "text"
     },
     {
-      "name": "credentials",
+      "name": "smart_auth_info",
       "value": null,
       "_title": "OAuth Credentials",
-      "_type": "oauth_credentials",
+      "_type": "auth_info",
       "_optional": true
     },
     {

@@ -38,14 +38,14 @@ module DaVinciPDexTestKit
     input :url,
           title: 'FHIR Server Base Url'
 
-    input :credentials,
+    input :smart_auth_info,
           title: 'OAuth Credentials',
-          type: :oauth_credentials,
+          type: :auth_info,
           optional: true
 
     fhir_client do
       url :url
-      oauth_credentials :credentials
+      auth_info :smart_auth_info
     end
 
     VALIDATION_MESSAGE_FILTERS = [
@@ -157,7 +157,7 @@ module DaVinciPDexTestKit
               + POST request to server and validiate HTTP 422 response status
           }
 
-        input_order :url, :credentials, :no_member_match_request, :multiple_member_match_request
+        input_order :url, :smart_auth_info, :no_member_match_request, :multiple_member_match_request
 
         group from: :pdex_no_member_matches
         group from: :pdex_multiple_member_matches

@@ -1,4 +1,3 @@
-require 'inferno/dsl/oauth_credentials'
 require_relative 'pdex_payer_client/urls'
 require_relative 'pdex_payer_client/tags'
 require_relative 'pdex_payer_client/collection'
