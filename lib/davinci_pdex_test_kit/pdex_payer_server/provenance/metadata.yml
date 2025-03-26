@@ -30,8 +30,8 @@
 :include_params: []
 :revincludes: []
 :required_concepts:
-- agent.type # TODO: Should this be agent.who? or agent:ProvenanceAuthor.type?
-- entity.extension.valueCodeableConcept # TODO: This doesn't look required
+- agent.type
+- entity.extension.valueCodeableConcept
 :must_supports:
   :extensions:
   - :id: Provenance.entity.extension:sourceFormat
@@ -112,7 +112,7 @@
   :strength: required
   :system: http://hl7.org/fhir/ValueSet/provenance-entity-role
   :path: entity.role
-- :type: CodeableConcept # TODO: Not sure if this needs to be here: confused as to why this is listed twice for Provenance both at the entity:sourceFormat and at entity:sourceFormat.valueCodeableConcept (one is listed as extensible, other as required)
+- :type: CodeableConcept
   :strength: extensible
   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenancePayerSourceFormat
   :path: value

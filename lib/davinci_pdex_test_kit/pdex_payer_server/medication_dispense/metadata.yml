@@ -24,7 +24,7 @@
   :expectation: MAY
 :operations: []
 :searches:
-- :names: #TODO Should this be added?
+- :names:
   - patient
   :expectation: SHALL
   :names_not_must_support_or_mandatory: []
@@ -79,7 +79,7 @@
     :full_paths:
     - MedicationDispense.type
     :comparators: {}
-    :values: # TODO: This doesn't look to be all the codes listed in the valueset
+    :values:
     - DF
     - EM
     - SO

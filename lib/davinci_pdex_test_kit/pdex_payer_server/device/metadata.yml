@@ -35,12 +35,12 @@
   - type
   :names_not_must_support_or_mandatory: []
   :must_support_or_mandatory: true
-# - :expectation: SHOULD # TODO: Should this be included?
-#   :names:
-#   - patient
-#   - status
-#   :names_not_must_support_or_mandatory: []
-#   :must_support_or_mandatory: true
+- :expectation: SHOULD
+  :names:
+  - patient
+  - status
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
 :search_definitions:
   :patient:
     :paths:
@@ -62,16 +62,16 @@
     :type: CodeableConcept
     :contains_multiple: false
     :multiple_or: MAY
-  # :status: # TODO: Should this be included?
-  #   :paths:
-  #   - status
-  #   :full_paths:
-  #   - Device.status
-  #   :comparators: {}
-  #   :values: []
-  #   :type: CodeableConcept
-  #   :contains_multiple: false
-  #   :multiple_or: MAY
+  :status:
+    :paths:
+    - status
+    :full_paths:
+    - Device.status
+    :comparators: {}
+    :values: []
+    :type: CodeableConcept
+    :contains_multiple: false
+    :multiple_or: MAY
 :include_params: []
 :revincludes:
 - Provenance:target

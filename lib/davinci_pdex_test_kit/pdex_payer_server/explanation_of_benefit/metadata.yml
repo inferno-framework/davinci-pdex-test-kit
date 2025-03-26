@@ -139,14 +139,14 @@
     :type: date
     :contains_multiple: false
     :multiple_or: MAY
-:include_params: #TODO: Are the additional ones in the manually created metadata necessary?
+:include_params:
 - ExplanationOfBenefit:patient
 - ExplanationOfBenefit:provider
 - ExplanationOfBenefit:care-team
 - ExplanationOfBenefit:coverage
 - ExplanationOfBenefit:insurer
 - ExplanationOfBenefit:*
-:revincludes: [] #TODO: Capability statament doesn't list revincludes for EOB but it is in manual one
+:revincludes: []
 :required_concepts:
 - priority
 - item.category
@@ -476,20 +476,20 @@
   :path: levelOfServiceType
   :extensions:
   - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-levelOfServiceCode
-# - :type: CodeableConcept  TODO Not sure if these are needed or put in here correctly
-#   :strength: required
-#   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
-#   :path: value
-#   :extensions:
-#   - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
-#   - reasonCode
-# - :type: CodeableConcept
-#   :strength: required
-#   :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
-#   :path: value
-#   :extensions:
-#   - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
-#   - reasonCode
+- :type: CodeableConcept
+  :strength: required
+  :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
+  :path: value
+  :extensions:
+  - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
+  - reasonCode
+- :type: CodeableConcept
+  :strength: required
+  :system: http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode
+  :path: value
+  :extensions:
+  - http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction
+  - reasonCode
 :references:
 - :path: ExplanationOfBenefit.patient
   :profiles:
@@ -578,7 +578,7 @@
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole
   - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
-:tests: #TODO: Don't see revinclude listed as required for eob
+:tests:
 - :id: pdex_eob_patient_search
   :file_name: explanation_of_benefit_patient_search_test.rb
 - :id: pdex_eob_id_search
