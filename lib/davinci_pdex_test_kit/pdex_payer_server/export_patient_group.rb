@@ -1,7 +1,6 @@
 require 'tls_test_kit'
 
-# require 'bulk_data_test_kit/v1.0.1/bulk_data_export_operation_support_test'
-require 'bulk_data_test_kit/v1.0.1/bulk_data_no_auth_test'
+# require 'bulk_data_test_kit/v1.0.1/bulk_data_no_auth_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_export_kick_off_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_status_check_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_output_check_test'
@@ -23,11 +22,6 @@ module DaVinciPDexTestKit
 
       verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@42'
 
-      input :bearer_token,
-            # TODO: make this type authinfo, and adapt all the imported tests to treat this input as smart_auth_info
-            title: 'Bulk Data Authorization',
-            description: 'The authorization bearer token for the Bulk FHIR server. If not required, leave blank.',
-            optional: true
       input :bulk_timeout,
             title: 'Export Times Out after (1-600)',
             description: <<~DESCRIPTION,
@@ -51,6 +45,9 @@ module DaVinciPDexTestKit
       test from: :bulk_data_kick_off,
            id: :pdex_export_patient_kick_off,
            config: {
+             inputs: {
+               smart_auth_info: { name: :bulk_data_auth_info }
+             },
              outputs: { polling_url: { name: :patient_polling_url } },
              options: { resource_type: 'Patient', bulk_export_url: 'Patient/$export' }
            }
@@ -58,7 +55,10 @@ module DaVinciPDexTestKit
       test from: :bulk_data_status_check,
            id: :pdex_export_patient_status_check,
            config: {
-             inputs: { polling_url: { name: :patient_polling_url } },
+             inputs: {
+               polling_url: { name: :patient_polling_url },
+               smart_auth_info: { name: :bulk_data_auth_info }
+             },
              outputs: {
                status_response: { name: :patient_status_response },
                requires_access_token: { name: :patient_requires_access_token }
