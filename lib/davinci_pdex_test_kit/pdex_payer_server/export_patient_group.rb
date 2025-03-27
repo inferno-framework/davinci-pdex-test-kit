@@ -24,7 +24,8 @@ module DaVinciPDexTestKit
       verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@42'
 
       input :bearer_token,
-            title: 'Bulk Data Authorization Bearer Token',
+            # TODO: make this type authinfo, and adapt all the imported tests to treat this input as smart_auth_info
+            title: 'Bulk Data Authorization',
             description: 'The authorization bearer token for the Bulk FHIR server. If not required, leave blank.',
             optional: true
       input :bulk_timeout,

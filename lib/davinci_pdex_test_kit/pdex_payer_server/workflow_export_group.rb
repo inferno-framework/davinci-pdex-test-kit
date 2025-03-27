@@ -1,5 +1,4 @@
 require 'bulk_data_test_kit/v2.0.0/bulk_data_patient_export_test_group'
-# require 'bulk_data_test_kit/v1.0.1/patient/bulk_data_patient_export_group'
 require_relative 'export_patient_group'
 require_relative 'export_validation_group'
 
@@ -28,7 +27,6 @@ module DaVinciTestKit
       config({
                inputs: {
                  url: { name: :bulk_server_url },
-                 # bulk_server_url: { name: :url },
                  bulk_export_url: { default: 'Patient/$export' },
                  bearer_token: { description: 'The authorization bearer token for $export access that is scoped to the same patient found by $member-match or entered as patient id. This is not necessarily the same OAuth token that allows access to the server\'s $member-match. If omitted $export tests will be skipped.' }
                }
@@ -36,7 +34,7 @@ module DaVinciTestKit
 
       input :url # inherit properties from test suite
 
-      input :bearer_token # inherit properties from parent
+      input :bearer_token
 
       input :patient_id,
             title: 'Patient ID',
