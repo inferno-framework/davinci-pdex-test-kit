@@ -38,7 +38,7 @@ module DaVinciPDexTestKit
            id: :pdex_patient_export_in_cap_stmt,
            title: 'Bulk Data Server declares support for Patient export operation in CapabilityStatement',
            config: {
-             options: { operation_name: 'export', operation_url: 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition/patient-export' }
+             options: { operation_name: 'export', operation_url: 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition/patient-export', client: :bulk_server }
            },
            verifies_requirements: 'hl7.fhir.us.davinci-pdex_2.0.0@47'
 
