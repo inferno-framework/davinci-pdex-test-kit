@@ -1,4 +1,3 @@
-# require 'bulk_data_test_kit/v1.0.1/bulk_data_multiple_patients_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_ndjson_download_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_valid_resources_test'
 
@@ -13,7 +12,7 @@ module DaVinciPDexTestKit
 
       id :pdex_export_validation
 
-      input :patient_status_output, :patient_requires_access_token, :bearer_token, :patient_bulk_download_url
+      input :patient_status_output, :patient_requires_access_token, :patient_bulk_download_url
       input :lines_to_validate,
             title: 'Limit validation to a maximum resource count',
             description: 'To validate all, leave blank.',

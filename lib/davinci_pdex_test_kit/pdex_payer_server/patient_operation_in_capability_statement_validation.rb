@@ -15,7 +15,7 @@ module DaVinciPDexTestKit
     # options:
     #   operation_name: operation to check for, i.e: 'member-match'
     #   operation_url: operation definition canonical URL
-    #
+    #   client: fhir client name, default: :default
     # ==== Required Scratch
     #
     # (none)
@@ -39,7 +39,7 @@ module DaVinciPDexTestKit
       verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@30'
 
       run do
-        fhir_get_capability_statement
+        fhir_get_capability_statement(client: config.options.fetch(:client, :default))
 
         assert_response_status(200)
         assert_resource_type(:capability_statement)

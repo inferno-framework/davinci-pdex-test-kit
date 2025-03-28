@@ -26,6 +26,16 @@ module DaVinciPDexTestKit
             description: 'Manual Patient ID for testing Clinical Query and $everything $export without $member-match.',
             optional: true
 
+      input :smart_auth_info,
+            title: 'OAuth Credentials',
+            type: :auth_info,
+            optional: true
+
+      fhir_client do
+        url :url
+        auth_info :smart_auth_info
+      end
+
       test from: :pdex_patient_operation_in_cap_stmt_validation,
            title: 'Server declares support for Patient everything operation in CapabilityStatement',
            config: {
