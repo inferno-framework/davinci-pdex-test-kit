@@ -44,15 +44,6 @@ module DaVinciTestKit
 
       input :url # inherit properties from test suite
 
-      # input :bulk_data_auth_info,
-      #       type: :auth_info,
-      #       title: 'Bulk Data Authorization',
-      #       description: "The authorization information for $export access that is scoped to the same patient found by $member-match or entered as patient id. This is not necessarily the same authorization information that allows access to the server's $member-match.",
-      #       options: {
-      #         mode: 'access'
-      #       },
-      #       optional: true
-
       input :patient_id,
             title: 'Patient ID',
             description: 'Manual Patient ID for testing Clinical Query, $everything, and $export without $member-match.',
@@ -61,7 +52,7 @@ module DaVinciTestKit
       # Required by Bulk Data tests
       fhir_client :bulk_server do
         url :url
-        # auth_info :bulk_auth_info # FIXME
+        # auth_info :bulk_auth_info # FIXME to respect config, workaround below:
         headers { 'Authorization' => "Bearer #{bulk_auth_info.access_token}" }
       end
 

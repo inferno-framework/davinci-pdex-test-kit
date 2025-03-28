@@ -1,6 +1,5 @@
 require 'tls_test_kit'
 
-# require 'bulk_data_test_kit/v1.0.1/bulk_data_no_auth_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_export_kick_off_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_status_check_test'
 require 'bulk_data_test_kit/v1.0.1/bulk_data_output_check_test'
@@ -45,9 +44,6 @@ module DaVinciPDexTestKit
       test from: :bulk_data_kick_off,
            id: :pdex_export_patient_kick_off,
            config: {
-             # inputs: {
-             #   smart_auth_info: { name: :bulk_data_auth_info }
-             # },
              outputs: { polling_url: { name: :patient_polling_url } },
              options: { resource_type: 'Patient', bulk_export_url: 'Patient/$export' }
            }
@@ -57,7 +53,6 @@ module DaVinciPDexTestKit
            config: {
              inputs: {
                polling_url: { name: :patient_polling_url },
-               # smart_auth_info: { name: :bulk_data_auth_info }
              },
              outputs: {
                status_response: { name: :patient_status_response },
