@@ -42,6 +42,16 @@ module DaVinciPDexTestKit
             description: "A JSON payload for server's $member-match endpoint that has **exactly one match**",
             type: 'textarea'
 
+      input :smart_auth_info,
+            title: 'OAuth Credentials',
+            type: :auth_info,
+            optional: true
+
+      fhir_client do
+        url :url
+        auth_info :smart_auth_info
+      end
+
       test from: :pdex_patient_operation_in_cap_stmt_validation,
            id: :pdex_member_match_operation_in_cap_stmt,
            title: 'Server declares support for Patient member match operation in CapabilityStatement',

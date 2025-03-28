@@ -24,23 +24,34 @@ module DaVinciTestKit
         to be returned by Patient-level export. The tests require a Bulk Data Autthorization Bearer Token.
       }
 
-      config({
-               inputs: {
-                 url: { name: :bulk_server_url },
-                 bulk_export_url: { default: 'Patient/$export' },
-               }
-             })
+      config(
+        {
+          inputs: {
+            url: { name: :bulk_server_url },
+            bulk_export_url: { default: 'Patient/$export' },
+            smart_auth_info: {
+              name: :bulk_auth_info,
+              title: 'Bulk Data Authorization',
+              description: "The authorization information for $export access that is scoped to the same patient found by $member-match or entered as patient id. This is not necessarily the same authorization information that allows access to the server's $member-match.",
+              options: {
+                mode: 'access'
+              },
+              optional: true
+            }
+          }
+        }
+      )
 
       input :url # inherit properties from test suite
 
-      input :bulk_data_auth_info,
-            type: :auth_info,
-            title: 'Bulk Data Authorization',
-            description: "The authorization information for $export access that is scoped to the same patient found by $member-match or entered as patient id. This is not necessarily the same authorization information that allows access to the server's $member-match.",
-            options: {
-              mode: 'access'
-            },
-            optional: true
+      # input :bulk_data_auth_info,
+      #       type: :auth_info,
+      #       title: 'Bulk Data Authorization',
+      #       description: "The authorization information for $export access that is scoped to the same patient found by $member-match or entered as patient id. This is not necessarily the same authorization information that allows access to the server's $member-match.",
+      #       options: {
+      #         mode: 'access'
+      #       },
+      #       optional: true
 
       input :patient_id,
             title: 'Patient ID',
@@ -58,11 +69,10 @@ module DaVinciTestKit
         headers { 'Authorization' => "Bearer #{bulk_data_auth_info.access_token}" }
       end
 
-      group from: :pdex_patient_export, config: { inputs: { smart_auth_info: { name: :bulk_data_auth_info } } }
+      group from: :pdex_patient_export
 
       group from: :pdex_export_validation,
             title: 'Patient Export Validation Tests',
-            config: { inputs: { smart_auth_info: { name: :bulk_data_auth_info } } },
             optional: true
     end
   end

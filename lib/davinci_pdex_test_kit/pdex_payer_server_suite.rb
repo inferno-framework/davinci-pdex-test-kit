@@ -38,16 +38,6 @@ module DaVinciPDexTestKit
     input :url,
           title: 'FHIR Server Base Url'
 
-    input :smart_auth_info,
-          title: 'OAuth Credentials',
-          type: :auth_info,
-          optional: true
-
-    fhir_client do
-      url :url
-      auth_info :smart_auth_info
-    end
-
     VALIDATION_MESSAGE_FILTERS = [
       /Observation\.effective\.ofType\(Period\): .*vs-1:/, # Invalid invariant in FHIR v4.0.1
       /\A\S+: \S+: URL value '.*' does not resolve/
@@ -136,6 +126,16 @@ module DaVinciPDexTestKit
       id :api_and_ms_coverage
 
       verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@9', 'hl7.fhir.us.davinci-pdex_2.0.0@14'
+
+      input :smart_auth_info,
+            title: 'OAuth Credentials',
+            type: :auth_info,
+            optional: true
+
+      fhir_client do
+        url :url
+        auth_info :smart_auth_info
+      end
 
       group do
         title '$member-match failure cases'
