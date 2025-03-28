@@ -61,7 +61,8 @@ module DaVinciTestKit
       # Required by Bulk Data tests
       fhir_client :bulk_server do
         url :url
-        auth_info :bulk_auth_info
+        # auth_info :bulk_auth_info # FIXME
+        headers { 'Authorization' => "Bearer #{bulk_auth_info.access_token}" }
       end
 
       http_client :bulk_server do
