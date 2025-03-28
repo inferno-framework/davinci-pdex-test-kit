@@ -2,12 +2,12 @@ require 'us_core_test_kit/search_test'
 require 'us_core_test_kit/search_test_properties'
 require 'us_core_test_kit/generator/group_metadata'
 
-module USCoreTestKit
-  module USCoreV311
-    class ExplanationOfBenefitProvenanceRevincludeSearchTest < Inferno::Test
+module DaVinciPDexTestKit
+  module PDexPayerServer
+    class DeviceProvenanceRevincludeSearchTest < Inferno::Test
       include USCoreTestKit::SearchTest
 
-      title 'Server returns Provenance resources from ExplanationOfBenefit search by patient + revInclude:Provenance:target'
+      title 'Server returns Provenance resources from Device search by patient + revInclude:Provenance:target'
       description %(
         A server SHALL be capable of supporting _revIncludes:Provenance:target.
 
@@ -15,9 +15,7 @@ module USCoreTestKit
         will pass if a Provenance resource is found in the response.
       %)
 
-      id :pdex_eob_provenance_revinclude_search
-
-      verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@44'
+      id :pdex_device_provenance_revinclude_search
 
       input :patient_ids,
             title: 'Patient IDs',
@@ -25,7 +23,7 @@ module USCoreTestKit
 
       def properties
         @properties ||= USCoreTestKit::SearchTestProperties.new(
-          resource_type: 'ExplanationOfBenefit',
+          resource_type: 'Device',
           search_param_names: ['patient']
         )
       end
@@ -42,7 +40,7 @@ module USCoreTestKit
       end
 
       def scratch_resources
-        scratch[:explanation_of_benefit_resources] ||= {}
+        scratch[:device_resources] ||= {}
       end
 
       def scratch_provenance_resources

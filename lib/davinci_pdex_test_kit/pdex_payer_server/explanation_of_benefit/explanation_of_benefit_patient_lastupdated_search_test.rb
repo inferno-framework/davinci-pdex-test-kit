@@ -4,24 +4,30 @@ require 'us_core_test_kit/generator/group_metadata'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
-    class ExplanationOfBenefitIdSearchTest < Inferno::Test
+    class ExplanationOfBenefitPatientLastupdatedSearchTest < Inferno::Test
       include USCoreTestKit::SearchTest
 
-      title 'Server returns valid results for ExplanationOfBenefit search by _id'
+      title 'Server returns valid results for ExplanationOfBenefit search by patient + _lastUpdated'
       description %(
         A server SHALL support searching by
-        _id on the ExplanationOfBenefit resource. This test
+        patient + _lastUpdated on the ExplanationOfBenefit resource. This test
         will pass if resources are returned and match the search criteria. If
         none are returned, the test is skipped.
 
         [PDex Server CapabilityStatement](https://hl7.org/fhir/us/davinci-pdex/STU2/CapabilityStatement-pdex-server.html)
       )
 
-      id :pdex_eob_id_search
+      id :pdex_eob_patient_last_updated_search
+      optional
+
+      input :patient_ids,
+            title: 'Patient IDs',
+            description: 'Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements'
+
       def self.properties
         @properties ||= USCoreTestKit::SearchTestProperties.new(
           resource_type: 'ExplanationOfBenefit',
-          search_param_names: ['_id']
+          search_param_names: ['patient', '_lastUpdated']
         )
       end
 
