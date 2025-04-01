@@ -121,6 +121,18 @@ Note that there is a currently a race condition that means that the client test 
 some server test suite requests. As a work-around, run the server test suite a second time while the
 client is waiting for clinical data requests during test 1.2.
 
+## Running the Bulk Export Server Tests
+
+These tests require read-write access to FHIR server with `Patient/$export` enabled, or with permissions to those actions assigned to a Bulk Data Authorization Access Token. To view an example run of these tests:
+1. Make a local clone of the [Inferno Reference Server](https://github.com/inferno-framework/inferno-reference-server/).
+2. Enable read-write mode by adding `READ_ONLY=false` to the environment of the fhir service in docker-compose.yml.
+3. Run the server with `docker compose up`
+4. Begin the PDex Payer Server Test Suite, select test 1.4 Bulk $export, and run it with the inputs:
+  + FHIR Server Base URL: `http://127.0.0.1:8080/reference-server/r4`
+  + Patient ID: `85`
+  + Bulk Data Authorization Access Token: `SAMPLE_TOKEN`
+  + Export Times Out after: `600`
+
 ## Providing Feedback and Reporting Issues
 
 We welcome feedback on the tests, including but not limited to the following areas:
