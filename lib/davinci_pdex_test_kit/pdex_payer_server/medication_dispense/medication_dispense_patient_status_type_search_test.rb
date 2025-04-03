@@ -4,20 +4,24 @@ require 'us_core_test_kit/generator/group_metadata'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
-    class ExplanationOfBenefitPatientServiceDateSearchTest < Inferno::Test
+    class MedicationDispensePatientStatusTypeSearchTest < Inferno::Test
       include USCoreTestKit::SearchTest
 
-      title 'Server returns valid results for ExplanationOfBenefit search by patient + service-date'
+      title 'Server returns valid results for MedicationDispense search by patient + status + type'
       description %(
-        A server SHALL support searching by
-        patient + service-date on the ExplanationOfBenefit resource. This test
+        A server SHOULD support searching by
+        patient + status + type on the MedicationDispense resource. This test
         will pass if resources are returned and match the search criteria. If
         none are returned, the test is skipped.
+
+        If any MedicationDispense resources use external references to
+        Medications, the search will be repeated with
+        `_include=MedicationDispense:medication`.
 
         [PDex Server CapabilityStatement](https://hl7.org/fhir/us/davinci-pdex/STU2/CapabilityStatement-pdex-server.html)
       )
 
-      id :pdex_eob_patient_service_date_search
+      id :pdex_medication_dispense_patient_status_type_search
       optional
 
       input :patient_ids,
@@ -26,8 +30,11 @@ module DaVinciPDexTestKit
 
       def self.properties
         @properties ||= USCoreTestKit::SearchTestProperties.new(
-          resource_type: 'ExplanationOfBenefit',
-          search_param_names: ['patient', 'service-date']
+          resource_type: 'MedicationDispense',
+          search_param_names: ['patient', 'status', 'type'],
+          test_medication_inclusion: true,
+          token_search_params: ['type'],
+          multiple_or_search_params: ['status', 'type']
         )
       end
 
@@ -37,7 +44,7 @@ module DaVinciPDexTestKit
       end
 
       def scratch_resources
-        scratch[:explanation_of_benefit_resources] ||= {}
+        scratch[:medication_dispense_resources] ||= {}
       end
 
       run do
