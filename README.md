@@ -121,7 +121,7 @@ Note that there is a currently a race condition that means that the client test 
 some server test suite requests. As a work-around, run the server test suite a second time while the
 client is waiting for clinical data requests during test 1.2.
 
-## Running the Bulk Export Server Tests
+## Server Bulk Export Test Demonstration
 
 These tests require read-write access to FHIR server with `Patient/$export` enabled, or with permissions to those actions assigned to a Bulk Data Authorization Access Token. To view an example run of these tests:
 1. Make a local clone of the [Inferno Reference Server](https://github.com/inferno-framework/inferno-reference-server/).
