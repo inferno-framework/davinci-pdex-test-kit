@@ -123,7 +123,7 @@ client is waiting for clinical data requests during test 1.2.
 
 ## Server Bulk Export Test Demonstration
 
-These tests require read-write access to FHIR server with `Patient/$export` enabled, or with permissions to those actions assigned to a Bulk Data Authorization Access Token. To view an example run of these tests:
+The Server Bulk Export tests (group 1.4) can be run against the Inferno Reference Server as long as it is running with write enabled:
 1. Make a local clone of the [Inferno Reference Server](https://github.com/inferno-framework/inferno-reference-server/).
 2. Enable read-write mode by adding `READ_ONLY=false` to the environment of the fhir service in docker-compose.yml.
 3. Run the server with `docker compose up`
