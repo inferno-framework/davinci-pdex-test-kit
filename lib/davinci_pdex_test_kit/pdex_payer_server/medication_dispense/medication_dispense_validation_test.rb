@@ -2,14 +2,14 @@ require 'us_core_test_kit/validation_test'
 
 module DaVinciPDexTestKit
   module PDexPayerServer
-    class ExplanationOfBenefitValidationTest < Inferno::Test
+    class MedicationDispenseValidationTest < Inferno::Test
       include USCoreTestKit::ValidationTest
 
-      id :pdex_eob_validation
-      title 'ExplanationOfBenefit resources returned during previous tests conform to the PDex Prior Authorization'
+      id :pdex_medication_dispense_validation
+      title 'MedicationDispense resources returned during previous tests conform to the PDex MedicationDispense'
       description %(
         This test verifies resources returned from the first search conform to
-        the [PDex Prior Authorization](http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization).
+        the [PDex MedicationDispense](http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-medicationdispense).
         Systems must demonstrate at least one valid example in order to pass this test.
 
         It verifies the presence of mandatory elements and that elements with
@@ -21,16 +21,16 @@ module DaVinciPDexTestKit
       output :dar_code_found, :dar_extension_found
 
       def resource_type
-        'ExplanationOfBenefit'
+        'MedicationDispense'
       end
 
       def scratch_resources
-        scratch[:explanation_of_benefit_resources] ||= {}
+        scratch[:medication_dispense_resources] ||= {}
       end
 
       run do
         perform_validation_test(scratch_resources[:all] || [],
-                                'http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization',
+                                'http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-medicationdispense',
                                 '2.0.0',
                                 skip_if_empty: true)
       end

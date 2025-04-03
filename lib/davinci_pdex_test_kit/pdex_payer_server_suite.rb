@@ -9,6 +9,9 @@ require_relative 'pdex_payer_server/no_member_matches_group'
 require_relative 'pdex_payer_server/multiple_member_matches_group'
 
 require_relative 'pdex_payer_server/explanation_of_benefit_group'
+require_relative 'pdex_payer_server/device_group'
+require_relative 'pdex_payer_server/medication_dispense_group'
+require_relative 'pdex_payer_server/provenance_group'
 
 module DaVinciPDexTestKit
   class PDexPayerServerSuite < Inferno::TestSuite
@@ -37,16 +40,6 @@ module DaVinciPDexTestKit
 
     input :url,
           title: 'FHIR Server Base Url'
-
-    input :smart_auth_info,
-          title: 'OAuth Credentials',
-          type: :auth_info,
-          optional: true
-
-    fhir_client do
-      url :url
-      auth_info :smart_auth_info
-    end
 
     VALIDATION_MESSAGE_FILTERS = [
       /Observation\.effective\.ofType\(Period\): .*vs-1:/, # Invalid invariant in FHIR v4.0.1
@@ -137,6 +130,16 @@ module DaVinciPDexTestKit
 
       verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@9', 'hl7.fhir.us.davinci-pdex_2.0.0@14'
 
+      input :smart_auth_info,
+            title: 'OAuth Credentials',
+            type: :auth_info,
+            optional: true
+
+      fhir_client do
+        url :url
+        auth_info :smart_auth_info
+      end
+
       group do
         title '$member-match failure cases'
         id :member_match_failure_cases
@@ -174,6 +177,9 @@ module DaVinciPDexTestKit
                               'hl7.fhir.us.davinci-pdex_2.0.0@52'
 
         group from: :pdex_eob
+        group from: :pdex_device
+        group from: :pdex_medication_dispense
+        group from: :pdex_provenance
 
         # Import all US Core v3.1.1 groups without the Suite
         USCoreTestKit::USCoreV311::USCoreTestSuite.groups[1].groups.each do |group|
