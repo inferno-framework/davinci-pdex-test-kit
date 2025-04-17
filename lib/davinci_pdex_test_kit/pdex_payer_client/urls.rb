@@ -4,7 +4,6 @@ module DaVinciPDexTestKit
   module PDexPayerClient
 
     module URLs
-      BASE_PATH = "#{Inferno::Application['base_url']}/custom/pdex_payer_client"
       PATIENT_PATH = '/fhir/Patient'
       RESOURCE_PATH = '/fhir/:endpoint'
       INSTANCE_PATH = '/fhir/:endpoint/:id'
@@ -28,18 +27,22 @@ module DaVinciPDexTestKit
 
         # For each constant X_PATH, define x_url(), which includes base
         define_method(path_constant.to_s.downcase.gsub(/_path$/, '_url')) do
-          File.join(BASE_PATH, URLs.const_get(path_constant))
+          base_url + URLs.const_get(path_constant)
         end
+      end
+
+      def suite_id
+        PDexPayerClientSuite.id
       end
 
       # overwrite base_url which is irregular
       def base_url
-        BASE_PATH
+        @base_url ||= "#{Inferno::Application['base_url']}/custom/#{suite_id}"
       end
 
       # overwrite base_fhir_url which is irregular
       def base_fhir_url
-        File.join(BASE_PATH, BASE_FHIR_PATH)
+        base_url + BASE_FHIR_PATH
       end
 
     end
