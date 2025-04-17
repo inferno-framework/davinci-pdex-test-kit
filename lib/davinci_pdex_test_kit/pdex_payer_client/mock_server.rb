@@ -1,3 +1,5 @@
+require 'smart_app_launch_test_kit'
+
 require_relative 'mock_server/token_endpoint'
 require_relative 'mock_server/resource_search_endpoint'
 require_relative 'mock_server/resource_read_endpoint'
@@ -35,7 +37,21 @@ module DaVinciPDexTestKit
               File.readlines(File.expand_path('mock_server/resources/mock_capability_statement.json', __dir__))
             ]
           }
-          suite_endpoint :post, TOKEN_PATH, TokenEndpoint
+
+          # SMART App Launch / Backend Services server simulation
+          route(:get, SMARTAppLaunch::SMART_DISCOVERY_PATH, lambda { |_env|
+            SMARTAppLaunch::MockSMARTServer.smart_server_metadata(id)
+          })
+          route(:get, SMARTAppLaunch::OIDC_DISCOVERY_PATH, ->(_env) {SMARTAppLaunch::MockSMARTServer.openid_connect_metadata(id) }) 
+          route(
+            :get,
+            SMARTAppLaunch::OIDC_JWKS_PATH,
+            ->(_env) { [200, { 'Content-Type' => 'application/json' }, [SMARTAppLaunch::OIDCJWKS.jwks_json]] }
+          )
+          suite_endpoint :get,  SMARTAppLaunch::AUTHORIZATION_PATH, SMARTAppLaunch::MockSMARTServer::AuthorizationEndpoint
+          suite_endpoint :post, SMARTAppLaunch::AUTHORIZATION_PATH, SMARTAppLaunch::MockSMARTServer::AuthorizationEndpoint
+          suite_endpoint :post, SMARTAppLaunch::TOKEN_PATH, SMARTAppLaunch::MockSMARTServer::TokenEndpoint
+
           suite_endpoint :post, MEMBER_MATCH_PATH, MemberMatchEndpoint
           suite_endpoint :get, EVERYTHING_PATH, PatientEverythingEndpoint
           suite_endpoint :get, EXPORT_PATH, ExportEndpoint

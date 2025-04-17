@@ -11,7 +11,6 @@ module DaVinciPDexTestKit
         This test will validate the received $member-match-request input, ensuring it corresponds to the
         [HRex member-match-in profile](http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-parameters-member-match-in).
       )
-      input :access_token
 
       verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@29'
 

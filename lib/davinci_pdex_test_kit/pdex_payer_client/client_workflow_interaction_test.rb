@@ -1,3 +1,5 @@
+require 'smart_app_launch_test_kit'
+
 module DaVinciPDexTestKit
   module PDexPayerClient
     class PDexClientWorkflowInteractionTest < Inferno::Test
@@ -10,14 +12,19 @@ module DaVinciPDexTestKit
         - clinical data requests, including resource read and searches, patient-level $everything,
           and group-level $export.
       )
-      input :access_token
+      input :client_id,
+            title: 'Client Id',
+            type: 'text',
+            optional: true,
+            locked: true,
+            description: SMARTAppLaunch::INPUT_CLIENT_ID_DESCRIPTION_LOCKED
       config options: { accepts_multiple_requests: true }
 
       verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@27', 'hl7.fhir.us.davinci-pdex_2.0.0@41'
 
       run do
         wait(
-          identifier: access_token,
+          identifier: client_id,
           message: %(
             Submit PDex requests to find a matching member and retrieve clinical data covering the
             complete scope of [member health history data defined by
@@ -37,9 +44,10 @@ module DaVinciPDexTestKit
                 in the JSON manifest returned with the export status request when the job is completed.
                 Note that the `Accept` header should be `application/fhir+ndjson` on these requests.
 
-            All requests must include the `Authorization` header with value `Bearer #{access_token}`.
+            All requests must include the `Authorization` header with value `Bearer <access_token>`
+            where `<access_token>` is a token obtained using the registered client id `#{client_id}`.
 
-            [Click here](#{resume_clinical_data_url}?token=#{access_token}) when finished making requests
+            [Click here](#{resume_clinical_data_url}?token=#{client_id}) when finished making requests
             for Inferno to evaluate.
           ),
           timeout: 900

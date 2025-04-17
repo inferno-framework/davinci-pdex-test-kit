@@ -11,8 +11,7 @@ module DaVinciPDexTestKit
         This test verify that the expected instances of resource type Device
         were fetched by the client.
       )
-      input :access_token
-  
+
       def target_resource_type
         :Device
       end

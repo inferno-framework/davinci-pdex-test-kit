@@ -5,7 +5,6 @@ module DaVinciPDexTestKit
 
     module URLs
       BASE_PATH = "#{Inferno::Application['base_url']}/custom/pdex_payer_client"
-      TOKEN_PATH = '/mock_auth/token'
       PATIENT_PATH = '/fhir/Patient'
       RESOURCE_PATH = '/fhir/:endpoint'
       INSTANCE_PATH = '/fhir/:endpoint/:id'

@@ -1,5 +1,6 @@
 require 'faraday'
 require 'faraday_middleware'
+require 'smart_app_launch_test_kit'
 
 require_relative '../urls'
 
@@ -15,7 +16,11 @@ module DaVinciPDexTestKit
         include ::DaVinciPDexTestKit::PDexPayerClient::URLs
   
         def test_run_identifier
-          request.headers['authorization']&.delete_prefix('Bearer ')
+          return request.params[:session_path] if request.params[:session_path].present?
+
+          SMARTAppLaunch::MockSMARTServer.issued_token_to_client_id(
+            request.headers['authorization']&.delete_prefix('Bearer ')
+          )
         end
   
         def make_response
