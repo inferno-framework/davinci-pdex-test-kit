@@ -84,10 +84,14 @@ module DaVinciPDexTestKit
           /custom\/pdex_payer_client\/fhir\/([a-zA-Z_-]+)([\/\?].*)?/.match(url)&.to_a&.at(1)
         end
 
+        def supported_searches
+          @supported_searchs ||= SEARCHES_BY_PRIORITY
+        end
+
         # Filter request parameters to only include those allowed by PDex API (hardcoded in collections.rb)
         # @return [Hash]
         def match_request_to_expectation(endpoint, params)
-          matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym]&.find {|expectation| (params.keys.map{|key| key.to_s} & expectation).sort == expectation}
+          matched_search = supported_searches[endpoint.to_sym]&.find {|expectation| (params.keys.map{|key| key.to_s} & expectation).sort == expectation}
     
           if matched_search
             params.select {|key, value| matched_search.include?(key.to_s) || key == "_revInclude" || key == "_include"}
