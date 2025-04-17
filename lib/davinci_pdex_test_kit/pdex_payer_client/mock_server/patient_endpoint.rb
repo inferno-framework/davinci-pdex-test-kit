@@ -13,7 +13,7 @@ module DaVinciPDexTestKit
         end
 
         def tags
-          tags = [RESOURCE_REQUEST_TAG]
+          tags = [RESOURCE_ID_TAG]
           tags << PATIENT_ID_REQUEST_TAG if request.url.include?('99999')
           
           tags

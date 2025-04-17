@@ -14,7 +14,7 @@ module DaVinciPDexTestKit
         end
     
         def tags
-          [RESOURCE_REQUEST_TAG]
+          [RESOURCE_API_TAG]
         end
     
       end

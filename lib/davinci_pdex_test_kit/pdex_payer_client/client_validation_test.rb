@@ -62,7 +62,9 @@ module DaVinciPDexTestKit
 
       # @return [Array<Inferno::Entities::Request>]
       def previous_clinical_data_requests
-        [] + load_tagged_requests(RESOURCE_REQUEST_TAG) + load_tagged_requests(EVERYTHING_TAG) # TODO add export request
+        [] + load_tagged_requests(RESOURCE_API_TAG) +
+             load_tagged_requests(RESOURCE_ID_TAG) +
+             load_tagged_requests(EVERYTHING_TAG) # TODO add export request
       end
   
       def everything_request
