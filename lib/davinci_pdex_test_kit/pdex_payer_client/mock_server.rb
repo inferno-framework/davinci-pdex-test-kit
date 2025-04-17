@@ -1,6 +1,5 @@
 require 'smart_app_launch_test_kit'
 
-require_relative 'mock_server/token_endpoint'
 require_relative 'mock_server/resource_search_endpoint'
 require_relative 'mock_server/resource_read_endpoint'
 require_relative 'mock_server/patient_endpoint'
