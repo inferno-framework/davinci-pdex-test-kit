@@ -172,7 +172,7 @@ what details the tester needs to provide during the Client Registration tests:
 
 - **SMART App Launch Client**: the system under test will manually register
   with Inferno and request access tokens to use when accessing FHIR endpoints
-  as per the SMART App Luanch specification, which includes providing one or more
+  as per the SMART App Launch specification, which includes providing one or more
   redirect URI(s) in the **SMART App Launch Redirect URI(s)** input, and optionally,
   launch URL(s) in the **SMART App Launch URL(s)** input. Additionally, testers may provide
   a **Client Id** if they want their client assigned a specific one. Depending on the
