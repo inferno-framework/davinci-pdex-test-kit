@@ -59,43 +59,59 @@ validated with the Java validator using `tx.fhir.org` as the terminology server.
 
 ### Quick Start
 
-For Inferno to simulate a server that returns a matching patient and responds to requests
-for that patient's data using FHIR read and search APIs, Inferno only needs to be able to
-identify when requests come from the client under test. Inferno piggybacks on the request 
-authentication for this purpose. Testers must provide a bearer access token that will be 
-provided within the `Authorization` header (`Bearer <token>`) on all requests made to 
-Inferno endpoints during the test. Inferno uses this information to associate the message
-with the test session and determine how to respond. How the token provided to Inferno is 
-generated is up to the tester. 
+Inferno's simulated payer endpoints require authentication using the OAuth flows
+conforming either to the
+- SMART [App Launch flow](https://hl7.org/fhir/smart-app-launch/STU2.2/app-launch.html), or
+- UDAP [Consumer-Facing flow](https://hl7.org/fhir/us/udap-security/STU1/consumer.html).
 
-Note: auth options for these tests have not been finalized and are subject to change
-as the requirements in the PDex IG evolve. If the implemented approach prevents you from using
-these tests, please 
-[provide feedback](https://github.com/inferno-framework/davinci-pdex-test-kit/issues) so the
-limitations can be addressed.
+When creating a test session, select the Client Security Type corresponding to an
+authentication approach supported by the client. Then, start by running the "Client Registration"
+group which will guide you through the registration process, including what inputs to provide. See the
+*Auth Configuration Details* section below for details. If the client is not able to use the SMART or
+UDAP protocols to obtain an access token, see the *Demonstration* section below for how to use the SMART
+or UDAP server tests to obtain an access token that the client can use.
 
-Using the bearer token, the client under test will then demonstrate its ability to find
-a patient using `$member-match` and retrieve corresponding clinical data using read and search
-requests, the `$everything` operation, or the `$export` operation.
+Once registration is complete, run the "Verify PDex Data Access" group and Inferno will 
+wait for the client to make PDex resource and search requests from the client, return the requested PDex
+resources to the client, and verify the interactions. The demographics of the target
+patient are listed in the *Test Methodology* section above.
 
 ### Postman-based Demo
 
 If you do not have a PDex client but would like to try the tests out, you can use
+the Inferno SMART App Launch test kit to request an access token and
 [this postman collection](https://github.com/inferno-framework/davinci-pdex-test-kit/blob/main/PDEX.postman_collection.json)
-to make requests against Inferno for these tests. To use the Postman demo on this test session
+to make requests against Inferno. To execute the Postman-based demo:
 
+1. Create a PDex Payer Client session, selecting one of the SMART options for the "Client Security Type"
+1. In the PDex Payer Client session, select the "Demo: Submit PDex Payer Client Requests With Postman" preset
+   from the dropdown in the upper left.
+1. Click the `RUN ALL TESTS` button in the upper right and then click the `SUBMIT` button in the input dialog
+   that appears. 
+1. Register and obtain and access token:
+   1. In a separate tab, create a SMART App Launch STU2.2 test session.
+   1. Select the "Demo: Run Against the SMART Client Suite" preset corresponding
+      to the authentication approach (public, confidential symmetric, or confidential asymmetric) chosen for
+      the PDex Payer Client session from the dropdown in the upper left.
+   1. Select the "Standalone Launch" group from the list at the left and click the "RUN TESTS" button in the upper right.
+   1. In the input dialog the follows, replace the **FHIR Endpoint** input with the FHIR endpoint displayed
+      in the wait dialog on the PDex Payer Client session.
+   1. Click "SUBMIT" and when the "User Action Required" dialog appears, click the link to authorize and complete the tests.
+   1. Find the `standalone_access_token` output in test **1.2.06** "Token exchange response body contains required information
+      encoded in JSON", and copy the value, which will be a ~100 character string of letters and numbers (e.g.,
+      eyJjbGllbnRfaWQiOiJzbWFydF9jbGllbnRfdGVzdF9kZW1vIiwiZXhwaXJhdGlvbiI6MTc0MzUxNDk4Mywibm9uY2UiOiJlZDI5MWIwNmZhMTE4OTc4In0).
+1. In the "User Action Required" dialog in the PDex Payer Client session, click to confirm client configuration. Another
+   "User Action Required" dialog will appear asking for the client to make PDex requests.
 1. Download the [collection](https://github.com/inferno-framework/davinci-pdex-test-kit/blob/main/PDEX.postman_collection.json) 
-   and import it into [Postman](https://www.postman.com/downloads/).
-2. Select the `PDex Payer Client Postman Demo` from the preset dropdown in the upper left.
-3. Click `Run All Tests` button in the upper right and click the `Submit` button in the dialog
-  that appears.
-4. When a `User Action Required` dialog appears, use Postman to first send a `$member-match` request
-   found in the "$member-match Requests" folder (the `missing CoverageToMatch` entry will return
-   a result, but will fail request validation). 
-5. Next, use the "Patient GET by identifier" request in the "Patient id Search" folder to turn the
+   and import it into [Postman](https://www.postman.com/downloads/) if not already done.
+1. Open the "Variables" tab of the `PDEX` collection, paste the access value obtained in the previous step into the "Current value"
+   column for the "access_token" variable, and save the collection.
+1. Use Postman to send a `$member-match` request found in the "$member-match Requests" folder
+   (the `missing CoverageToMatch` entry will return a result, but will fail request validation). 
+1. Next, use the "Patient GET by identifier" request in the "Patient id Search" folder to turn the
    returned Patient identifier (`99999` in system 
    `http://github.com/inferno-framework/target-payer/identifiers/member`) into a Patient resource id (`999`).  
-6. Now, make clinical data requests found in the other
+1. Now, make clinical data requests found in the other
    folders representing the three data access approaches: "Read and Search Requests", 
    "Patient $everything Requests", or "$export Requests". Specific paths that will completely pass
    the tests include:
@@ -112,8 +128,84 @@ to make requests against Inferno for these tests. To use the Postman demo on thi
      `output` entry, copy the `url` into the URL of the "ndjson retrieval" request and make it to
      get the data. Finally, make the "Read and Search Requests" to Read the Location
      and PractitionerRole instances since those aren't returned by the `$export` operation.
-7. After making all the requests you want, click the "Click here" link to finish the tests
-   and make the results available for review.
+1. After making all the requests you want, click the "Click here" link in the PDex Payer Client tests
+   to finish execution. Review the results.
+
+#### Optional Demo Modification: Tester-provided Client Id
+
+NOTE: Inferno uses **Client Id** input and the generated bearer tokens sent in the `Authorization` HTTP header 
+to associate requests with sessions. If multiple concurrent sessions are configured
+to use the same token, they may interfere with each other. To prevent concurrent executors
+of these sample executions from disrupting your session it is recommended, but not required, to:
+1. When running the Client Registration test group, leave the **Client Id** input blank or provide your own unique or
+   random value.
+2. When the wait dialog appears for confirmation of client registration, note the indicated `Client Id` value and copy it
+   into the **Client ID** input of the SMART tests.
+
+#### Optional Demo Modification: UDAP Authentication
+
+To run the demonstration using UDAP authentication to obtain an access token, replace step 4. "Register and obtain and access token"
+with the following:
+
+1. In another tab, start an Inferno session for the UDAP Security Server test suite. Select the "Demo: Run Against the UDAP Security
+   Client Suite" preset
+1. Select the "UDAP Authorization Code Flow" group, click the "RUN TESTS" button, and update the **FHIR Server Base URL**
+   input with the FHIR server URL displayed in the wait dialog of the PDex Payer Client test session.
+1. Click the "SUBMIT" button and click to authorize in the "User Action Required" dialog that appears, which will complete
+   the tests.
+1. Find the `udap_auth_code_flow_access_token` output in test **1.3.04** "Token exchange response body contains required information
+   encoded in JSON", and copy the value, which will be a ~100 character string of letters and numbers (e.g.,
+   eyJjbGllbnRfaWQiOiJzbWFydF9jbGllbnRfdGVzdF9kZW1vIiwiZXhwaXJhdGlvbiI6MTc0MzUxNDk4Mywibm9uY2UiOiJlZDI5MWIwNmZhMTE4OTc4In0).
+1. Return to the PDex Payer Client test session and confirm that UDAP registration has been completed in the current
+   "User Action Required" dialog.
+
+The PDex Client Registration tests will pass with the possible exception of some UDAP registration details.
+
+## Input Details
+
+### Auth Configuration Details
+
+When running these tests there are 4 options for authentication, which also allows 
+Inferno to identify which session the requests are for. The choice is made when the
+session is created with the selected Client Security Type option, which determines
+what details the tester needs to provide during the Client Registration tests:
+
+- **SMART App Launch Client**: the system under test will manually register
+  with Inferno and request access tokens to use when accessing FHIR endpoints
+  as per the SMART App Luanch specification, which includes providing one or more
+  redirect URI(s) in the **SMART App Launch Redirect URI(s)** input, and optionally,
+  launch URL(s) in the **SMART App Launch URL(s)** input. Additionally, testers may provide
+  a **Client Id** if they want their client assigned a specific one. Depending on the
+  specific SMART flavor chosen, additional inputs for authentication may be needed:
+  - **SMART App Launch Public Client**: no additional authentication inputs
+  - **SMART App Launch Confidential Symmetric Client**: provide a secret using the
+    **SMART Confidential Symmetric Client Secret** input.
+  - **SMART App Launch Confidential Asymmetric Client**: provide a URL that resolves
+    to a JWKS or a raw JWKS in JSON format using the **SMART JSON Web Key Set (JWKS)** input.
+- **UDAP Authorization Code Client**: the system under test will dynamically register
+  with Inferno and request access tokens used to access FHIR endpoints
+  as per the UDAP specification. It requires the **UDAP Client URI** input
+  to be populated with the URI that the client will use when dynamically
+  registering with Inferno. This will be used to generate a client id (each
+  unique UDAP Client URI will always get the same client id). All other details
+  that Inferno needs will be provided as a part of the dynamic registration.
+
+### Inputs Controlling Token Responses
+
+Inferno's SMART simulation does not include the details needed to populate
+the token response [context data](https://hl7.org/fhir/smart-app-launch/STU2.2/scopes-and-launch-context.html)
+when requested by apps using scopes during the *SMART App Launch* flow. If the tested app
+needs and will request these details, the tester must provide them for Inferno
+to respond with using the following inputs:
+- **Launch Context**: Testers can provide a JSON
+  array for Inferno to use as the base for building a token response on. This can include
+  keys like `"patient"` when the `launch/patient` scope will be requested. Note that when keys that Inferno
+  also populates (e.g. `access_token` or `id_token`) are included, the Inferno value will be returned.
+- **FHIR User Relative Reference**: Testers
+  can provide a FHIR relative reference (`<resource type>/<id>`) for the FHIR user record
+  to return with the `id_token` when the `openid` and `fhirUser` scopes are requested.
+  If populated, ensure that the referenced resource is available in Inferno's simulated
+  FHIR server so that it can be accessed.
 
 ## Testing Limitations
 
@@ -129,7 +221,7 @@ likely to change in future versions of the PDex specification.
 
 At this time, coverage of additional scenarios beyond the happy path payer to payer workflow
 are not validated. These scenarios, such as a failed member match, will be tested in future
-versions of the tests.
+versions of these tests.
 
 ### Demographic Matching
 
@@ -165,7 +257,7 @@ includes two auth steps, one for obtaining a token that allows `$member-match` i
 that gets access for a specific member Patient. Inferno requires that clients choose and send a single
 bearer token for the duration of the tests.
 
-### Requireed Patient id Search 
+### Required Patient id Search 
 
 The [HRex 1.0.0 $member-match
 operation](https://hl7.org/fhir/us/davinci-hrex/STU1/OperationDefinition-member-match.html#membermatch)

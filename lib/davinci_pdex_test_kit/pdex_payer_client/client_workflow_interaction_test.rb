@@ -18,6 +18,24 @@ module DaVinciPDexTestKit
             optional: true,
             locked: true,
             description: SMARTAppLaunch::INPUT_CLIENT_ID_DESCRIPTION_LOCKED
+      input :smart_launch_urls,
+            title: 'SMART App Launch URL(s)',
+            type: 'textarea',
+            locked: true,
+            optional: true,
+            description: SMARTAppLaunch::INPUT_SMART_LAUNCH_URLS_DESCRIPTION_LOCKED
+      input :launch_context,
+            title: 'Launch Context',
+            type: 'textarea',
+            optional: true,
+            description: SMARTAppLaunch::INPUT_LAUNCH_CONTEXT_DESCRIPTION       
+      input :fhir_user_relative_reference,
+            title: 'FHIR User Relative Reference',
+            type: 'text',
+            optional: true,
+            description: SMARTAppLaunch::INPUT_FHIR_USER_RELATIVE_REFERENCE
+      input_order :launch_context, :fhir_user_relative_reference, :smart_launch_urls, :client_id
+      output :launch_key
       config options: { accepts_multiple_requests: true }
 
       verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@27', 'hl7.fhir.us.davinci-pdex_2.0.0@41'
@@ -28,8 +46,12 @@ module DaVinciPDexTestKit
           message: %(
             Submit PDex requests to find a matching member and retrieve clinical data covering the
             complete scope of [member health history data defined by
-            PDex](https://hl7.org/fhir/us/davinci-pdex/STU2/introduction.html#member-health-history).
-            Available APIs under the Inferno base FHIR include:
+            PDex](https://hl7.org/fhir/us/davinci-pdex/STU2/introduction.html#member-health-history)
+            to the simulated FHIR server at
+
+            `#{fhir_base_url}`
+            
+            Available APIs include:
             * Single patient $member-match: `#{member_match_url}`
             * Single Resource read and search API: `#{submit_url}`, with `:endpoint` replaced with
               the target resource type.

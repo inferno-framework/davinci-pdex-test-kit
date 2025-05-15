@@ -137,12 +137,12 @@ module DaVinciPDexTestKit
           elsif is_json?(server_response.body)
             response.format = 'application/json'
             # Uncomment to recklessly replace all proxy urls with our urls:
-            # response.body = server_response.body.gsub(fhir_reference_server, base_fhir_url)
+            # response.body = server_response.body.gsub(fhir_reference_server, fhir_base_url)
             response.body = server_response.body
 
           else
             # Uncomment to recklessly replace all proxy urls with our urls:
-            # response.body = server_response.body.gsub(fhir_reference_server, base_fhir_url)
+            # response.body = server_response.body.gsub(fhir_reference_server, fhir_base_url)
             response.body = server_response.body
           end
 
@@ -164,10 +164,10 @@ module DaVinciPDexTestKit
         end
 
         def replace_bundle_urls(bundle)
-          bundle&.link.map! {|link| {relation: link.relation, url: link.url.gsub(fhir_reference_server, base_fhir_url)}}
+          bundle&.link.map! {|link| {relation: link.relation, url: link.url.gsub(fhir_reference_server, fhir_base_url)}}
           bundle&.entry&.map! do |bundled_resource| 
             {
-             fullUrl: bundled_resource.fullUrl.gsub(fhir_reference_server, base_fhir_url),
+             fullUrl: bundled_resource.fullUrl.gsub(fhir_reference_server, fhir_base_url),
              resource: bundled_resource.resource,
              search: bundled_resource.search
             }

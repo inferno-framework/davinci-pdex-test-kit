@@ -15,7 +15,7 @@ module DaVinciPDexTestKit
             req.url 'Group/pdex-Group/$export' # TODO: change from static response
             req.headers = http_headers_as_hash.merge(server_proxy.headers)
           end
-          response.headers["content-location"] = server_response.headers["content-location"]&.gsub(/(.*)\?/, "#{base_fhir_url}/$export-poll-status?")
+          response.headers["content-location"] = server_response.headers["content-location"]&.gsub(/(.*)\?/, "#{fhir_base_url}/$export-poll-status?")
           response.body = server_response.body
         end
     
