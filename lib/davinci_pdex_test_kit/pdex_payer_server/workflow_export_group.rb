@@ -24,6 +24,8 @@ module DaVinciTestKit
         to be returned by Patient-level export. The tests require a Bulk Data Autthorization Bearer Token.
       }
 
+      verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@57', 'hl7.fhir.us.davinci-pdex_2.0.0@58'
+
       config(
         {
           inputs: {
