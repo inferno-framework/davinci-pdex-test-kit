@@ -25,7 +25,7 @@ module InfernoRequirementsTools
     #
     # The `run_check` method will check whether the previously generated file is up-to-date.
     class RequirementsCoverage
-      VERSION = '0.2.0' # update when making meaningful changes to this method for tracking used versions
+      VERSION = '0.2.1' # update when making meaningful changes to this method for tracking used versions
       CONFIG = YAML.load_file(File.join('lib', 'requirements_config.yaml'))
 
       TEST_KIT_ID = CONFIG['test_kit_id']
@@ -39,7 +39,6 @@ module InfernoRequirementsTools
 
       # Derivative constants
       TEST_KIT_CODE_FOLDER = TEST_KIT_ID
-      DASHERIZED_TEST_KIT_ID = TEST_KIT_ID.gsub('_', '-')
       INPUT_HEADERS = [
         'Req Set',
         'ID',
@@ -52,14 +51,14 @@ module InfernoRequirementsTools
       ].freeze
       SHORT_ID_HEADER = 'Short ID(s)'
       FULL_ID_HEADER = 'Full ID(s)'
-      INPUT_FILE_NAME = "#{DASHERIZED_TEST_KIT_ID}_requirements.csv".freeze
+      INPUT_FILE_NAME = "#{TEST_KIT_ID}_requirements.csv".freeze
       INPUT_FILE = File.join('lib', TEST_KIT_CODE_FOLDER, 'requirements', INPUT_FILE_NAME).freeze
-      NOT_TESTED_FILE_NAME = "#{DASHERIZED_TEST_KIT_ID}_out_of_scope_requirements.csv".freeze
+      NOT_TESTED_FILE_NAME = "#{TEST_KIT_ID}_out_of_scope_requirements.csv".freeze
       NOT_TESTED_FILE = File.join('lib', TEST_KIT_CODE_FOLDER, 'requirements', NOT_TESTED_FILE_NAME).freeze
       OUTPUT_HEADERS = INPUT_HEADERS + TEST_SUITES.flat_map do |suite|
                                          ["#{suite.title} #{SHORT_ID_HEADER}", "#{suite.title} #{FULL_ID_HEADER}"]
                                        end
-      OUTPUT_FILE_NAME = "#{DASHERIZED_TEST_KIT_ID}_requirements_coverage.csv".freeze
+      OUTPUT_FILE_NAME = "#{TEST_KIT_ID}_requirements_coverage.csv".freeze
       OUTPUT_FILE_DIRECTORY = File.join('lib', TEST_KIT_CODE_FOLDER, 'requirements', 'generated')
       OUTPUT_FILE = File.join(OUTPUT_FILE_DIRECTORY, OUTPUT_FILE_NAME).freeze
 
