@@ -41,6 +41,14 @@ module DaVinciPDexTestKit
       }
     ]
 
+    requirement_sets(
+      {
+        identifier: 'hl7.fhir.us.davinci-pdex_2.0.0',
+        title: 'Da Vinci Payer Data Exchange (PDex) v2.0.0',
+        actor: 'Server'
+      }
+    )
+
     input :url,
           title: 'FHIR Server Base Url'
 
