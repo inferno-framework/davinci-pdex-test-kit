@@ -8,7 +8,6 @@ module DaVinciPDexTestKit
       PATIENT_INSTANCE_PATH = '/fhir/Patient/:patient'
       RESOURCE_PATH = '/fhir/:endpoint'
       INSTANCE_PATH = '/fhir/:endpoint/:id'
-      SUBMIT_PATH = '/fhir/:endpoint'   # FIXME duplicate
       BINARY_PATH = '/fhir/Binary/:id'
       METADATA_PATH = '/fhir/metadata'
       EVERYTHING_PATH = '/fhir/Patient/:patient/$everything'

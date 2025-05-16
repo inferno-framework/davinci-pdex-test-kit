@@ -28,6 +28,8 @@ module DaVinciPDexTestKit
         def make_response
           if request.params[:udap].present?
             case request.params[:grant_type]
+            when UDAPSecurityTestKit::CLIENT_CREDENTIALS_TAG
+              make_udap_client_credential_token_response
             when UDAPSecurityTestKit::AUTHORIZATION_CODE_TAG
               make_udap_authorization_code_token_response
             when UDAPSecurityTestKit::REFRESH_TOKEN_TAG
@@ -39,6 +41,10 @@ module DaVinciPDexTestKit
               )
             end
           else
+            if request.params[:grant_type] == SMARTAppLaunch::CLIENT_CREDENTIALS_TAG
+              return make_smart_client_credential_token_response
+            end
+            
             suite_options_list = Inferno::Repositories::TestSessions.new.find(result.test_session_id)&.suite_options
             suite_options_hash = suite_options_list&.map { |option| [option.id, option.value] }&.to_h
             smart_authentication_approach =

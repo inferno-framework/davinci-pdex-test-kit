@@ -10,6 +10,5 @@ module DaVinciPDexTestKit
     EXPORT_STATUS_TAG = 'export_status'
     EVERYTHING_TAG = 'everything'
     MEMBER_MATCH_TAG = 'member_match'
-
   end
 end
