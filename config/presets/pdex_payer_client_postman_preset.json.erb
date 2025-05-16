@@ -1,0 +1,67 @@
+{
+  "title": "Demo: Submit PDex Payer Client Requests With Postman",
+  "id": "pdex_payer_client_postman_demo_preset",
+  "test_suite_id": "pdex_payer_client",
+  "inputs": [
+    {
+      "name": "udap_client_uri",
+      "description": "The UDAP Client URI that will be used to register with Inferno's simulated UDAP server.",
+      "title": "UDAP Client URI",
+      "type": "text",
+      "value": "<%= Inferno::Application['base_url'] %>/custom/udap_security/fhir"
+    },
+    {
+      "name": "client_id",
+      "description": "Testers may provide a specific value for Inferno to assign as the client id. If no value is provided, the Inferno session id will be used.",
+      "optional": true,
+      "title": "Client Id",
+      "type": "text",
+      "value": "smart_client_test_demo"
+    },
+    {
+      "name": "smart_launch_urls",
+      "description": "If the client app supports EHR launch, a comma-delimited list of one or more URLs that Inferno can use to launch the app.",
+      "optional": true,
+      "title": "SMART App Launch URL(s)",
+      "type": "textarea",
+      "value": ""
+    },
+    {
+      "name": "smart_redirect_uris",
+      "description": "A comma-separated list of one or more URIs that the app will sepcify as the target of the redirect for Inferno to use when providing the authorization code.",
+      "title": "SMART App Launch Redirect URI(s)",
+      "type": "textarea",
+      "value": "<%= Inferno::Application['base_url'] %>/custom/smart_stu2_2/redirect"
+    },
+    {
+      "name": "smart_client_secret",
+      "description": "Provide the client secret that the confidential symmetric client will send with token requests to authenticate the client to Inferno.",
+      "title": "SMART Confidential Symmetric Client Secret",
+      "type": "text",
+      "value": "SAMPLE_SECRET"
+    },
+    {
+      "name": "smart_jwk_set",
+      "description": "The SMART client's JSON Web Key Set including the key(s) Inferno will need to verify signatures on token requests made by the client. May be provided as either a publicly accessible url containing the JWKS, or the raw JWKS JSON.",
+      "title": "SMART Confidential Asymmetric JSON Web Key Set (JWKS)",
+      "type": "textarea",
+      "value": "<%= Inferno::Application['base_url'] %>/custom/smart_stu2_2/.well-known/jwks.json"
+    },
+    {
+      "name": "launch_context",
+      "description": "Launch context details to be included in access token responses, specified as a JSON array. If provided, the contents will be merged into Inferno's token responses.",
+      "optional": true,
+      "title": "Launch Context",
+      "type": "textarea",
+      "value": ""
+    },
+    {
+      "name": "fhir_user_relative_reference",
+      "description": "A FHIR relative reference (<resource type>/<id>) for the FHIR user record to return when the openid and fhirUser scopes are requested. Include this resource in the **Available Resources** input so that it can be accessed via FHIR read.",
+      "optional": true,
+      "title": "FHIR User Relative Reference",
+      "type": "text",
+      "value": "Patient/999"
+    }
+  ]
+}

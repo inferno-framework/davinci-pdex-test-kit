@@ -27,7 +27,7 @@ module DaVinciPDexTestKit
         end
 
         def replace_export_urls(export_status_output)
-          export_status_output['output'].map! { |binary| {type: binary["type"], url: binary["url"].gsub(fhir_reference_server, base_fhir_url)} }
+          export_status_output['output'].map! { |binary| {type: binary["type"], url: binary["url"].gsub(fhir_reference_server, fhir_base_url)} }
           export_status_output['request'] = export_url
           export_status_output
         end

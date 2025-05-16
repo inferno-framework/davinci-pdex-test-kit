@@ -1,5 +1,6 @@
 require 'faraday'
 require 'faraday_middleware'
+require 'smart_app_launch_test_kit'
 
 require_relative '../urls'
 
@@ -15,7 +16,11 @@ module DaVinciPDexTestKit
         include ::DaVinciPDexTestKit::PDexPayerClient::URLs
   
         def test_run_identifier
-          request.headers['authorization']&.delete_prefix('Bearer ')
+          return request.params[:session_path] if request.params[:session_path].present?
+
+          SMARTAppLaunch::MockSMARTServer.issued_token_to_client_id(
+            request.headers['authorization']&.delete_prefix('Bearer ')
+          )
         end
   
         def make_response
@@ -84,10 +89,14 @@ module DaVinciPDexTestKit
           /custom\/pdex_payer_client\/fhir\/([a-zA-Z_-]+)([\/\?].*)?/.match(url)&.to_a&.at(1)
         end
 
+        def supported_searches
+          @supported_searchs ||= SEARCHES_BY_PRIORITY
+        end
+
         # Filter request parameters to only include those allowed by PDex API (hardcoded in collections.rb)
         # @return [Hash]
         def match_request_to_expectation(endpoint, params)
-          matched_search = SEARCHES_BY_PRIORITY[endpoint.to_sym]&.find {|expectation| (params.keys.map{|key| key.to_s} & expectation).sort == expectation}
+          matched_search = supported_searches[endpoint.to_sym]&.find {|expectation| (params.keys.map{|key| key.to_s} & expectation).sort == expectation}
     
           if matched_search
             params.select {|key, value| matched_search.include?(key.to_s) || key == "_revInclude" || key == "_include"}
@@ -128,12 +137,12 @@ module DaVinciPDexTestKit
           elsif is_json?(server_response.body)
             response.format = 'application/json'
             # Uncomment to recklessly replace all proxy urls with our urls:
-            # response.body = server_response.body.gsub(fhir_reference_server, base_fhir_url)
+            # response.body = server_response.body.gsub(fhir_reference_server, fhir_base_url)
             response.body = server_response.body
 
           else
             # Uncomment to recklessly replace all proxy urls with our urls:
-            # response.body = server_response.body.gsub(fhir_reference_server, base_fhir_url)
+            # response.body = server_response.body.gsub(fhir_reference_server, fhir_base_url)
             response.body = server_response.body
           end
 
@@ -155,10 +164,10 @@ module DaVinciPDexTestKit
         end
 
         def replace_bundle_urls(bundle)
-          bundle&.link.map! {|link| {relation: link.relation, url: link.url.gsub(fhir_reference_server, base_fhir_url)}}
+          bundle&.link.map! {|link| {relation: link.relation, url: link.url.gsub(fhir_reference_server, fhir_base_url)}}
           bundle&.entry&.map! do |bundled_resource| 
             {
-             fullUrl: bundled_resource.fullUrl.gsub(fhir_reference_server, base_fhir_url),
+             fullUrl: bundled_resource.fullUrl.gsub(fhir_reference_server, fhir_base_url),
              resource: bundled_resource.resource,
              search: bundled_resource.search
             }

@@ -1,3 +1,4 @@
+require_relative 'pdex_payer_client/pdex_client_options'
 require_relative 'pdex_payer_client/urls'
 require_relative 'pdex_payer_client/tags'
 require_relative 'pdex_payer_client/collection'
@@ -5,6 +6,11 @@ require_relative 'pdex_payer_client/mock_server'
 # require_relative 'must_support_test'
 # require_relative 'pdex_payer_client/client_validation_test'
 
+require_relative 'pdex_payer_client/client_registration_group'
+require_relative 'pdex_payer_client/client_auth_smart_alca_group'
+require_relative 'pdex_payer_client/client_auth_smart_alcs_group'
+require_relative 'pdex_payer_client/client_auth_smart_alp_group'
+require_relative 'pdex_payer_client/client_auth_udap_group'
 require_relative 'pdex_payer_client/client_workflow_interaction_test'
 require_relative 'pdex_payer_client/client_member_match_tests/client_member_match_validation_test'
 
@@ -70,6 +76,27 @@ module DaVinciPDexTestKit
       end
     end
 
+    suite_option  :client_type,
+                  title: 'Client Security Type',
+                  list_options: [
+                    {
+                      label: 'SMART App Launch Public Client',
+                      value: PDexClientOptions::SMART_APP_LAUNCH_PUBLIC
+                    },
+                    {
+                      label: 'SMART App Launch Confidential Symmetric Client',
+                      value: PDexClientOptions::SMART_APP_LAUNCH_CONFIDENTIAL_SYMMETRIC
+                    },
+                    {
+                      label: 'SMART App Launch Confidential Asymmetric Client',
+                      value: PDexClientOptions::SMART_APP_LAUNCH_CONFIDENTIAL_ASYMMETRIC
+                    },
+                    {
+                      label: 'UDAP Authorization Code Client',
+                      value: PDexClientOptions::UDAP_AUTHORIZATION_CODE
+                    }
+                  ]
+    
     resume_test_route :get, RESUME_PASS_PATH do |request|
       PDexPayerClientSuite.extract_token_from_query_params(request)
     end
@@ -82,17 +109,36 @@ module DaVinciPDexTestKit
       PDexPayerClientSuite.extract_token_from_query_params(request)
     end
 
+    group from: :pdex_client_registration
+
     group do
       run_as_group
-      title 'Workflow Tests'
+      title 'Verify PDex Data Access'
       id :payer_to_payer_workflow
 
       group do
         title 'Interaction Tests'
-        id :client_workflow_interaction
+        id :pdex_client_workflow_interaction
 
         test from: :pdex_client_workflow_interaction
       end
+
+      group from: :pdex_client_auth_smart_alca,
+          required_suite_options: {
+            client_type: PDexClientOptions::SMART_APP_LAUNCH_CONFIDENTIAL_ASYMMETRIC
+          }
+      group from: :pdex_client_auth_smart_alcs,
+            required_suite_options: {
+              client_type: PDexClientOptions::SMART_APP_LAUNCH_CONFIDENTIAL_SYMMETRIC
+            }
+      group from: :pdex_client_auth_smart_alp,
+            required_suite_options: {
+              client_type: PDexClientOptions::SMART_APP_LAUNCH_PUBLIC
+            }
+      group from: :pdex_client_auth_udap,
+            required_suite_options: {
+              client_type: PDexClientOptions::UDAP_AUTHORIZATION_CODE
+            }
 
       group do
         title '$member-match validation'
@@ -130,7 +176,10 @@ module DaVinciPDexTestKit
       end
     end
 
+  
     # TODO: must support validation
+
+    
 
     private
 

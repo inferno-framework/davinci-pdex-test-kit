@@ -12,7 +12,7 @@ module DaVinciPDexTestKit
         end
     
         def tags
-          [RESOURCE_REQUEST_TAG]
+          [RESOURCE_ID_TAG]
         end
     
       end
