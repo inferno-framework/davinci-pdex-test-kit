@@ -88,7 +88,13 @@ module DaVinciPDexTestKit
       end
   
       def export_resources
-        @export_resources ||= (load_tagged_requests(BINARY_TAG).map { |binary_read| binary_read.response_body.split("\n") }.flatten).map { |resource_in_binary| FHIR.from_contents(resource_in_binary) }
+        @export_resources ||=
+          (
+            load_tagged_requests(BINARY_TAG)
+            .select { |binary_read| binary_read.status == 200 }
+            .map { |binary_read| binary_read.response_body.split("\n") }
+            .flatten
+          ).map { |resource_in_binary| FHIR.from_contents(resource_in_binary) }
       end
 
       # def patient_id_from_match_request

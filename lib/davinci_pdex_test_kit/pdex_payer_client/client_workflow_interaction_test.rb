@@ -53,7 +53,7 @@ module DaVinciPDexTestKit
             
             Available APIs include:
             * Single patient $member-match: `#{member_match_url}`
-            * Single Resource read and search API: `#{submit_url}`, with `:endpoint` replaced with
+            * Single Resource read and search API: `#{resource_url}`, with `:endpoint` replaced with
               the target resource type.
             * Patient-level $everything: `#{everything_url}`, with `:patient` replaced with the
               id for the target patient.
