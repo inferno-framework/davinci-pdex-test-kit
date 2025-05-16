@@ -172,9 +172,9 @@ module DaVinciPDexTestKit
 
         verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@3', 'hl7.fhir.us.davinci-pdex_2.0.0@7',
                               'hl7.fhir.us.davinci-pdex_2.0.0@16', 'hl7.fhir.us.davinci-pdex_2.0.0@43',
-                              'hl7.fhir.us.davinci-pdex_2.0.0@48', 'hl7.fhir.us.davinci-pdex_2.0.0@49',
-                              'hl7.fhir.us.davinci-pdex_2.0.0@50', 'hl7.fhir.us.davinci-pdex_2.0.0@51',
-                              'hl7.fhir.us.davinci-pdex_2.0.0@52'
+                              'hl7.fhir.us.davinci-pdex_2.0.0@44', 'hl7.fhir.us.davinci-pdex_2.0.0@48',
+                              'hl7.fhir.us.davinci-pdex_2.0.0@49', 'hl7.fhir.us.davinci-pdex_2.0.0@50',
+                              'hl7.fhir.us.davinci-pdex_2.0.0@51', 'hl7.fhir.us.davinci-pdex_2.0.0@52'
 
         group from: :pdex_eob
         group from: :pdex_device
