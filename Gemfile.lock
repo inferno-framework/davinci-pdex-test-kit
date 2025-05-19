@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    davinci_pdex_test_kit (0.12.0)
+    davinci_pdex_test_kit (0.12.1)
       bulk_data_test_kit (~> 0.12.1)
       faraday (~> 1.10.4)
       faraday_middleware (~> 1.2.1)
