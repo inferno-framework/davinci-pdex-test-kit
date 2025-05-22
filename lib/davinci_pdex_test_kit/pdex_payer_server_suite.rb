@@ -190,6 +190,8 @@ module DaVinciPDexTestKit
         end
       end
     end
-    group from: :pdex_server_visual_inspection_and_attestation
+    group from: :pdex_server_visual_inspection_and_attestation do
+      optional
+    end
   end
 end

@@ -178,7 +178,9 @@ module DaVinciPDexTestKit
       end
     end
 
-    group from: :pdex_client_visual_inspection_and_attestation
+    group from: :pdex_client_visual_inspection_and_attestation do
+      optional
+    end
 
   
     # TODO: must support validation
