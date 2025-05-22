@@ -13,6 +13,8 @@ require_relative 'pdex_payer_server/device_group'
 require_relative 'pdex_payer_server/medication_dispense_group'
 require_relative 'pdex_payer_server/provenance_group'
 
+require_relative 'pdex_payer_server/visual_inspection_and_attestation'
+
 module DaVinciPDexTestKit
   class PDexPayerServerSuite < Inferno::TestSuite
     id :pdex_payer_server
@@ -187,6 +189,9 @@ module DaVinciPDexTestKit
           group(from: group.ancestors[1].id, id: group.ancestors[1].id.delete_prefix('us_core_v311_'))
         end
       end
+    end
+    group from: :pdex_server_visual_inspection_and_attestation do
+      optional
     end
   end
 end
