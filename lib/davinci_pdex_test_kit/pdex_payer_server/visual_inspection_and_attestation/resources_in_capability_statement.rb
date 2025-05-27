@@ -1,5 +1,9 @@
+require_relative '../urls'
+
 module DaVinciPDexTestKit
   class PDexCapabilityStatementDeclarationTest < Inferno::Test
+    include PDexPayerServer::URLs
+
     title 'Declares resources and operations in CapabilityStatement'
 
     description <<~DESCRIPTION

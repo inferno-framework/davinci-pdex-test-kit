@@ -1,5 +1,9 @@
+require_relative '../urls'
+
 module DaVinciPDexTestKit
   class PDexMustSupportDefinedByHRexTest < Inferno::Test
+    include PDexPayerServer::URLs
+
     title 'Uses HRex Must Support definitions for HRex profiles'
 
     description <<~DESCRIPTION

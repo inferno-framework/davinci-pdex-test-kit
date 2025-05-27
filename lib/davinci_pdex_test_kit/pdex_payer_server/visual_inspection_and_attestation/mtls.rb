@@ -1,5 +1,9 @@
+require_relative '../urls'
+
 module DaVinciPDexTestKit
   class PDexPayerToPayerMemberMatchTest < Inferno::Test
+    include PDexPayerServer::URLs
+
     title 'Supports mTLS for secure $member-match payer-to-payer exchange'
 
     description <<~DESCRIPTION

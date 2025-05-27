@@ -1,5 +1,9 @@
+require_relative '../urls'
+
 module DaVinciPDexTestKit
   class PayerConsentComplianceTest < Inferno::Test
+    include PDexPayerServer::URLs
+
     title 'Constrains response based on access permissions'
 
     description <<~DESCRIPTION

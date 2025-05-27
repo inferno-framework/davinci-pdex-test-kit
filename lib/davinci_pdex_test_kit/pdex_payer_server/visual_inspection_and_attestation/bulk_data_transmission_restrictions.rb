@@ -1,5 +1,9 @@
+require_relative '../urls'
+
 module DaVinciPDexTestKit
   class BulkDataTransmissionRestrictionsTest < Inferno::Test
+    include PDexPayerServer::URLs
+
     title 'Properly restricts Bulk Data transmission of individual member data'
 
     description <<~DESCRIPTION

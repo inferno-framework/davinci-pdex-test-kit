@@ -1,5 +1,9 @@
+require_relative '../urls'
+
 module DaVinciPDexTestKit
   class PDexProvenanceTest < Inferno::Test
+    include PDexPayerServer::URLs
+
     title 'Includes and generates provenance records as required'
 
     description <<~DESCRIPTION

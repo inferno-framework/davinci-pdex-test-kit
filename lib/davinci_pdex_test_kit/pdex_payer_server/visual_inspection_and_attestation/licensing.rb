@@ -1,5 +1,9 @@
+require_relative '../urls'
+
 module DaVinciPDexTestKit
   class PDexLicensingTest < Inferno::Test
+    include PDexPayerServer::URLs
+
     title 'Complies with licensing requirements'
 
     description <<~DESCRIPTION

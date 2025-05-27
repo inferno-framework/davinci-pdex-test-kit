@@ -1,5 +1,9 @@
+require_relative '../urls'
+
 module DaVinciPDexTestKit
   class ConsentRequirementsTest < Inferno::Test
+    include PDexPayerServer::URLs
+
     title 'Assesses consent requirements'
 
     description <<~DESCRIPTION

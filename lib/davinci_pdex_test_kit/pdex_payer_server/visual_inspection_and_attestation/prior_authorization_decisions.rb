@@ -1,5 +1,9 @@
+require_relative '../urls'
+
 module DaVinciPDexTestKit
   class PriorAuthorizationDecisionsTest < Inferno::Test
+    include PDexPayerServer::URLs
+
     title 'Makes available pending and active prior authorization decisions'
 
     description <<~DESCRIPTION

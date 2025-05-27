@@ -1,5 +1,9 @@
+require_relative '../urls'
+
 module DaVinciPDexTestKit
   class PDexMemberAuthorizedExchangeTest < Inferno::Test
+    include PDexPayerServer::URLs
+
     title 'Supports Payer-to-Payer member-authorized exchange'
 
     description <<~DESCRIPTION

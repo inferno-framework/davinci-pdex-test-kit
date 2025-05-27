@@ -13,6 +13,7 @@ require_relative 'pdex_payer_server/device_group'
 require_relative 'pdex_payer_server/medication_dispense_group'
 require_relative 'pdex_payer_server/provenance_group'
 
+require_relative 'pdex_payer_server/urls'
 require_relative 'pdex_payer_server/visual_inspection_and_attestation'
 
 module DaVinciPDexTestKit
@@ -88,6 +89,13 @@ module DaVinciPDexTestKit
           { type: 'error', message: 'Inferno is only showing the first 20 validation error messages.' }
         end
       end
+    end
+
+    resume_test_route :get, PDexPayerServer::RESUME_PASS_PATH do |request|
+      request.query_parameters['token']
+    end
+    resume_test_route :get, PDexPayerServer::RESUME_FAIL_PATH, result: 'fail' do |request|
+      request.query_parameters['token']
     end
 
     group do

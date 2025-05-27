@@ -1,5 +1,9 @@
+require_relative '../urls'
+
 module DaVinciPDexTestKit
   class PDexMemberMatchConsentFailureHandlingTest < Inferno::Test
+    include PDexPayerServer::URLs
+
     title 'Handles consent non-compliance correctly during $member-match'
 
     description <<~DESCRIPTION

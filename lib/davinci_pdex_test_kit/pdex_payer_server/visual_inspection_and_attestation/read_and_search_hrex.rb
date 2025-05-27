@@ -1,5 +1,9 @@
+require_relative '../urls'
+
 module DaVinciPDexTestKit
   class PDexCoverageInteractionSupportTest < Inferno::Test
+    include PDexPayerServer::URLs
+
     title 'Supports Read and Search for the HRex Coverage resource'
 
     description <<~DESCRIPTION
