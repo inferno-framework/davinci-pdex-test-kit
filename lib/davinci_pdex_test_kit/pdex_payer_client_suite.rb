@@ -37,6 +37,8 @@ require_relative 'pdex_payer_client/clinical_data_request_tests/practitioner_cli
 require_relative 'pdex_payer_client/clinical_data_request_tests/practitionerrole_clinical_data_request_test'
 require_relative 'pdex_payer_client/clinical_data_request_tests/procedure_clinical_data_request_test'
 
+require_relative 'pdex_payer_client/visual_inspection_and_attestation'
+
 module DaVinciPDexTestKit
   class PDexPayerClientSuite < Inferno::TestSuite
     include PDexPayerClient
@@ -174,6 +176,10 @@ module DaVinciPDexTestKit
         test from: :pdex_practitionerrole_clinical_data_request
         test from: :pdex_procedure_clinical_data_request
       end
+    end
+
+    group from: :pdex_client_visual_inspection_and_attestation do
+      optional
     end
 
   
