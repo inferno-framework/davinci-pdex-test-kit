@@ -22,6 +22,7 @@ module DaVinciPDexTestKit
             Provenance records received with data as part of a member-authorized payer-to-payer exchange.
 
             [Click here](#{resume_pass_url}?token=#{identifier}) if the system **meets** this requirement.
+
             [Click here](#{resume_fail_url}?token=#{identifier}) if the system **does not meet** this requirement.
           MESSAGE
         )

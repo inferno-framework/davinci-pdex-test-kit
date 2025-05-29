@@ -26,6 +26,7 @@ module DaVinciPDexTestKit
           operations for the Coverage resource using the HRex Coverage profile.
 
           [Click here](#{resume_pass_url}?token=#{identifier}) if the system **meets** these requirements.
+
           [Click here](#{resume_fail_url}?token=#{identifier}) if the system **does not meet** these requirements.
         MESSAGE
       )

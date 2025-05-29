@@ -24,6 +24,7 @@ module DaVinciPDexTestKit
             a member portal, and accepts only those credentials when processing member-authorized requests.
 
             [Click here](#{resume_pass_url}?token=#{identifier}) if the system **meets** this requirement.
+
             [Click here](#{resume_fail_url}?token=#{identifier}) if the system **does not meet** this requirement.
           MESSAGE
         )

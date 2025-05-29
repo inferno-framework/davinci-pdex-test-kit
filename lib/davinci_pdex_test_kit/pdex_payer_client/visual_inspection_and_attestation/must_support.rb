@@ -30,6 +30,7 @@ module DaVinciPDexTestKit
           - For PDex profiles, Must Support elements are interpreted according to the US Core IG.
 
           [Click here](#{resume_pass_url}?token=#{identifier}) if the system **meets** these requirements.
+
           [Click here](#{resume_fail_url}?token=#{identifier}) if the system **does not meet** these requirements.
         MESSAGE
       )

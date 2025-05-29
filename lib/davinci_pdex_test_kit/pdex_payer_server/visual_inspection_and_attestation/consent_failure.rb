@@ -31,6 +31,7 @@ module DaVinciPDexTestKit
           - In such cases, the system returns an HTTP 422 status code with an accompanying Operation Outcome that explains why the consent request could not be honored.
 
           [Click here](#{resume_pass_url}?token=#{identifier}) if the system **meets** these requirements.
+
           [Click here](#{resume_fail_url}?token=#{identifier}) if the system **does not meet** these requirements.
         MESSAGE
       )
