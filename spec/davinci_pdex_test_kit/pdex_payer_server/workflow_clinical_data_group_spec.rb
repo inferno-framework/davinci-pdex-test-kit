@@ -4,9 +4,7 @@
 require 'davinci_pdex_test_kit/pdex_payer_server/workflow_clinical_data_group'
 
 RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowClinicalDataGroup do
-  let(:suite) { Inferno::Repositories::TestSuites.new.find('pdex_payer_server') }
-  let(:session_data_repo) { Inferno::Repositories::SessionData.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: suite.id) }
+  let(:suite_id) { 'pdex_payer_server' }
   let(:url) { 'http://example.com/fhir' }
   let(:group) { suite.groups.first.groups[1] }
   let(:patient_id) { Faker::Alphanumeric.alphanumeric }
