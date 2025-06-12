@@ -115,7 +115,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowEverythingGroup do
   #     stub_request(:get, "#{url}/Patient/#{patient_id}/$everything")
   #       .to_return(status: 200, body: create(:everything_bundle).to_json)
   # 
-  #     stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+  #     stub_request(:post, validation_url)
   #       .with(query: hash_including({}))
   #       .to_return(status: 200, body: success_outcome.to_json)
   # 
@@ -128,7 +128,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowEverythingGroup do
   #     stub_request(:get, "#{url}/Patient/#{patient_id}/$everything")
   #       .to_return(status: 200, body: create(:empty_search_bundle).to_json)
   # 
-  #     stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+  #     stub_request(:post, validation_url)
   #       .with(query: hash_including({}))
   #       .to_return(status: 200, body: success_outcome.to_json)
   # 
