@@ -1,16 +1,15 @@
 RSpec.describe DaVinciPDexTestKit::PDexPayerClientSuite, :request do
   let(:suite_id) { 'pdex_payer_client' }
-  let(:test_session) { repo_create(:test_session, test_suite_id: suite_id) }
-
-  def valid_json?(json)
-    JSON.parse(json)
-    true
-  rescue JSON::ParserError, TypeError
-    false
-  end
 
   skip 'Needs RSpec testing' do # TODO
   end
+
+  # def valid_json?(json)
+  #   JSON.parse(json)
+  #   true
+  # rescue JSON::ParserError, TypeError
+  #   false
+  # end
 
   # describe 'performing interactions with the client under test' do
   #   let(:access_token) { '1234' }
