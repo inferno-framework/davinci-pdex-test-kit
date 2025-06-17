@@ -46,6 +46,11 @@ module DaVinciPDexTestKit
         identifier: 'hl7.fhir.us.davinci-pdex_2.0.0',
         title: 'Da Vinci Payer Data Exchange (PDex) v2.0.0',
         actor: 'Server'
+      },
+      {
+        identifier: 'hl7.fhir.uv.bulkdata_2.0.0',
+        title: 'Bulk Data Access IG',
+        actor: 'Server'
       }
     )
 
