@@ -1,4 +1,3 @@
-require_relative 'inferno_requirements_tools/ext/inferno_core/runnable'
 require_relative 'davinci_pdex_test_kit/metadata'
 require_relative 'davinci_pdex_test_kit/pdex_payer_server_suite'
 require_relative 'davinci_pdex_test_kit/pdex_payer_client_suite'

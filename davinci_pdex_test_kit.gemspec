@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Test Kit for the Da Vinci Payer Data Exchange (PDex) FHIR Implementation Guide'
   spec.homepage      = 'https://github.com/inferno-framework/davinci-pdex-test-kit/'
   spec.license       = 'Apache-2.0'
-  spec.add_runtime_dependency 'inferno_core', '~> 0.6.7'
+  spec.add_runtime_dependency 'inferno_core', '~> 0.6.12'
   spec.add_runtime_dependency 'us_core_test_kit', '~> 0.11.0'
   spec.add_runtime_dependency 'bulk_data_test_kit', '~> 0.12.1'
   spec.add_runtime_dependency 'faraday', '~> 1.10.4'
