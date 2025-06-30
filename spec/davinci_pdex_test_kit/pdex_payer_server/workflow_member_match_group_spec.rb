@@ -4,9 +4,7 @@
 require 'davinci_pdex_test_kit/pdex_payer_server/workflow_member_match_group'
 
 RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
-  let(:suite) { Inferno::Repositories::TestSuites.new.find('pdex_payer_server') }
-  let(:session_data_repo) { Inferno::Repositories::SessionData.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: suite.id) }
+  let(:suite_id) { 'pdex_payer_server' }
   let(:url) { 'http://example.com/fhir' }
   let(:group) { suite.groups.first.groups.first }
 
@@ -69,7 +67,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
 
     it 'passes a correct member match request resource' do
       parameters = create(:member_match_request)
-      stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+      stub_request(:post, validation_url)
         .with(query: hash_including({}))
         .to_return(status: 200, body: success_outcome.to_json)
 
@@ -79,7 +77,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
 
     it 'fails a bad member match request resource' do
       parameters = create(:bad_member_match_request)
-      stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+      stub_request(:post, validation_url)
         .with(query: hash_including({}))
         .to_return(status: 200, body: error_outcome.to_json)
 
@@ -172,7 +170,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
   #     }))
   #     allow(test).to receive(:load_named_requests).and_return(true)
   # 
-  #     stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+  #     stub_request(:post, validation_url)
   #       .with(query: hash_including({}))
   #       .to_return(status: 200, body: success_outcome.to_json)
   #   end
@@ -213,7 +211,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
         .with(query: {identifier: member_identifier})
         .to_return(status: 200, body: create(:patient_search_bundle).to_json)
 
-      stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+      stub_request(:post, validation_url)
         .with(query: hash_including({}))
         .to_return(status: 200, body: success_outcome.to_json)
 
@@ -227,7 +225,7 @@ RSpec.describe DaVinciPDexTestKit::PDexPayerServer::WorkflowMemberMatchGroup do
         .with(query: {identifier: member_identifier})
         .to_return(status: 200, body: create(:empty_search_bundle).to_json)
 
-      stub_request(:post, "#{ENV.fetch('FHIR_RESOURCE_VALIDATOR_URL')}/validate")
+      stub_request(:post, validation_url)
         .with(query: hash_including({}))
         .to_return(status: 200, body: success_outcome.to_json)
 

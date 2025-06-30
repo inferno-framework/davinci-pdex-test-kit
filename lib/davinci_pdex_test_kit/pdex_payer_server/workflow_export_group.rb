@@ -1,5 +1,4 @@
 require 'bulk_data_test_kit/v2.0.0/bulk_data_patient_export_test_group'
-# require 'bulk_data_test_kit/v1.0.1/patient/bulk_data_patient_export_group'
 require_relative 'export_patient_group'
 require_relative 'export_validation_group'
 
@@ -25,18 +24,27 @@ module DaVinciTestKit
         to be returned by Patient-level export. The tests require a Bulk Data Autthorization Bearer Token.
       }
 
-      config({
-               inputs: {
-                 url: { name: :bulk_server_url },
-                 # bulk_server_url: { name: :url },
-                 bulk_export_url: { default: 'Patient/$export' },
-                 bearer_token: { description: 'The authorization bearer token for $export access that is scoped to the same patient found by $member-match or entered as patient id. This is not necessarily the same OAuth token that allows access to the server\'s $member-match. If omitted $export tests will be skipped.' }
-               }
-             })
+      verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@57', 'hl7.fhir.us.davinci-pdex_2.0.0@58'
+
+      config(
+        {
+          inputs: {
+            url: { name: :bulk_server_url },
+            bulk_export_url: { default: 'Patient/$export' },
+            smart_auth_info: {
+              name: :bulk_auth_info,
+              title: 'Bulk Data Authorization',
+              description: "The authorization information for $export access that is scoped to the same patient found by $member-match or entered as patient id. This is not necessarily the same authorization information that allows access to the server's $member-match.",
+              options: {
+                mode: 'access'
+              },
+              optional: true
+            }
+          }
+        }
+      )
 
       input :url # inherit properties from test suite
-
-      input :bearer_token # inherit properties from parent
 
       input :patient_id,
             title: 'Patient ID',
@@ -46,12 +54,13 @@ module DaVinciTestKit
       # Required by Bulk Data tests
       fhir_client :bulk_server do
         url :url
-        bearer_token :bearer_token
+        # auth_info :bulk_auth_info # FIXME to respect config, workaround below:
+        headers { 'Authorization' => "Bearer #{bulk_auth_info.access_token}" }
       end
 
       http_client :bulk_server do
         url :url
-        headers { 'Authorization' => "Bearer #{bearer_token}" }
+        headers { 'Authorization' => "Bearer #{bulk_auth_info.access_token}" }
       end
 
       group from: :pdex_patient_export

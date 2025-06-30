@@ -12,13 +12,16 @@ module DaVinciPDexTestKit
         marked as 'MustSupport', if any are available.
 
         It verifies that at least one external reference for each MustSupport Reference element
-        can be accessed by the test client, and conforms to corresponding US Core or PDex profile.
+        can be accessed by the test client, and conforms to corresponding PDex profile.
 
         Elements which may provide external references include:
 
-        #### TODO: list out all references:
-
-        * ...
+        * ExplanationOfBenefit.careTeam.provider
+        * ExplanationOfBenefit.enterer
+        * ExplanationOfBenefit.facility
+        * ExplanationOfBenefit.insurer
+        * ExplanationOfBenefit.patient
+        * ExplanationOfBenefit.provider
       )
 
       id :pdex_eob_ref_resolution

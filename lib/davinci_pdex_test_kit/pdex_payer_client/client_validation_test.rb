@@ -62,7 +62,9 @@ module DaVinciPDexTestKit
 
       # @return [Array<Inferno::Entities::Request>]
       def previous_clinical_data_requests
-        [] + load_tagged_requests(RESOURCE_REQUEST_TAG) + load_tagged_requests(EVERYTHING_TAG) # TODO add export request
+        [] + load_tagged_requests(RESOURCE_API_TAG) +
+             load_tagged_requests(RESOURCE_ID_TAG) +
+             load_tagged_requests(EVERYTHING_TAG) # TODO add export request
       end
   
       def everything_request
@@ -86,7 +88,13 @@ module DaVinciPDexTestKit
       end
   
       def export_resources
-        @export_resources ||= (load_tagged_requests(BINARY_TAG).map { |binary_read| binary_read.response_body.split("\n") }.flatten).map { |resource_in_binary| FHIR.from_contents(resource_in_binary) }
+        @export_resources ||=
+          (
+            load_tagged_requests(BINARY_TAG)
+            .select { |binary_read| binary_read.status == 200 }
+            .map { |binary_read| binary_read.response_body.split("\n") }
+            .flatten
+          ).map { |resource_in_binary| FHIR.from_contents(resource_in_binary) }
       end
 
       # def patient_id_from_match_request

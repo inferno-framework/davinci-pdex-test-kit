@@ -25,6 +25,16 @@ module DaVinciPDexTestKit
             description: 'Manual Patient ID for testing Clinical Query and $everything without $member-match.',
             optional: true
 
+      input :smart_auth_info,
+            title: 'OAuth Credentials',
+            type: :auth_info,
+            optional: true
+
+      fhir_client do
+        url :url
+        auth_info :smart_auth_info
+      end
+
       test do
         id :pdex_workflow_clinical_encounter_query_test
         title 'Server can provide clinical Encounter data from matched member identifier'

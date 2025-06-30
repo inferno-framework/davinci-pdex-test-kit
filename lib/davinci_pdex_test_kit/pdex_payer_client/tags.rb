@@ -2,14 +2,13 @@
 
 module DaVinciPDexTestKit
   module PDexPayerClient
-    AUTH_TAG = 'pdex_auth'
-    RESOURCE_REQUEST_TAG = 'pdex_resource_request'
-    PATIENT_ID_REQUEST_TAG = 'pdex_patient_id_request'
-    BINARY_TAG = 'pdex_binary'
-    EXPORT_TAG = 'pdex_export'
-    EXPORT_STATUS_TAG = 'pdex_export_status'
-    EVERYTHING_TAG = 'pdex_everything'
-    MEMBER_MATCH_TAG = 'pdex_member_match'
-
+    RESOURCE_API_TAG = 'resource_api'
+    RESOURCE_ID_TAG = 'resource_id'
+    PATIENT_ID_REQUEST_TAG = 'patient_id_request'
+    BINARY_TAG = 'binary'
+    EXPORT_TAG = 'export'
+    EXPORT_STATUS_TAG = 'export_status'
+    EVERYTHING_TAG = 'everything'
+    MEMBER_MATCH_TAG = 'member_match'
   end
 end
