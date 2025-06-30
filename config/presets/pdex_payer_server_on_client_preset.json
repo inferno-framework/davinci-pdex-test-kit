@@ -5,7 +5,7 @@
   "inputs": [
     {
       "name": "url",
-      "value": "http://localhost:4567/custom/pdex_payer_client/fhir",
+      "value": "http://inferno.healthit.gov/suites/custom/pdex_payer_client/fhir",
       "_title": "FHIR Server Base Url",
       "_type": "text"
     },
