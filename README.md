@@ -118,7 +118,7 @@ the **timeout increased to 600 seconds**.
 3. Use the SMART App Launch Test Kit to perform the authentication handshake. You can do this by running
 opening the SMART App Launch STU2.2 suite in another tab and running Test Group 1 Standalone Launch. Use
 the FHIR URL and SMART Client Id inputs from the Payer Client test's dialog box. Grab
-the bearer token from test 1.2.06 output `standalonne_access_token`. 
+the bearer token from test 1.2.06 output `standalone_access_token`. 
 4. On the Payer Client suite, follow the user action required to indicate you have completed client connection.
 5. Now on the Payer Server suite, select the "PDex Payer Server Preset for Client Tests" preset, start
 Test Group 1.1 $member-match, and enter the access token you grabbed from step 3. Submit the inputs to run 1.1
