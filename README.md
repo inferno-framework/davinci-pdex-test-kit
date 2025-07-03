@@ -131,10 +131,6 @@ you can run any of the other Test Groups to simulate that portion of the PDex IG
 7. Once you have executed any of the above tests, follow the User Action Required dialog box on the Client suite
 to indicate you have finished making requests.
 
-Since this exercise requires running two test kits which causes port conflicts by default, you are advised to do
-it on [the ONC website](https://inferno.healthit.gov/test-kits/) or locally on the
-[inferno platform](https://github.com/inferno-framework/inferno-platform-template/).
-
 Troubleshooting: if you get the error `Unable to find test run with identifier...` it is due to known race condition bug
 when running the two test suites against each other. Re-run the tests with the same inputs if you encounter
 the race condition. If the problem persists or its blocking your FHIR application testing, please raise an
