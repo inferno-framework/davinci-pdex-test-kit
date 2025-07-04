@@ -5,7 +5,7 @@
   "inputs": [
     {
       "name": "url",
-      "value": "http://localhost:4567/custom/pdex_payer_client/fhir",
+      "value": "<%= Inferno::Application['base_url'] %>/custom/pdex_payer_client/fhir",
       "_title": "FHIR Server Base Url",
       "_type": "text"
     },
@@ -91,6 +91,10 @@
       "_description": "Enter the code for an Implantable Device type, or multiple codes separated by commas. If blank, Inferno will validate all Device resources against the Implantable Device profile",
       "_type": "text",
       "_optional": true
+    },
+    {
+      "name": "bulk_timeout",
+      "value": 600
     }
   ]
 }

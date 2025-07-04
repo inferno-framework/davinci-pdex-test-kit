@@ -17,9 +17,15 @@ module DaVinciPDexTestKit
             req.params = request.params
             req.headers = http_headers_as_hash.merge(server_proxy.headers)
           end
+ 
+          if server_response.status.to_s.starts_with?('4') || server_response.status.to_s.starts_with?('5')
+            response.format = 'application/fhir+json'
+          elsif server_response.status.to_i == 202
+            response.format = 'application/json'
+          end
 
-          response.format = 'application/fhir+json'
           response.body = (server_response.status.to_i == 200) ? replace_export_urls(JSON.parse(server_response.body)).to_json : server_response.body
+          response.status = server_response.status
         end
     
         def tags
