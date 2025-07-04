@@ -78,6 +78,14 @@ module DaVinciPDexTestKit
       end
     end
 
+    requirement_sets(
+      {
+        identifier: 'hl7.fhir.us.davinci-pdex_2.0.0',
+        title: 'Da Vinci Payer Data Exchange (PDex) v2.0.0',
+        actor: 'Client'
+      }
+    )
+
     suite_option  :client_type,
                   title: 'Client Security Type',
                   list_options: [
@@ -98,7 +106,7 @@ module DaVinciPDexTestKit
                       value: PDexClientOptions::UDAP_AUTHORIZATION_CODE
                     }
                   ]
-    
+
     resume_test_route :get, RESUME_PASS_PATH do |request|
       PDexPayerClientSuite.extract_token_from_query_params(request)
     end
@@ -182,10 +190,10 @@ module DaVinciPDexTestKit
       optional
     end
 
-  
+
     # TODO: must support validation
 
-    
+
 
     private
 

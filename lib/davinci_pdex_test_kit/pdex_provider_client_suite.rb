@@ -56,6 +56,14 @@ module DaVinciPDexTestKit
         end
 
       end
+
+      requirement_sets(
+        {
+          identifier: 'hl7.fhir.us.davinci-pdex_2.0.0',
+          title: 'Da Vinci Payer Data Exchange (PDex) v2.0.0',
+          actor: 'Client'
+        }
+      )
     end
 end
 
