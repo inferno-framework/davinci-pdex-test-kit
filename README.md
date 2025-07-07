@@ -113,23 +113,24 @@ the **timeout increased to 600 seconds**.
 
 ## Running Server Tests and Client Tests against each other
 
-1. Open the Payer Server and Payer Client test suites in separate windows or tabs.
-2. Select "Run All Tests" to start the Payer Client suite.
-3. Use the SMART App Launch Test Kit to perform the authentication handshake. You can do this by running
+1. Ensure you have a simulation server running as documented above
+2. Open the Payer Server and Payer Client test suites in separate windows or tabs
+3. Select "Run All Tests" to start the Payer Client suite
+4. Use the SMART App Launch Test Kit to perform the authentication handshake. You can do this by running
 opening the SMART App Launch STU2.2 suite in another tab and running Test Group 1 Standalone Launch. Use
 the FHIR URL and SMART Client Id inputs from the Payer Client test's dialog box. Grab
-the bearer token from test 1.2.06 output `standalone_access_token`. 
-4. On the Payer Client suite, follow the user action required to indicate you have completed client connection.
-5. Now on the Payer Server suite, select the "PDex Payer Server Preset for Client Tests" preset, start
+the bearer token from test 1.2.06 output `standalone_access_token`
+5. On the Payer Client suite, follow the user action required to indicate you have completed client connection
+6. Now on the Payer Server suite, select the "PDex Payer Server Preset for Client Tests" preset, start
 Test Group 1.1 $member-match, and enter the access token you grabbed from step 3. Submit the inputs to run 1.1
-6. After the Client suite receives the $member-match request, which you can confirm on the Server suite's side,
+7. After the Client suite receives the $member-match request, which you can confirm on the Server suite's side,
 you can run any of the other Test Groups to simulate that portion of the PDex IG:
   * 1.2 for a single clinical FHIR query on an Encounter resource
   * 1.3 for the Patient `$everything` operation
-  * 1.4 for the `$export` operation from bulk data export.
-  * 2.2 for the US Core and PDex `GET` API.
-7. Once you have executed any of the above tests, follow the User Action Required dialog box on the Client suite
-to indicate you have finished making requests.
+  * 1.4 for the `$export` operation from bulk data export
+  * 2.2 for the US Core and PDex `GET` API
+8. Once you have executed any of the above tests, follow the User Action Required dialog box on the Client suite
+to indicate you have finished making requests
 
 Troubleshooting: if you get the error `Unable to find test run with identifier...` it may be due to known race condition bug
 when running the two test suites against each other. Re-run the tests with the same inputs if you encounter
