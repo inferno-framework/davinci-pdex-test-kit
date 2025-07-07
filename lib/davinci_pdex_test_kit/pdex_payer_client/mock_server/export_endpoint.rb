@@ -17,6 +17,7 @@ module DaVinciPDexTestKit
           end
           response.headers["content-location"] = server_response.headers["content-location"]&.gsub(/(.*)\?/, "#{fhir_base_url}/$export-poll-status?")
           response.body = server_response.body
+          response.status = server_response.status
         end
     
         def tags

@@ -66,7 +66,8 @@ are run or within this repository for the
 
 ### ONC Hosted Instance
 
-You can run the PDex test kit via the [ONC Inferno](https://inferno.healthit.gov/test-kits/davinci-pdex/) website by choosing the “Da Vinci Payer Data Exchange (PDex) Test Kit” test kit.
+You can run the PDex test kit via the [ONC Inferno](https://inferno.healthit.gov/test-kits/pdex/) website
+by choosing the “Da Vinci Payer Data Exchange (PDex) Test Kit” test kit.
 
 ### Local Inferno Instance
 
@@ -106,20 +107,35 @@ to a public instance. The location of the The following are valid configuration 
    (NOTE: this decision can be made independently from whether to run the test kit with 
    docker or using Ruby).
 
+If you are running the Server Bulk Export tests, you **must** use a local Inferno Reference Server
+with **read-write mode enabled** by adding `READ_ONLY=false` to the environment and with
+the **timeout increased to 600 seconds**.
+
 ## Running Server Tests and Client Tests against each other
 
-A preset has been provided if you would like to run the test kits against each other.  To do so:
-1. Begin each test suite in separate windows.
-2. Select the "PDex Payer Server Preset for Client Tests" preset in the Server Suite.
-3. Select "Run All Tests" for both kits.  Input the same access token for both, but do not click submit.
-4. Begin the Client tests by clicking submit.  It will now await a member-match to begin the workflow.
-5. Begin the Server tests by clicking submit.  It will send a member-match request to begin the workflow.
-6. Once a member-match request is received, the client tests will begin awaiting clinical data requests.  The server tests will automatically begin sending them.  Once the Server tests have reached the second group, you may attest in the client that clinical data requests are over.
-7. Let both test kits finish, attesting in client side that member-match's have all been received after Server group 2.1 completes. The tests are not expected to pass at this time.
+1. Ensure you have a simulation server running as documented above
+2. Open the Payer Server and Payer Client test suites in separate windows or tabs
+3. Select "Run All Tests" to start the Payer Client suite
+4. Use the SMART App Launch Test Kit to perform the authentication handshake. You can do this by running
+opening the SMART App Launch STU2.2 suite in another tab and running Test Group 1 Standalone Launch. Use
+the FHIR URL and SMART Client Id inputs from the Payer Client test's dialog box. Grab
+the bearer token from test 1.2.06 output `standalone_access_token`
+5. On the Payer Client suite, follow the user action required to indicate you have completed client connection
+6. Now on the Payer Server suite, select the "PDex Payer Server Preset for Client Tests" preset, start
+Test Group 1.1 $member-match, and enter the access token you grabbed from step 3. Submit the inputs to run 1.1
+7. After the Client suite receives the $member-match request, which you can confirm on the Server suite's side,
+you can run any of the other Test Groups to simulate that portion of the PDex IG:
+  * 1.2 for a single clinical FHIR query on an Encounter resource
+  * 1.3 for the Patient `$everything` operation
+  * 1.4 for the `$export` operation from bulk data export
+  * 2.2 for the US Core and PDex `GET` API
+8. Once you have executed any of the above tests, follow the User Action Required dialog box on the Client suite
+to indicate you have finished making requests
 
-Note that there is a currently a race condition that means that the client test may fail to respond to
-some server test suite requests. As a work-around, run the server test suite a second time while the
-client is waiting for clinical data requests during test 1.2.
+Troubleshooting: if you get the error `Unable to find test run with identifier...` it may be due to known race condition bug
+when running the two test suites against each other. Re-run the tests with the same inputs if you encounter
+the race condition. If the problem persists or its blocking your FHIR application testing, please raise an
+issue on GitHub.
 
 ## Providing Feedback and Reporting Issues
 
