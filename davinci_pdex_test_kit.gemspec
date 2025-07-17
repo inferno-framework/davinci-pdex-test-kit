@@ -4,7 +4,6 @@ Gem::Specification.new do |spec|
   spec.name          = 'davinci_pdex_test_kit'
   spec.version       = DaVinciPDexTestKit::VERSION
   spec.authors       = ['Karl Naden', 'Shaumik Ashraf', 'Diego Griese']
-  spec.email         = ['inferno@groups.mitre.org']
   spec.date          = Time.now.utc.strftime('%Y-%m-%d')
   spec.summary       = 'Da Vinci PDex Test Kit'
   spec.description   = 'Test Kit for the Da Vinci Payer Data Exchange (PDex) FHIR Implementation Guide'
