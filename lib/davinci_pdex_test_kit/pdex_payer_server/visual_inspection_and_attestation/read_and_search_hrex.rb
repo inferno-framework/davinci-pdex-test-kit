@@ -16,20 +16,38 @@ module DaVinciPDexTestKit
     verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@17',
                           'hl7.fhir.us.davinci-pdex_2.0.0@18'
 
+    input :pdex_coverage_interaction_support_test_options,
+          title: 'Supports Read and Search for the HRex Coverage resource',
+          description: %(
+            I attest that the Health IT Module supports both the FHIR Read and Search
+              operations for the Coverage resource using the HRex Coverage profile.
+          ),
+          type: 'radio',
+          default: 'false',
+          options: {
+            list_options: [
+              {
+                label: 'Yes',
+                value: 'true'
+              },
+              {
+                label: 'No',
+                value: 'false'
+              }
+            ]
+          }
+    input :pdex_coverage_interaction_support_test_note,
+          title: 'Notes, if applicable:',
+          type: 'textarea',
+          optional: true
+
+
+
     run do
-      identifier = SecureRandom.hex(32)
-
-      wait(
-        identifier:,
-        message: <<~MESSAGE
-          I attest that the Health IT Module supports both the FHIR Read and Search
-          operations for the Coverage resource using the HRex Coverage profile.
-
-          [Click here](#{resume_pass_url}?token=#{identifier}) if the system **meets** these requirements.
-
-          [Click here](#{resume_fail_url}?token=#{identifier}) if the system **does not meet** these requirements.
-        MESSAGE
-      )
+      assert pdex_coverage_interaction_support_test_options == 'true',
+             'Client application did not demonstrate correct usage of the authorization code.'
+      pass pdex_coverage_interaction_support_test_note if pdex_coverage_interaction_support_test_note.present?
     end
+
   end
 end
