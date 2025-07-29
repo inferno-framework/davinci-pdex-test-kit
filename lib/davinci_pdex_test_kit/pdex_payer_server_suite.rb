@@ -1,5 +1,7 @@
 require 'us_core_test_kit/generated/v3.1.1/us_core_test_suite'
 
+require_relative 'remove_input'
+
 require_relative 'pdex_payer_server/workflow_member_match_group'
 require_relative 'pdex_payer_server/workflow_clinical_data_group'
 require_relative 'pdex_payer_server/workflow_everything_group'
@@ -214,5 +216,6 @@ module DaVinciPDexTestKit
     group from: :pdex_server_visual_inspection_and_attestation do
       optional
     end
+    RemoveInput::recursive_remove_input(groups.last, :url)
   end
 end
