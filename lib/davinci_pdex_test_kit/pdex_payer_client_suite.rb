@@ -6,6 +6,8 @@ require_relative 'pdex_payer_client/mock_server'
 # require_relative 'must_support_test'
 # require_relative 'pdex_payer_client/client_validation_test'
 
+require_relative 'remove_input'
+
 require_relative 'pdex_payer_client/client_registration_group'
 require_relative 'pdex_payer_client/client_auth_smart_alca_group'
 require_relative 'pdex_payer_client/client_auth_smart_alcs_group'
@@ -189,6 +191,7 @@ module DaVinciPDexTestKit
     group from: :pdex_client_visual_inspection_and_attestation do
       optional
     end
+    RemoveInput::recursive_remove_input(groups.last, :url)
 
 
     # TODO: must support validation
