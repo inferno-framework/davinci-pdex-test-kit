@@ -16,7 +16,7 @@ module DaVinciPDexTestKit
     input :pdex_member_authentication_test_options,
           title: 'Uses recognized Health Plan credentials',
           description: %(
-            The developer of the Health IT Module attests that the system requires members to authenticate
+            I attest that the Health IT Module requires members to authenticate
                 using credentials issued or recognized by the Health Plan, such as credentials used to access
                 a member portal, and accepts only those credentials when processing member-authorized requests.
           ),

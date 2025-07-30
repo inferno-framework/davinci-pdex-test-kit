@@ -19,7 +19,7 @@ module DaVinciPDexTestKit
     input :pdex_coverage_interaction_support_test_options,
           title: 'Supports Read and Search for the HRex Coverage resource',
           description: %(
-            The developer of the Health IT Module attests that the system supports both the FHIR Read and Search
+            I attest that the Health IT Module supports both the FHIR Read and Search
               operations for the Coverage resource using the HRex Coverage profile.
           ),
           type: 'radio',
