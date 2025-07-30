@@ -33,9 +33,9 @@ module DaVinciPDexTestKit
     input :pdex_payer_to_payer_mtls_options,
           title: 'Supports mTLS for secure $member-match payer-to-payer exchange',
           description: %(
-            I attest that the Health IT Module supports secure payer-to-payer exchange for $member-match as follows:
+            The developer of the Health IT Module attests that the system supports secure payer-to-payer exchange for $member-match as follows:
 
-              The **source** Health Plan is the Health Plan the member would like to get data from, and the **etarget**
+              The **source** Health Plan is the Health Plan the member would like to get data from, and the **target**
               Health Plan is the Health Plan the member would like to share data to.
 
               1. **Secure mTLS Connection** — Establishes a mutual TLS (mTLS) connection with the target Health Plan.
@@ -73,7 +73,7 @@ module DaVinciPDexTestKit
 
           The Health IT Module attests that the system supports secure payer-to-payer exchange for $member-match as follows:
 
-          The **source** Health Plan is the Health Plan the member would like to get data from, and the **etarget**
+          The **source** Health Plan is the Health Plan the member would like to get data from, and the **target**
           Health Plan is the Health Plan the member would like to share data to.
 
           1. **Secure mTLS Connection** — Establishes a mutual TLS (mTLS) connection with the target Health Plan.

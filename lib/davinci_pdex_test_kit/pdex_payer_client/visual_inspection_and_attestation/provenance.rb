@@ -15,7 +15,7 @@ module DaVinciPDexTestKit
     input :pdex_accept_retain_provenance_test_options,
           title: 'Accepts and retains Provenance in member-authorized payer-to-payer exchange',
           description: %(
-            I attest that the Health IT Module accepts and retains
+            The developer of the Health IT Module attests that the system accepts and retains
                 Provenance records received with data as part of a member-authorized payer-to-payer exchange.
           ),
           type: 'radio',
