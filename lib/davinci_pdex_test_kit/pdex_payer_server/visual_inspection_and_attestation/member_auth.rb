@@ -11,7 +11,7 @@ module DaVinciPDexTestKit
       information exchange using SMART on FHIR and OAuth 2.0 by satisfying the following criteria.
 
       The Health IT Module is acting as the **source** Health Plan, and is the Health Plan the member would like to get data from.
-      The **target** Health Plan is the Health PLan the member would like to share data to.
+      The **target** Health Plan is the Health Plan the member would like to share data to.
 
       1. **Client Authorization Credentials**
           The Health IT Module issues the target Health Plan OAuth 2.0 client application credentials during client registration.
