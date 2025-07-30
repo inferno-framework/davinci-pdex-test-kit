@@ -16,20 +16,41 @@ module DaVinciPDexTestKit
     verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@15',
                           'hl7.fhir.us.davinci-pdex_2.0.0@19'
 
+    input :pdex_capability_statement_declaration_test_options,
+          title: 'Declares resources and operations in CapabilityStatement',
+          description: %(
+            The developer of the Health IT Module attests that all FHIR resources and operations
+              available via a FHIR API endpoint are declared in the system's CapabilityStatement.
+          ),
+          type: 'radio',
+          default: 'false',
+          options: {
+            list_options: [
+              {
+                label: 'Yes',
+                value: 'true'
+              },
+              {
+                label: 'No',
+                value: 'false'
+              }
+            ]
+          }
+    input :pdex_capability_statement_declaration_test_note,
+          title: 'Notes, if applicable:',
+          type: 'textarea',
+          optional: true
+
     run do
-      identifier = SecureRandom.hex(32)
+      assert pdex_capability_statement_declaration_test_options == 'true', %(
+        The following was not satisfied:
 
-      wait(
-        identifier:,
-        message: <<~MESSAGE
-          The developer of the Health IT Module attests that all FHIR resources and operations
-          available via a FHIR API endpoint are declared in the system's CapabilityStatement.
+          The Health IT Module declares all FHIR resources and operations available via its API
+          in its FHIR CapabilityStatement, in accordance with PDex requirements.
 
-          [Click here](#{resume_pass_url}?token=#{identifier}) if the system **meets** these requirements.
-
-          [Click here](#{resume_fail_url}?token=#{identifier}) if the system **does not meet** these requirements.
-        MESSAGE
       )
+      pass pdex_capability_statement_declaration_test_note if pdex_capability_statement_declaration_test_note.present?
     end
+
   end
 end

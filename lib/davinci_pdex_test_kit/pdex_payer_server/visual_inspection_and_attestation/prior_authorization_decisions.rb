@@ -14,22 +14,42 @@ module DaVinciPDexTestKit
 
     verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@56'
 
+    input :pdex_prior_authorization_decisions_test_options,
+          title: 'Makes available pending and active prior authorization decisions',
+          description: %(
+            The developer of the Health IT Module attests that the Health IT Module makes available pending and active prior authorization decisions
+              and related clinical documentation and forms for items and services, not including prescription drugs, including the date the prior authorization was approved,
+              the date the authorization ends, as well as the units and services approved and those used to date, no later than one (1) business day after a provider initiates
+              a prior authorization for the beneficiary or there is a change of status for the prior authorization.
+          ),
+          type: 'radio',
+          default: 'false',
+          options: {
+            list_options: [
+              {
+                label: 'Yes',
+                value: 'true'
+              },
+              {
+                label: 'No',
+                value: 'false'
+              }
+            ]
+          }
+    input :pdex_prior_authorization_decisions_test_note,
+          title: 'Notes, if applicable:',
+          type: 'textarea',
+          optional: true
+
     run do
-      identifier = SecureRandom.hex(32)
+      assert pdex_prior_authorization_decisions_test_options == 'true', %(
+        The following was not satisfied:
 
-      wait(
-        identifier:,
-        message: <<~MESSAGE
-          The developer of the Health IT Module attests that the Health IT Module makes available pending and active prior authorization decisions
-          and related clinical documentation and forms for items and services, not including prescription drugs, including the date the prior authorization was approved,
-          the date the authorization ends, as well as the units and services approved and those used to date, no later than one (1) business day after a provider initiates
-          a prior authorization for the beneficiary or there is a change of status for the prior authorization.
+          The Health IT Module makes available pending and active prior authorization decisions and related clinical documentation and forms for items and services.
 
-          [Click here](#{resume_pass_url}?token=#{identifier}) if the system **meets** this requirement.
-
-          [Click here](#{resume_fail_url}?token=#{identifier}) if the system **does not meet** this requirement.
-        MESSAGE
       )
+      pass pdex_prior_authorization_decisions_test_note if pdex_prior_authorization_decisions_test_note.present?
     end
+
   end
 end
