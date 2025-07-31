@@ -8,4 +8,4 @@ To the extent necessary MITRE hereby grants express written permission to use, r
 
 For further information, please contact The MITRE Corporation, Contracts Management Office, 7515 Colshire Drive, McLean, VA  22102-7539, (703) 983-6000.  
 
-### <p align='center'>**ⓒ2024 The MITRE Corporation.**</p>
+### <p align='center'>**ⓒ2025 The MITRE Corporation.**</p>
