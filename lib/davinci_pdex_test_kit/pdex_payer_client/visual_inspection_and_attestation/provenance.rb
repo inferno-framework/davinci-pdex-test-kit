@@ -12,21 +12,42 @@ module DaVinciPDexTestKit
 
       verifies_requirements 'hl7.fhir.us.davinci-pdex_2.0.0@28'
 
-      run do
-        identifier = SecureRandom.hex(32)
-
-        wait(
-          identifier:,
-          message: <<~MESSAGE
+    input :pdex_accept_retain_provenance_test_options,
+          title: 'Accepts and retains Provenance in member-authorized payer-to-payer exchange',
+          description: %(
             I attest that the Health IT Module accepts and retains
+                Provenance records received with data as part of a member-authorized payer-to-payer exchange.
+          ),
+          type: 'radio',
+          default: 'false',
+          options: {
+            list_options: [
+              {
+                label: 'Yes',
+                value: 'true'
+              },
+              {
+                label: 'No',
+                value: 'false'
+              }
+            ]
+          }
+    input :pdex_accept_retain_provenance_test_note,
+          title: 'Notes, if applicable:',
+          type: 'textarea',
+          optional: true
+
+    run do
+      assert pdex_accept_retain_provenance_test_options == 'true', %(
+        The following was not satisfied:
+
+            The Health IT Module accepts and retains
             Provenance records received with data as part of a member-authorized payer-to-payer exchange.
 
-            [Click here](#{resume_pass_url}?token=#{identifier}) if the system **meets** this requirement.
+      )
+      pass pdex_accept_retain_provenance_test_note if pdex_accept_retain_provenance_test_note.present?
+    end
 
-            [Click here](#{resume_fail_url}?token=#{identifier}) if the system **does not meet** this requirement.
-          MESSAGE
-        )
-      end
     end
   end
 end
