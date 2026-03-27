@@ -61,18 +61,20 @@ module DaVinciPDexTestKit
 
       test from: :pdex_member_match_profile_validation do
         id :pdex_one_match_profile_validation
-        title '[USER INPUT VALIDATION] Member match request for exactly one match is valid'
+        title 'Member match request for exactly one match is valid'
         description %{
           This test validates the conformity of the user input to the
           [HRex Member Match Request Profile](https://hl7.org/fhir/us/davinci-hrex/STU1/StructureDefinition-hrex-parameters-member-match-in.html),
           ensuring subsequent tests can accurately simulate content. It also checks conformance to the [Parameters Resource](https://hl7.org/fhir/R4/parameters.html),
           mandatory elements, and terminology.
         }
+        simulation_verification
       end
 
       test from: :pdex_member_match_local_ref_validation do
         id :pdex_member_match_local_ref
-        title '[USER INPUT VALIDATION] Member match request only uses local references'
+        title 'Member match request only uses local references'
+        simulation_verification
       end
 
       test from: :pdex_coverage_to_link_minimal_validation
