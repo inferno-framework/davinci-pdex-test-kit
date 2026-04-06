@@ -22,13 +22,14 @@ module DaVinciPDexTestKit
       test from: :pdex_member_match_profile_validation do
         id :pdex_multiple_match_profile_validation
         config(group_config)
-        title '[USER INPUT VALIDATION] Member match request for multiple matches is valid'
+        title 'Member match request for multiple matches is valid'
         description %{
             This test validates the conformity of the user input to the
             [HRex Member Match Request Profile](https://hl7.org/fhir/us/davinci-hrex/STU1/StructureDefinition-hrex-parameters-member-match-in.html),
             ensuring subsequent tests can accurately simulate content. It also checks conformance to the [Parameters Resource](https://hl7.org/fhir/R4/parameters.html),
             mandatory elements, and terminology. It also checks that the Patient reference with the Consent and CoverageToMatch parameters are local references.
           }
+        simulation_verification
 
         # Inherits
       end

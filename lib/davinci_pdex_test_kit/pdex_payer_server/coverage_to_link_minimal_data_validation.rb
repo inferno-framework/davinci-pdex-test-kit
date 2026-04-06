@@ -29,7 +29,7 @@ module DaVinciPDexTestKit
     class CoverageToLinkMinimalDataValidation < Inferno::Test
 
       id :pdex_coverage_to_link_minimal_validation
-      title '[USER INPUT VALIDATION] CoverageToLink parameter should not include any data elements not marked as mustSupport'
+      title 'CoverageToLink parameter should not include any data elements not marked as mustSupport'
       optional
       description %{
         This test will skip if there is no CoverageToLink parameter in the member match request input for one match.
@@ -43,6 +43,7 @@ module DaVinciPDexTestKit
         See [notes](https://hl7.org/fhir/us/davinci-hrex/STU1/OperationDefinition-member-match.html#notes) in HRex Implementation Guide,
         as required by PDex Implementation Guide.
       }
+      simulation_verification
 
       input :member_match_request
 

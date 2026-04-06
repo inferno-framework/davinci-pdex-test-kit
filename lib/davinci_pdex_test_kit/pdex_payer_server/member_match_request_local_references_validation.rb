@@ -29,7 +29,7 @@ module DaVinciPDexTestKit
     class MemberMatchRequestLocalReferencesValidation < Inferno::Test
       id :pdex_member_match_local_ref_validation
 
-      title '[USER INPUT VALIDATION] Member match request only uses local references'
+      title 'Member match request only uses local references'
 
       description %{
         This test confirms that all Patient references inside the Consent and CoverageToMatch parameters are local references to the MemberPatient
@@ -37,6 +37,7 @@ module DaVinciPDexTestKit
         [resolving parameter references](https://hl7.org/fhir/us/davinci-hrex/STU1/OperationDefinition-member-match.html#resolving-parameter-references)
         from the HRex 1.0.0. Implementation Guide.
       }
+      simulation_verification
 
       input :member_match_request
 
