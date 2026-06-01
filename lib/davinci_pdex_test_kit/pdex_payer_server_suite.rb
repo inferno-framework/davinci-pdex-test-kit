@@ -71,8 +71,13 @@ module DaVinciPDexTestKit
       igs 'hl7.fhir.us.davinci-pdex#2.0.0'
       # hrex 1.0.0 and other dependencies will auto-load
 
+      validation_context do
+        snomedCT '731000124108'
+      end
+
       # Copy messages limit from Bulk Data Export tests
-      message_filters = VALIDATION_MESSAGE_FILTERS + VERSION_SPECIFIC_MESSAGE_FILTERS
+      message_filters = VALIDATION_MESSAGE_FILTERS + VERSION_SPECIFIC_MESSAGE_FILTERS +
+                        USCoreTestKit::USCoreV311::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
 
       $num_messages = 0
       $capped_message = false

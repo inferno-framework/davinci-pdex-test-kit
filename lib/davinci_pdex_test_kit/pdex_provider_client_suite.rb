@@ -51,10 +51,13 @@ module DaVinciPDexTestKit
         igs 'hl7.fhir.us.davinci-pdex#2.0.0'
         # hrex 1.0.0 and other dependencies will auto-load
 
+        validation_context do
+          snomedCT '731000124108'
+        end
+
         exclude_message do |message|
           message.message.match?(/\A\S+: \S+: URL value '.*' does not resolve/)
         end
-
       end
 
       requirement_sets(
