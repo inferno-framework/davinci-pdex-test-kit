@@ -164,15 +164,18 @@ module DaVinciPDexTestKit
         end
 
         def replace_bundle_urls(bundle)
-          bundle&.link.map! {|link| {relation: link.relation, url: link.url.gsub(fhir_reference_server, fhir_base_url)}}
-          bundle&.entry&.map! do |bundled_resource| 
-            {
-             fullUrl: bundled_resource.fullUrl.gsub(fhir_reference_server, fhir_base_url),
-             resource: bundled_resource.resource,
-             search: bundled_resource.search
-            }
-          end
+          reference_server_base = ENV.fetch('FHIR_REFERENCE_SERVER')
+          bundle&.link&.each { |link| link.url = link.url.gsub(reference_server_base, new_link) }
+          bundle&.entry&.each { |entry| entry.fullUrl = entry.fullUrl.gsub(reference_server_base, new_link) }
           bundle
+        end
+
+        def new_link
+          "#{Inferno::Application['base_url']}/custom/#{suite_id}/fhir"
+        end
+
+        def suite_id
+          DaVinciPDexTestKit::PDexPayerClientSuite.id
         end
 
         def is_json?(str)
