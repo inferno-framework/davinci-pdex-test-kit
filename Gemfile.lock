@@ -409,7 +409,6 @@ DEPENDENCIES
   factory_bot (~> 6.1)
   faker (~> 3.4)
   rack-test
-  roo (~> 2.10.1)
   rspec (~> 3.10)
   webmock (~> 3.11)
 
