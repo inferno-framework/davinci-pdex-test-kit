@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    davinci_pdex_test_kit (0.13.2)
+    davinci_pdex_test_kit (0.13.3)
       bulk_data_test_kit (~> 0.13.0)
       faraday (~> 1.10.5)
       faraday_middleware (~> 1.2)
@@ -409,7 +409,6 @@ DEPENDENCIES
   factory_bot (~> 6.1)
   faker (~> 3.4)
   rack-test
-  roo (~> 2.10.1)
   rspec (~> 3.10)
   webmock (~> 3.11)
 
