@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'Apache-2.0'
   spec.add_runtime_dependency 'inferno_core', '~> 1.4', '>= 1.4.3'
   spec.add_runtime_dependency 'us_core_test_kit', '~> 1.1', '>= 1.1.3'
-  spec.add_runtime_dependency 'bulk_data_test_kit', '~> 0.13.0'
+  spec.add_runtime_dependency 'bulk_data_test_kit', '~> 0.14'
   spec.add_runtime_dependency 'faraday', '~> 1.10.5'
   spec.add_runtime_dependency 'faraday_middleware', '~> 1.2'
   spec.add_runtime_dependency 'smart_app_launch_test_kit', '~> 1.0', ">= 1.0.2"
